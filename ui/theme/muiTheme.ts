@@ -1,0 +1,175 @@
+import { createTheme } from "@mui/material/styles";
+
+// КарьераПро: палитра #7f7fd5, #86a8e7, #91eae4
+const primary = "#7f7fd5";
+const primaryLight = "#86a8e7";
+const secondary = "#91eae4";
+const background = "#F8FAFC";
+const paper = "#FFFFFF";
+const textPrimary = "#0F172A";
+const textSecondary = "#64748B";
+
+export const muiTheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: primary,
+      light: primaryLight,
+      dark: "#6b6bc4",
+      contrastText: "#FFFFFF",
+    },
+    secondary: {
+      main: secondary,
+      light: "#b3f2ee",
+      dark: "#6dd4ce",
+      contrastText: "#0F172A",
+    },
+    background: {
+      default: background,
+      paper,
+    },
+    text: {
+      primary: textPrimary,
+      secondary: textSecondary,
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+      fontWeight: 700,
+      lineHeight: 1.2,
+      letterSpacing: "-0.02em",
+      color: textPrimary,
+    },
+    h2: {
+      fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
+      fontWeight: 600,
+      lineHeight: 1.3,
+      color: textPrimary,
+    },
+    h3: {
+      fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
+      fontWeight: 600,
+      lineHeight: 1.4,
+      color: textPrimary,
+    },
+    body1: {
+      fontSize: "1rem",
+      lineHeight: 1.6,
+      color: textPrimary,
+    },
+    body2: {
+      fontSize: "0.9375rem",
+      lineHeight: 1.6,
+      color: textSecondary,
+    },
+    caption: {
+      fontSize: "0.8125rem",
+      lineHeight: 1.5,
+      color: textSecondary,
+    },
+    button: {
+      textTransform: "none",
+      fontWeight: 600,
+    },
+  },
+  shape: {
+    borderRadius: 14,
+  },
+  shadows: [
+    "none",
+    "0 1px 3px rgba(15, 23, 42, 0.06)",
+    "0 2px 6px rgba(15, 23, 42, 0.06)",
+    "0 4px 12px rgba(15, 23, 42, 0.08)",
+    "0 8px 24px rgba(15, 23, 42, 0.08)",
+    "0 12px 32px rgba(15, 23, 42, 0.1)",
+    "0 16px 40px rgba(15, 23, 42, 0.1)",
+    "0 20px 48px rgba(15, 23, 42, 0.1)",
+    "0 24px 56px rgba(15, 23, 42, 0.12)",
+    "0 28px 64px rgba(15, 23, 42, 0.12)",
+    "0 32px 72px rgba(15, 23, 42, 0.12)",
+    "0 36px 80px rgba(15, 23, 42, 0.14)",
+    "0 40px 88px rgba(15, 23, 42, 0.14)",
+    "0 44px 96px rgba(15, 23, 42, 0.14)",
+    "0 48px 104px rgba(15, 23, 42, 0.16)",
+    "0 52px 112px rgba(15, 23, 42, 0.16)",
+    "0 56px 120px rgba(15, 23, 42, 0.16)",
+    "0 60px 128px rgba(15, 23, 42, 0.18)",
+    "0 64px 136px rgba(15, 23, 42, 0.18)",
+    "0 68px 144px rgba(15, 23, 42, 0.18)",
+    "0 72px 152px rgba(15, 23, 42, 0.2)",
+    "0 76px 160px rgba(15, 23, 42, 0.2)",
+    "0 80px 168px rgba(15, 23, 42, 0.2)",
+    "0 84px 176px rgba(15, 23, 42, 0.22)",
+    "0 88px 184px rgba(15, 23, 42, 0.22)",
+  ],
+  // Общедоступные значения для лендинга (заголовки секций: ключевые слова — градиент, остальное — text.secondary).
+  // Градиент для заливки ключевых слов в заголовках (background + backgroundClip: 'text').
+  landing: {
+    titleKeywordGradient: "linear-gradient(90deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)",
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          padding: "10px 24px",
+          fontSize: "1rem",
+        },
+        containedPrimary: {
+          boxShadow: "0 2px 8px rgba(127, 127, 213, 0.35)",
+          "&:hover": {
+            boxShadow: "0 4px 12px rgba(127, 127, 213, 0.4)",
+          },
+        },
+        containedSecondary: {
+          boxShadow: "0 2px 8px rgba(145, 234, 228, 0.35)",
+          "&:hover": {
+            boxShadow: "0 4px 12px rgba(145, 234, 228, 0.4)",
+          },
+        },
+        outlined: {
+          borderWidth: 2,
+          "&:hover": {
+            borderWidth: 2,
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          boxShadow: "0 4px 12px rgba(15, 23, 42, 0.08)",
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          boxShadow: "0 4px 12px rgba(15, 23, 42, 0.08)",
+          transition: "box-shadow 0.2s ease, transform 0.2s ease",
+          "&:hover": {
+            boxShadow: "0 8px 24px rgba(15, 23, 42, 0.1)",
+            transform: "translateY(-2px)",
+          },
+        },
+      },
+    },
+  },
+});
+
+declare module "@mui/material/styles" {
+  interface Theme {
+    landing: {
+      titleKeywordGradient: string;
+    };
+  }
+  interface ThemeOptions {
+    landing?: {
+      titleKeywordGradient: string;
+    };
+  }
+}
