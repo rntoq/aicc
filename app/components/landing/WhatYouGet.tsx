@@ -6,6 +6,7 @@ import {
   CardContent,
   Container,
   IconButton,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -18,44 +19,27 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
 
 const CARDS_VISIBLE_DESKTOP = 4;
 const CARDS_VISIBLE_MOBILE = 1;
 
-const cards = [
-  {
-    icon: PersonOutlineOutlinedIcon,
-    title: "Карьерный профиль",
-    text: "Сводка по интересам, ценностям и сильным сторонам",
-  },
-  {
-    icon: WorkOutlineOutlinedIcon,
-    title: "Топ-5 профессий",
-    text: "Подборка профессий с учётом вашего профиля",
-  },
-  {
-    icon: PercentOutlinedIcon,
-    title: "Совпадение в процентах",
-    text: "Понятные показатели соответствия каждой профессии",
-  },
-  {
-    icon: TrendingUpOutlinedIcon,
-    title: "Навыки для развития",
-    text: "Что прокачать, чтобы быть конкурентоспособным",
-  },
-  {
-    icon: SchoolOutlinedIcon,
-    title: "Где учиться в Казахстане",
-    text: "Вузы и программы под выбранное направление",
-  },
+const CARD_KEYS = [
+  { icon: PersonOutlineOutlinedIcon, titleKey: "whatyouget_card1_title", textKey: "whatyouget_card1_text" },
+  { icon: WorkOutlineOutlinedIcon, titleKey: "whatyouget_card2_title", textKey: "whatyouget_card2_text" },
+  { icon: PercentOutlinedIcon, titleKey: "whatyouget_card3_title", textKey: "whatyouget_card3_text" },
+  { icon: TrendingUpOutlinedIcon, titleKey: "whatyouget_card4_title", textKey: "whatyouget_card4_text" },
+  { icon: SchoolOutlinedIcon, titleKey: "whatyouget_card5_title", textKey: "whatyouget_card5_text" },
 ];
 
 export function WhatYouGet() {
+  const t = useTranslations();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const cardsVisible = isDesktop ? CARDS_VISIBLE_DESKTOP : CARDS_VISIBLE_MOBILE;
+  const cards = CARD_KEYS.map((c) => ({ icon: c.icon, title: t(c.titleKey), text: t(c.textKey) }));
 
   const [index, setIndex] = useState(0);
   const maxIndex = Math.max(0, cards.length - cardsVisible);
@@ -74,16 +58,22 @@ export function WhatYouGet() {
       sx={styles.section}
     >
       <Container maxWidth="lg">
-        <Typography
-          component="h2"
-          variant="h2"
-          textAlign="center"
-          sx={{ mb: 1 }}
-        >
-          Что ты получишь
+        <Typography component="h2" variant="h2" textAlign="center" sx={{ mb: 1 }}>
+          <Box
+            component="span"
+            sx={{
+              background: theme.landing.titleKeywordGradient,
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+              fontWeight: 700,
+            }}
+          >
+            {t("whatyouget_title")}
+          </Box>
         </Typography>
         <Typography variant="body2" textAlign="center" sx={styles.subtitle}>
-          Полный карьерный отчёт после прохождения тестов
+          {t("whatyouget_subtitle")}
         </Typography>
 
         <Box sx={styles.carouselWrap}>
@@ -95,35 +85,42 @@ export function WhatYouGet() {
           >
             {cards.map((card) => (
               <Box key={card.title} sx={styles.slide}>
-                <Card sx={styles.card}>
-                  <Box sx={styles.cardBanner}>
-                    <Image
-                      src={BANNER_PLACEHOLDER_IMAGE}
-                      alt=""
-                      fill
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      style={{ objectFit: "cover" }}
-                    />
-                  </Box>
-                  <CardContent sx={{ p: 3 }}>
-                    <Box sx={styles.iconContainer}>
-                      <card.icon sx={{ fontSize: 24 }} />
+                <Tooltip
+                  title={<Typography variant="body2">{card.text}</Typography>}
+                  arrow
+                  placement="top"
+                  slotProps={{ tooltip: { sx: { maxWidth: 280 } } }}
+                >
+                  <Card sx={styles.card}>
+                    <Box sx={styles.cardBanner}>
+                      <Image
+                        src={BANNER_PLACEHOLDER_IMAGE}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 100vw, 25vw"
+                        style={{ objectFit: "cover" }}
+                      />
                     </Box>
-                    <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 0.5 }}>
-                      {card.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {card.text}
-                    </Typography>
-                  </CardContent>
-                </Card>
+                    <CardContent sx={{ p: 3 }}>
+                      <Box sx={styles.iconContainer}>
+                        <card.icon sx={{ fontSize: 24 }} />
+                      </Box>
+                      <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 0.5 }}>
+                        {card.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {card.text}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Tooltip>
               </Box>
             ))}
           </Box>
 
           <Box sx={styles.navWrap}>
             <IconButton
-              aria-label="Предыдущий"
+              aria-label={t("nav_prev")}
               onClick={goPrev}
               disabled={index === 0}
               sx={styles.navButton}
@@ -131,7 +128,7 @@ export function WhatYouGet() {
               <ChevronLeftRoundedIcon />
             </IconButton>
             <IconButton
-              aria-label="Следующий"
+              aria-label={t("nav_next")}
               onClick={goNext}
               disabled={index >= maxIndex}
               sx={styles.navButton}
@@ -164,19 +161,21 @@ const styles = {
     transition: "transform 0.35s ease-out",
   },
   slide: {
-    flex: `0 0 ${100 / cards.length}%`,
+    flex: `0 0 ${100 / CARD_KEYS.length}%`,
     px: 1,
     boxSizing: "border-box",
   },
   card: {
     height: "100%",
-    borderRadius: 2.5,
+    borderRadius: 2,
     overflow: "hidden",
-    boxShadow: "0 4px 12px rgba(15, 23, 42, 0.08)",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+    transition: "box-shadow 0.3s ease, transform 0.3s ease",
     "&:hover": {
-      boxShadow: "0 8px 24px rgba(15, 23, 42, 0.1)",
+      boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
+      transform: "translateY(-4px)",
+      cursor: "pointer",
     },
-    transition: "box-shadow 0.2s ease",
   },
   cardBanner: {
     position: "relative",

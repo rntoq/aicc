@@ -1,26 +1,29 @@
 "use client";
 
 import { Box, Container, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-const TESTS = [
-  "Интересы (Holland)",
-  "Личность (Big Five)",
-  "Ценности",
-  "Навыки",
-  "Карьерные предпочтения",
-  "Стиль обучения",
-  "Рабочая среда",
-  "Мотивация",
+const TEST_KEYS = [
+  "tests_item1",
+  "tests_item2",
+  "tests_item3",
+  "tests_item4",
+  "tests_item5",
+  "tests_item6",
+  "tests_item7",
+  "tests_item8",
 ];
 
 const DUPES = 3;
 const AUTO_INTERVAL_MS = 2800;
 const ITEM_WIDTH = 200;
 const GAP = 16;
-const SET_WIDTH = TESTS.length * (ITEM_WIDTH + GAP) - GAP;
 
 export function TestsCarousel() {
+  const t = useTranslations();
+  const TESTS = TEST_KEYS.map((k) => t(k));
+  const SET_WIDTH = TESTS.length * (ITEM_WIDTH + GAP) - GAP;
   const [offset, setOffset] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [noTransition, setNoTransition] = useState(false);
@@ -63,10 +66,10 @@ export function TestsCarousel() {
           textAlign="center"
           sx={{ mb: 1 }}
         >
-          Список тестов
+          {t("tests_title")}
         </Typography>
         <Typography variant="body2" textAlign="center" sx={styles.subtitle}>
-          Наведите на карточку — карусель остановится
+          {t("tests_subtitle")}
         </Typography>
 
         <Box

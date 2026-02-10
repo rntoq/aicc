@@ -17,7 +17,11 @@ const messages: Record<string, Record<string, unknown>> = { ru, kk };
 function IntlProvider({ children }: { children: React.ReactNode }) {
   const { locale } = useLocale();
   return (
-    <NextIntlClientProvider locale={locale} messages={messages[locale] ?? ru}>
+    <NextIntlClientProvider
+      key={locale}
+      locale={locale}
+      messages={messages[locale] ?? ru}
+    >
       {children}
     </NextIntlClientProvider>
   );

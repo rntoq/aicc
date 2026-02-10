@@ -31,7 +31,9 @@ export function LanguageDropdown() {
     setAnchorEl(null);
   };
 
-  const handleSelect = (value: Locale) => {
+  const handleSelect = (e: React.MouseEvent, value: Locale) => {
+    e.preventDefault();
+    e.stopPropagation();
     setLocale(value);
     handleClose();
   };
@@ -70,7 +72,9 @@ export function LanguageDropdown() {
         {options.map((opt) => (
           <MenuItem
             key={opt.value}
-            onClick={() => handleSelect(opt.value)}
+            component="button"
+            type="button"
+            onClick={(e) => handleSelect(e, opt.value)}
             selected={locale === opt.value}
           >
             {locale === opt.value ? (

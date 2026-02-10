@@ -1,46 +1,86 @@
 "use client";
 
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Tooltip, Typography } from "@mui/material";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import styled from "styled-components";
+import { useTheme } from "@mui/material/styles";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
 
-const HeroVisual = styled(Box)`
+const BannerWrap = styled(Box)`
   position: relative;
-  height: 280px;
-  margin-top: 2rem;
-  background: linear-gradient(135deg, rgba(127, 127, 213, 0.08) 0%, rgba(145, 234, 228, 0.08) 100%);
-  border-radius: 16px;
+  width: 100%;
+  min-height: 70vh;
+  min-height: min(70vh, 640px);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 `;
 
-const DotGrid = styled(Box)`
+const BannerImage = styled(Box)`
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, rgba(127, 127, 213, 0.14) 1px, transparent 0);
-  background-size: 24px 24px;
+  z-index: 0;
+`;
+
+const BannerImageInner = styled(Box)`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  & img {
+    object-fit: cover;
+  }
+`;
+
+const BannerOverlay = styled(Box)`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.5) 0%,
+    rgba(30, 58, 138, 0.6) 50%,
+    rgba(15, 23, 42, 0.75) 100%
+  );
+`;
+
+const HeroVisual = styled(Box)`
+  position: relative;
+  height: 200px;
+  margin-top: -80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  z-index: 2;
 `;
 
 const CardMock = styled(motion.div)`
   position: relative;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 16px 20px;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
   gap: 12px;
   z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
 `;
 
 const MatchBadge = styled.span`
-  background: linear-gradient(135deg, #91eae4 0%, #6dd4ce 100%);
+  background: linear-gradient(90deg, #1E3A8A, #10B981);
   color: #fff;
   font-size: 0.75rem;
   font-weight: 600;
@@ -48,116 +88,192 @@ const MatchBadge = styled.span`
   border-radius: 8px;
 `;
 
+const PROFESSION_KEYS = [
+  { titleKey: "hero_prof1_title", descKey: "hero_prof1_desc", percent: 92 },
+  { titleKey: "hero_prof2_title", descKey: "hero_prof2_desc", percent: 88 },
+  { titleKey: "hero_prof3_title", descKey: "hero_prof3_desc", percent: 84 },
+];
+
 export function Hero() {
+  const t = useTranslations();
+  const theme = useTheme();
+  const professionCards = PROFESSION_KEYS.map((k) => ({
+    title: t(k.titleKey),
+    description: t(k.descKey),
+    percent: k.percent,
+  }));
   return (
     <Box component="section" sx={styles.sectionRoot}>
-      <Container maxWidth="lg">
-        <Box sx={styles.heroContent}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Typography component="h1" variant="h1" sx={styles.title}>
-              Найди профессию, которая подходит именно тебе
-            </Typography>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <Typography variant="body1" sx={styles.subtitle}>
-              Пройди несколько научно-обоснованных тестов и получи персональный
-              карьерный анализ с помощью AI
-            </Typography>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            style={styles.ctaWrap}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              startIcon={<PsychologyOutlinedIcon />}
-              href="#test"
-              sx={styles.ctaButton}
-            >
-              Пройти тест бесплатно
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="large"
-              startIcon={<InfoOutlinedIcon />}
-              href="#how-it-works"
-              sx={styles.ctaButton}
-            >
-              Как это работает
-            </Button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-          >
-            <HeroVisual>
-              <Box sx={styles.bannerImage}>
-                <Image
-                  src={BANNER_PLACEHOLDER_IMAGE}
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 100vw, 720px"
-                  style={{ objectFit: "cover" }}
-                />
-              </Box>
-              <DotGrid />
-              <Box sx={styles.cardWrap}>
-                {["Аналитика данных", "UX-дизайн", "Разработка"].map((title, i) => (
-                  <CardMock
-                    key={title}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5 + i * 0.1 }}
+      <BannerWrap>
+        <BannerImage>
+          <BannerImageInner>
+            <Image
+              src={BANNER_PLACEHOLDER_IMAGE}
+              alt=""
+              fill
+              sizes="100vw"
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          </BannerImageInner>
+        </BannerImage>
+        <BannerOverlay />
+        <Box sx={styles.heroContent} component="div">
+          <Container maxWidth="lg">
+            <Box sx={styles.contentInner}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Typography component="h1" variant="h1" sx={styles.title} textAlign="center">
+                  <Box
+                    component="span"
+                    sx={{
+                      background: theme.landing.titleKeywordGradient,
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                      color: "transparent",
+                      fontWeight: 700,
+                    }}
                   >
-                    <MatchBadge>{92 - i * 4}%</MatchBadge>
+                    {t("hero_title1")}
+                  </Box>
+                  <Box component="span" sx={{ color: "white", fontWeight: 700 }}>
+                    {t("hero_title2")}
+                  </Box>
+                  <Box
+                    component="span"
+                    sx={{
+                      background: theme.landing.titleKeywordGradient,
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                      color: "transparent",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {t("hero_title3")}
+                  </Box>
+                </Typography>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <Typography variant="body1" sx={styles.subtitle}>
+                  {t("hero_subtitle")}
+                </Typography>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                style={styles.ctaWrap}
+              >
+                <Button
+                  variant="contained"
+                  size="large"
+                  startIcon={<PsychologyOutlinedIcon />}
+                  href="#test"
+                  sx={styles.ctaButton}
+                >
+                  {t("hero_cta1")}
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  startIcon={<InfoOutlinedIcon />}
+                  href="#how-it-works"
+                  sx={styles.ctaButtonOutlined}
+                >
+                  {t("hero_cta2")}
+                </Button>
+              </motion.div>
+            </Box>
+          </Container>
+        </Box>
+      </BannerWrap>
+
+      <Container maxWidth="lg">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <HeroVisual>
+            <Box sx={styles.bannerImageSmall}>
+              <Image
+                src={BANNER_PLACEHOLDER_IMAGE}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, 720px"
+                style={{ objectFit: "cover" }}
+              />
+            </Box>
+            <Box sx={styles.cardWrap}>
+              {professionCards.map((item, i) => (
+                <Tooltip
+                  key={item.title}
+                  title={
+                    <Box>
+                      <Typography variant="subtitle2" fontWeight={600}>{item.title}</Typography>
+                      <Typography variant="caption" sx={{ opacity: 0.95 }}>{item.description}</Typography>
+                    </Box>
+                  }
+                  arrow
+                  placement="top"
+                  slotProps={{ tooltip: { sx: { maxWidth: 260 } } }}
+                >
+                  <CardMock
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <MatchBadge>{item.percent}%</MatchBadge>
                     <Typography variant="body2" fontWeight={600}>
-                      {title}
+                      {item.title}
                     </Typography>
                   </CardMock>
-                ))}
-              </Box>
-            </HeroVisual>
-          </motion.div>
-        </Box>
+                </Tooltip>
+              ))}
+            </Box>
+          </HeroVisual>
+        </motion.div>
       </Container>
+      <Box sx={styles.sectionBottom} />
     </Box>
   );
 }
 
 const styles = {
   sectionRoot: {
-    pt: { xs: 6, md: 10 },
-    pb: { xs: 6, md: 8 },
-    background: "linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%)",
+    pb: 2,
   },
   heroContent: {
+    position: "relative",
+    zIndex: 2,
     maxWidth: 720,
     mx: "auto",
     textAlign: "center",
+    py: { xs: 8, md: 12 },
+  },
+  contentInner: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   title: {
     mb: 2,
     fontWeight: 700,
     lineHeight: 1.2,
+    color: "white",
   },
   subtitle: {
     fontSize: "1.125rem",
-    color: "text.secondary",
+    color: "rgba(255,255,255,0.9)",
     mb: 3,
   },
   ctaWrap: {
@@ -170,8 +286,23 @@ const styles = {
     borderRadius: 2,
     py: 1.5,
     px: 3,
+    bgcolor: "#1E3A8A",
+    color: "white",
+    "&:hover": { bgcolor: "#172554", color: "white" },
   },
-  bannerImage: {
+  ctaButtonOutlined: {
+    borderRadius: 2,
+    py: 1.5,
+    px: 3,
+    borderColor: "rgba(255,255,255,0.8)",
+    color: "white",
+    "&:hover": {
+      borderColor: "white",
+      bgcolor: "rgba(255,255,255,0.1)",
+      color: "white",
+    },
+  },
+  bannerImageSmall: {
     position: "absolute",
     inset: 0,
     zIndex: 0,
@@ -182,5 +313,11 @@ const styles = {
     flexWrap: "wrap",
     justifyContent: "center",
     p: 2,
+    position: "relative",
+    zIndex: 1,
+  },
+  sectionBottom: {
+    height: { xs: 6, md: 8 },
+    bgcolor: "background.default",
   },
 };

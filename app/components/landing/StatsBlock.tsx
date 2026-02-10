@@ -1,50 +1,68 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, useTheme } from "@mui/material";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
 
-const stats = [
-  {
-    icon: SchoolOutlinedIcon,
-    value: "150+",
-    label: "университетов",
-    description: "вузов Казахстана в базе",
-  },
-  {
-    icon: WorkOutlineOutlinedIcon,
-    value: "200+",
-    label: "профессий",
-    description: "актуальных специальностей",
-  },
-  {
-    icon: AssignmentOutlinedIcon,
-    value: "8",
-    label: "тестов",
-    description: "научно обоснованных методик",
-  },
+const STAT_KEYS = [
+  { icon: SchoolOutlinedIcon, value: 150, suffix: "+", labelKey: "stats_unis", descKey: "stats_unis_desc" },
+  { icon: WorkOutlineOutlinedIcon, value: 200, suffix: "+", labelKey: "stats_profs", descKey: "stats_profs_desc" },
+  { icon: AssignmentOutlinedIcon, value: 8, suffix: "", labelKey: "stats_tests", descKey: "stats_tests_desc" },
 ];
 
-export function StatsBlock() {
+function CountUp({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const step = Math.max(1, Math.floor(value / 40));
+    const timer = setInterval(() => {
+      setCount((c) => {
+        if (c >= value) {
+          clearInterval(timer);
+          return value;
+        }
+        return Math.min(c + step, value);
+      });
+    }, 30);
+    return () => clearInterval(timer);
+  }, [inView, value]);
   return (
-    <Box
-      component="section"
-      id="stats"
-      sx={styles.section}
-    >
+    <Typography variant="h3" sx={styles.value} component="span" display="block">
+      {count}
+      {suffix}
+    </Typography>
+  );
+}
+
+export function StatsBlock() {
+  const t = useTranslations();
+  const theme = useTheme();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const stats = STAT_KEYS.map((s) => ({ ...s, label: t(s.labelKey), description: t(s.descKey) }));
+  return (
+    <Box component="section" id="stats" sx={styles.section} ref={ref}>
       <Container maxWidth="lg">
-        <Typography
-          component="h2"
-          variant="h2"
-          textAlign="center"
-          sx={{ mb: 1 }}
-        >
-          Что мы интегрировали
+        <Typography component="h2" variant="h2" textAlign="center" sx={{ mb: 1 }}>
+          <Box
+            component="span"
+            sx={{
+              background: theme.landing.titleKeywordGradient,
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+              fontWeight: 700,
+            }}
+          >
+            {t("stats_title")}
+          </Box>
         </Typography>
         <Typography variant="body2" textAlign="center" sx={styles.subtitle}>
-          Актуальные данные по рынку труда и образованию Казахстана
+          {t("stats_subtitle")}
         </Typography>
 
         <Box sx={styles.grid}>
@@ -60,9 +78,7 @@ export function StatsBlock() {
                 <Box sx={styles.iconWrap}>
                   <item.icon sx={{ fontSize: 32 }} />
                 </Box>
-                <Typography variant="h3" sx={styles.value}>
-                  {item.value}
-                </Typography>
+                <CountUp value={item.value} suffix={item.suffix} inView={inView} />
                 <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 0.5 }}>
                   {item.label}
                 </Typography>
@@ -96,7 +112,7 @@ const styles = {
   },
   card: {
     p: 3,
-    borderRadius: 2.5,
+    borderRadius: 2,
     bgcolor: "background.default",
     border: "1px solid",
     borderColor: "divider",
@@ -105,10 +121,11 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    transition: "box-shadow 0.2s ease, border-color 0.2s ease",
+    transition: "box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease",
     "&:hover": {
-      boxShadow: "0 8px 24px rgba(127, 127, 213, 0.1)",
+      boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
       borderColor: "primary.light",
+      transform: "scale(1.03)",
     },
   },
   iconWrap: {

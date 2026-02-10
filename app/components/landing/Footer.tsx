@@ -2,25 +2,42 @@
 
 import { Box, Container, Link, Typography } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
+import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { useLocale, type Locale } from "@/app/context/LocaleContext";
 
-const footerLinks = [
-  { label: "О проекте", href: "/about" },
-  { label: "Методология", href: "/methodology" },
-  { label: "Контакты", href: "/contacts" },
-  { label: "Политика конфиденциальности", href: "/privacy" },
+const FOOTER_LINK_KEYS = [
+  { key: "footer_about", href: "/about" },
+  { key: "footer_methodology", href: "/methodology" },
+  { key: "footer_contacts", href: "/contacts" },
+  { key: "footer_privacy", href: "/privacy" },
 ];
 
 export function Footer() {
+  const t = useTranslations();
+  const { locale, setLocale } = useLocale();
+  const footerLinks = FOOTER_LINK_KEYS.map(({ key, href }) => ({ label: t(key), href }));
+  const handleLang = (l: Locale) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setLocale(l);
+  };
   return (
     <Box component="footer" sx={styles.footer}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.4 }}
+        style={{ display: "block" }}
+      >
       <Container maxWidth="lg">
         <Box sx={styles.topRow}>
           <Box>
             <Typography variant="h3" sx={styles.logoTitle}>
-              КарьераПро
+              {t("footer_logo")}
             </Typography>
             <Typography variant="caption" sx={styles.logoSubtitle}>
-              Навигация по будущему
+              {t("footer_tagline")}
             </Typography>
           </Box>
 
@@ -29,7 +46,6 @@ export function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                color="inherit"
                 underline="hover"
                 sx={styles.link}
               >
@@ -38,30 +54,43 @@ export function Footer() {
             ))}
             <Box sx={styles.langWrap}>
               <LanguageIcon sx={styles.langIcon} />
-              <Link href="#" color="inherit" underline="hover" sx={styles.link}>
+              <Typography
+                component="button"
+                type="button"
+                onClick={handleLang("ru")}
+                sx={{ ...styles.link, ...styles.langButton, ...(locale === "ru" ? styles.langButtonActive : {}) }}
+              >
                 RU
-              </Link>
+              </Typography>
               <Typography component="span" sx={styles.langDivider}> / </Typography>
-              <Link href="#" color="inherit" underline="hover" sx={styles.link}>
+              <Typography
+                component="button"
+                type="button"
+                onClick={handleLang("kk")}
+                sx={{ ...styles.link, ...styles.langButton, ...(locale === "kk" ? styles.langButtonActive : {}) }}
+              >
                 KK
-              </Link>
+              </Typography>
             </Box>
           </Box>
         </Box>
 
         <Typography variant="caption" sx={styles.copyright}>
-          © {new Date().getFullYear()} КарьераПро. Профориентация для школьников и студентов в Казахстане.
+          {t("footer_copyright", { year: new Date().getFullYear() })}
         </Typography>
       </Container>
+      </motion.div>
     </Box>
   );
 }
 
 const styles = {
   footer: {
+    display: "block",
     py: 4,
-    bgcolor: "primary.main",
-    color: "white",
+    bgcolor: "#1E3A8A",
+    color: "#fff",
+    borderTop: "none",
   },
   topRow: {
     display: "flex",
@@ -76,7 +105,7 @@ const styles = {
     color: "inherit",
   },
   logoSubtitle: {
-    opacity: 0.9,
+    color: "rgba(255,255,255,0.85)",
   },
   linksWrap: {
     display: "flex",
@@ -86,7 +115,19 @@ const styles = {
   },
   link: {
     fontSize: "0.875rem",
-    opacity: 0.95,
+    color: "rgba(255,255,255,0.9)",
+    "&:hover": { color: "white" },
+  },
+  langButton: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    padding: 0,
+    font: "inherit",
+  },
+  langButtonActive: {
+    color: "white",
+    fontWeight: 600,
   },
   langWrap: {
     display: "flex",
@@ -96,16 +137,17 @@ const styles = {
   },
   langIcon: {
     fontSize: 18,
-    opacity: 0.9,
+    color: "rgba(255,255,255,0.9)",
   },
   langDivider: {
-    opacity: 0.6,
+    color: "rgba(255,255,255,0.6)",
   },
   copyright: {
     display: "block",
     mt: 3,
     pt: 2,
     borderTop: "1px solid rgba(255,255,255,0.2)",
-    opacity: 0.8,
+    color: "rgba(255,255,255,0.8)",
+    fontSize: "0.8125rem",
   },
 };

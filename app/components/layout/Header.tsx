@@ -10,18 +10,21 @@ import {
 } from "@mui/material";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
+import { useTranslations } from "next-intl";
 import { LanguageDropdown } from "./LanguageDropdown";
 import Link from "next/link";
 
-const navItems: { label: string; href: string }[] = [
-  { label: "Как это работает", href: "/#how-it-works" },
-  { label: "Сдать тест", href: "/test" },
-  { label: "Профессий", href: "/professions" },
+const NAV_ITEMS: { labelKey: string; href: string }[] = [
+  { labelKey: "header_howItWorks", href: "/#how-it-works" },
+  { labelKey: "header_takeTest", href: "/test" },
+  { labelKey: "header_professions", href: "/professions" },
 ];
 
 export function Header() {
+  const t = useTranslations();
+  const navItems = NAV_ITEMS.map((item) => ({ label: t(item.labelKey), href: item.href }));
   return (
-    <AppBar position="sticky" elevation={0} sx={styles.appBar}>
+    <AppBar position="fixed" elevation={0} sx={styles.appBar}>
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={styles.toolbar}>
           <Typography
@@ -30,7 +33,7 @@ export function Header() {
             variant="h3"
             sx={styles.logo}
           >
-            КарьераПро
+            {t("header_logo")}
           </Typography>
 
           <Box component="nav" sx={styles.nav}>
@@ -54,7 +57,7 @@ export function Header() {
               startIcon={<LoginOutlinedIcon />}
               sx={styles.loginButton}
             >
-              Войти
+              {t("login")}
             </Button>
             <Button
               component={Link}
@@ -64,7 +67,7 @@ export function Header() {
               startIcon={<PersonAddOutlinedIcon />}
               sx={styles.registerButton}
             >
-              Регистрация
+              {t("register")}
             </Button>
           </Box>
         </Toolbar>
@@ -75,6 +78,10 @@ export function Header() {
 
 const styles = {
   appBar: {
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1100,
     bgcolor: "background.paper",
     color: "text.primary",
     borderBottom: "1px solid",

@@ -14,9 +14,9 @@ export default function Home() {
     <Box component="main" sx={{ minHeight: "100vh" }}>
       <Hero />
       <HowItWorks />
-      <WhatYouGet />
       <TestsCarousel />
       <StatsBlock />
+      <WhatYouGet />
       <AIChatBlock />
       <Footer />
     </Box>

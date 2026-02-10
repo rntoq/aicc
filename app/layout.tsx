@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Box } from "@mui/material";
 import "./globals.css";
 import StyledComponentsRegistry from "@/lib/registry";
 import { Providers } from "./providers";
@@ -28,7 +29,9 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <Providers>
             <Header />
-            {children}
+            <Box component="main" sx={{ pt: { xs: 7, sm: 8 } }}>
+              {children}
+            </Box>
           </Providers>
         </StyledComponentsRegistry>
       </body>

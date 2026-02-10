@@ -5,42 +5,44 @@ import {
   Card,
   CardContent,
   Container,
+  LinearProgress,
   Typography,
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
 
-const cards = [
-  {
-    type: "image-stat" as const,
-    image: BANNER_PLACEHOLDER_IMAGE,
-    stat: "4",
-    description: "теста по интересам, личности, ценностям и навыкам",
-  },
-  {
-    type: "blue-banner-breakdown" as const,
-    bannerTitle: "AI-анализ",
-    bannerSubtitle: "объединяем результаты и находим паттерны",
-    breakdown: [
-      { label: "Интересы", value: "95%" },
-      { label: "Личность", value: "88%" },
-      { label: "Ценности", value: "92%" },
-      { label: "Навыки", value: "85%" },
-    ],
-  },
-  {
-    type: "avatars-stat" as const,
-    stat: "Топ-5",
-    description: "профессий по совпадению с профилем",
-    avatarCount: 9,
-    image: BANNER_PLACEHOLDER_IMAGE,
-  },
-];
-
 export function HowItWorks() {
+  const t = useTranslations();
   const theme = useTheme();
+  const cards = [
+    {
+      type: "image-stat" as const,
+      image: BANNER_PLACEHOLDER_IMAGE,
+      stat: t("how_card1_stat"),
+      description: t("how_card1_desc"),
+    },
+    {
+      type: "blue-banner-breakdown" as const,
+      bannerTitle: t("how_card2_title"),
+      bannerSubtitle: t("how_card2_subtitle"),
+      breakdown: [
+        { label: t("how_breakdown_interests"), value: "95%" },
+        { label: t("how_breakdown_personality"), value: "88%" },
+        { label: t("how_breakdown_values"), value: "92%" },
+        { label: t("how_breakdown_skills"), value: "85%" },
+      ],
+    },
+    {
+      type: "avatars-stat" as const,
+      stat: t("how_card3_stat"),
+      description: t("how_card3_desc"),
+      avatarCount: 9,
+      image: BANNER_PLACEHOLDER_IMAGE,
+    },
+  ];
   return (
     <Box
       component="section"
@@ -64,18 +66,17 @@ export function HowItWorks() {
               fontWeight: 700,
             }}
           >
-            Как это
+            {t("how_title1")}
           </Box>
           <Box
             component="span"
             sx={{ color: "text.secondary", fontWeight: 600 }}
           >
-            {" "}
-            работает
+            {t("how_title2")}
           </Box>
         </Typography>
         <Typography variant="body2" textAlign="center" sx={styles.subtitle}>
-          Три простых шага к осознанному выбору профессии
+          {t("how_subtitle")}
         </Typography>
 
         <Box sx={styles.grid}>
@@ -122,21 +123,20 @@ export function HowItWorks() {
                     </Box>
                     <Box sx={styles.nestedPanel}>
                       {card.breakdown.map((row, j) => (
-                        <Box
-                          key={row.label}
-                          sx={[
-                            styles.breakdownRow,
-                            j < card.breakdown.length - 1
-                              ? styles.breakdownRowBorder
-                              : {},
-                          ]}
-                        >
-                          <Typography variant="body2" sx={styles.breakdownLabel}>
-                            {row.label}
-                          </Typography>
-                          <Typography variant="body2" fontWeight={600} sx={styles.breakdownLabel}>
-                            {row.value}
-                          </Typography>
+                        <Box key={row.label} sx={styles.breakdownRow}>
+                          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <Typography variant="body2" sx={styles.breakdownLabel}>
+                              {row.label}
+                            </Typography>
+                            <Typography variant="body2" fontWeight={600} sx={styles.breakdownLabel}>
+                              {row.value}
+                            </Typography>
+                          </Box>
+                          <LinearProgress
+                            variant="determinate"
+                            value={parseInt(row.value, 10)}
+                            sx={styles.progressBar}
+                          />
                         </Box>
                       ))}
                     </Box>
@@ -193,13 +193,14 @@ const styles = {
   card: {
     height: "100%",
     overflow: "hidden",
-    borderRadius: 2.5,
-    boxShadow: "0 4px 12px rgba(15, 23, 42, 0.08)",
+    borderRadius: 2,
+    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+    cursor: "pointer",
     "&:hover": {
-      boxShadow: "0 8px 24px rgba(15, 23, 42, 0.1)",
-      transform: "translateY(-2px)",
+      boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
+      transform: "scale(1.03)",
     },
-    transition: "box-shadow 0.2s ease, transform 0.2s ease",
+    transition: "box-shadow 0.3s ease, transform 0.3s ease",
   },
   imageBox: {
     position: "relative",
@@ -244,15 +245,22 @@ const styles = {
   },
   breakdownRow: {
     display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: "column",
+    gap: 0.5,
     py: 0.75,
-  },
-  breakdownRowBorder: {
-    borderBottom: "1px solid rgba(255,255,255,0.2)",
+    "&:not(:last-child)": { borderBottom: "1px solid rgba(255,255,255,0.2)" },
   },
   breakdownLabel: {
     fontSize: "0.8125rem",
+  },
+  progressBar: {
+    mt: 0.5,
+    height: 6,
+    borderRadius: 1,
+    bgcolor: "rgba(255,255,255,0.3)",
+    "& .MuiLinearProgress-bar": {
+      bgcolor: "secondary.main",
+    },
   },
   avatarGrid: {
     display: "grid",
