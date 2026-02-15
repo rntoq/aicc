@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import BuildOutlinedIcon from "@mui/icons-material/BuildOutlined";
 import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
-import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import BuildOutlinedIcon from "@mui/icons-material/BuildOutlined";
+import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
-import EmojiObjectsOutlinedIcon from "@mui/icons-material/EmojiObjectsOutlined";
+import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
+import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 
 export interface TestItem {
   id: string;
@@ -16,76 +17,126 @@ export interface TestItem {
   icon: ReactNode;
   /** For recommended set: true = обязательный, false = опциональный */
   required?: boolean;
+  /** Статус: free, paid, premium */
+  status?: "free" | "paid" | "premium";
+  /** Цена в тенге (если платный) */
+  price?: number;
+  /** Длительность в минутах */
+  duration?: number;
+  /** Количество вопросов (для карточки) */
+  questions?: number;
+  /** Ключ категории для карточки (tests_${id}_category) */
+  categoryKey?: string;
 }
 
 /** Recommended set: 3 required + 2 optional (order matters) */
 export const RECOMMENDED_TEST_IDS = [
   "holland",
-  "big-five",
-  "career-values",
-  "skills",
   "photo-career",
+  "disc",
+  "career-values",
+  "big-five",
 ];
 
 export const ALL_TESTS: TestItem[] = [
   {
     id: "holland",
-    name: "Holland",
-    description: "Тест по типам профессиональной среды (реалистичный, исследовательский, артистичный и др.). Помогает определить подходящие направления карьеры.",
+    name: "Holland Code (RIASEC)",
+    description: "Тест по типам профессиональной среды (реалистичный, исследовательский, артистичный и др.). Определяет профессиональные интересы и навыки, помогая найти подходящую карьеру.",
     icon: <PsychologyOutlinedIcon />,
     required: true,
-  },
-  {
-    id: "big-five",
-    name: "Big Five",
-    description: "Оценка личности по пяти факторам: открытость, добросовестность, экстраверсия, доброжелательность, нейротизм.",
-    icon: <PersonOutlinedIcon />,
-    required: true,
-  },
-  {
-    id: "career-values",
-    name: "Career Values",
-    description: "Определение карьерных ценностей: что для вас важно в работе — развитие, стабильность, творчество и др.",
-    icon: <FavoriteBorderOutlinedIcon />,
-    required: true,
-  },
-  {
-    id: "skills",
-    name: "Навыки",
-    description: "Оценка сильных сторон и навыков для подбора профессий, где они наиболее востребованы.",
-    icon: <BuildOutlinedIcon />,
-    required: false,
+    status: "free",
+    duration: 15,
+    questions: 48,
   },
   {
     id: "photo-career",
     name: "Photo Career Quiz",
-    description: "Быстрый визуальный тест по выбору изображений для уточнения карьерных предпочтений.",
+    description: "Быстрый визуальный тест для тех, кто лучше воспринимает информацию через изображения. Отлично подходит для людей с ограниченным английским.",
     icon: <PhotoCameraOutlinedIcon />,
+    required: true,
+    status: "free",
+    duration: 10,
+    questions: 24,
+  },
+  {
+    id: "disc",
+    name: "DiSC Assessment",
+    description: "Популярный тест, используемый работодателями для оценки стиля работы и коммуникации. Определяет, как человек взаимодействует с другими и справляется с задачами.",
+    icon: <PersonOutlineOutlinedIcon />,
+    required: true,
+    status: "free",
+    duration: 12,
+    questions: 28,
+  },
+  {
+    id: "career-values",
+    name: "Career Values Quiz",
+    description: "Определяет, что важно для человека в работе: деньги, признание, помощь другим, творчество и т.д. Помогает понять внутреннюю мотивацию.",
+    icon: <FavoriteBorderOutlinedIcon />,
     required: false,
+    status: "free",
+    duration: 8,
+    questions: 15,
+  },
+  {
+    id: "big-five",
+    name: "Big Five Personality (OCEAN)",
+    description: "Научно обоснованный тест личности, измеряющий 5 ключевых черт характера: открытость, добросовестность, экстраверсия, доброжелательность, нейротизм.",
+    icon: <PersonOutlinedIcon />,
+    required: false,
+    status: "free",
+    duration: 15,
+    questions: 44,
+  },
+  {
+    id: "skills",
+    name: "Skills Self-Assessment",
+    description: "Комплексная оценка текущих навыков пользователя: от технических (программирование, дизайн) до мягких (коммуникация, лидерство). Показывает сильные стороны и пробелы.",
+    icon: <BuildOutlinedIcon />,
+    status: "paid",
+    price: 990,
+    duration: 20,
+    questions: 30,
+  },
+  {
+    id: "eq",
+    name: "Emotional Intelligence (EQ)",
+    description: "Оценка эмоционального интеллекта - способности понимать свои и чужие эмоции, управлять ими. Критически важен для лидерства, командной работы и карьерного успеха.",
+    icon: <EmojiEmotionsOutlinedIcon />,
+    status: "paid",
+    price: 990,
+    duration: 15,
+    questions: 25,
   },
   {
     id: "learning-style",
-    name: "Стиль обучения",
-    description: "Как вы лучше усваиваете информацию — визуально, на практике, в группе и т.д.",
+    name: "Learning Style (VARK)",
+    description: "Определяет предпочитаемый стиль восприятия информации: визуальный, аудиальный, чтение/письмо, кинестетический. Помогает выбрать наиболее подходящие методы обучения.",
     icon: <SchoolOutlinedIcon />,
-  },
-  {
-    id: "work-environment",
-    name: "Рабочая среда",
-    description: "Предпочтения по месту и формату работы: офис, удалённо, команда, самостоятельность.",
-    icon: <WorkOutlineOutlinedIcon />,
+    status: "free",
+    duration: 10,
+    questions: 16,
   },
   {
     id: "motivation",
-    name: "Мотивация",
-    description: "Что вас мотивирует в работе — достижения, признание, баланс жизни и работы.",
-    icon: <EmojiObjectsOutlinedIcon />,
+    name: "Work Motivation Scale",
+    description: "Глубокий анализ внутренней и внешней мотивации. Что заставляет человека работать: деньги, признание, интерес, миссия? Помогает найти работу, которая будет мотивировать долгосрочно.",
+    icon: <TrendingUpOutlinedIcon />,
+    status: "paid",
+    price: 990,
+    duration: 12,
+    questions: 20,
   },
   {
-    id: "career-preferences",
-    name: "Карьерные предпочтения",
-    description: "Дополнительные предпочтения по сфере, уровню ответственности и типу задач.",
-    icon: <AssignmentOutlinedIcon />,
+    id: "strengths",
+    name: "Strengths Finder Lite",
+    description: "Один из самых популярных тестов сильных сторон в мире. Определяет топ-5 талантов из 34 возможных. Используется Fortune 500 компаниями.",
+    icon: <StarBorderOutlinedIcon />,
+    status: "premium",
+    price: 1490,
+    duration: 30,
+    questions: 50,
   },
 ];
 

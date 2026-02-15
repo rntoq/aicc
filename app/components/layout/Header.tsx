@@ -1,21 +1,16 @@
 "use client";
 
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Button, Container, Toolbar } from "@mui/material";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import { useTranslations } from "next-intl";
-import { LanguageDropdown } from "./LanguageDropdown";
 import Link from "next/link";
+import Image from "next/image";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
+import { LanguageDropdown } from "./LanguageDropdown";
 
 const NAV_ITEMS: { labelKey: string; href: string }[] = [
-  { labelKey: "header_howItWorks", href: "/#how-it-works" },
+  { labelKey: "hero_cta2", href: "/#how-it-works" },
   { labelKey: "header_takeTest", href: "/test" },
   { labelKey: "header_professions", href: "/professions" },
 ];
@@ -27,14 +22,9 @@ export function Header() {
     <AppBar position="fixed" elevation={0} sx={styles.appBar}>
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={styles.toolbar}>
-          <Typography
-            component={Link}
-            href="/#"
-            variant="h3"
-            sx={styles.logo}
-          >
-            {t("header_logo")}
-          </Typography>
+          <Button component={Link} href="/" sx={styles.logoButton} disableRipple>
+            <Image src={BANNER_PLACEHOLDER_IMAGE} alt="Logo" width={100} height={48} />
+          </Button>
 
           <Box component="nav" sx={styles.nav}>
             {navItems.map((item) => (
@@ -91,19 +81,16 @@ const styles = {
     minHeight: { xs: 56, sm: 64 },
     gap: 1,
   },
-  logo: {
-    fontSize: "1.25rem",
-    fontWeight: 700,
-    color: "primary.main",
-    textDecoration: "none",
-    mr: { xs: 1, md: 3 },
+  logoButton: {
+    p: 0,
+    minWidth: 0,
     flexShrink: 0,
+    "&:hover": { bgcolor: "action.hover" },
   },
   nav: {
     display: { xs: "none", md: "flex" },
+    mx: "auto",
     alignItems: "center",
-    gap: 0.5,
-    flex: 1,
   },
   navButton: {
     color: "text.secondary",
@@ -119,7 +106,6 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: 0.5,
-    ml: "auto",
   },
   loginButton: {
     color: "text.primary",

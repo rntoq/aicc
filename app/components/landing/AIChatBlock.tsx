@@ -32,25 +32,15 @@ export function AIChatBlock() {
   };
 
   return (
-    <Box
-      component="section"
-      id="ai-chat"
-      sx={{ py: { xs: 6, md: 8 }, bgcolor: "background.default" }}
-    >
+    <Box component="section" id="ai-chat" sx={styles.section}>
       <Container maxWidth="lg">
-        <Typography
-          component="h2"
-          variant="h2"
-          textAlign="center"
-          sx={{ mb: 1 }}
-        >
-          {t("aichat_title")}
+        <Typography component="h2" variant="h2" textAlign="center" sx={styles.title}>
+          {t("aichat_title_part1")}
+          <Box component="span" sx={styles.titlePart2}>
+            {t("aichat_title_part2")}
+          </Box>
         </Typography>
-        <Typography
-          variant="body2"
-          textAlign="center"
-          sx={{ mb: 4, maxWidth: 480, mx: "auto" }}
-        >
+        <Typography variant="body2" textAlign="center" sx={styles.subtitle}>
           {t("aichat_subtitle")}
         </Typography>
 
@@ -86,13 +76,7 @@ export function AIChatBlock() {
                         : styles.aiBubble
                     }
                   >
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        ...styles.bubbleLabel,
-                        ...(msg.role === "ai" ? { opacity: 0.9 } : {}),
-                      }}
-                    >
+                    <Typography variant="caption" sx={styles.bubbleLabel}>
                       {msg.role === "user" ? t("aichat_you") : t("aichat_ai")}
                     </Typography>
                     <Typography
@@ -132,13 +116,13 @@ export function AIChatBlock() {
               </IconButton>
             </Box>
 
-            <Box sx={{ mt: 2, textAlign: "center" }}>
+            <Box sx={styles.ctaWrap}>
               <Button
                 variant="contained"
                 color="secondary"
                 startIcon={<SmartToyOutlinedIcon />}
                 href="#ai-chat"
-                sx={{ borderRadius: 2 }}
+                sx={styles.ctaButton}
               >
                 {t("aichat_cta")}
               </Button>
@@ -151,6 +135,24 @@ export function AIChatBlock() {
 }
 
 const styles = {
+  section: {
+    py: { xs: 6, md: 8 },
+    bgcolor: "background.default",
+  },
+  title: {
+    mb: 1,
+    color: "primary.main",
+  },
+  titlePart2: {
+    color: "#182453",
+    fontWeight: 700,
+    ml: 1,
+  },
+  subtitle: {
+    mb: 4,
+    maxWidth: 480,
+    mx: "auto",
+  },
   illustrationWrap: {
     position: "relative",
     width: 120,
@@ -199,6 +201,7 @@ const styles = {
     borderRadius: 2,
     bgcolor: "primary.main",
     color: "white",
+    "& .MuiTypography-caption": { opacity: 0.9 },
   },
   bubbleLabel: {
     flexShrink: 0,
@@ -225,5 +228,12 @@ const styles = {
   },
   sendButton: {
     flexShrink: 0,
+  },
+  ctaWrap: {
+    mt: 2,
+    textAlign: "center",
+  },
+  ctaButton: {
+    borderRadius: 2,
   },
 };

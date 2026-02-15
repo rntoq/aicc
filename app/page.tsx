@@ -3,6 +3,7 @@ import {
   HowItWorks,
   WhatYouGet,
   TestsCarousel,
+  PaidPlanSection,
   StatsBlock,
   AIChatBlock,
   Footer,
@@ -15,6 +16,7 @@ export default function Home() {
       <Hero />
       <HowItWorks />
       <TestsCarousel />
+      <PaidPlanSection />
       <StatsBlock />
       <WhatYouGet />
       <AIChatBlock />

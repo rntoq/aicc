@@ -7,12 +7,22 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
+import type { Theme } from "@mui/material/styles";
 
 const STAT_KEYS = [
   { icon: SchoolOutlinedIcon, value: 150, suffix: "+", labelKey: "stats_unis", descKey: "stats_unis_desc" },
   { icon: WorkOutlineOutlinedIcon, value: 200, suffix: "+", labelKey: "stats_profs", descKey: "stats_profs_desc" },
   { icon: AssignmentOutlinedIcon, value: 8, suffix: "", labelKey: "stats_tests", descKey: "stats_tests_desc" },
 ];
+
+const gradientSpanSx = (theme: Theme) => ({
+  background: theme.landing.titleKeywordGradient,
+  backgroundClip: "text",
+  WebkitBackgroundClip: "text",
+  color: "#182453",
+  fontWeight: 700,
+});
 
 function CountUp({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) {
   const [count, setCount] = useState(0);
@@ -47,18 +57,12 @@ export function StatsBlock() {
   return (
     <Box component="section" id="stats" sx={styles.section} ref={ref}>
       <Container maxWidth="lg">
-        <Typography component="h2" variant="h2" textAlign="center" sx={{ mb: 1 }}>
-          <Box
-            component="span"
-            sx={{
-              background: theme.landing.titleKeywordGradient,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-              fontWeight: 700,
-            }}
-          >
-            {t("stats_title")}
+        <Typography component="h2" variant="h2" textAlign="center" sx={styles.title}>
+          <Box component="span" sx={gradientSpanSx(theme)}>
+            {t("stats_title_part1")}
+            <Box component="span" sx={styles.titlePart2}>
+              {t("stats_title_part2")}
+            </Box>
           </Box>
         </Typography>
         <Typography variant="body2" textAlign="center" sx={styles.subtitle}>
@@ -98,6 +102,18 @@ const styles = {
   section: {
     py: { xs: 6, md: 8 },
     bgcolor: "background.paper",
+    backgroundImage: `url(${BANNER_PLACEHOLDER_IMAGE})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  },
+  title: {
+    mb: 1,
+  },
+  titlePart2: {
+    color: "primary.main",
+    fontWeight: 700,
+    ml: 1,
   },
   subtitle: {
     mb: 4,

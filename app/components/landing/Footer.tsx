@@ -4,7 +4,7 @@ import { Box, Container, Link, Typography } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { useLocale, type Locale } from "@/app/context/LocaleContext";
+import { useLocale } from "@/app/context/LocaleContext";
 
 const FOOTER_LINK_KEYS = [
   { key: "footer_about", href: "/about" },
@@ -17,10 +17,7 @@ export function Footer() {
   const t = useTranslations();
   const { locale, setLocale } = useLocale();
   const footerLinks = FOOTER_LINK_KEYS.map(({ key, href }) => ({ label: t(key), href }));
-  const handleLang = (l: Locale) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    setLocale(l);
-  };
+  const langButtonSx = (isActive: boolean) => [styles.link, styles.langButton, isActive && styles.langButtonActive];
   return (
     <Box component="footer" sx={styles.footer}>
       <motion.div
@@ -28,9 +25,8 @@ export function Footer() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.4 }}
-        style={{ display: "block" }}
       >
-      <Container maxWidth="lg">
+        <Container maxWidth="lg">
         <Box sx={styles.topRow}>
           <Box>
             <Typography variant="h3" sx={styles.logoTitle}>
@@ -57,8 +53,8 @@ export function Footer() {
               <Typography
                 component="button"
                 type="button"
-                onClick={handleLang("ru")}
-                sx={{ ...styles.link, ...styles.langButton, ...(locale === "ru" ? styles.langButtonActive : {}) }}
+                onClick={() => setLocale("ru")}
+                sx={langButtonSx(locale === "ru")}
               >
                 RU
               </Typography>
@@ -66,8 +62,8 @@ export function Footer() {
               <Typography
                 component="button"
                 type="button"
-                onClick={handleLang("kk")}
-                sx={{ ...styles.link, ...styles.langButton, ...(locale === "kk" ? styles.langButtonActive : {}) }}
+                onClick={() => setLocale("kk")}
+                sx={langButtonSx(locale === "kk")}
               >
                 KK
               </Typography>
@@ -78,7 +74,7 @@ export function Footer() {
         <Typography variant="caption" sx={styles.copyright}>
           {t("footer_copyright", { year: new Date().getFullYear() })}
         </Typography>
-      </Container>
+        </Container>
       </motion.div>
     </Box>
   );
@@ -88,7 +84,7 @@ const styles = {
   footer: {
     display: "block",
     py: 4,
-    bgcolor: "#1E3A8A",
+    bgcolor: "#1e1e2f",
     color: "#fff",
     borderTop: "none",
   },
