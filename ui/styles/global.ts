@@ -1,12 +1,4 @@
-import { createGlobalStyle } from "styled-components";
-
-export const GlobalStyles = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-inter), "Inter", system-ui, sans-serif;
-  }
-`;
+/** Путь к заглушке баннера/лого для лендинга. Замените на финальные изображения. */
+export const BANNER_PLACEHOLDER_IMAGE = "/default.png";
+// Оставляем компонент для обратной совместимости, фактические глобальные стили теперь в app/globals.css.
+export const GlobalStyles = () => null;

@@ -16,7 +16,7 @@ import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
 const SECTIONS = [
   {
@@ -145,21 +145,20 @@ const styles = {
     fontWeight: 600,
     fontSize: "0.9375rem",
     cursor: "pointer",
-    border: "1px solid",
-    bgcolor: "rgba(134, 168, 231, 0.5)",
-    color: "primary.main",
-    borderColor: "primary.main",
+    border: "1px solid #06b6d4",
+    bgcolor: "rgba(6, 182, 212, 0.06)",
+    color: "#06b6d4",
     transition: "background-color 0.2s, color 0.2s",
     "&:hover": {
-      bgcolor: "rgba(134, 168, 231, 0.8)",
+      bgcolor: "rgba(6, 182, 212, 0.12)",
     },
   },
   tabButtonActive: {
-    bgcolor: "primary.main",
+    bgcolor: "#06b6d4",
     color: "#fff",
-    borderColor: "primary.main",
+    border: "none",
     "&:hover": {
-      bgcolor: "primary.dark",
+      bgcolor: "#50b2c3",
     },
   },
   chipsWrap: {
@@ -203,7 +202,7 @@ const styles = {
     width: 40,
     height: 40,
     borderRadius: 1.25,
-    bgcolor: "primary.main",
+    bgcolor: "#06b6d4",
     color: "#fff",
     display: "flex",
     alignItems: "center",

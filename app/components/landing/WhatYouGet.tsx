@@ -4,9 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
-
-const LANDING_GRADIENT = "linear-gradient(45deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -33,7 +31,7 @@ export function WhatYouGet() {
           {/* Большой левый блок */}
           <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0 }}>
             <Box sx={styles.heroCard}>
-              <Typography variant="h2" sx={styles.heroTitle1}>
+              <Typography variant="h2" sx={styles.heroTitle1} className="text_gradient">
                 {t("whatyouget_title_part1").toUpperCase()}
               </Typography>
               <Typography variant="h1" sx={styles.heroTitle2}>
@@ -126,10 +124,6 @@ const styles = {
     fontSize: { xs: "2rem", md: "5.2rem" },
     fontWeight: 800,
     lineHeight: 1,
-    backgroundImage: LANDING_GRADIENT,
-    backgroundClip: "text",
-    WebkitBackgroundClip: "text",
-    color: "transparent",
   },
   heroTitle2: {
     fontSize: { xs: "2rem", md: "3.5rem" },
@@ -156,7 +150,7 @@ const styles = {
     transition: "box-shadow 300ms cubic-bezier(0.33, 1, 0.68, 1), transform 300ms cubic-bezier(0.33, 1, 0.68, 1), background-color 300ms cubic-bezier(0.33, 1, 0.68, 1)",
     "&:hover": {
       boxShadow: "0 18px 45px rgba(15,23,42,0.18)",
-      backgroundImage: LANDING_GRADIENT,
+      backgroundImage: "linear-gradient(135deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)",
       "& .whatyouget-image": {
         transform: "scale(1.1)",
       },
@@ -183,11 +177,11 @@ const styles = {
   },
   cardTitle: {
     fontWeight: 700,
-    color: "#182453",
+    color: "text.primary.dark",
   },
   cardText: {
     fontWeight: 700,
-    backgroundImage: LANDING_GRADIENT,
+    backgroundImage: "linear-gradient(90deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)",
     backgroundClip: "text",
     WebkitBackgroundClip: "text",
     color: "transparent",

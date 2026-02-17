@@ -15,7 +15,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
 export function AIChatBlock() {
   const t = useTranslations();
@@ -34,16 +34,6 @@ export function AIChatBlock() {
   return (
     <Box component="section" id="ai-chat" sx={styles.section}>
       <Container maxWidth="lg">
-        <Typography component="h2" variant="h2" textAlign="center" sx={styles.title}>
-          {t("aichat_title_part1")}
-          <Box component="span" sx={styles.titlePart2}>
-            {t("aichat_title_part2")}
-          </Box>
-        </Typography>
-        <Typography variant="body2" textAlign="center" sx={styles.subtitle}>
-          {t("aichat_subtitle")}
-        </Typography>
-
         <Box sx={styles.illustrationWrap}>
           <Image
             src={BANNER_PLACEHOLDER_IMAGE}
@@ -53,6 +43,12 @@ export function AIChatBlock() {
             style={{ objectFit: "cover" }}
           />
         </Box>
+        <Typography component="h2" variant="h2" textAlign="center" sx={styles.title}>
+          <Box component="span" className="text_gradient">{t("aichat_title_part1")}</Box>
+          <Box component="span" color="text.primary" sx={{ml: 1}}>
+            {t("aichat_title_part2")}
+          </Box>
+        </Typography>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -119,7 +115,6 @@ export function AIChatBlock() {
             <Box sx={styles.ctaWrap}>
               <Button
                 variant="contained"
-                color="secondary"
                 startIcon={<SmartToyOutlinedIcon />}
                 href="#ai-chat"
                 sx={styles.ctaButton}
@@ -141,12 +136,6 @@ const styles = {
   },
   title: {
     mb: 1,
-    color: "primary.main",
-  },
-  titlePart2: {
-    color: "#182453",
-    fontWeight: 700,
-    ml: 1,
   },
   subtitle: {
     mb: 4,
@@ -199,7 +188,7 @@ const styles = {
     gap: 1.5,
     p: 1.5,
     borderRadius: 2,
-    bgcolor: "primary.main",
+    bgcolor: "#ADF7F2",
     color: "white",
     "& .MuiTypography-caption": { opacity: 0.9 },
   },
@@ -235,5 +224,12 @@ const styles = {
   },
   ctaButton: {
     borderRadius: 2,
+    bgcolor: "#fff",
+    border: "1px solid #06b6d4",
+    color: "#06b6d4",
+    "&:hover": {
+      bgcolor: "#06b6d4",
+      color: "#fff",
+    },
   },
 };

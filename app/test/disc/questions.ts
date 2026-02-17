@@ -13,500 +13,197 @@ export interface DiscQuestion {
 }
 
 export const DISC_QUESTIONS: DiscQuestion[] = [
+  // Пары прилагательных из новой версии DISC (Truity‑стиль).
   {
     id: "disc_q01",
     number: 1,
     statements: [
-      { id: "a", text: "Я люблю брать на себя ответственность", type: "D" },
-      { id: "b", text: "Я предпочитаю работать в команде", type: "S" },
-      { id: "c", text: "Я энтузиаст и вдохновляю других", type: "I" },
-      { id: "d", text: "Я всегда проверяю детали и точность", type: "C" },
+      { id: "left", text: "Открытый", type: "I" }, // Open
+      { id: "right", text: "Скептичный", type: "C" }, // Skeptical
     ],
   },
   {
     id: "disc_q02",
     number: 2,
     statements: [
-      { id: "a", text: "Я принимаю решения быстро и решительно", type: "D" },
-      { id: "b", text: "Я собираю всю информацию перед решением", type: "C" },
-      { id: "c", text: "Я советуюсь с командой перед выбором", type: "S" },
-      { id: "d", text: "Я полагаюсь на интуицию и опыт", type: "I" },
+      { id: "left", text: "Жизнерадостный", type: "I" }, // Cheerful
+      { id: "right", text: "Методичный", type: "C" }, // Methodical
     ],
   },
   {
     id: "disc_q03",
     number: 3,
     statements: [
-      { id: "a", text: "Я говорю прямо и по делу", type: "D" },
-      { id: "b", text: "Я эмоционален и экспрессивен в общении", type: "I" },
-      { id: "c", text: "Я терпелив и внимателен к собеседнику", type: "S" },
-      { id: "d", text: "Я использую факты и данные", type: "C" },
+      { id: "left", text: "Сдержанный", type: "C" }, // Reserved
+      { id: "right", text: "Динамичный", type: "D" }, // Dynamic
     ],
   },
   {
     id: "disc_q04",
     number: 4,
     statements: [
-      { id: "a", text: "Я сразу решаю конфликты напрямую", type: "D" },
-      { id: "b", text: "Я пытаюсь разрядить обстановку юмором", type: "I" },
-      { id: "c", text: "Я избегаю конфронтации и ищу компромисс", type: "S" },
-      { id: "d", text: "Я анализирую ситуацию логически", type: "C" },
+      { id: "left", text: "Скромный", type: "S" }, // Humble
+      { id: "right", text: "Смелый", type: "D" }, // Bold
     ],
   },
   {
     id: "disc_q05",
     number: 5,
     statements: [
-      {
-        id: "a",
-        text: "Я работаю быстро и хочу немедленных результатов",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Я работаю в своем темпе, стабильно и методично",
-        type: "S",
-      },
-      {
-        id: "c",
-        text: "Мой темп зависит от энергии команды",
-        type: "I",
-      },
-      { id: "d", text: "Я работаю тщательно, не спеша", type: "C" },
+      { id: "left", text: "Щедрый", type: "I" }, // Generous
+      { id: "right", text: "Строгий", type: "C" }, // Strict
     ],
   },
   {
     id: "disc_q06",
     number: 6,
     statements: [
-      {
-        id: "a",
-        text: "Меня мотивируют вызовы и достижения",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Меня мотивирует признание и внимание",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Меня мотивирует стабильность и гармония",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Меня мотивирует качество и точность",
-        type: "C",
-      },
+      { id: "left", text: "Живой, энергичный", type: "I" }, // Lively
+      { id: "right", text: "Системный", type: "C" }, // Systematic
     ],
   },
   {
     id: "disc_q07",
     number: 7,
     statements: [
-      {
-        id: "a",
-        text: "Я готов рисковать ради больших целей",
-        type: "D",
-      },
-      { id: "b", text: "Я рискую, если это выглядит весело", type: "I" },
-      { id: "c", text: "Я предпочитаю избегать рисков", type: "S" },
-      {
-        id: "d",
-        text: "Я рискую только после тщательного анализа",
-        type: "C",
-      },
+      { id: "left", text: "Послушный", type: "S" }, // Obedient
+      { id: "right", text: "Прямой, открыто высказывающийся", type: "D" }, // Outspoken
     ],
   },
   {
     id: "disc_q08",
     number: 8,
     statements: [
-      {
-        id: "a",
-        text: "Я не люблю правила, если они мешают результату",
-        type: "D",
-      },
-      { id: "b", text: "Я гибкий и адаптируюсь к ситуации", type: "I" },
-      {
-        id: "c",
-        text: "Я следую установленным процедурам",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я создаю и соблюдаю системы и стандарты",
-        type: "C",
-      },
+      { id: "left", text: "Скромный", type: "S" }, // Modest
+      { id: "right", text: "Бросающий вызов", type: "D" }, // Challenging
     ],
   },
   {
     id: "disc_q09",
     number: 9,
     statements: [
-      { id: "a", text: "Я предпочитаю руководить командой", type: "D" },
-      {
-        id: "b",
-        text: "Я вдохновляю команду и поддерживаю дух",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Я поддерживаю и помогаю членам команды",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я обеспечиваю качество работы команды",
-        type: "C",
-      },
+      { id: "left", text: "Помогающий", type: "S" }, // Helpful
+      { id: "right", text: "Решительный", type: "D" }, // Resolute
     ],
   },
   {
     id: "disc_q10",
     number: 10,
     statements: [
-      {
-        id: "a",
-        text: "Под стрессом я становлюсь более агрессивным",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Под стрессом я становлюсь беспокойным и разговорчивым",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Под стрессом я замыкаюсь в себе",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Под стрессом я становлюсь критичным",
-        type: "C",
-      },
+      { id: "left", text: "Воодушевлённый", type: "I" }, // Enthusiastic
+      { id: "right", text: "Точный", type: "C" }, // Accurate
     ],
   },
   {
     id: "disc_q11",
     number: 11,
     statements: [
-      {
-        id: "a",
-        text: "Я принимаю критику, если она по делу",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Критика ранит меня, но я не показываю",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Я принимаю критику близко к сердцу",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я анализирую критику объективно",
-        type: "C",
-      },
+      { id: "left", text: "Уступчивый, послушный", type: "S" }, // Compliant
+      { id: "right", text: "Предприимчивый", type: "D" }, // Enterprising
     ],
   },
   {
     id: "disc_q12",
     number: 12,
     statements: [
-      {
-        id: "a",
-        text: "Я инициирую изменения для улучшения",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Я принимаю изменения с энтузиазмом",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Мне нужно время, чтобы адаптироваться к изменениям",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я принимаю изменения, если они обоснованы",
-        type: "C",
-      },
+      { id: "left", text: "Мягкий", type: "S" }, // Gentle
+      { id: "right", text: "Прямой, директивный", type: "D" }, // Direct
     ],
   },
   {
     id: "disc_q13",
     number: 13,
     statements: [
-      {
-        id: "a",
-        text: "Я фокусируюсь на общей картине, не на деталях",
-        type: "D",
-      },
-      { id: "b", text: "Детали меня утомляют", type: "I" },
-      {
-        id: "c",
-        text: "Я внимателен к деталям, если это важно для команды",
-        type: "S",
-      },
-      { id: "d", text: "Я перфекционист в деталях", type: "C" },
+      { id: "left", text: "Уступчивый, идущий навстречу", type: "S" }, // Accommodating
+      { id: "right", text: "Твёрдый", type: "D" }, // Firm
     ],
   },
   {
     id: "disc_q14",
     number: 14,
     statements: [
-      {
-        id: "a",
-        text: "Я планирую только основные шаги",
-        type: "D",
-      },
-      { id: "b", text: "Я редко планирую заранее", type: "I" },
-      {
-        id: "c",
-        text: "Я планирую методично и последовательно",
-        type: "S",
-      },
-      { id: "d", text: "Я составляю детальные планы", type: "C" },
+      { id: "left", text: "Игривый", type: "I" }, // Playful
+      { id: "right", text: "Аналитичный", type: "C" }, // Analytical
     ],
   },
   {
     id: "disc_q15",
     number: 15,
     statements: [
-      {
-        id: "a",
-        text: "Я контролирую эмоции и остаюсь сдержанным",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Я эмоционален и показываю свои чувства",
-        type: "I",
-      },
-      { id: "c", text: "Я спокоен и уравновешен", type: "S" },
-      { id: "d", text: "Я редко показываю эмоции", type: "C" },
+      { id: "left", text: "Тактичный", type: "S" }, // Tactful
+      { id: "right", text: "Выразительный, экспрессивный", type: "I" }, // Expressive
     ],
   },
   {
     id: "disc_q16",
     number: 16,
     statements: [
-      {
-        id: "a",
-        text: "Я уверенно подхожу к новым людям",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Я легко знакомлюсь и становлюсь друзьями",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Мне нужно время, чтобы открыться",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я наблюдаю сначала, потом общаюсь",
-        type: "C",
-      },
+      { id: "left", text: "Ровный, спокойный", type: "S" }, // Even-tempered
+      { id: "right", text: "Жёсткий", type: "D" }, // Tough
     ],
   },
   {
     id: "disc_q17",
     number: 17,
     statements: [
-      {
-        id: "a",
-        text: "Я признаю ошибки и быстро двигаюсь дальше",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Я извиняюсь за ошибки и исправляю",
-        type: "I",
-      },
-      { id: "c", text: "Ошибки меня расстраивают", type: "S" },
-      {
-        id: "d",
-        text: "Я анализирую причины ошибок",
-        type: "C",
-      },
+      { id: "left", text: "Принимающий, принимающий людей", type: "S" }, // Accepting
+      { id: "right", text: "Фактичный, сухой", type: "C" }, // Matter-of-Fact
     ],
   },
   {
     id: "disc_q18",
     number: 18,
     statements: [
-      {
-        id: "a",
-        text: "Я предпочитаю быстрый темп и вызовы",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Я люблю творческую и социальную атмосферу",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Я ценю спокойную и стабильную среду",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я предпочитаю организованное пространство",
-        type: "C",
-      },
+      { id: "left", text: "Оптимистичный", type: "I" }, // Optimistic
+      { id: "right", text: "Перфекционистичный", type: "C" }, // Perfectionistic
     ],
   },
   {
     id: "disc_q19",
     number: 19,
     statements: [
-      { id: "a", text: "Я ставлю амбициозные цели", type: "D" },
-      {
-        id: "b",
-        text: "Мои цели вдохновляют меня и других",
-        type: "I",
-      },
-      { id: "c", text: "Я ставлю реалистичные цели", type: "S" },
-      {
-        id: "d",
-        text: "Мои цели конкретны и измеримы",
-        type: "C",
-      },
+      { id: "left", text: "Тихий", type: "C" }, // Quiet
+      { id: "right", text: "Харизматичный", type: "I" }, // Charismatic
     ],
   },
   {
     id: "disc_q20",
     number: 20,
     statements: [
-      {
-        id: "a",
-        text: "Я даю прямую и честную обратную связь",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Я хвалю и поощряю позитивно",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Я даю обратную связь мягко и тактично",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я даю конструктивную критику с примерами",
-        type: "C",
-      },
+      { id: "left", text: "Услужливый, готовый помочь", type: "S" }, // Oblig­ing
+      { id: "right", text: "Напористый", type: "D" }, // Assertive
     ],
   },
   {
     id: "disc_q21",
     number: 21,
     statements: [
-      { id: "a", text: "Мой приоритет - результат", type: "D" },
-      {
-        id: "b",
-        text: "Мой приоритет - люди и отношения",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Мой приоритет - стабильность и безопасность",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Мой приоритет - качество и точность",
-        type: "C",
-      },
+      { id: "left", text: "Доверяющий", type: "S" }, // Trusting
+      { id: "right", text: "Сомневающийся, задающий вопросы", type: "C" }, // Questioning
     ],
   },
   {
     id: "disc_q22",
     number: 22,
     statements: [
-      {
-        id: "a",
-        text: "Я предпочитаю полную автономию",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Мне нужна поддержка команды",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Я люблю работать в партнерстве",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я независим, но следую стандартам",
-        type: "C",
-      },
+      { id: "left", text: "Лёгкий, беззаботный", type: "I" }, // Light‑Hearted
+      { id: "right", text: "Точный, педантичный", type: "C" }, // Precise
     ],
   },
   {
     id: "disc_q23",
     number: 23,
     statements: [
-      {
-        id: "a",
-        text: "Я работаю лучше под давлением дедлайнов",
-        type: "D",
-      },
-      { id: "b", text: "Дедлайны меня стимулируют", type: "I" },
-      {
-        id: "c",
-        text: "Я предпочитаю иметь запас времени",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я планирую заранее, чтобы избежать спешки",
-        type: "C",
-      },
+      { id: "left", text: "Осторожный", type: "C" }, // Cautious
+      { id: "right", text: "Авантюрный", type: "D" }, // Adventurous
     ],
   },
   {
     id: "disc_q24",
     number: 24,
     statements: [
-      {
-        id: "a",
-        text: "Я лидер, который направляет и решает",
-        type: "D",
-      },
-      {
-        id: "b",
-        text: "Я лидер, который вдохновляет и мотивирует",
-        type: "I",
-      },
-      {
-        id: "c",
-        text: "Я лидер, который поддерживает и развивает",
-        type: "S",
-      },
-      {
-        id: "d",
-        text: "Я лидер, который устанавливает стандарты",
-        type: "C",
-      },
+      { id: "left", text: "Восприимчивый, открытый к идеям", type: "S" }, // Receptive
+      { id: "right", text: "Решительный", type: "D" }, // Decisive
     ],
   },
 ];

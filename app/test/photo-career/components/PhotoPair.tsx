@@ -4,10 +4,9 @@ import {
   Box,
   Card,
 } from "@mui/material";
+import Image from "next/image";
 import type { PhotoQuestion } from "../questions";
-
-// Temporary placeholder from public/
-const PHOTO_PLACEHOLDER_SRC = "/f797a19f26ef87fa77d5ac53a495d1f1.png.webp";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
 export interface PhotoPairProps {
   question: PhotoQuestion;
@@ -24,11 +23,12 @@ export function PhotoPair({ question, onSelect }: PhotoPairProps) {
           sx={styles.imageCard}
           onClick={() => onSelect("optionA")}
         >
-          <Box
-            component="img"
-            src={PHOTO_PLACEHOLDER_SRC}
+          <Image
+            src={BANNER_PLACEHOLDER_IMAGE}
             alt={question.optionA.description}
-            sx={styles.image}
+            style={{ display: "block", width: "100%", height: "auto", objectFit: "cover" }}
+            width={300}
+            height={200}
           />
         </Card>
 
@@ -37,11 +37,12 @@ export function PhotoPair({ question, onSelect }: PhotoPairProps) {
           sx={styles.imageCard}
           onClick={() => onSelect("optionB")}
         >
-          <Box
-            component="img"
-            src={PHOTO_PLACEHOLDER_SRC}
+          <Image
+            src={BANNER_PLACEHOLDER_IMAGE}
             alt={question.optionB.description}
-            sx={styles.image}
+            style={{ display: "block", width: "100%", height: "auto", objectFit: "cover" }}
+            width={300}
+            height={200}
           />
         </Card>
       </Box>
@@ -55,8 +56,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    minHeight: { xs: "60vh", md: "70vh" },
-    py: { xs: 4, md: 6 },
+    py: { xs: 1, md: 2 },
   },
   pairContainer: {
     display: "flex",
@@ -70,7 +70,7 @@ const styles = {
   imageCard: {
     flex: { xs: "none", md: 1 },
     width: { xs: "90%", md: "45%" },
-    maxWidth: { xs: "500px", md: "600px" },
+    maxWidth: { xs: "300px", md: "300px" },
     borderRadius: 3,
     overflow: "hidden",
     cursor: "pointer",
@@ -85,5 +85,6 @@ const styles = {
     display: "block",
     width: "100%",
     height: "auto",
+    objectFit: "cover",
   },
 };

@@ -12,10 +12,13 @@ import LanguageIcon from "@mui/icons-material/Language";
 import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useLocale, type Locale } from "@/app/context/LocaleContext";
+import Image from "next/image";
+import ruFlag from "@/public/flag-ru.svg";
+import kkFlag from "@/public/flag-kz.svg";
 
 const options: { value: Locale; label: string }[] = [
-  { value: "ru", label: "Русский" },
-  { value: "kk", label: "Қазақша" },
+  { value: "ru", label: "RU" },
+  { value: "kk", label: "KK" },
 ];
 
 export function LanguageDropdown() {
@@ -48,12 +51,10 @@ export function LanguageDropdown() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleOpen}
-        startIcon={<LanguageIcon />}
+        startIcon={<LanguageIcon sx={{ width: 24, height: 24 }} />}
         sx={styles.button}
       >
-        <Typography variant="body2" fontWeight={500}>
-          {currentLabel}
-        </Typography>
+        <Image src={locale === "ru" ? ruFlag : kkFlag} alt={currentLabel} width={32} height={20} />
       </Button>
       <Menu
         id="language-menu"
@@ -84,7 +85,7 @@ export function LanguageDropdown() {
             ) : (
               <ListItemIcon sx={{ minWidth: 32 }} />
             )}
-            <ListItemText primary={opt.label} />
+            <ListItemText primary={<Image src={opt.value === "ru" ? ruFlag : kkFlag} alt={opt.label} width={32} height={20} />} />
           </MenuItem>
         ))}
       </Menu>
@@ -97,12 +98,8 @@ const styles = {
     color: "text.primary",
     textTransform: "none",
     minWidth: "auto",
-    "&:hover": { bgcolor: "action.hover" },
   },
   menuPaper: {
-    mt: 1.5,
-    minWidth: 160,
-    borderRadius: 2,
-    boxShadow: 3,
+    borderRadius: 1,
   },
 };

@@ -7,7 +7,7 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 import type { Theme } from "@mui/material/styles";
 
 const STAT_KEYS = [
@@ -20,7 +20,7 @@ const gradientSpanSx = (theme: Theme) => ({
   background: theme.landing.titleKeywordGradient,
   backgroundClip: "text",
   WebkitBackgroundClip: "text",
-  color: "#182453",
+  color: "text.primary.dark",
   fontWeight: 700,
 });
 
@@ -58,9 +58,9 @@ export function StatsBlock() {
     <Box component="section" id="stats" sx={styles.section} ref={ref}>
       <Container maxWidth="lg">
         <Typography component="h2" variant="h2" textAlign="center" sx={styles.title}>
-          <Box component="span" sx={gradientSpanSx(theme)}>
+          <Box component="span" color="text.primary">
             {t("stats_title_part1")}
-            <Box component="span" sx={styles.titlePart2}>
+            <Box component="span" className="text_gradient" sx={{ml: 1}}>
               {t("stats_title_part2")}
             </Box>
           </Box>

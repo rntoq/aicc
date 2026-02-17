@@ -6,7 +6,7 @@ import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 import { LanguageDropdown } from "./LanguageDropdown";
 
 const NAV_ITEMS: { labelKey: string; href: string }[] = [

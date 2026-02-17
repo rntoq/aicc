@@ -7,7 +7,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useTheme, type Theme } from "@mui/material/styles";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
 const gradientSpanSx = (theme: Theme) => ({
   background: theme.landing.titleKeywordGradient,
@@ -46,14 +46,11 @@ export function Hero() {
                 transition={{ duration: 0.5 }}
               >
                 <Typography component="h1" variant="h1" sx={styles.title} textAlign="center">
-                  <Box component="span" sx={gradientSpanSx(theme)}>
+                  <Box component="span" sx={{ color: "white", fontWeight: 700 }}>
                     {t("hero_title1")}
                   </Box>
-                  <Box component="span" sx={{ color: "white", fontWeight: 700 }}>
-                    {t("hero_title2")}
-                  </Box>
-                  <Box component="span" sx={gradientSpanSx(theme)}>
-                    {t("hero_title3")}
+                  <Box component="span" sx={{ml: 1 }} className="text_gradient">
+                    {t("hero_title2")} 
                   </Box>
                 </Typography>
                 <Typography variant="body1" sx={styles.subtitle}>

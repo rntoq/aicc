@@ -21,7 +21,15 @@ import { useTestsStore } from "@/lib/store/testsStore";
 export default function HollandTestPage() {
   const t = useTranslations();
   const router = useRouter();
-  const { answers, currentQuestionIndex, setAnswer, setCurrentQuestion, startTest, getProgress, reset } = useHollandStore();
+  const {
+    answers,
+    currentQuestionIndex,
+    setAnswer,
+    setCurrentQuestion,
+    startTest,
+    getProgress,
+    reset,
+  } = useHollandStore();
   const { setCompleted } = useTestsStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -32,17 +40,26 @@ export default function HollandTestPage() {
     };
   }, [startTest]);
 
+  const totalQuestions = HOLLAND_QUESTIONS.length;
   const currentQuestion = HOLLAND_QUESTIONS[currentQuestionIndex];
   const currentAnswer = answers[currentQuestion.id] || null;
   const progress = getProgress();
-  const isLastQuestion = currentQuestionIndex === HOLLAND_QUESTIONS.length - 1;
-  const allAnswered = Object.keys(answers).length === HOLLAND_QUESTIONS.length;
 
-  const handleNext = () => {
-    if (currentAnswer == null) return;
-    if (isLastQuestion) {
-      handleSubmit();
-    } else {
+  const handleAnswerChange = (value: number) => {
+    // Сохраняем ответ
+    setAnswer(currentQuestion.id, value);
+
+    const updatedAnswers = {
+      ...answers,
+      [currentQuestion.id]: value,
+    };
+    const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
+    const allAnsweredAfter =
+      Object.keys(updatedAnswers).length === totalQuestions;
+
+    if (isLastQuestion && allAnsweredAfter) {
+      handleSubmit(updatedAnswers);
+    } else if (!isLastQuestion) {
       setCurrentQuestion(currentQuestionIndex + 1);
     }
   };
@@ -53,15 +70,18 @@ export default function HollandTestPage() {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!allAnswered) return;
+  const handleSubmit = async (finalAnswers?: typeof answers) => {
+    const usedAnswers = finalAnswers ?? answers;
+    if (Object.keys(usedAnswers).length !== totalQuestions) return;
     setIsSubmitting(true);
     
     // Calculate results
-    const result = calculateHollandResult(answers, HOLLAND_QUESTIONS);
+    const result = calculateHollandResult(usedAnswers, HOLLAND_QUESTIONS);
     
     // Save to stores
-    useHollandStore.getState().saveResult(result.hollandCode.code, result.normalizedScores);
+    useHollandStore
+      .getState()
+      .saveResult(result.hollandCode.code, result.normalizedScores as unknown as Record<string, number>);
     useTestsStore.getState().setCompleted("holland");
     
     // Navigate to results
@@ -83,15 +103,15 @@ export default function HollandTestPage() {
         <ProgressBar
           progress={progress}
           current={Object.keys(answers).length}
-          total={HOLLAND_QUESTIONS.length}
+          total={totalQuestions}
         />
 
         <QuestionCard
           question={currentQuestion}
           value={currentAnswer}
-          onChange={(value) => setAnswer(currentQuestion.id, value)}
+          onChange={handleAnswerChange}
           questionNumber={currentQuestionIndex + 1}
-          totalQuestions={HOLLAND_QUESTIONS.length}
+          totalQuestions={totalQuestions}
         />
 
         <Box sx={styles.navigation}>
@@ -103,15 +123,6 @@ export default function HollandTestPage() {
             sx={styles.navButton}
           >
             {t("holland_back")}
-          </Button>
-          <Button
-            variant="contained"
-            endIcon={isLastQuestion ? null : <ArrowForwardOutlinedIcon />}
-            onClick={handleNext}
-            disabled={currentAnswer == null}
-            sx={styles.navButton}
-          >
-            {isLastQuestion ? (allAnswered ? t("holland_finish") : t("holland_answerAll")) : t("holland_next")}
           </Button>
         </Box>
       </Container>

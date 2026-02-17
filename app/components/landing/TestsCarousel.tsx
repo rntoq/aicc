@@ -8,11 +8,6 @@ import { useMemo, useState } from "react";
 import { ALL_TESTS } from "@/app/test/constants";
 import type { TestItem } from "@/app/test/constants";
 
-const DUPES = 2;
-const FLOAT_DURATION_S = 90;
-const ITEM_WIDTH = 300;
-const GAP = 2;
-
 const CARD_ACCENTS = [
   { border: "#7f7fd5", bg: "rgba(127, 127, 213, 0.06)", titleColor: "#7f7fd5" },
   { border: "#86a8e7", bg: "rgba(134, 168, 231, 0.06)", titleColor: "#86a8e7" },
@@ -30,17 +25,17 @@ function getBadgeLabel(
   test: TestItem,
   t: ReturnType<typeof useTranslations>
 ): string {
-  if (test.required) return t("tests_badge_required");
+  if (test.required) return t("tests_badge_recommended");
   if (test.status === "paid" && test.price) return `${test.price}₸`;
   if (test.status === "premium" && test.price) return `${test.price}₸`;
-  if (test.status === "free" && !test.required) return t("tests_badge_optional");
+  if (!test.required && test.status === "free") return t("tests_badge_optional");
   return t("tests_badge_free");
 }
 
 function getBadgeStyle(test: TestItem): { bg: string; color: string } {
   if (test.required) return { bg: "rgba(99, 102, 241, 0.15)", color: "#6366F1" };
   if (test.status === "paid" || test.status === "premium")
-    return { bg: "rgba(147, 51, 234, 0.15)", color: "#9333EA" };
+    return { bg: "rgba(2, 255, 36, 0.15)", color: "#10b981" };
   if (test.status === "free" && !test.required)
     return { bg: "rgba(100, 116, 139, 0.15)", color: "#64748B" };
   return { bg: "rgba(34, 197, 94, 0.15)", color: "#22C55E" };
@@ -86,7 +81,7 @@ export function TestsCarousel() {
         accentTitleColor: accent.titleColor,
       };
     });
-    const width = items.length * (ITEM_WIDTH + GAP) - GAP;
+    const width = items.length * (300 + 2) - 2;
     return { items, trackWidth: width };
   }, [t]);
 
@@ -94,9 +89,9 @@ export function TestsCarousel() {
     () => ({
       display: "flex",
       my: 4,
-      gap: GAP,
+      gap: 2,
       width: "max-content",
-      animation: `testsCarouselFloat ${FLOAT_DURATION_S}s linear infinite`,
+      animation: `testsCarouselFloat ${90}s linear infinite`,
       animationPlayState: isPaused ? "paused" : "running",
       "@keyframes testsCarouselFloat": {
         "0%": { transform: "translateX(0)" },
@@ -128,7 +123,7 @@ export function TestsCarousel() {
             sx={styles.title}
           >
             {t("tests_carousel_heading_part1")}
-            <Box component="span" sx={{ color: "primary.main", fontWeight: 700, ml: 1 }}>
+            <Box component="span" sx={{ fontWeight: 700, ml: 1 }} className="text_gradient">
               {t("tests_carousel_heading_part2")}
             </Box>
           </Typography>
@@ -150,7 +145,7 @@ export function TestsCarousel() {
         >
           <Box sx={styles.trackWrap}>
             <Box sx={trackSx}>
-              {Array.from({ length: DUPES }).map((_, dupe) =>
+              {Array.from({ length: 2 }).map((_, dupe) =>
                 TESTS.map((item) => (
                   <Link
                     key={`${dupe}-${item.id}`}
@@ -205,7 +200,7 @@ export function TestsCarousel() {
                           ))}
                         </Box>
                         <Typography className="cta" sx={styles.cta}>
-                          {t("tests_cta_start")} →
+                          {t("tests_cta_take")} →
                         </Typography>
                       </Box>
                     </Box>
@@ -232,7 +227,7 @@ const styles = {
     backgroundImage: "linear-gradient(90deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)",
     backgroundClip: "text",
     WebkitBackgroundClip: "text",
-    color: "#182453",
+    color: "text.primary.dark",
   },
   subtitle: {
     mb: 3,
@@ -250,7 +245,7 @@ const styles = {
   },
   item: {
     flexShrink: 0,
-    width: ITEM_WIDTH,
+    width: 300,
     height: 350,
     minHeight: 280,
     display: "flex",

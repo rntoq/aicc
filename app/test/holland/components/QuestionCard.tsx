@@ -25,6 +25,14 @@ export interface QuestionCardProps {
 
 const LIKERT_VALUES = [1, 2, 3, 4, 5] as const;
 
+const HOLLAND_LIKERT_KEYS: Record<(typeof LIKERT_VALUES)[number], string> = {
+  1: "holland_likert_1",
+  2: "holland_likert_2",
+  3: "holland_likert_3",
+  4: "holland_likert_4",
+  5: "holland_likert_5",
+};
+
 export function QuestionCard({
   question,
   value,
@@ -42,9 +50,6 @@ export function QuestionCard({
     >
       <Card sx={styles.card}>
         <CardContent sx={styles.content}>
-          <Typography variant="caption" color="text.secondary" sx={styles.questionNumber}>
-            {t("holland_questionNumber", { current: questionNumber, total: totalQuestions })}
-          </Typography>
           <Typography variant="h3" sx={styles.questionText}>
             {question.text}
           </Typography>
@@ -62,7 +67,7 @@ export function QuestionCard({
                   label={
                     <Box sx={styles.labelBox}>
                       <Typography variant="body2" fontWeight={value === optionValue ? 600 : 400}>
-                        {t(`likert_${optionValue}`)}
+                        {t(HOLLAND_LIKERT_KEYS[optionValue])}
                       </Typography>
                     </Box>
                   }
@@ -86,6 +91,9 @@ const styles = {
     boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
     maxWidth: 720,
     mx: "auto",
+    "&:hover": {
+      transform: "none",
+    },
   },
   content: {
     p: 3,
@@ -111,8 +119,8 @@ const styles = {
   },
   radioLabel: {
     m: 0,
-    p: 1.5,
-    borderRadius: 2,
+    p: 0.5,
+    borderRadius: 1,
     border: "2px solid transparent",
     transition: "all 0.2s ease",
     "&:hover": {
@@ -123,7 +131,7 @@ const styles = {
     bgcolor: "primary.light",
     borderColor: "primary.main",
     "& .MuiFormControlLabel-label": {
-      color: "primary.dark",
+      color: "text.primary.dark",
     },
   },
   labelBox: {

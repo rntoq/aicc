@@ -14,11 +14,11 @@ export default function Home() {
   return (
     <Box component="main" sx={{ minHeight: "100vh" }}>
       <Hero />
+      <WhatYouGet />
       <HowItWorks />
       <TestsCarousel />
       <PaidPlanSection />
       <StatsBlock />
-      <WhatYouGet />
       <AIChatBlock />
       <Footer />
     </Box>

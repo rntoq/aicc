@@ -6,8 +6,12 @@ const primaryLight = "#86a8e7";
 const secondary = "#91eae4";
 const background = "#F8FAFC";
 const paper = "#FFFFFF";
-const textPrimary = "#0F172A";
+const textPrimary = "#182453";
 const textSecondary = "#64748B";
+const titleKeywordGradient =
+  "linear-gradient(90deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)";
+const surfaceShadow = "0 4px 12px rgba(15, 23, 42, 0.08)";
+const surfaceHoverShadow = "0 8px 24px rgba(15, 23, 42, 0.1)";
 
 export const muiTheme = createTheme({
   palette: {
@@ -15,14 +19,14 @@ export const muiTheme = createTheme({
     primary: {
       main: primary,
       light: primaryLight,
-      dark: "#6b6bc4",
+      dark: "#182453",
       contrastText: "#FFFFFF",
     },
     secondary: {
       main: secondary,
       light: "#b3f2ee",
       dark: "#6dd4ce",
-      contrastText: "#0F172A",
+      contrastText: "#182453",
     },
     background: {
       default: background,
@@ -107,7 +111,7 @@ export const muiTheme = createTheme({
   // Общедоступные значения для лендинга (заголовки секций: ключевые слова — градиент, остальное — text.secondary).
   // Градиент для заливки ключевых слов в заголовках (background + backgroundClip: 'text').
   landing: {
-    titleKeywordGradient: "linear-gradient(90deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)",
+    titleKeywordGradient,
   },
   components: {
     MuiButton: {
@@ -141,7 +145,7 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
-          boxShadow: "0 4px 12px rgba(15, 23, 42, 0.08)",
+          boxShadow: surfaceShadow,
         },
       },
     },
@@ -149,10 +153,10 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
-          boxShadow: "0 4px 12px rgba(15, 23, 42, 0.08)",
+          boxShadow: surfaceShadow,
           transition: "box-shadow 0.2s ease, transform 0.2s ease",
           "&:hover": {
-            boxShadow: "0 8px 24px rgba(15, 23, 42, 0.1)",
+            boxShadow: surfaceHoverShadow,
             transform: "translateY(-2px)",
           },
         },

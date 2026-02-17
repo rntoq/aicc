@@ -4,7 +4,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/landingConstants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
 const fadeIn = {
   initial: { opacity: 0, y: 24 },
@@ -22,12 +22,10 @@ export function HowItWorks() {
     <Box component="section" id="how-it-works" sx={styles.section}>
       <Container maxWidth="lg">
         <Typography component="h2" variant="h2" textAlign="center" sx={styles.title}>
-          <Box component="span" sx={styles.titlePart1}>
-            {t("how_title_part1")}
-            <Box component="span" sx={styles.titlePart2}>
-              {t("how_title_part2")}
+            <Box component="span" className="text_gradient" sx={{mr: 1}}>
+              {t("how_title_part1")}
             </Box>
-          </Box>
+              {t("how_title_part2")}?
         </Typography>
         <Typography variant="body1" textAlign="center" sx={styles.subtitle}>
           {t("how_subtitle_part1")} {t("how_subtitle_part2")}
@@ -54,7 +52,7 @@ export function HowItWorks() {
                   <Box />
                 </Box>
                 <Typography sx={styles.step1Value}>{t("how_step1_value").toUpperCase()}</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                <Typography variant="body2" sx={{ mb: 1.5 }} className="text_gradient">
                   {t("how_step1_desc")}
                 </Typography>
               </Box>
@@ -112,17 +110,8 @@ const styles = {
   },
   title: {
     mb: 1,
-  },
-  titlePart1: {
-    backgroundClip: "text",
-    WebkitBackgroundClip: "text",
-    color: "#182453",
     fontWeight: 700,
-  },
-  titlePart2: {
-    color: "primary.main",
-    fontWeight: 700,
-    ml: 1,
+    color: "text.primary.dark",
   },
   subtitle: {
     mb: 4,
@@ -195,7 +184,7 @@ const styles = {
   centerCardValue: {
     fontSize: 32,
     fontWeight: 700,
-    color: "#182453",
+    color: "text.primary.dark",
     mb: 1,
   },
   centerBannerWrap: {
