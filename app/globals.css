@@ -4,6 +4,14 @@
   --text-secondary: #64748b;
 }
 
+@font-face {
+  font-family: "Bitter";
+  src: url("/fonts/Bitter/Bitter-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Base reset: снимает браузерные дефолты, которые ломают layout и типографику. */
 *,
 *::before,
@@ -48,6 +56,16 @@ a {
 
 :where(input, button, textarea, select) {
   font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Bitter", var(--font-inter), "Inter", system-ui, sans-serif;
+  font-weight: 700;
 }
 
 /* Градиент для текста (используется в заголовках лендинга) */

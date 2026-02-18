@@ -40,6 +40,7 @@ export const muiTheme = createTheme({
   typography: {
     fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
     h1: {
+      fontFamily: '"Bitter", "Inter", "Helvetica", "Arial", sans-serif',
       fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
       fontWeight: 700,
       lineHeight: 1.2,
@@ -47,15 +48,38 @@ export const muiTheme = createTheme({
       color: textPrimary,
     },
     h2: {
+      fontFamily: '"Bitter", "Inter", "Helvetica", "Arial", sans-serif',
       fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-      fontWeight: 600,
-      lineHeight: 1.3,
+      fontWeight: 700,
+      lineHeight: 1.2,
       color: textPrimary,
     },
     h3: {
+      fontFamily: '"Bitter", "Inter", "Helvetica", "Arial", sans-serif',
       fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
-      fontWeight: 600,
-      lineHeight: 1.4,
+      fontWeight: 700,
+      lineHeight: 1.2,
+      color: textPrimary,
+    },
+    h4: {
+      fontFamily: '"Bitter", "Inter", "Helvetica", "Arial", sans-serif',
+      fontSize: "clamp(1rem, 2vw, 1.25rem)",
+      fontWeight: 700,
+      lineHeight: 1.2,
+      color: textPrimary,
+    },
+    h5: {
+      fontFamily: '"Bitter", "Inter", "Helvetica", "Arial", sans-serif',
+      fontSize: "clamp(0.875rem, 1.5vw, 1.125rem)",
+      fontWeight: 700,
+      lineHeight: 1.2,
+      color: textPrimary,
+    },  
+    h6: {
+      fontFamily: '"Bitter", "Inter", "Helvetica", "Arial", sans-serif',
+      fontSize: "clamp(0.75rem, 1.25vw, 1rem)",
+      fontWeight: 700,
+      lineHeight: 1.2,
       color: textPrimary,
     },
     body1: {

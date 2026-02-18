@@ -13,8 +13,8 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useLocale, type Locale } from "@/app/context/LocaleContext";
 import Image from "next/image";
-import ruFlag from "@/public/flag-ru.svg";
-import kkFlag from "@/public/flag-kz.svg";
+import ruFlag from "@/public/icons/flag-ru.svg";
+import kkFlag from "@/public/icons/flag-kz.svg";
 
 const options: { value: Locale; label: string }[] = [
   { value: "ru", label: "RU" },

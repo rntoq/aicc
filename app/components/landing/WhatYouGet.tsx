@@ -48,17 +48,17 @@ const FeatureCard = ({
       <Box sx={styles.infoCard}>
         <Box sx={styles.textCol}>
           {title1 && (
-            <Typography variant="h6" sx={styles.cardTitle}>
+            <Typography component="h3" variant="h4" sx={styles.cardTitle}>
               {title1.toUpperCase()}
             </Typography>
           )}
           {text && (
-            <Typography variant="h5" className="whatyouget-cardText" sx={styles.cardText}>
+            <Typography component="h2" variant="h3" className="whatyouget-cardText" sx={styles.cardText}>
               {text.toUpperCase()}
             </Typography>
           )}
           {title2 && (
-            <Typography variant="h6" sx={styles.cardTitle}>
+            <Typography component="h3" variant="h4" sx={styles.cardTitle}>
               {title2.toUpperCase()}
             </Typography>
           )}
