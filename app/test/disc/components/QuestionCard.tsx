@@ -19,12 +19,12 @@ export interface DiscQuestionCardProps {
   onChange: (most: string | null, least: string | null) => void;
 }
 
-export function DiscQuestionCard({
+export const DiscQuestionCard = ({
   question,
   most,
   least,
   onChange,
-}: DiscQuestionCardProps) {
+}: DiscQuestionCardProps) => {
   const handleMostChange = (_: unknown, value: string | null) => {
     if (!value) {
       onChange(null, least);
@@ -96,7 +96,7 @@ export function DiscQuestionCard({
       </Card>
     </motion.div>
   );
-}
+};
 
 const styles = {
   card: {

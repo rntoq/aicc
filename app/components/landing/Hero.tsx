@@ -6,20 +6,12 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { useTheme, type Theme } from "@mui/material/styles";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
-const gradientSpanSx = (theme: Theme) => ({
-  background: theme.landing.titleKeywordGradient,
-  backgroundClip: "text",
-  WebkitBackgroundClip: "text",
-  color: "transparent",
-  fontWeight: 700,
-});
+const imageStyle = { objectFit: "cover" as const };
 
-export function Hero() {
+export const Hero = () => {
   const t = useTranslations();
-  const theme = useTheme();
 
   return (
     <Box component="section" sx={styles.sectionRoot}>
@@ -31,7 +23,7 @@ export function Hero() {
               alt=""
               fill
               sizes="100vw"
-              style={{ objectFit: "cover" }}
+              style={imageStyle}
               priority
             />
           </Box>
@@ -49,8 +41,8 @@ export function Hero() {
                   <Box component="span" sx={{ color: "white", fontWeight: 700 }}>
                     {t("hero_title1")}
                   </Box>
-                  <Box component="span" sx={{ml: 1 }} className="text_gradient">
-                    {t("hero_title2")} 
+                  <Box component="span" sx={{ ml: 1 }} className="text_gradient">
+                    {t("hero_title2")}
                   </Box>
                 </Typography>
                 <Typography variant="body1" sx={styles.subtitle}>
@@ -76,10 +68,10 @@ export function Hero() {
                 alt=""
                 fill
                 sizes="(max-width: 768px) 100vw, 720px"
-                style={{ objectFit: "cover" }}
+                style={imageStyle}
               />
             </Box>
-            <Box sx={styles.cardWrap}>
+            <Box sx={styles.ctaWrap}>
               <Button
                 variant="contained"
                 size="large"
@@ -105,7 +97,7 @@ export function Hero() {
       <Box sx={styles.sectionBottom} />
     </Box>
   );
-}
+};
 
 const styles = {
   sectionRoot: {
@@ -179,7 +171,7 @@ const styles = {
     inset: 0,
     zIndex: 0,
   },
-  cardWrap: {
+  ctaWrap: {
     display: "flex",
     gap: 2,
     flexWrap: "wrap",

@@ -23,7 +23,7 @@ import {
   type ValuesResult,
 } from "../utils/scoring";
 
-export default function ValuesResultPage() {
+const ValuesResultPage = () => {
   const router = useRouter();
   const { answers, reset } = useValuesStore();
   const [result, setResult] = useState<ValuesResult | null>(null);
@@ -184,5 +184,7 @@ export default function ValuesResultPage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default ValuesResultPage;
 

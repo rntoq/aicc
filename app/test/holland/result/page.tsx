@@ -36,7 +36,7 @@ const DESC_KEYS: Record<"R" | "I" | "A" | "S" | "E" | "C", string> = {
   C: "holland_desc_C",
 };
 
-export default function HollandResultPage() {
+const HollandResultPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -179,9 +179,9 @@ export default function HollandResultPage() {
       </Container>
     </Box>
   );
-}
+};
 
-function getCodeInterpretation(code: string): string {
+const getCodeInterpretation = (code: string): string => {
   const interpretations: Record<string, string> = {
     RIA: "Техно-Креатор",
     RIC: "Системный Техник",
@@ -195,7 +195,9 @@ function getCodeInterpretation(code: string): string {
     CAI: "Организованный Аналитик",
   };
   return interpretations[code] || "Уникальная комбинация";
-}
+};
+
+export default HollandResultPage;
 
 const styles = {
   root: {

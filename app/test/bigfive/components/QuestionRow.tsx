@@ -18,11 +18,11 @@ export interface BigFiveQuestionRowProps {
 
 const SCALE_VALUES = [1, 2, 3, 4, 5] as const;
 
-export function BigFiveQuestionRow({
+export const BigFiveQuestionRow = ({
   question,
   value,
   onChange,
-}: BigFiveQuestionRowProps) {
+}: BigFiveQuestionRowProps) => {
   const t = useTranslations();
 
   return (
@@ -57,7 +57,7 @@ export function BigFiveQuestionRow({
       </RadioGroup>
     </Box>
   );
-}
+};
 
 const styles = {
   row: {

@@ -22,7 +22,7 @@ export interface BigFiveResult {
   normalized: BigFiveNormalizedScores;
 }
 
-function emptyRaw(): BigFiveRawScores {
+const emptyRaw = (): BigFiveRawScores => {
   return {
     OPENNESS: 0,
     CONSCIENTIOUSNESS: 0,
@@ -30,18 +30,18 @@ function emptyRaw(): BigFiveRawScores {
     AGREEABLENESS: 0,
     NEUROTICISM: 0,
   };
-}
+};
 
-export function processAnswer(reverse: boolean, value: number): number {
+export const processAnswer = (reverse: boolean, value: number): number => {
   if (!reverse) return value;
   // 1→5, 2→4, 3→3, 4→2, 5→1
   return 6 - value;
-}
+};
 
-export function calculateRawScores(
+export const calculateRawScores = (
   answers: BigFiveAnswers,
   questions: BigFiveQuestion[]
-): BigFiveRawScores {
+): BigFiveRawScores => {
   const traitToValues: Record<BigFiveTrait, number[]> = {
     OPENNESS: [],
     CONSCIENTIOUSNESS: [],
@@ -73,11 +73,11 @@ export function calculateRawScores(
   });
 
   return raw;
-}
+};
 
-export function normalizeScores(
+export const normalizeScores = (
   raw: BigFiveRawScores
-): BigFiveNormalizedScores {
+): BigFiveNormalizedScores => {
   const normalized: BigFiveNormalizedScores = {
     OPENNESS: 0,
     CONSCIENTIOUSNESS: 0,
@@ -98,14 +98,14 @@ export function normalizeScores(
   });
 
   return normalized;
-}
+};
 
-export function calculateBigFiveResult(
+export const calculateBigFiveResult = (
   answers: BigFiveAnswers,
   questions: BigFiveQuestion[]
-): BigFiveResult {
+): BigFiveResult => {
   const raw = calculateRawScores(answers, questions);
   const normalized = normalizeScores(raw);
   return { raw, normalized };
-}
+};
 

@@ -30,10 +30,10 @@ export interface DiscResult {
   profile: DiscProfile;
 }
 
-export function calculateDiscScores(
+export const calculateDiscScores = (
   answers: DiscAnswers,
   questions: DiscQuestion[]
-): DiscRawScores {
+): DiscRawScores => {
   const scores: DiscRawScores = { D: 0, I: 0, S: 0, C: 0 };
 
   const questionMap = new Map<string, DiscQuestion>();
@@ -59,11 +59,11 @@ export function calculateDiscScores(
   });
 
   return scores;
-}
+};
 
-export function normalizeDiscScores(
+export const normalizeDiscScores = (
   raw: DiscRawScores
-): DiscNormalizedScores {
+): DiscNormalizedScores => {
   const normalized: DiscNormalizedScores = { D: 0, I: 0, S: 0, C: 0 };
 
   (["D", "I", "S", "C"] as DiscType[]).forEach((type) => {
@@ -73,12 +73,12 @@ export function normalizeDiscScores(
   });
 
   return normalized;
-}
+};
 
-export function determineDiscStyle(
+export const determineDiscStyle = (
   dominant: DiscType,
   scores: DiscNormalizedScores
-): string {
+): string => {
   const HIGH = 60;
 
   const otherHigh = (["D", "I", "S", "C"] as DiscType[])
@@ -104,11 +104,11 @@ export function determineDiscStyle(
   };
 
   return STYLE_MAP[combo] || dominant;
-}
+};
 
-export function determineDiscProfile(
+export const determineDiscProfile = (
   normalized: DiscNormalizedScores
-): DiscProfile {
+): DiscProfile => {
   const entries = Object.entries(normalized) as [DiscType, number][];
   const sorted = [...entries].sort((a, b) => b[1] - a[1]);
   const [domType, domScore] = sorted[0];
@@ -124,12 +124,12 @@ export function determineDiscProfile(
     style,
     allScores: normalized,
   };
-}
+};
 
-export function calculateDiscResult(
+export const calculateDiscResult = (
   answers: DiscAnswers,
   questions: DiscQuestion[]
-): DiscResult {
+): DiscResult => {
   const rawScores = calculateDiscScores(answers, questions);
   const normalizedScores = normalizeDiscScores(rawScores);
   const profile = determineDiscProfile(normalizedScores);
@@ -139,5 +139,5 @@ export function calculateDiscResult(
     normalizedScores,
     profile,
   };
-}
+};
 

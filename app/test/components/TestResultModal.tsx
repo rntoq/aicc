@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 import { getTestById } from "../constants";
 import { useTestsStore } from "@/lib/store/testsStore";
 
-export function TestResultModal() {
+export const TestResultModal = () => {
   const t = useTranslations();
   const { openResultModalId, setOpenResultModalId } = useTestsStore();
   const test = openResultModalId ? getTestById(openResultModalId) : null;
@@ -105,4 +105,4 @@ export function TestResultModal() {
       </AnimatePresence>
     </Dialog>
   );
-}
+};

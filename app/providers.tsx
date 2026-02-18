@@ -25,9 +25,9 @@ function IntlProvider({ children }: { children: React.ReactNode }) {
       {children}
     </NextIntlClientProvider>
   );
-}
+};
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export const Providers = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -52,4 +52,4 @@ export function Providers({ children }: { children: React.ReactNode }) {
       </ThemeProvider>
     </QueryClientProvider>
   );
-}
+};

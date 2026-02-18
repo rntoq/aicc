@@ -18,7 +18,7 @@ import { ProgressBar } from "./components/ProgressBar";
 import { calculateHollandResult } from "./utils/scoring";
 import { useTestsStore } from "@/lib/store/testsStore";
 
-export default function HollandTestPage() {
+const HollandTestPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const {
@@ -128,7 +128,9 @@ export default function HollandTestPage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default HollandTestPage;
 
 const styles = {
   root: {

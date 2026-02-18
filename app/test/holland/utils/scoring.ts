@@ -29,10 +29,10 @@ export interface HollandResult {
 /**
  * Calculate raw scores from answers
  */
-export function calculateRawScores(
+export const calculateRawScores = (
   answers: HollandAnswers,
   questions: HollandQuestion[]
-): HollandScores {
+): HollandScores => {
   const scores: HollandScores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
 
   questions.forEach((question) => {
@@ -44,12 +44,12 @@ export function calculateRawScores(
   });
 
   return scores;
-}
+};
 
 /**
  * Normalize scores to 0-100 range
  */
-export function normalizeScores(rawScores: HollandScores): HollandScores {
+export const normalizeScores = (rawScores: HollandScores): HollandScores => {
   const maxPossiblePerCategory = 40; // 8 questions * 5 max value
 
   return {
@@ -60,14 +60,14 @@ export function normalizeScores(rawScores: HollandScores): HollandScores {
     E: Math.round((rawScores.E / maxPossiblePerCategory) * 100 * 10) / 10,
     C: Math.round((rawScores.C / maxPossiblePerCategory) * 100 * 10) / 10,
   };
-}
+};
 
 /**
  * Determine Holland Code (3-letter code from top 3 categories)
  */
-export function determineHollandCode(
+export const determineHollandCode = (
   normalizedScores: HollandScores
-): HollandCodeResult {
+): HollandCodeResult => {
   const entries = Object.entries(normalizedScores) as [
     keyof HollandScores,
     number
@@ -84,15 +84,15 @@ export function determineHollandCode(
     secondaryScore: top3[1][1],
     tertiaryScore: top3[2][1],
   };
-}
+};
 
 /**
  * Calculate complete Holland test result
  */
-export function calculateHollandResult(
+export const calculateHollandResult = (
   answers: HollandAnswers,
   questions: HollandQuestion[]
-): HollandResult {
+): HollandResult => {
   const rawScores = calculateRawScores(answers, questions);
   const normalizedScores = normalizeScores(rawScores);
   const hollandCode = determineHollandCode(normalizedScores);
@@ -102,4 +102,4 @@ export function calculateHollandResult(
     normalizedScores,
     hollandCode,
   };
-}
+};

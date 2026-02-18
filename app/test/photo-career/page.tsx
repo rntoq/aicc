@@ -14,7 +14,7 @@ import { PhotoPair } from "./components/PhotoPair";
 import { calculatePhotoQuizResult } from "./utils/scoring";
 import { useTestsStore } from "@/lib/store/testsStore";
 
-export default function PhotoCareerQuizPage() {
+const PhotoCareerQuizPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const { answers, setAnswer, startTest } = usePhotoQuizStore();
@@ -72,7 +72,11 @@ export default function PhotoCareerQuizPage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default PhotoCareerQuizPage;;
+
+export default PhotoCareerQuizPage;
 
 const styles = {
   root: {

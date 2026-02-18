@@ -13,7 +13,7 @@ const FOOTER_LINK_KEYS = [
   { key: "footer_privacy", href: "/privacy" },
 ];
 
-export function Footer() {
+export const Footer = () => {
   const t = useTranslations();
   const { locale, setLocale } = useLocale();
   const footerLinks = FOOTER_LINK_KEYS.map(({ key, href }) => ({ label: t(key), href }));
@@ -78,7 +78,7 @@ export function Footer() {
       </motion.div>
     </Box>
   );
-}
+};
 
 const styles = {
   footer: {

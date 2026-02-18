@@ -1,6 +1,7 @@
 "use client";
 
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
+import type { SvgIconProps } from "@mui/material";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
@@ -8,59 +9,94 @@ import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
-import type { Theme } from "@mui/material/styles";
 
-const STAT_KEYS = [
+const STATS = [
   { icon: SchoolOutlinedIcon, value: 150, suffix: "+", labelKey: "stats_unis", descKey: "stats_unis_desc" },
   { icon: WorkOutlineOutlinedIcon, value: 200, suffix: "+", labelKey: "stats_profs", descKey: "stats_profs_desc" },
   { icon: AssignmentOutlinedIcon, value: 8, suffix: "", labelKey: "stats_tests", descKey: "stats_tests_desc" },
-];
+] as const;
 
-const gradientSpanSx = (theme: Theme) => ({
-  background: theme.landing.titleKeywordGradient,
-  backgroundClip: "text",
-  WebkitBackgroundClip: "text",
-  color: "text.primary.dark",
-  fontWeight: 700,
-});
+const CARD_ANIMATION = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-40px" },
+  transition: { duration: 0.4 },
+};
 
-function CountUp({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) {
+const CountUp = ({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) => {
   const [count, setCount] = useState(0);
+
   useEffect(() => {
     if (!inView) return;
+
     const step = Math.max(1, Math.floor(value / 40));
     const timer = setInterval(() => {
       setCount((c) => {
-        if (c >= value) {
+        const next = Math.min(c + step, value);
+        if (next >= value) {
           clearInterval(timer);
           return value;
         }
-        return Math.min(c + step, value);
+        return next;
       });
     }, 30);
+
     return () => clearInterval(timer);
   }, [inView, value]);
+
   return (
     <Typography variant="h3" sx={styles.value} component="span" display="block">
       {count}
       {suffix}
     </Typography>
   );
-}
+};
 
-export function StatsBlock() {
+const StatCard = ({
+  icon: Icon,
+  value,
+  suffix,
+  label,
+  description,
+  index,
+  inView,
+}: {
+  icon: React.ComponentType<SvgIconProps>;
+  value: number;
+  suffix: string;
+  label: string;
+  description: string;
+  index: number;
+  inView: boolean;
+}) => (
+  <motion.div {...CARD_ANIMATION} transition={{ ...CARD_ANIMATION.transition, delay: index * 0.1 }}>
+    <Box sx={styles.card}>
+      <Box sx={styles.iconWrap}>
+        <Icon sx={{ fontSize: 32 }} />
+      </Box>
+      <CountUp value={value} suffix={suffix} inView={inView} />
+      <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 0.5 }}>
+        {label}
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        {description}
+      </Typography>
+    </Box>
+  </motion.div>
+);
+
+export const StatsBlock = () => {
   const t = useTranslations();
-  const theme = useTheme();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const stats = STAT_KEYS.map((s) => ({ ...s, label: t(s.labelKey), description: t(s.descKey) }));
+
   return (
     <Box component="section" id="stats" sx={styles.section} ref={ref}>
       <Container maxWidth="lg">
         <Typography component="h2" variant="h2" textAlign="center" sx={styles.title}>
           <Box component="span" color="text.primary">
             {t("stats_title_part1")}
-            <Box component="span" className="text_gradient" sx={{ml: 1}}>
+            <Box component="span" className="text_gradient" sx={{ ml: 1 }}>
               {t("stats_title_part2")}
             </Box>
           </Box>
@@ -70,33 +106,23 @@ export function StatsBlock() {
         </Typography>
 
         <Box sx={styles.grid}>
-          {stats.map((item, i) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-            >
-              <Box sx={styles.card}>
-                <Box sx={styles.iconWrap}>
-                  <item.icon sx={{ fontSize: 32 }} />
-                </Box>
-                <CountUp value={item.value} suffix={item.suffix} inView={inView} />
-                <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 0.5 }}>
-                  {item.label}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {item.description}
-                </Typography>
-              </Box>
-            </motion.div>
+          {STATS.map((stat, index) => (
+            <StatCard
+              key={stat.labelKey}
+              icon={stat.icon}
+              value={stat.value}
+              suffix={stat.suffix}
+              label={t(stat.labelKey)}
+              description={t(stat.descKey)}
+              index={index}
+              inView={inView}
+            />
           ))}
         </Box>
       </Container>
     </Box>
   );
-}
+};
 
 const styles = {
   section: {
@@ -109,11 +135,6 @@ const styles = {
   },
   title: {
     mb: 1,
-  },
-  titlePart2: {
-    color: "primary.main",
-    fontWeight: 700,
-    ml: 1,
   },
   subtitle: {
     mb: 4,

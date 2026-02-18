@@ -10,7 +10,7 @@ function getStoredLocale(): Locale {
   if (typeof window === "undefined") return "ru";
   const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
   return stored === "kk" ? "kk" : "ru";
-}
+};
 
 type LocaleContextValue = {
   locale: Locale;
@@ -19,7 +19,7 @@ type LocaleContextValue = {
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
-export function LocaleProvider({ children }: { children: React.ReactNode }) {
+export const LocaleProvider = ({ children }: { children: React.ReactNode }) => {
   const [locale, setLocaleState] = useState<Locale>("ru");
 
   useEffect(() => {
@@ -38,10 +38,10 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
       {children}
     </LocaleContext.Provider>
   );
-}
+};
 
-export function useLocale() {
+export const useLocale = () => {
   const ctx = useContext(LocaleContext);
   if (!ctx) throw new Error("useLocale must be used within LocaleProvider");
   return ctx;
-}
+};

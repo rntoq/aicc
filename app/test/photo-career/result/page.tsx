@@ -35,7 +35,7 @@ const DESC_KEYS: Record<"R" | "I" | "A" | "S" | "E" | "C", string> = {
   C: "holland_desc_C",
 };
 
-export default function PhotoCareerResultPage() {
+const PhotoCareerResultPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -207,7 +207,9 @@ export default function PhotoCareerResultPage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default PhotoCareerResultPage;
 
 const styles = {
   root: {

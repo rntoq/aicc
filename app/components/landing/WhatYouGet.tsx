@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
-const fadeIn = {
+const FADE_IN = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-40px" },
@@ -19,17 +19,73 @@ const CARDS = [
   { title1Key: "whatyouget_card3_title", textKey: "whatyouget_card3_text", title2Key: "whatyouget_card3_title2" },
   { title1Key: "whatyouget_card4_title", textKey: "whatyouget_card4_text", title2Key: "whatyouget_card4_title2" },
   { title1Key: "whatyouget_card5_title", textKey: "whatyouget_card5_text", title2Key: "whatyouget_card5_title2" },
-];
+] as const;
 
-export function WhatYouGet() {
+type CardConfig = (typeof CARDS)[number];
+
+const FeatureCard = ({
+  card,
+  index,
+  t,
+  styles,
+}: {
+  card: CardConfig;
+  index: number;
+  t: ReturnType<typeof useTranslations>;
+  styles: typeof sectionStyles;
+}) => {
+  const title1 = t(card.title1Key);
+  const text = t(card.textKey);
+  const title2 = t(card.title2Key);
+
+  return (
+    <motion.div
+      {...FADE_IN}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: 0.08 * (index + 1) }}
+      style={{ height: "100%", minHeight: 0 }}
+    >
+      <Box sx={styles.infoCard}>
+        <Box sx={styles.textCol}>
+          {title1 && (
+            <Typography variant="h6" sx={styles.cardTitle}>
+              {title1.toUpperCase()}
+            </Typography>
+          )}
+          {text && (
+            <Typography variant="h5" className="whatyouget-cardText" sx={styles.cardText}>
+              {text.toUpperCase()}
+            </Typography>
+          )}
+          {title2 && (
+            <Typography variant="h6" sx={styles.cardTitle}>
+              {title2.toUpperCase()}
+            </Typography>
+          )}
+        </Box>
+        <Box sx={styles.imageWrap}>
+          <Image
+            src={BANNER_PLACEHOLDER_IMAGE}
+            width={200}
+            height={150}
+            alt=""
+            className="whatyouget-image"
+          />
+        </Box>
+      </Box>
+    </motion.div>
+  );
+};
+
+export const WhatYouGet = () => {
   const t = useTranslations();
+  const styles = sectionStyles;
 
   return (
     <Box component="section" id="what-you-get" sx={styles.section}>
       <Container maxWidth="lg">
         <Box sx={styles.grid}>
-          {/* Большой левый блок */}
-          <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0 }}>
+          <motion.div {...FADE_IN} transition={{ ...FADE_IN.transition, delay: 0 }}>
             <Box sx={styles.heroCard}>
               <Typography variant="h2" sx={styles.heroTitle1} className="text_gradient">
                 {t("whatyouget_title_part1").toUpperCase()}
@@ -40,64 +96,16 @@ export function WhatYouGet() {
             </Box>
           </motion.div>
 
-          {/* Остальные 5 карточек в сетке */}
-          {CARDS.map((card, idx) => {
-            const title1 = t(card.title1Key);
-            const title2 = t(card.title2Key);
-            const text = t(card.textKey);
-            return (
-              <motion.div
-                key={card.title1Key}
-                {...fadeIn}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.4, delay: 0.08 * (idx + 1) }}
-                style={{ height: "100%", minHeight: 0 }}
-              >
-                <Box sx={styles.infoCard}>
-                  <Box sx={styles.textCol}>
-                    {title1 && <Typography
-                      variant="h6"
-                      sx={styles.cardTitle}
-                    >
-                      {title1.toUpperCase()}
-                    </Typography>
-                    }
-                    {text && <Typography
-                      variant="h5"
-                      className="whatyouget-cardText"
-                      sx={styles.cardText}
-                    >
-                      {text.toUpperCase()}
-                    </Typography>
-                    }
-                    {title2 && <Typography
-                      variant="h6"
-                      sx={styles.cardTitle}
-                    >
-                      {title2.toUpperCase()}
-                    </Typography>
-                    }
-                  </Box>
-                  <Box sx={styles.imageWrap}>
-                      <Image
-                        src={BANNER_PLACEHOLDER_IMAGE}
-                        width={200}
-                        height={150}
-                        alt="Placeholder image"
-                        className="whatyouget-image"
-                      />
-                  </Box>
-                </Box>
-              </motion.div>
-            );
-          })}
+          {CARDS.map((card, idx) => (
+            <FeatureCard key={card.title1Key} card={card} index={idx} t={t} styles={styles} />
+          ))}
         </Box>
       </Container>
     </Box>
   );
-}
+};
 
-const styles = {
+const sectionStyles = {
   section: {
     py: { xs: 6, md: 8 },
     bgcolor: "background.paper",
@@ -187,4 +195,3 @@ const styles = {
     color: "transparent",
   },
 };
-

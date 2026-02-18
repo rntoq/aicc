@@ -17,7 +17,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
-export function AIChatBlock() {
+export const AIChatBlock = () => {
   const t = useTranslations();
   const exampleMessages = [
     { role: "user" as const, text: t("aichat_example_user") },
@@ -127,7 +127,7 @@ export function AIChatBlock() {
       </Container>
     </Box>
   );
-}
+};
 
 const styles = {
   section: {

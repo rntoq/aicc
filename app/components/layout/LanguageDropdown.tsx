@@ -21,7 +21,7 @@ const options: { value: Locale; label: string }[] = [
   { value: "kk", label: "KK" },
 ];
 
-export function LanguageDropdown() {
+export const LanguageDropdown = () => {
   const { locale, setLocale } = useLocale();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -91,7 +91,7 @@ export function LanguageDropdown() {
       </Menu>
     </>
   );
-}
+};
 
 const styles = {
   button: {

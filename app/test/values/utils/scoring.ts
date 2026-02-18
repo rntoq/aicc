@@ -27,10 +27,10 @@ export interface ValuesResult {
   top5: RankedValue[];
 }
 
-export function calculateAverageScores(
+export const calculateAverageScores = (
   answers: ValuesAnswers,
   questions: CareerValueQuestion[]
-): AverageScores {
+): AverageScores => {
   const grouped: Record<CareerValueCategory, number[]> = {
     ACHIEVEMENT: [],
     INDEPENDENCE: [],
@@ -68,19 +68,19 @@ export function calculateAverageScores(
   });
 
   return averages;
-}
+};
 
-export function determineImportanceLevel(
+export const determineImportanceLevel = (
   score: number
-): RankedValue["importanceLevel"] {
+): RankedValue["importanceLevel"] => {
   if (score >= 4.5) return "critically_important";
   if (score >= 3.5) return "very_important";
   if (score >= 2.5) return "moderately_important";
   if (score >= 1.5) return "somewhat_important";
   return "not_important";
-}
+};
 
-export function rankValues(averageScores: AverageScores): RankedValue[] {
+export const rankValues = (averageScores: AverageScores): RankedValue[] => {
   const entries = Object.entries(averageScores) as [
     CareerValueCategory,
     number
@@ -93,23 +93,23 @@ export function rankValues(averageScores: AverageScores): RankedValue[] {
     score,
     importanceLevel: determineImportanceLevel(score),
   }));
-}
+};
 
-export function getTopValues(
+export const getTopValues = (
   ranked: RankedValue[],
   count = 5
-): RankedValue[] {
+): RankedValue[] => {
   return ranked.slice(0, count);
-}
+};
 
-export function calculateValuesResult(
+export const calculateValuesResult = (
   answers: ValuesAnswers,
   questions: CareerValueQuestion[]
-): ValuesResult {
+): ValuesResult => {
   const averageScores = calculateAverageScores(answers, questions);
   const ranked = rankValues(averageScores);
   const top5 = getTopValues(ranked, 5);
 
   return { averageScores, ranked, top5 };
-}
+};
 

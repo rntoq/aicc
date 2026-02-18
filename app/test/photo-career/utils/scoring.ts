@@ -50,10 +50,10 @@ const CATEGORY_TO_HOLLAND: Record<PhotoCategory, "R" | "I" | "A" | "S" | "E" | "
 /**
  * Calculate category counts from answers
  */
-export function calculateCategoryCounts(
+export const calculateCategoryCounts = (
   answers: PhotoQuizAnswers,
   questions: PhotoQuestion[]
-): CategoryCounts {
+): CategoryCounts => {
   const counts: CategoryCounts = {
     BUILDING: 0,
     THINKING: 0,
@@ -72,12 +72,12 @@ export function calculateCategoryCounts(
   });
 
   return counts;
-}
+};
 
 /**
  * Normalize counts to percentages
  */
-export function normalizeToPercentages(counts: CategoryCounts): CategoryPercentages {
+export const normalizeToPercentages = (counts: CategoryCounts): CategoryPercentages => {
   const total = Object.values(counts).reduce((sum, val) => sum + val, 0);
   if (total === 0) {
     return {
@@ -98,14 +98,14 @@ export function normalizeToPercentages(counts: CategoryCounts): CategoryPercenta
     PERSUADING: Math.round((counts.PERSUADING / total) * 100 * 10) / 10,
     ORGANIZING: Math.round((counts.ORGANIZING / total) * 100 * 10) / 10,
   };
-}
+};
 
 /**
  * Convert Photo categories to Holland Code scores
  */
-export function convertToHollandScores(
+export const convertToHollandScores = (
   percentages: CategoryPercentages
-): HollandScores {
+): HollandScores => {
   return {
     R: percentages.BUILDING,
     I: percentages.THINKING,
@@ -114,17 +114,17 @@ export function convertToHollandScores(
     E: percentages.PERSUADING,
     C: percentages.ORGANIZING,
   };
-}
+};
 
 /**
  * Determine Holland Code from scores
  */
-export function determineHollandCode(scores: HollandScores): {
+export const determineHollandCode = (scores: HollandScores): {
   code: string;
   primary: "R" | "I" | "A" | "S" | "E" | "C";
   secondary: "R" | "I" | "A" | "S" | "E" | "C";
   tertiary: "R" | "I" | "A" | "S" | "E" | "C";
-} {
+} => {
   const entries = Object.entries(scores) as [
     "R" | "I" | "A" | "S" | "E" | "C",
     number
@@ -138,15 +138,15 @@ export function determineHollandCode(scores: HollandScores): {
     secondary: top3[1][0],
     tertiary: top3[2][0],
   };
-}
+};
 
 /**
  * Calculate complete Photo Quiz result
  */
-export function calculatePhotoQuizResult(
+export const calculatePhotoQuizResult = (
   answers: PhotoQuizAnswers,
   questions: PhotoQuestion[]
-): PhotoQuizResult {
+): PhotoQuizResult => {
   const categoryCounts = calculateCategoryCounts(answers, questions);
   const categoryPercentages = normalizeToPercentages(categoryCounts);
   const hollandScores = convertToHollandScores(categoryPercentages);
@@ -158,4 +158,4 @@ export function calculatePhotoQuizResult(
     hollandScores,
     ...hollandCode,
   };
-}
+};

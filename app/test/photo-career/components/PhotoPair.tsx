@@ -14,7 +14,7 @@ export interface PhotoPairProps {
   onSelect: (option: "optionA" | "optionB") => void;
 }
 
-export function PhotoPair({ question, onSelect }: PhotoPairProps) {
+export const PhotoPair = ({ question, onSelect }: PhotoPairProps) => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.pairContainer}>
@@ -48,7 +48,7 @@ export function PhotoPair({ question, onSelect }: PhotoPairProps) {
       </Box>
     </Box>
   );
-}
+};
 
 const styles = {
   container: {

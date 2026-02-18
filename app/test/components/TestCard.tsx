@@ -6,6 +6,10 @@ import { useTranslations } from "next-intl";
 import type { TestItem } from "@/app/test/constants";
 import { useRouter } from "next/navigation";
 import { useTestsStore } from "@/lib/store/testsStore";
+import type { ReactNode } from "react";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LockResetIcon from '@mui/icons-material/LockReset';
+
 const CARD_ACCENTS = [
   { border: "#7f7fd5", bg: "rgba(127, 127, 213, 0.06)", titleColor: "#7f7fd5" },
   { border: "#86a8e7", bg: "rgba(134, 168, 231, 0.06)", titleColor: "#86a8e7" },
@@ -19,27 +23,27 @@ const CARD_ACCENTS = [
   { border: "#64748B", bg: "rgba(100, 116, 139, 0.06)", titleColor: "#64748B" },
 ];
 
-function getBadgeLabel(
+const getBadgeLabel = (
   test: TestItem,
   t: ReturnType<typeof useTranslations>
-): string {
-  if (test.required) return t("tests_badge_required");
+): ReactNode => {
+  if (test.required) return <><LockResetIcon sx={{ fontSize: 14, mr: 0.5 }} /> {t("tests_badge_required")}</>;
   if (test.status === "paid" && test.price) return `${test.price}₸`;
   if (test.status === "premium" && test.price) return `${test.price}₸`;
-  if (test.status === "free" && !test.required) return t("tests_badge_optional");
+  if (test.status === "free" && !test.required) return <><InfoOutlinedIcon sx={{ fontSize: 14, mr: 0.5 }} /> {t("tests_badge_optional")}</>;
   return t("tests_badge_free");
-}
+};
 
-function getBadgeStyle(test: TestItem): { bg: string; color: string } {
+const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
   if (test.required) return { bg: "rgba(99, 102, 241, 0.15)", color: "#6366F1" };
   if (test.status === "paid" || test.status === "premium")
     return { bg: "rgba(2, 255, 36, 0.15)", color: "#10b981" };
   if (test.status === "free" && !test.required)
     return { bg: "rgba(100, 116, 139, 0.15)", color: "#64748B" };
   return { bg: "rgba(34, 197, 94, 0.15)", color: "#22C55E" };
-}
+};
 
-  export function TestCard({ test, index, variant, disabled }: { test: TestItem, index: number, variant: String, disabled?: boolean }) {
+export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, index: number, variant: String, disabled?: boolean }) => {
   const t = useTranslations();
   const router = useRouter();
   const { isCompleted, setOpenResultModalId } = useTestsStore();
@@ -191,7 +195,7 @@ function getBadgeStyle(test: TestItem): { bg: string; color: string } {
                   
         </motion.div>
   );
-}
+};
 
 const styles = {
   section: {
@@ -244,10 +248,11 @@ const styles = {
     },
   },
   badge: {
-    display: "inline-block",
+    display: "flex",
     alignSelf: "flex-start",
     px: 1.5,
     py: 0.5,
+    alignItems: "center",
     borderRadius: 999,
     fontSize: 11,
     fontWeight: 700,

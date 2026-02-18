@@ -9,7 +9,7 @@ import { BigFiveQuestionRow } from "./components/QuestionRow";
 import { calculateBigFiveResult } from "./utils/scoring";
 import { useTestsStore } from "@/lib/store/testsStore";
 
-export default function BigFivePage() {
+const BigFivePage = () => {
   const router = useRouter();
   const { hydrated, hydrate, answers, setAnswer, startTest } = useBigFiveStore();
   const { setCompleted } = useTestsStore();
@@ -102,5 +102,7 @@ export default function BigFivePage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default BigFivePage;
 

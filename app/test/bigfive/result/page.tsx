@@ -15,7 +15,7 @@ import { useBigFiveStore } from "@/lib/store/bigFiveStore";
 import { BIG_FIVE_QUESTIONS, BIG_FIVE_TRAITS, type BigFiveTrait } from "../questions";
 import { calculateBigFiveResult, type BigFiveResult } from "../utils/scoring";
 
-export default function BigFiveResultPage() {
+const BigFiveResultPage = () => {
   const router = useRouter();
   const { hydrated, hydrate, answers, reset } = useBigFiveStore();
   const [result, setResult] = useState<BigFiveResult | null>(null);
@@ -135,5 +135,7 @@ export default function BigFiveResultPage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default BigFiveResultPage;
 

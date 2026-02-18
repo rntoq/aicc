@@ -18,11 +18,11 @@ export interface ValuesQuestionRowProps {
 
 const SCALE_VALUES = [1, 2, 3, 4, 5] as const;
 
-export function ValuesQuestionRow({
+export const ValuesQuestionRow = ({
   question,
   value,
   onChange,
-}: ValuesQuestionRowProps) {
+}: ValuesQuestionRowProps) => {
   const t = useTranslations();
 
   return (
@@ -57,7 +57,7 @@ export function ValuesQuestionRow({
       </RadioGroup>
     </Box>
   );
-}
+};
 
 const styles = {
   row: {

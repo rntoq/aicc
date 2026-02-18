@@ -8,7 +8,7 @@ export interface ProgressBarProps {
   total: number;
 }
 
-export function ProgressBar({ progress, current, total }: ProgressBarProps) {
+export const ProgressBar = ({ progress, current, total }: ProgressBarProps) => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.header}>
@@ -26,7 +26,7 @@ export function ProgressBar({ progress, current, total }: ProgressBarProps) {
       />
     </Box>
   );
-}
+};
 
 const styles = {
   container: {

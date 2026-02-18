@@ -105,7 +105,7 @@ const cardStyle = {
   borderColor: "divider",
 };
 
-export default function DiscPage() {
+const DiscPage = () => {
   const router = useRouter();
   const { answers, setAnswer, startTest, getProgress } = useDiscStore();
   const { setCompleted } = useTestsStore();
@@ -340,5 +340,7 @@ export default function DiscPage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default DiscPage;
 

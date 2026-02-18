@@ -50,7 +50,7 @@ const SECTIONS = [
 
 const motionWrapperStyle = { maxWidth: 960, margin: "0 auto" };
 
-export function PaidPlanSection() {
+export const PaidPlanSection = () => {
   const t = useTranslations();
   const [activeSection, setActiveSection] = useState(0);
   const currentSection = SECTIONS[activeSection];
@@ -105,7 +105,7 @@ export function PaidPlanSection() {
       </Container>
     </Box>
   );
-}
+};
 
 const styles = {
   section: {

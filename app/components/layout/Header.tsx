@@ -12,10 +12,9 @@ import { LanguageDropdown } from "./LanguageDropdown";
 const NAV_ITEMS: { labelKey: string; href: string }[] = [
   { labelKey: "hero_cta2", href: "/#how-it-works" },
   { labelKey: "header_takeTest", href: "/test" },
-  { labelKey: "header_professions", href: "/professions" },
 ];
 
-export function Header() {
+export const Header = () => {
   const t = useTranslations();
   const navItems = NAV_ITEMS.map((item) => ({ label: t(item.labelKey), href: item.href }));
   return (
@@ -64,7 +63,7 @@ export function Header() {
       </Container>
     </AppBar>
   );
-}
+};
 
 const styles = {
   appBar: {

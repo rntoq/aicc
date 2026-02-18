@@ -25,7 +25,7 @@ const DISC_COLORS: Record<DiscType, string> = {
   C: "#3498DB",
 };
 
-export default function DiscResultPage() {
+const DiscResultPage = () => {
   const router = useRouter();
   const { answers, reset } = useDiscStore();
   const [result, setResult] = useState<DiscResult | null>(null);
@@ -124,5 +124,7 @@ export default function DiscResultPage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default DiscResultPage;
 

@@ -6,105 +6,109 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
-const fadeIn = {
+const FADE_IN = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-40px" },
   transition: { duration: 0.45 },
 };
 
-const motionWrapperSx = { width: "100%", height: "100%", display: "flex" };
+const imageStyle = { objectFit: "cover" as const };
 
-export function HowItWorks() {
+const StepCard = ({
+  children,
+  delay,
+  order,
+}: {
+  children: React.ReactNode;
+  delay: number;
+  order: { xs: number; md: number };
+}) => (
+  <Grid size={{ xs: 12, md: 4 }} sx={{ order, display: "flex" }}>
+    <motion.div
+      {...FADE_IN}
+      transition={{ ...FADE_IN.transition, delay }}
+      style={{ width: "100%", height: "100%", display: "flex" }}
+    >
+      {children}
+    </motion.div>
+  </Grid>
+);
+
+export const HowItWorks = () => {
   const t = useTranslations();
+  const styles = sectionStyles;
 
   return (
     <Box component="section" id="how-it-works" sx={styles.section}>
       <Container maxWidth="lg">
         <Typography component="h2" variant="h2" textAlign="center" sx={styles.title}>
-            <Box component="span" className="text_gradient" sx={{mr: 1}}>
-              {t("how_title_part1")}
-            </Box>
-              {t("how_title_part2")}?
+          <Box component="span" className="text_gradient" sx={{ mr: 1 }}>
+            {t("how_title_part1")}
+          </Box>
+          {t("how_title_part2")}?
         </Typography>
         <Typography variant="body1" textAlign="center" sx={styles.subtitle}>
           {t("how_subtitle_part1")} {t("how_subtitle_part2")}
         </Typography>
 
-        <Grid
-          container
-          spacing={3}
-          sx={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            justifyContent: "center",
-            alignItems: "stretch",
-          }}
-        >
-          <Grid size={{ xs: 12, md: 4 }} sx={{ order: { xs: 2, md: 1 }, display: "flex" }}>
-            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.1 }} style={motionWrapperSx}>
-              <Box sx={styles.card}>
-                <Box sx={styles.stackedCards}>
-                  <Box />
-                  <Box />
-                  <Box />
-                  <Box />
-                  <Box />
-                </Box>
-                <Typography sx={styles.step1Value}>{t("how_step1_value").toUpperCase()}</Typography>
-                <Typography variant="body2" sx={{ mb: 1.5 }} className="text_gradient">
-                  {t("how_step1_desc")}
-                </Typography>
+        <Grid container spacing={3} sx={styles.grid}>
+          <StepCard delay={0.1} order={{ xs: 2, md: 1 }}>
+            <Box sx={styles.card}>
+              <Box sx={styles.stackedCards}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Box key={i} />
+                ))}
               </Box>
-            </motion.div>
-          </Grid>
+              <Typography sx={styles.step1Value}>{t("how_step1_value").toUpperCase()}</Typography>
+              <Typography variant="body2" sx={{ mb: 1.5 }} className="text_gradient">
+                {t("how_step1_desc")}
+              </Typography>
+            </Box>
+          </StepCard>
 
-          <Grid size={{ xs: 12, md: 4 }} sx={{ order: { xs: 1, md: 2 }, display: "flex" }}>
-            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.2 }} style={motionWrapperSx}>
-              <Box sx={styles.centerCard}>
-                <Typography sx={styles.centerCardTitle}>{t("how_step2_title")}</Typography>
-                <Typography sx={styles.centerCardValue}>{t("how_step2_value")}</Typography>
-                <Typography variant="body2">{t("how_step2_desc")}</Typography>
-                <Box sx={styles.centerBannerWrap}>
-                  <Image
-                    src={BANNER_PLACEHOLDER_IMAGE}
-                    alt=""
-                    width={200}
-                    height={120}
-                    style={{ width: "100%", height: "auto", objectFit: "contain", borderRadius: 12 }}
-                  />
-                </Box>
+          <StepCard delay={0.2} order={{ xs: 1, md: 2 }}>
+            <Box sx={styles.centerCard}>
+              <Typography sx={styles.centerCardTitle}>{t("how_step2_title")}</Typography>
+              <Typography sx={styles.centerCardValue}>{t("how_step2_value")}</Typography>
+              <Typography variant="body2">{t("how_step2_desc")}</Typography>
+              <Box sx={styles.centerBannerWrap}>
+                <Image
+                  src={BANNER_PLACEHOLDER_IMAGE}
+                  alt=""
+                  width={200}
+                  height={120}
+                  style={{ width: "100%", height: "auto", objectFit: "contain", borderRadius: 12 }}
+                />
               </Box>
-            </motion.div>
-          </Grid>
+            </Box>
+          </StepCard>
 
-          <Grid size={{ xs: 12, md: 4 }} sx={{ order: { xs: 3, md: 3 }, display: "flex" }}>
-            <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.3 }} style={motionWrapperSx}>
-              <Box sx={styles.resultCard}>
-                <Box sx={styles.resultBannerWrap}>
-                  <Image
-                    src={BANNER_PLACEHOLDER_IMAGE}
-                    alt=""
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: "cover" }}
-                  />
-                  <Box sx={styles.resultBannerFade} />
-                </Box>
-                <Box sx={styles.resultContent}>
-                  <Typography sx={styles.resultTitle}>{t("how_step3_title").toUpperCase()}</Typography>
-                  <Typography sx={styles.resultValue}>{t("how_step3_value")}</Typography>
-                </Box>
+          <StepCard delay={0.3} order={{ xs: 3, md: 3 }}>
+            <Box sx={styles.resultCard}>
+              <Box sx={styles.resultBannerWrap}>
+                <Image
+                  src={BANNER_PLACEHOLDER_IMAGE}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  style={imageStyle}
+                />
+                <Box sx={styles.resultBannerFade} />
               </Box>
-            </motion.div>
-          </Grid>
+              <Box sx={styles.resultContent}>
+                <Typography sx={styles.resultTitle}>{t("how_step3_title").toUpperCase()}</Typography>
+                <Typography sx={styles.resultValue}>{t("how_step3_value")}</Typography>
+              </Box>
+            </Box>
+          </StepCard>
         </Grid>
       </Container>
     </Box>
   );
-}
+};
 
-const styles = {
+const sectionStyles = {
   section: {
     py: { xs: 6, md: 8 },
   },
@@ -116,6 +120,12 @@ const styles = {
   subtitle: {
     mb: 4,
     color: "text.secondary",
+  },
+  grid: {
+    maxWidth: 1200,
+    margin: "0 auto",
+    justifyContent: "center",
+    alignItems: "stretch",
   },
   card: {
     borderRadius: 3,
@@ -164,8 +174,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
-    background:
-      "linear-gradient(135deg, rgba(127, 127, 213, 0.38) 0%, rgba(134, 168, 231, 0.42) 100%)",
+    background: "linear-gradient(135deg, rgba(127, 127, 213, 0.38) 0%, rgba(134, 168, 231, 0.42) 100%)",
     color: "text.primary",
     boxShadow: "0 12px 40px rgba(91, 111, 214, 0.35)",
     transition:

@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import {
   Hero,
   HowItWorks,
@@ -8,19 +9,20 @@ import {
   AIChatBlock,
   Footer,
 } from "@/app/components/landing";
-import { Box } from "@mui/material";
 
-export default function Home() {
-  return (
-    <Box component="main" sx={{ minHeight: "100vh" }}>
-      <Hero />
-      <WhatYouGet />
-      <HowItWorks />
-      <TestsCarousel />
-      <PaidPlanSection />
-      <StatsBlock />
-      <AIChatBlock />
-      <Footer />
-    </Box>
-  );
-}
+const styles = { main: { minHeight: "100vh" } };
+
+const Home = () => (
+  <Box component="main" sx={styles.main}>
+    <Hero />
+    <WhatYouGet />
+    <HowItWorks />
+    <TestsCarousel />
+    <PaidPlanSection />
+    <StatsBlock />
+    <AIChatBlock />
+    <Footer />
+  </Box>
+);
+
+export default Home;

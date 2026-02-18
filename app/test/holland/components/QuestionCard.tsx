@@ -33,13 +33,13 @@ const HOLLAND_LIKERT_KEYS: Record<(typeof LIKERT_VALUES)[number], string> = {
   5: "holland_likert_5",
 };
 
-export function QuestionCard({
+export const QuestionCard = ({
   question,
   value,
   onChange,
   questionNumber,
   totalQuestions,
-}: QuestionCardProps) {
+}: QuestionCardProps) => {
   const t = useTranslations();
   return (
     <motion.div
@@ -83,7 +83,7 @@ export function QuestionCard({
       </Card>
     </motion.div>
   );
-}
+};;
 
 const styles = {
   card: {
