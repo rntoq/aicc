@@ -98,7 +98,7 @@ const styles = {
     px: 1.5,
     "&:hover": {
       color: "primary.main",
-      bgcolor: "action.hover",
+      bgcolor: "transparent",
     },
   },
   actions: {

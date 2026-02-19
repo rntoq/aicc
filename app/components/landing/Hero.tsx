@@ -76,7 +76,7 @@ export const Hero = () => {
                 variant="contained"
                 size="large"
                 startIcon={<PsychologyOutlinedIcon />}
-                href="#test"
+                href="test"
                 sx={styles.ctaButton}
               >
                 {t("hero_cta1")}
