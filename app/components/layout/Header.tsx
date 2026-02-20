@@ -6,6 +6,7 @@ import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 import { LanguageDropdown } from "./LanguageDropdown";
 
@@ -15,6 +16,10 @@ const NAV_ITEMS: { labelKey: string; href: string }[] = [
 ];
 
 export const Header = () => {
+  const pathname = usePathname();
+  const hideHeader = pathname?.startsWith("/app") || pathname?.startsWith("/logout");
+  if (hideHeader) return null;
+
   const t = useTranslations();
   const navItems = NAV_ITEMS.map((item) => ({ label: t(item.labelKey), href: item.href }));
   return (
@@ -43,7 +48,7 @@ export const Header = () => {
             <Button
               component={Link}
               href="/login"
-              startIcon={<LoginOutlinedIcon />}
+              variant="outlined"
               sx={styles.loginButton}
             >
               {t("login")}
@@ -53,7 +58,6 @@ export const Header = () => {
               href="/register"
               variant="contained"
               color="primary"
-              startIcon={<PersonAddOutlinedIcon />}
               sx={styles.registerButton}
             >
               {t("register")}
@@ -107,14 +111,11 @@ const styles = {
     gap: 0.5,
   },
   loginButton: {
-    color: "text.primary",
-    textTransform: "none",
-    display: { xs: "none", sm: "inline-flex" },
-    "&:hover": { bgcolor: "action.hover" },
+    color: "primary.main",
+    padding: "4px 12px",
   },
   registerButton: {
-    textTransform: "none",
-    borderRadius: 2,
-    px: 2,
+    padding: "4px 12px",
+    border: "2px solid #7f7fd5",
   },
 };

@@ -21,11 +21,12 @@ function IntlProvider({ children }: { children: React.ReactNode }) {
       key={locale}
       locale={locale}
       messages={messages[locale] ?? ru}
+      timeZone="Asia/Almaty"
     >
       {children}
     </NextIntlClientProvider>
   );
-};
+}
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(

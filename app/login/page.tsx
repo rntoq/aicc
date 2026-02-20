@@ -11,11 +11,13 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ const LoginPage = () => {
     // Сейчас просто имитация запроса.
     setTimeout(() => {
       setSubmitting(false);
+      router.push("/app");
     }, 800);
   };
 
