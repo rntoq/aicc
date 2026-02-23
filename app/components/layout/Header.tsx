@@ -1,8 +1,6 @@
 "use client";
 
 import { AppBar, Box, Button, Container, Toolbar } from "@mui/material";
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";

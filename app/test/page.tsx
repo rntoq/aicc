@@ -225,7 +225,7 @@ const TestPage = () => {
 export default TestPage;
 
 const styles = {
-    root: { pt: { xs: 4, md: 7 }, minHeight: "60vh" },
+    root: { pt: { xs: 7, sm: 8 }, minHeight: "60vh" },
     section: { mb: 6 },
     heroBox: {
       position: "relative",

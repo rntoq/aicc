@@ -10,7 +10,7 @@ import {
   Footer,
 } from "@/app/components/landing";
 
-const styles = { main: { minHeight: "100vh" } };
+const styles = { main: { minHeight: "100vh", pt: { xs: 7, sm: 8 } } };
 
 const Home = () => (
   <Box component="main" sx={styles.main}>

@@ -16,34 +16,6 @@ import { AppLayout } from "@/app/components/layout/AppLayout";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 
-const styles = {
-  chatContainer: {
-    display: "flex",
-    flexDirection: "column",
-    height: "calc(100vh - 200px)",
-    minHeight: 500,
-    maxHeight: 800,
-  },
-  messagesArea: {
-    flex: 1,
-    overflowY: "auto",
-    mb: 2,
-    px: 1,
-  },
-  messageBubble: {
-    maxWidth: "75%",
-    mb: 2,
-    p: 2,
-    borderRadius: 2,
-  },
-  inputPaper: {
-    display: "flex",
-    alignItems: "center",
-    p: 1,
-    borderRadius: 2,
-  },
-};
-
 const AIChatPage = () => {
   const [messages] = useState([
     { role: "ai" as const, text: "Hello! I'm your AI career advisor. How can I help you today?" },
@@ -59,7 +31,7 @@ const AIChatPage = () => {
   return (
     <AppLayout title="AI Chat">
       <Box>
-        <Card sx={styles.chatContainer}>
+        <Box sx={styles.chatContainer}>
           <CardContent sx={{ p: 2.5, height: "100%", display: "flex", flexDirection: "column" }}>
             <Box sx={styles.messagesArea}>
               {messages.map((msg, idx) => (
@@ -104,10 +76,38 @@ const AIChatPage = () => {
               </IconButton>
             </Paper>
           </CardContent>
-        </Card>
+        </Box>
       </Box>
     </AppLayout>
   );
 };
 
 export default AIChatPage;
+
+const styles = {
+  chatContainer: {
+    display: "flex",
+    flexDirection: "column",
+    height: "calc(100vh - 100px)",
+    minHeight: 500,
+    maxHeight: 800,
+  },
+  messagesArea: {
+    flex: 1,
+    overflowY: "auto",
+    mb: 2,
+    px: 1,
+  },
+  messageBubble: {
+    maxWidth: "75%",
+    mb: 2,
+    p: 2,
+    borderRadius: 2,
+  },
+  inputPaper: {
+    display: "flex",
+    alignItems: "center",
+    p: 1,
+    borderRadius: 2,
+  },
+};

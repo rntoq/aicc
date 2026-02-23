@@ -74,8 +74,6 @@ const PhotoCareerQuizPage = () => {
   );
 };
 
-export default PhotoCareerQuizPage;;
-
 export default PhotoCareerQuizPage;
 
 const styles = {

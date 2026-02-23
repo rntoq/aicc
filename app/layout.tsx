@@ -29,7 +29,7 @@ const RootLayout = ({
         <StyledComponentsRegistry>
           <Providers>
             <Header />
-            <Box component="main" sx={{ pt: { xs: 7, sm: 8 } }}>
+            <Box component="main">
               {children}
             </Box>
           </Providers>

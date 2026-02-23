@@ -228,6 +228,7 @@ const styles = {
     flexShrink: 0,
     height: 350,
     maxWidth: 300,
+    mx: "auto",
     minHeight: 280,
     display: "flex",
     flexDirection: "column",

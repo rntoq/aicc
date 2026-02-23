@@ -70,6 +70,12 @@ const HollandTestPage = () => {
     }
   };
 
+  const handleNext = () => {
+    if (currentQuestionIndex < totalQuestions - 1) {
+      setCurrentQuestion(currentQuestionIndex + 1);
+    }
+  };
+
   const handleSubmit = async (finalAnswers?: typeof answers) => {
     const usedAnswers = finalAnswers ?? answers;
     if (Object.keys(usedAnswers).length !== totalQuestions) return;
@@ -123,6 +129,14 @@ const HollandTestPage = () => {
             sx={styles.navButton}
           >
             {t("holland_back")}
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleNext}
+            disabled={!currentAnswer}
+            sx={styles.navButton}
+          >
+            {t("holland_next")}
           </Button>
         </Box>
       </Container>

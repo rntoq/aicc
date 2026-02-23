@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Divider,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import QueryStatsOutlinedIcon from "@mui/icons-material/QueryStatsOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
@@ -17,6 +9,8 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/app", icon: DashboardOutlinedIcon },
@@ -37,45 +31,13 @@ export const Sidebar = () => {
     pathname === href || (href !== "/app" && pathname.startsWith(href));
 
   return (
-    <Box
-      sx={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        p: 1.5,
-      }}
-    >
-      {/* Top: logo + nav */}
-      <Box sx={{ mb: 1.5 }}>
-        <Box
-          component={Link}
-          href="/app"
-          sx={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 1,
-            px: 1,
-            py: 1,
-            borderRadius: 1.5,
-            textDecoration: "none",
-            color: "text.primary",
-            mb: 1,
-          }}
-        >
-          <Box
-            sx={{
-              width: 28,
-              height: 28,
-              borderRadius: 1,
-              bgcolor: "primary.main",
-            }}
-          />
-          <Typography variant="h6" sx={{ fontSize: "1rem", fontWeight: 700 }}>
-            KarieraPro
-          </Typography>
+    <Box sx={styles.sidebar}>
+      <Box>
+        <Box component={Link} href="/">
+          <Image src={BANNER_PLACEHOLDER_IMAGE} alt="Logo" width={100} height={48} />
         </Box>
 
-        <List sx={{ mb: 1 }}>
+        <List sx={{ my: 5 }}>
           {NAV_ITEMS.map(({ label, href, icon: Icon }) => {
             const active = isActive(href);
             return (
@@ -83,22 +45,7 @@ export const Sidebar = () => {
                 key={href}
                 component={Link}
                 href={href}
-                sx={{
-                  mb: 0.5,
-                  borderRadius: 1.5,
-                  px: 1,
-                  py: 0.75,
-                  color: active ? "primary.main" : "text.secondary",
-                  bgcolor: active ? "action.selected" : "transparent",
-                  borderLeft: active ? 3 : 3,
-                  borderLeftColor: active ? "primary.main" : "transparent",
-                  transition: "background-color 0.2s ease, color 0.2s ease",
-                  "&:hover": {
-                    bgcolor: "action.hover",
-                    color: "text.primary",
-                  },
-                }}
-              >
+                sx={styles.navItem}>
                 <ListItemIcon
                   sx={{
                     minWidth: 40,
@@ -109,7 +56,7 @@ export const Sidebar = () => {
                 </ListItemIcon>
                 <ListItemText
                   primary={label}
-                  primaryTypographyProps={{ fontSize: 14, fontWeight: active ? 600 : 500 }}
+                  primaryTypographyProps={{ fontSize: 14, color: active ? "primary.main" : "text.secondary", fontWeight: 600 }}
                 />
               </ListItemButton>
             );
@@ -125,17 +72,7 @@ export const Sidebar = () => {
               key={href}
               component={Link}
               href={href}
-              sx={{
-                mb: 0.5,
-                borderRadius: 1.5,
-                px: 1,
-                py: 0.75,
-                color: "text.secondary",
-                "&:hover": {
-                  bgcolor: "action.hover",
-                  color: "text.primary",
-                },
-              }}
+              sx={styles.bottomItem}
             >
               <ListItemIcon sx={{ minWidth: 40, color: "text.secondary" }}>
                 <Icon fontSize="small" />
@@ -152,3 +89,35 @@ export const Sidebar = () => {
   );
 };
 
+const styles = {
+  sidebar: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    px: 3,
+    py: 5,
+  },
+  navItem: {
+    mb: 0.5,
+    borderRadius: 1.5,
+    px: 1,
+    py: 0.75,
+    color: "text.secondary",
+    "&:hover": {
+      bgcolor: "action.hover",
+      color: "text.primary",
+    },
+  },
+  bottomItem: {
+    mb: 0.5,
+    borderRadius: 1.5,
+    px: 1,
+    py: 0.75,
+    color: "text.secondary",
+    "&:hover": {
+      bgcolor: "action.hover",
+      color: "text.primary",
+    },
+  },
+};
