@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-// КарьераПро: палитра #7f7fd5, #86a8e7, #91eae4
+// CareerMap: палитра #7f7fd5, #86a8e7, #91eae4
 const primary = "#7f7fd5";
 const primaryLight = "#86a8e7";
 const secondary = "#91eae4";

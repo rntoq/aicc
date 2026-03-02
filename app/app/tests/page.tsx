@@ -20,7 +20,7 @@ export default function TestsPage() {
         </Typography>
         <Grid container spacing={3}>
           {ALL_TESTS.map((test, index) => (
-            <Grid key={test.id} sx={{ mx: "auto" }}>
+            <Grid key={test.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
               <TestCard test={test} index={index} variant="custom" />
             </Grid>
           ))}

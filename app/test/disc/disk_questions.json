@@ -1,0 +1,226 @@
+{
+    "pairs": [
+      {
+        "id": "disc_q01",
+        "number": 1,
+        "left": {
+          "text": {
+            "ru": "Открытый",
+            "kk": "Ашық",
+            "en": "Open"
+          },
+          "type": "I"
+        },
+        "right": {
+          "text": {
+            "ru": "Скептичный",
+            "kk": "Скептик",
+            "en": "Skeptical"
+          },
+          "type": "C"
+        }
+      },
+      {
+        "id": "disc_q02",
+        "number": 2,
+        "left": {
+          "text": {
+            "ru": "Жизнерадостный",
+            "kk": "Көңілді",
+            "en": "Cheerful"
+          },
+          "type": "I"
+        },
+        "right": {
+          "text": {
+            "ru": "Методичный",
+            "kk": "Жүйелі",
+            "en": "Methodical"
+          },
+          "type": "C"
+        }
+      },
+      {
+        "id": "disc_q03",
+        "number": 3,
+        "left": {
+          "text": {
+            "ru": "Сдержанный",
+            "kk": "Сабырлы",
+            "en": "Reserved"
+          },
+          "type": "C"
+        },
+        "right": {
+          "text": {
+            "ru": "Динамичный",
+            "kk": "Белсенді",
+            "en": "Dynamic"
+          },
+          "type": "D"
+        }
+      }
+    ],
+  
+    "singleWords": [
+      {
+        "id": "agreeable",
+        "text": {
+          "ru": "Дружелюбный",
+          "kk": "Достыққа бейім",
+          "en": "Agreeable"
+        }
+      },
+      {
+        "id": "daring",
+        "text": {
+          "ru": "Смелый",
+          "kk": "Батыл",
+          "en": "Daring"
+        }
+      },
+      {
+        "id": "sociable",
+        "text": {
+          "ru": "Общительный",
+          "kk": "Қарым-қатынасқа ашық",
+          "en": "Sociable"
+        }
+      },
+      {
+        "id": "dominant",
+        "text": {
+          "ru": "Доминирующий",
+          "kk": "Басқарушы",
+          "en": "Dominant"
+        }
+      }
+    ],
+  
+    "scenarios": [
+      {
+        "id": "group_role",
+        "question": {
+          "ru": "В группе я…",
+          "kk": "Топта мен…",
+          "en": "In a group, I usually…"
+        },
+        "options": [
+          {
+            "id": "speak_up",
+            "label": {
+              "ru": "Чаще высказываюсь",
+              "kk": "Көбірек сөйлеймін",
+              "en": "Speak up often"
+            }
+          },
+          {
+            "id": "stay_quiet",
+            "label": {
+              "ru": "Скорее слушаю других",
+              "kk": "Көбіне тыңдаймын",
+              "en": "Stay quiet and listen"
+            }
+          }
+        ]
+      },
+      {
+        "id": "decision_style",
+        "question": {
+          "ru": "Мне комфортнее…",
+          "kk": "Маған ыңғайлы…",
+          "en": "I feel more comfortable…"
+        },
+        "options": [
+          {
+            "id": "lead",
+            "label": {
+              "ru": "Принимать решения",
+              "kk": "Шешім қабылдау",
+              "en": "Making decisions"
+            }
+          },
+          {
+            "id": "support",
+            "label": {
+              "ru": "Следовать за другими",
+              "kk": "Басқаларды қолдау",
+              "en": "Supporting others"
+            }
+          }
+        ]
+      }
+    ],
+  
+    "survey": [
+      {
+        "id": "team_size",
+        "label": {
+          "ru": "Сколько людей вы руководите?",
+          "kk": "Қанша адамды басқарасыз?",
+          "en": "How many people do you manage?"
+        },
+        "options": [
+          {
+            "value": "none",
+            "label": {
+              "ru": "Никого",
+              "kk": "Ешкімді емес",
+              "en": "None"
+            }
+          },
+          {
+            "value": "small",
+            "label": {
+              "ru": "1-5 человек",
+              "kk": "1-5 адам",
+              "en": "1-5 people"
+            }
+          },
+          {
+            "value": "large",
+            "label": {
+              "ru": "5+ человек",
+              "kk": "5+ адам",
+              "en": "5+ people"
+            }
+          }
+        ]
+      },
+      {
+        "id": "age",
+        "label": {
+          "ru": "Ваш возраст",
+          "kk": "Жасыңыз",
+          "en": "Your age"
+        },
+        "options": [
+          {
+            "value": "under18",
+            "label": {
+              "ru": "До 18",
+              "kk": "18 жасқа дейін",
+              "en": "Under 18"
+            }
+          },
+          {
+            "value": "18-25",
+            "label": {
+              "ru": "18-25",
+              "kk": "18-25",
+              "en": "18-25"
+            }
+          },
+          {
+            "value": "25+",
+            "label": {
+              "ru": "25+",
+              "kk": "25+",
+              "en": "25+"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

@@ -2,14 +2,14 @@
 
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
 
-export type Locale = "ru" | "kk";
+export type Locale = "ru" | "kk" | "en";
 
 const LOCALE_STORAGE_KEY = "kariera-pro-locale";
 
 function getStoredLocale(): Locale {
   if (typeof window === "undefined") return "ru";
   const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-  return stored === "kk" ? "kk" : "ru";
+  return stored === "en" ? "en" : stored === "kk" ? "kk" : "ru";
 };
 
 type LocaleContextValue = {

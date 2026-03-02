@@ -15,10 +15,12 @@ import { useLocale, type Locale } from "@/app/context/LocaleContext";
 import Image from "next/image";
 import ruFlag from "@/public/icons/flag-ru.svg";
 import kkFlag from "@/public/icons/flag-kz.svg";
+import enFlag from "@/public/icons/flag-en.png";
 
-const options: { value: Locale; label: string }[] = [
-  { value: "ru", label: "RU" },
-  { value: "kk", label: "KK" },
+const options: { value: Locale; label: string; flag: string }[] = [
+  { value: "ru", label: "RU", flag: ruFlag },
+  { value: "kk", label: "KK", flag: kkFlag },
+  { value: "en", label: "EN", flag: enFlag.src },
 ];
 
 export const LanguageDropdown = () => {
@@ -54,7 +56,7 @@ export const LanguageDropdown = () => {
         startIcon={<LanguageIcon sx={{ width: 24, height: 24 }} />}
         sx={styles.button}
       >
-        <Image src={locale === "ru" ? ruFlag : kkFlag} alt={currentLabel} width={32} height={20} />
+        <Image src={options.find((o) => o.value === locale)?.flag ?? ruFlag} alt={currentLabel} width={32} height={20} style={{borderRadius: 3}}/>
       </Button>
       <Menu
         id="language-menu"
@@ -85,7 +87,7 @@ export const LanguageDropdown = () => {
             ) : (
               <ListItemIcon sx={{ minWidth: 32 }} />
             )}
-            <ListItemText primary={<Image src={opt.value === "ru" ? ruFlag : kkFlag} alt={opt.label} width={32} height={20} />} />
+            <ListItemText primary={<Image src={opt.flag} alt={opt.label} width={32} height={20} style={{borderRadius: 3}} />} />
           </MenuItem>
         ))}
       </Menu>

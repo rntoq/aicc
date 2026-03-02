@@ -1,0 +1,482 @@
+[
+    {
+        "id": "holland_r_01",
+        "text": {
+          "ru": "Работать с инструментами и техникой",
+          "kk": "Құралдармен және техникамен жұмыс істеу",
+          "en": "Work with tools and machinery"
+        },
+        "category": "R",
+        "weight": 1
+      },
+      {
+        "id": "holland_r_02",
+        "text": {
+          "ru": "Ремонтировать устройства или оборудование",
+          "kk": "Құрылғыларды немесе жабдықтарды жөндеу",
+          "en": "Repair devices or equipment"
+        },
+        "category": "R",
+        "weight": 1
+      },
+      {
+        "id": "holland_r_03",
+        "text": {
+          "ru": "Собирать или создавать что-то своими руками",
+          "kk": "Қолмен бір нәрсе құрастыру немесе жасау",
+          "en": "Build or create things with your hands"
+        },
+        "category": "R",
+        "weight": 1
+      },
+      {
+        "id": "holland_r_04",
+        "text": {
+          "ru": "Работать на производстве или заводе",
+          "kk": "Зауытта немесе өндірісте жұмыс істеу",
+          "en": "Work in a factory or production"
+        },
+        "category": "R",
+        "weight": 1
+      },
+      {
+        "id": "holland_r_05",
+        "text": {
+          "ru": "Работать с машинами или механизмами",
+          "kk": "Машиналармен немесе механизмдермен жұмыс істеу",
+          "en": "Work with machines or mechanisms"
+        },
+        "category": "R",
+        "weight": 1
+      },
+      {
+        "id": "holland_r_06",
+        "text": {
+          "ru": "Работать на открытом воздухе",
+          "kk": "Ашық ауада жұмыс істеу",
+          "en": "Work outdoors"
+        },
+        "category": "R",
+        "weight": 1
+      },
+      {
+        "id": "holland_r_07",
+        "text": {
+          "ru": "Управлять техникой или оборудованием",
+          "kk": "Техниканы немесе жабдықты басқару",
+          "en": "Operate equipment or machinery"
+        },
+        "category": "R",
+        "weight": 1
+      },
+      {
+        "id": "holland_r_08",
+        "text": {
+          "ru": "Делать физическую работу",
+          "kk": "Физикалық жұмыс істеу",
+          "en": "Do physical work"
+        },
+        "category": "R",
+        "weight": 1
+      },
+      {
+        "id": "holland_i_01",
+        "text": {
+          "ru": "Анализировать данные и искать закономерности",
+          "kk": "Деректерді талдап, заңдылықтарды табу",
+          "en": "Analyze data and find patterns"
+        },
+        "category": "I",
+        "weight": 1
+      },
+      {
+        "id": "holland_i_02",
+        "text": {
+          "ru": "Изучать, как устроен мир",
+          "kk": "Әлемнің қалай жұмыс істейтінін зерттеу",
+          "en": "Study how the world works"
+        },
+        "category": "I",
+        "weight": 1
+      },
+      {
+        "id": "holland_i_03",
+        "text": {
+          "ru": "Решать сложные задачи",
+          "kk": "Күрделі мәселелерді шешу",
+          "en": "Solve complex problems"
+        },
+        "category": "I",
+        "weight": 1
+      },
+      {
+        "id": "holland_i_04",
+        "text": {
+          "ru": "Проводить эксперименты",
+          "kk": "Эксперименттер жүргізу",
+          "en": "Conduct experiments"
+        },
+        "category": "I",
+        "weight": 1
+      },
+      {
+        "id": "holland_i_05",
+        "text": {
+          "ru": "Работать в лаборатории",
+          "kk": "Зертханада жұмыс істеу",
+          "en": "Work in a laboratory"
+        },
+        "category": "I",
+        "weight": 1
+      },
+      {
+        "id": "holland_i_06",
+        "text": {
+          "ru": "Изучать науку или технологии",
+          "kk": "Ғылым немесе технологияларды зерттеу",
+          "en": "Study science or technology"
+        },
+        "category": "I",
+        "weight": 1
+      },
+      {
+        "id": "holland_i_07",
+        "text": {
+          "ru": "Искать причины и объяснения",
+          "kk": "Себептер мен түсіндірмелерді табу",
+          "en": "Find causes and explanations"
+        },
+        "category": "I",
+        "weight": 1
+      },
+      {
+        "id": "holland_i_08",
+        "text": {
+          "ru": "Работать с цифрами и логикой",
+          "kk": "Сандар мен логикамен жұмыс істеу",
+          "en": "Work with numbers and logic"
+        },
+        "category": "I",
+        "weight": 1
+      },
+      {
+        "id": "holland_a_01",
+        "text": {
+          "ru": "Рисовать или создавать дизайн",
+          "kk": "Сурет салу немесе дизайн жасау",
+          "en": "Draw or create designs"
+        },
+        "category": "A",
+        "weight": 1
+      },
+      {
+        "id": "holland_a_02",
+        "text": {
+          "ru": "Выражать себя через творчество",
+          "kk": "Өзіңді шығармашылық арқылы білдіру",
+          "en": "Express yourself creatively"
+        },
+        "category": "A",
+        "weight": 1
+      },
+      {
+        "id": "holland_a_03",
+        "text": {
+          "ru": "Придумывать новые идеи",
+          "kk": "Жаңа идеялар ойлап табу",
+          "en": "Come up with new ideas"
+        },
+        "category": "A",
+        "weight": 1
+      },
+      {
+        "id": "holland_a_04",
+        "text": {
+          "ru": "Писать тексты, истории или сценарии",
+          "kk": "Мәтіндер, әңгімелер немесе сценарий жазу",
+          "en": "Write texts, stories, or scripts"
+        },
+        "category": "A",
+        "weight": 1
+      },
+      {
+        "id": "holland_a_05",
+        "text": {
+          "ru": "Заниматься музыкой или пением",
+          "kk": "Музыкамен немесе әнмен айналысу",
+          "en": "Engage in music or singing"
+        },
+        "category": "A",
+        "weight": 1
+      },
+      {
+        "id": "holland_a_06",
+        "text": {
+          "ru": "Создавать визуальный контент (видео, фото)",
+          "kk": "Визуалды контент жасау (видео, фото)",
+          "en": "Create visual content (video, photo)"
+        },
+        "category": "A",
+        "weight": 1
+      },
+      {
+        "id": "holland_a_07",
+        "text": {
+          "ru": "Работать без строгих правил",
+          "kk": "Қатаң ережелерсіз жұмыс істеу",
+          "en": "Work without strict rules"
+        },
+        "category": "A",
+        "weight": 1
+      },
+      {
+        "id": "holland_a_08",
+        "text": {
+          "ru": "Создавать что-то уникальное",
+          "kk": "Ерекше нәрсе жасау",
+          "en": "Create something unique"
+        },
+        "category": "A",
+        "weight": 1
+      },
+      {
+        "id": "holland_s_01",
+        "text": {
+          "ru": "Помогать людям решать проблемы",
+          "kk": "Адамдарға мәселелерін шешуге көмектесу",
+          "en": "Help people solve problems"
+        },
+        "category": "S",
+        "weight": 1
+      },
+      {
+        "id": "holland_s_02",
+        "text": {
+          "ru": "Обучать других",
+          "kk": "Басқаларды оқыту",
+          "en": "Teach others"
+        },
+        "category": "S",
+        "weight": 1
+      },
+      {
+        "id": "holland_s_03",
+        "text": {
+          "ru": "Работать с людьми каждый день",
+          "kk": "Күн сайын адамдармен жұмыс істеу",
+          "en": "Work with people daily"
+        },
+        "category": "S",
+        "weight": 1
+      },
+      {
+        "id": "holland_s_04",
+        "text": {
+          "ru": "Поддерживать и мотивировать людей",
+          "kk": "Адамдарды қолдау және мотивация беру",
+          "en": "Support and motivate people"
+        },
+        "category": "S",
+        "weight": 1
+      },
+      {
+        "id": "holland_s_05",
+        "text": {
+          "ru": "Объяснять сложные вещи простым языком",
+          "kk": "Күрделі нәрселерді қарапайым тілмен түсіндіру",
+          "en": "Explain complex things simply"
+        },
+        "category": "S",
+        "weight": 1
+      },
+      {
+        "id": "holland_s_06",
+        "text": {
+          "ru": "Работать в команде",
+          "kk": "Командада жұмыс істеу",
+          "en": "Work in a team"
+        },
+        "category": "S",
+        "weight": 1
+      },
+      {
+        "id": "holland_s_07",
+        "text": {
+          "ru": "Заботиться о людях",
+          "kk": "Адамдарға қамқор болу",
+          "en": "Care for people"
+        },
+        "category": "S",
+        "weight": 1
+      },
+      {
+        "id": "holland_s_08",
+        "text": {
+          "ru": "Консультировать и давать советы",
+          "kk": "Кеңес беру",
+          "en": "Advise and consult people"
+        },
+        "category": "S",
+        "weight": 1
+      },
+      {
+        "id": "holland_e_01",
+        "text": {
+          "ru": "Руководить людьми",
+          "kk": "Адамдарды басқару",
+          "en": "Lead people"
+        },
+        "category": "E",
+        "weight": 1
+      },
+      {
+        "id": "holland_e_02",
+        "text": {
+          "ru": "Убеждать и вести переговоры",
+          "kk": "Сендіру және келіссөз жүргізу",
+          "en": "Persuade and negotiate"
+        },
+        "category": "E",
+        "weight": 1
+      },
+      {
+        "id": "holland_e_03",
+        "text": {
+          "ru": "Запускать собственные проекты или бизнес",
+          "kk": "Өз жобаларын немесе бизнесін бастау",
+          "en": "Start your own projects or business"
+        },
+        "category": "E",
+        "weight": 1
+      },
+      {
+        "id": "holland_e_04",
+        "text": {
+          "ru": "Достигать целей и результатов",
+          "kk": "Мақсаттарға жету",
+          "en": "Achieve goals and results"
+        },
+        "category": "E",
+        "weight": 1
+      },
+      {
+        "id": "holland_e_05",
+        "text": {
+          "ru": "Принимать решения",
+          "kk": "Шешім қабылдау",
+          "en": "Make decisions"
+        },
+        "category": "E",
+        "weight": 1
+      },
+      {
+        "id": "holland_e_06",
+        "text": {
+          "ru": "Организовывать людей и процессы",
+          "kk": "Адамдар мен процестерді ұйымдастыру",
+          "en": "Organize people and processes"
+        },
+        "category": "E",
+        "weight": 1
+      },
+      {
+        "id": "holland_e_07",
+        "text": {
+          "ru": "Работать с продажами или бизнесом",
+          "kk": "Сатумен немесе бизнеспен жұмыс істеу",
+          "en": "Work in sales or business"
+        },
+        "category": "E",
+        "weight": 1
+      },
+      {
+        "id": "holland_e_08",
+        "text": {
+          "ru": "Брать на себя ответственность",
+          "kk": "Жауапкершілік алу",
+          "en": "Take responsibility"
+        },
+        "category": "E",
+        "weight": 1
+      },
+      {
+        "id": "holland_c_01",
+        "text": {
+          "ru": "Работать с цифрами и таблицами",
+          "kk": "Сандар мен кестелермен жұмыс істеу",
+          "en": "Work with numbers and tables"
+        },
+        "category": "C",
+        "weight": 1
+      },
+      {
+        "id": "holland_c_02",
+        "text": {
+          "ru": "Следовать четким инструкциям",
+          "kk": "Нақты нұсқауларды орындау",
+          "en": "Follow clear instructions"
+        },
+        "category": "C",
+        "weight": 1
+      },
+      {
+        "id": "holland_c_03",
+        "text": {
+          "ru": "Поддерживать порядок в документах",
+          "kk": "Құжаттарда тәртіп сақтау",
+          "en": "Maintain organized documents"
+        },
+        "category": "C",
+        "weight": 1
+      },
+      {
+        "id": "holland_c_04",
+        "text": {
+          "ru": "Работать с отчетами и данными",
+          "kk": "Есептер мен деректермен жұмыс істеу",
+          "en": "Work with reports and data"
+        },
+        "category": "C",
+        "weight": 1
+      },
+      {
+        "id": "holland_c_05",
+        "text": {
+          "ru": "Выполнять задачи по плану",
+          "kk": "Жоспар бойынша жұмыс істеу",
+          "en": "Follow a plan"
+        },
+        "category": "C",
+        "weight": 1
+      },
+      {
+        "id": "holland_c_06",
+        "text": {
+          "ru": "Работать с базами данных",
+          "kk": "Деректер базасымен жұмыс істеу",
+          "en": "Work with databases"
+        },
+        "category": "C",
+        "weight": 1
+      },
+      {
+        "id": "holland_c_07",
+        "text": {
+          "ru": "Внимательно проверять информацию",
+          "kk": "Ақпаратты мұқият тексеру",
+          "en": "Check information carefully"
+        },
+        "category": "C",
+        "weight": 1
+      },
+      {
+        "id": "holland_c_08",
+        "text": {
+          "ru": "Работать с документами и отчетностью",
+          "kk": "Құжаттармен және есептермен жұмыс істеу",
+          "en": "Work with documents and reports"
+        },
+        "category": "C",
+        "weight": 1
+      }      
+]

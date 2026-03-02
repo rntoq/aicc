@@ -10,9 +10,10 @@ import { GlobalStyles } from "@/ui/styles/global";
 import { LocaleProvider, useLocale } from "@/app/context/LocaleContext";
 import ru from "@/messages/ru.json";
 import kk from "@/messages/kk.json";
+import en from "@/messages/en.json";
 import "react-toastify/dist/ReactToastify.css";
 
-const messages: Record<string, Record<string, unknown>> = { ru, kk };
+const messages: Record<string, Record<string, unknown>> = { ru, kk, en };
 
 function IntlProvider({ children }: { children: React.ReactNode }) {
   const { locale } = useLocale();
