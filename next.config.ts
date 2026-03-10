@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "d31u95r9ywbjex.cloudfront.net",
+        pathname: "/sites/default/files/images/visualtests/**",
+      },
+    ],
+  },
   turbopack: {
     resolveAlias: {
       "@mui/styled-engine": "@mui/styled-engine-sc",

@@ -1,0 +1,2716 @@
+[
+  {
+    "logo": "https://app.joo.kz/media/images/9f38c616-ea95-4b86-9e56-8d8917eb54be.jpeg",
+    "code": "184",
+    "region": 2,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1000000,
+    "paid": true,
+    "url": "http://tau-edu.kz",
+    "consult_landing_url": "https://l.clck.bar/8458ee",
+    "specialities_count": 19,
+    "name": {
+      "ru": "Университет Туран-Астана",
+      "kk": "Туран-Астана университеті",
+      "en": "Turan-Astana University"
+    },
+    "short_name": {
+      "ru": "Туран-Астана",
+      "kk": "Туран-Астана",
+      "en": "Turan-Astana"
+    },
+    "address": "ул. Дукенулы, 29"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/b9745cc1-0646-4635-be2b-097df0f71bef.png",
+    "code": "001",
+    "region": 2,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1335000,
+    "paid": false,
+    "url": "https://amu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 9,
+    "name": {
+      "ru": "Медицинский университет Астана",
+      "kk": "Астана медициналық университеті",
+      "en": "Astana Medical University"
+    },
+    "short_name": {
+      "ru": "МУА",
+      "kk": "АМУ",
+      "en": "AMU"
+    },
+    "address": "ул. Бейбитшилик, 49а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/b1cf6121-3bde-4287-a904-85185beb0ce2.jpeg",
+    "code": "002",
+    "region": 2,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 750000,
+    "paid": false,
+    "url": "http://kazatu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 37,
+    "name": {
+      "ru": "Казахский агротехнический университет имени С. Сейфуллина",
+      "kk": "С. Сейфуллин атындағы Қазақ агротехникалық университеті",
+      "en": "S. Seifullin Kazakh Agrotechnical University"
+    },
+    "short_name": {
+      "ru": "КазАТУ",
+      "kk": "ҚазАТУ",
+      "en": "KazATU"
+    },
+    "address": "пр. Женис, 62"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/6d68a48e-fae8-4ea3-a82b-563f5c6893fd.png",
+    "code": "003",
+    "region": 14,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 495000,
+    "paid": false,
+    "url": "http://yu.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 52,
+    "name": {
+      "ru": "Каспийский государственный университет технологии и инжиниринга имени Ш. Есенова",
+      "kk": "Ш. Есенов атындағы Каспий технологиялар және инжиниринг мемлекеттік университеті",
+      "en": "Caspian State University of Technology and Engineering named after Sh. Yessenov"
+    },
+    "short_name": {
+      "ru": "КГУТИ",
+      "kk": "КГУТИ",
+      "en": "KGUTE"
+    },
+    "address": "г. Актау, 32 микрорайон"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/23408069-d074-4293-b113-e9fce6be2b80.jpg",
+    "code": "003",
+    "region": 14,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://kini.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 5,
+    "name": {
+      "ru": "KINI",
+      "kk": "KINI",
+      "en": "KINI"
+    },
+    "short_name": {
+      "ru": "KINI",
+      "kk": "KINI",
+      "en": "KINI"
+    },
+    "address": "Республика Казахстан, г. Актау, 32-й мкр."
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/568328c4-16e4-4883-9138-db328c6a5fb1.jpeg",
+    "code": "004",
+    "region": 5,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1250000,
+    "paid": false,
+    "url": "https://zkmu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 6,
+    "name": {
+      "ru": "Западно-Казахстанский медицинский университет имени Марата Оспанова",
+      "kk": "М. Оспанов атындағы Батыс Қазақстан медицина университеті",
+      "en": "West Kazakhstan Marat Ospanov Medical University"
+    },
+    "short_name": {
+      "ru": "ЗКГМУ",
+      "kk": "БҚМУ",
+      "en": "WKMMU"
+    },
+    "address": "г. Актобе, ул. Маресьева, 68"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/b963849c-a3ac-4531-860c-f8e9ab7057b0.jpeg",
+    "code": "005",
+    "region": 5,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 463000,
+    "paid": false,
+    "url": "http://zhubanov.edu.kz/ru/",
+    "consult_landing_url": null,
+    "specialities_count": 69,
+    "name": {
+      "ru": "Университет Жубанова",
+      "kk": "Жұбанов университеті",
+      "en": "Zhubanov University"
+    },
+    "short_name": {
+      "ru": "Zhubanov University",
+      "kk": "Zhubanov University",
+      "en": "Zhubanov University"
+    },
+    "address": "г. Актобе, пр. А.Молдагуловой,34"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/5dba39e2-d32f-449a-9680-a6121b599699.jpeg",
+    "code": "005",
+    "region": 5,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://zhubanov.edu.kz/ru/campus_hw/category/1/",
+    "consult_landing_url": null,
+    "specialities_count": 3,
+    "name": {
+      "ru": "Филиал Heriot-Watt University",
+      "kk": "Heriot-Watt University филиалы",
+      "en": "Heriot-Watt University Branch"
+    },
+    "short_name": {
+      "ru": "Heriot-Watt University",
+      "kk": "Heriot-Watt University",
+      "en": "Heriot-Watt University"
+    },
+    "address": "город Актобе, ул. Братьев Жубановых 263"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/f233d8aa-dcc8-4736-bcb3-bbcd4a694e47.png",
+    "code": "006",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 823961,
+    "paid": false,
+    "url": "https://conservatoire.edu.kz/kz/",
+    "consult_landing_url": null,
+    "specialities_count": 9,
+    "name": {
+      "ru": "Казахская национальная консерватория имени Курмангазы",
+      "kk": "Құрманғазы атындағы Қазақ ұлттық консерваториясы",
+      "en": "Kurmangazy Kazakh National Conservatory"
+    },
+    "short_name": {
+      "ru": "КазНК",
+      "kk": "ҚазҰК",
+      "en": "KazNC"
+    },
+    "address": "пр. Абылай-хана, 86"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/24dd41fb-a054-4e1b-bdbd-32d6c6abfc7b.png",
+    "code": "007",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 900000,
+    "paid": false,
+    "url": "https://abiturient.abaiuniversity.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 80,
+    "name": {
+      "ru": "Казахский национальный педагогический университет имени Абая",
+      "kk": "Абай атындағы Қазақ ұлттық педагогикалық университеті",
+      "en": "Abai Kazakh National Pedagogical University"
+    },
+    "short_name": {
+      "ru": "КазНПУ",
+      "kk": "ҚазҰПУ",
+      "en": "Abai University"
+    },
+    "address": "пр. Достык,13"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/72b53f79-cb44-4a96-b046-81372bcde511.jpg",
+    "code": "008",
+    "region": 12,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 492000,
+    "paid": false,
+    "url": "https://api.edu.kz/index.php/ru/",
+    "consult_landing_url": null,
+    "specialities_count": 22,
+    "name": {
+      "ru": "Университет Алтынсарина",
+      "kk": "Алтынсарин университеті",
+      "en": "Altynsarin University"
+    },
+    "short_name": {
+      "ru": "Altynsarin University",
+      "kk": "Altynsarin University",
+      "en": "Altynsarin University"
+    },
+    "address": "г. Аркалык, ул. Ауельбекова, 17"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/4cdf4b57-88c1-4133-8a95-d4f93ceb6b67.jpeg",
+    "code": "009",
+    "region": 7,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 552000,
+    "paid": false,
+    "url": "https://aogu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 20,
+    "name": {
+      "ru": "Атырауский университет нефти и газа имени Сафи Утебаева",
+      "kk": "Сафи Өтебаев атындағы Атырау мұнай және газ университеті",
+      "en": "Atyrau University of Oil and Gas named after Safi Utebayev"
+    },
+    "short_name": {
+      "ru": "АУНиГ",
+      "kk": "АУМжҒУ",
+      "en": "Atyrau UOG"
+    },
+    "address": "г. Атырау, ул. Баймуханова 45а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/65516630-7953-4f73-b9bb-a9b56b1c3860.png",
+    "code": "010",
+    "region": 7,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 510000,
+    "paid": false,
+    "url": "http://asu.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 55,
+    "name": {
+      "ru": "Атырауский университет имени Х. Досмухамедова",
+      "kk": "Х. Досмұхамедов атындағы Атырау университеті",
+      "en": "H. Dosmukhamedov Atyrau University"
+    },
+    "short_name": {
+      "ru": "АГУ им. Х. Досмухамедова",
+      "kk": "ХДУ Атырау",
+      "en": "ADU"
+    },
+    "address": "г. Атырау, пр. Студенческий, 1"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/80accf8e-038f-4a35-baab-56867dd9aa11.png",
+    "code": "011",
+    "region": 8,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 600000,
+    "paid": false,
+    "url": "https://vku.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 60,
+    "name": {
+      "ru": "Восточно-Казахстанский университет имени Сарсена Аманжолова",
+      "kk": "Сәрсен Аманжолов атындағы Шығыс Қазақстан университеті",
+      "en": "Sarsen Amanzholov East Kazakhstan University"
+    },
+    "short_name": {
+      "ru": "ВКГУ",
+      "kk": "ШҚУ",
+      "en": "EKU"
+    },
+    "address": "г. Усть-Каменогорск, ул. 30-й Гвардейской дивизии, 34"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/a48fc74e-79ca-4784-bb29-629224e2ac36.jpeg",
+    "code": "012",
+    "region": 8,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 653150,
+    "paid": false,
+    "url": "https://www.ektu.kz/enrollee.aspx",
+    "consult_landing_url": null,
+    "specialities_count": 41,
+    "name": {
+      "ru": "Восточно-Казахстанский технический университет имени Даулета Серикбаева",
+      "kk": "Дәулет Серікбаев атындағы Шығыс Қазақстан техникалық университеті",
+      "en": "D. Serikbayev East Kazakhstan Technical University"
+    },
+    "short_name": {
+      "ru": "ВКГТУ",
+      "kk": "ШҚТУ",
+      "en": "EKTU"
+    },
+    "address": "г. Усть-Каменогорск, ул. Протозанова А.К., 69"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/2f38a94a-a6ff-4628-9335-6dca42723bd0.jpeg",
+    "code": "013",
+    "region": 2,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1170000,
+    "paid": false,
+    "url": "http://enu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 72,
+    "name": {
+      "ru": "Евразийский национальный университет имени Л. Н. Гумилёва",
+      "kk": "Л. Н. Гумилев атындағы Еуразия ұлттық университеті",
+      "en": "L. N. Gumilyov Eurasian National University"
+    },
+    "short_name": {
+      "ru": "ЕНУ",
+      "kk": "ЕҰУ",
+      "en": "ENU"
+    },
+    "address": "ул. Сатпаева, 2а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/f91ca0be-860f-4410-a6a3-471added260d.jpeg",
+    "code": "014",
+    "region": 11,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 555000,
+    "paid": false,
+    "url": "https://zhezu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 25,
+    "name": {
+      "ru": "Жезказганский университет имени О. А. Байконурова",
+      "kk": "О. А. Байқоңыров атындағы Жезқазған университеті",
+      "en": "Zhezkazgan University named after O. A. Baikonurov"
+    },
+    "short_name": {
+      "ru": "ЖезУ",
+      "kk": "ЖезУ",
+      "en": "ZhezU"
+    },
+    "address": "г. Жезказган, пр. Алашахана, 1б"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/f35e93bc-1a97-4fcf-980b-f72bf71d7be0.jpeg",
+    "code": "015",
+    "region": 6,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 600000,
+    "paid": false,
+    "url": "https://zhetysu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 50,
+    "name": {
+      "ru": "Жетысуский университет имени И. Жансугурова",
+      "kk": "И. Жансүгіров атындағы Жетісу университеті",
+      "en": "I. Zhansugurov Zhetysu University"
+    },
+    "short_name": {
+      "ru": "ЖГУ",
+      "kk": "ЖУ",
+      "en": "ZU"
+    },
+    "address": "г. Талдыкорган, ул. И.Жансугурова 187а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/22a0c9f0-fffd-4a2b-a126-95d3562586b1.jpeg",
+    "code": "016",
+    "region": 10,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 530000,
+    "paid": false,
+    "url": "https://wku.edu.kz/kk/",
+    "consult_landing_url": null,
+    "specialities_count": 59,
+    "name": {
+      "ru": "Западно-Казахстанский университет имени Махамбета Утемисова",
+      "kk": "Махамбет Өтемісұлы атындағы Батыс Қазақстан университеті",
+      "en": "Makhambet Utemisov West Kazakhstan University"
+    },
+    "short_name": {
+      "ru": "ЗКГУ",
+      "kk": "БҚУ",
+      "en": "WKU"
+    },
+    "address": "г. Уральск, пр. Достык 162"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/42a145c8-6a40-4285-8d3f-ad2abc772033.jpeg",
+    "code": "017",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 850000,
+    "paid": false,
+    "url": "http://kaznai.kz",
+    "consult_landing_url": null,
+    "specialities_count": 15,
+    "name": {
+      "ru": "Казахская национальная академия искусств имени Т. К. Жургенова",
+      "kk": "Т. Қ. Жүргенов атындағы Қазақ ұлттық өнер академиясы",
+      "en": "T. K. Zhurgenov Kazakh National Academy of Arts"
+    },
+    "short_name": {
+      "ru": "КазНАИ",
+      "kk": "ҚазҰӨА",
+      "en": "KazNAA"
+    },
+    "address": "ул. Панфилова, 127"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/0f47fc46-5427-4f44-8e30-40a6d138e785.png",
+    "code": "018",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 670000,
+    "paid": false,
+    "url": "https://kaznui.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 19,
+    "name": {
+      "ru": "Казахский национальный университет искусств",
+      "kk": "Қазақ ұлттық өнер университеті",
+      "en": "Kazakh National University of Arts"
+    },
+    "short_name": {
+      "ru": "КазНУИ",
+      "kk": "ҚазҰӨУ",
+      "en": "KazNUI"
+    },
+    "address": "пр. Тауелсыздык, 50"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/36fe7720-7366-42de-9e37-df44f3cffac9.jpeg",
+    "code": "019",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 760000,
+    "paid": true,
+    "url": "https://alt.edu.kz/",
+    "consult_landing_url": "https://b24-3j39jq.bitrix24.site/crm_form_k0bxf/?utm_source=jookz&utm_term=dilnaz",
+    "specialities_count": 40,
+    "name": {
+      "ru": "ALT UNIVERSITY",
+      "kk": "ALT UNIVERSITY",
+      "en": "ALT UNIVERSITY"
+    },
+    "short_name": {
+      "ru": "ALT",
+      "kk": "ALT",
+      "en": "ALT"
+    },
+    "address": "ул. Шевченко, 97"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/03308801-b9c9-4456-95fc-8ef045402eb4.png",
+    "code": "020",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 500000,
+    "paid": false,
+    "url": "https://kazast.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 4,
+    "name": {
+      "ru": "Казахская академия спорта и туризма",
+      "kk": "Қазақ спорт және туризм академиясы",
+      "en": "Kazakh Academy of Sport and Tourism"
+    },
+    "short_name": {
+      "ru": "КазАСТ",
+      "kk": "ҚазАСТ",
+      "en": "KazAST"
+    },
+    "address": "пр. Абая 85"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/57e77152-4ebb-4057-8b69-fe94b9e21d9c.jpeg",
+    "code": "021",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1550000,
+    "paid": false,
+    "url": "https://narxoz.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 23,
+    "name": {
+      "ru": "НАО «Университет Нархоз»",
+      "kk": "«Нархоз университеті» КЕАҚ",
+      "en": "Narxoz University"
+    },
+    "short_name": {
+      "ru": "Нархоз",
+      "kk": "Нархоз",
+      "en": "Narxoz"
+    },
+    "address": "ул. Жандосова, 55"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/614a32e9-9ca3-4d77-88a5-bb24859145f3.png",
+    "code": "021",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://narxoz.kz/sem/queens-university-belfast",
+    "consult_landing_url": null,
+    "specialities_count": 2,
+    "name": {
+      "ru": "Филиал Queen's University Belfast",
+      "kk": "Queen's University Belfast филиалы",
+      "en": "Queen's University Belfast Branch"
+    },
+    "short_name": {
+      "ru": "Queen's University Belfast",
+      "kk": "Queen's University Belfast",
+      "en": "Queen's University Belfast"
+    },
+    "address": "ул. Жандосова, 55 г. Алматы, Казахстан, 050035 (Narxoz University)"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/6a5f309f-ca0b-4047-adad-6bb12ced5904.png",
+    "code": "022",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1500000,
+    "paid": true,
+    "url": "https://kau.kz",
+    "consult_landing_url": "https://b24-bw1gaj.bitrix24.site/crm_form_lc3m4/",
+    "specialities_count": 14,
+    "name": {
+      "ru": "KAZAKH-AMERICAN UNIVERSITY",
+      "kk": "KAZAKH-AMERICAN UNIVERSITY",
+      "en": "KAZAKH-AMERICAN UNIVERSITY"
+    },
+    "short_name": {
+      "ru": "KAU",
+      "kk": "KAU",
+      "en": "KAU"
+    },
+    "address": "Рыскулбекова 28"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/fc5462b0-647f-4e26-a38a-0d51fc77910c.jpg",
+    "code": "022",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1250000,
+    "paid": false,
+    "url": "https://mok.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 22,
+    "name": {
+      "ru": "Международная образовательная корпорация (КазГАСА)",
+      "kk": "Халықаралық білім корпорациясы (ҚазБСҚА)",
+      "en": "International Educational Corporation (KazGASA)"
+    },
+    "short_name": {
+      "ru": "КазГАСА",
+      "kk": "ҚазБСҚА",
+      "en": "KazGASA"
+    },
+    "address": "ул. Рыскулбекова, 28"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/2cf4b582-c84d-4506-80c6-5edc331f1887.png",
+    "code": "023",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 900000,
+    "paid": false,
+    "url": "http://ablaikhan.kz",
+    "consult_landing_url": null,
+    "specialities_count": 20,
+    "name": {
+      "ru": "Казахский университет международных отношений и мировых языков имени Абылай Хана",
+      "kk": "Әл-Фараби атындағы Қазақ халықаралық қатынастар және әлем тілдері университеті",
+      "en": "Ablai Khan Kazakh University of International Relations and World Languages"
+    },
+    "short_name": {
+      "ru": "КазУМОиМЯ",
+      "kk": "ҚазХҚӘТУ",
+      "en": "KazUIRWL"
+    },
+    "address": "ул. Муратбаева 200"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/12565424-f8fc-45e9-b993-998aadb5a89a.jpeg",
+    "code": "024",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 650000,
+    "paid": false,
+    "url": "https://www.kaznaru.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 42,
+    "name": {
+      "ru": "Казахский национальный аграрный исследовательский университет",
+      "kk": "Қазақ ұлттық аграрлық зерттеу университеті",
+      "en": "Kazakh National Agrarian Research University"
+    },
+    "short_name": {
+      "ru": "КазНАУ",
+      "kk": "ҚазҰАЗУ",
+      "en": "KazNAU"
+    },
+    "address": "пр. Абая, 8"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/b4fa2596-6c53-444b-88e4-e5ad0c9ecfde.jpg",
+    "code": "024",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://kaznaru.edu.kz/kz/tiiimsh",
+    "consult_landing_url": null,
+    "specialities_count": 1,
+    "name": {
+      "ru": "Филиал Ташкентского института инженеров ирригации и механизации сельского хозяйства",
+      "kk": "Ташкент ирригация және ауыл шаруашылығын механикаландыру инженерлері институтының филиалы",
+      "en": "Branch of the Tashkent Institute of Irrigation and Agricultural Mechanization Engineers"
+    },
+    "short_name": {
+      "ru": "Филиал НИУ \"ТИИИМСХ\"",
+      "kk": "ТИИИМСХ филиалы",
+      "en": "Branch of TIIAME"
+    },
+    "address": "г.Алматы, 050010, проспект Абая, 8"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/ec851939-c142-4047-bbce-b17867227866.jpg",
+    "code": "025",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 866000,
+    "paid": false,
+    "url": "https://qyzpu.edu.kz/kz/",
+    "consult_landing_url": null,
+    "specialities_count": 46,
+    "name": {
+      "ru": "Казахский национальный женский педагогический университет",
+      "kk": "Қазақ ұлттық қыздар педагогикалық университеті",
+      "en": "Kazakh National Women's Pedagogical University"
+    },
+    "short_name": {
+      "ru": "ЖенПУ",
+      "kk": "Қазақ қыздар ПУ",
+      "en": "KazNWPU"
+    },
+    "address": "ул. Айтеке би 99"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/349819df-7d91-4d3c-b173-ca7286d4a63a.png",
+    "code": "026",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1200000,
+    "paid": false,
+    "url": "https://kaznmu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 10,
+    "name": {
+      "ru": "Казахский национальный медицинский университет имени С. Д. Асфендиярова",
+      "kk": "С. Д. Асфендияров атындағы Қазақ ұлттық медицина университеті",
+      "en": "S. D. Asfendiyarov Kazakh National Medical University"
+    },
+    "short_name": {
+      "ru": "КазНМУ",
+      "kk": "ҚазҰМУ",
+      "en": "KazNMU"
+    },
+    "address": "Толе-би 94"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/c0ce2d41-27fe-45a7-9af5-ae1dc1b93c29.jpeg",
+    "code": "027",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1500000,
+    "paid": false,
+    "url": "https://farabi.university/university/about?lang=kz",
+    "consult_landing_url": null,
+    "specialities_count": 93,
+    "name": {
+      "ru": "Казахский национальный университет имени Аль-Фараби",
+      "kk": "Әл-Фараби атындағы Қазақ ұлттық университеті",
+      "en": "Al-Farabi Kazakh National University"
+    },
+    "short_name": {
+      "ru": "КазНУ",
+      "kk": "ҚазҰУ",
+      "en": "KazNU"
+    },
+    "address": "пр. Аль-Фараби, 71"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/44ca72b5-b406-4a18-8ede-d743404e6152.png",
+    "code": "029",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1004700,
+    "paid": false,
+    "url": "https://satbayev.university/",
+    "consult_landing_url": null,
+    "specialities_count": 54,
+    "name": {
+      "ru": "Казахский национальный исследовательский технический университет имени К. И. Сатпаева",
+      "kk": "Қ. И. Сәтбаев атындағы Қазақ ұлттық техникалық зерттеу университеті",
+      "en": "K. I. Satbayev Kazakh National Research Technical University"
+    },
+    "short_name": {
+      "ru": "КазНТУ",
+      "kk": "ҚазҰТЗУ",
+      "en": "Satbayev University"
+    },
+    "address": "ул. Сатпаева 22а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/88ca9a93-8835-41b4-855b-a33d8ec86635.png",
+    "code": "029",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://satbayev.university/ru/cityu",
+    "consult_landing_url": null,
+    "specialities_count": 3,
+    "name": {
+      "ru": "Филиал City University of Hong Kong",
+      "kk": "Hong Kong City University филиалы",
+      "en": "City University of Hong Kong Branch"
+    },
+    "short_name": {
+      "ru": "Филиал CityU HK",
+      "kk": "CityU HK филиалы",
+      "en": "CityU HK Branch"
+    },
+    "address": "Республика Казахстан, г. Алматы, ул. Сатпаева 22"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/3b2c1368-947c-43c3-ab47-c7808ba3859b.png",
+    "code": "030",
+    "region": 11,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 850000,
+    "paid": false,
+    "url": "https://qmu.edu.kz/ru",
+    "consult_landing_url": null,
+    "specialities_count": 9,
+    "name": {
+      "ru": "Карагандинский медицинский университет",
+      "kk": "Қарағанды медицина университеті",
+      "en": "Karaganda Medical University"
+    },
+    "short_name": {
+      "ru": "КарГМУ",
+      "kk": "ҚарМУ",
+      "en": "KRMU"
+    },
+    "address": "г. Караганда, ул. Гоголя, 40"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/11f9f661-f096-4684-81a8-026cc6d15f46.jpg",
+    "code": "031",
+    "region": 11,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 660000,
+    "paid": false,
+    "url": "https://www.buketov.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 82,
+    "name": {
+      "ru": "Карагандинский университет имени Е. А. Букетова",
+      "kk": "Е. А. Бөкетов атындағы Қарағанды университеті",
+      "en": "E. A. Buketov Karaganda University"
+    },
+    "short_name": {
+      "ru": "КарГУ",
+      "kk": "ҚарУ",
+      "en": "KarU"
+    },
+    "address": "г. Караганда, ул. Университетская, 28"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/78ccacaf-2665-40c5-b6ef-7744a3049780.png",
+    "code": "032",
+    "region": 11,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 544000,
+    "paid": false,
+    "url": "https://www.kstu.kz/?lang=kz",
+    "consult_landing_url": null,
+    "specialities_count": 42,
+    "name": {
+      "ru": "Карагандинский технический университет имени Абылкаса Сагинова",
+      "kk": "А. Сәгінов атындағы Қарағанды техникалық университеті",
+      "en": "A. Saginov Karaganda Technical University"
+    },
+    "short_name": {
+      "ru": "КарГТУ",
+      "kk": "ҚарТУ",
+      "en": "KTU"
+    },
+    "address": "г. Караганда, Бульвар Мира, 56"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/4a15a6ed-0504-49d5-a829-4c492dc18fc1.jpeg",
+    "code": "033",
+    "region": 11,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 500000,
+    "paid": false,
+    "url": "https://tttu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 18,
+    "name": {
+      "ru": "Карагандинский индустриальный университет",
+      "kk": "Қарағанды индустриялық университеті",
+      "en": "Karaganda Industrial University"
+    },
+    "short_name": {
+      "ru": "КарИУ",
+      "kk": "ҚарИУ",
+      "en": "KIU"
+    },
+    "address": "г. Темиртау, пр. Республики 30."
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/274b865e-7450-4a33-85ca-36c3a2690e30.jpeg",
+    "code": "034",
+    "region": 13,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 474000,
+    "paid": true,
+    "url": "https://korkyt.edu.kz/",
+    "consult_landing_url": "https://wa.me/77765388899",
+    "specialities_count": 67,
+    "name": {
+      "ru": "Кызылординский университет им. Коркыт Ата",
+      "kk": "Қорқыт Ата атындағы Қызылорда университеті",
+      "en": "Korkyt Ata Kyzylorda University"
+    },
+    "short_name": {
+      "ru": "КызГУ им. Коркыт Ата",
+      "kk": "Қорқыт Ата ҚызУ",
+      "en": "Korkyt Ata KU"
+    },
+    "address": "г. Кызылорда, ул. Айтеке Би, 29А"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/92b8d4be-58cb-4d19-9633-546a9b39cb75.jpg",
+    "code": "035",
+    "region": 4,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 450000,
+    "paid": false,
+    "url": "https://shokan.edu.kz/ru/",
+    "consult_landing_url": null,
+    "specialities_count": 60,
+    "name": {
+      "ru": "Кокшетауский университет им. Ш. Уалиханова",
+      "kk": "Ш. Уәлиханов атындағы Көкшетау университеті",
+      "en": "Sh. Ualikhanov Kokshetau University"
+    },
+    "short_name": {
+      "ru": "КГУ им. Ш. Уалиханова",
+      "kk": "Ш. Уәлиханов атындағы КГУ",
+      "en": "KSU named after Sh. Ualikhanov"
+    },
+    "address": "г. Кокшетау, ул. Абая 76"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/1b3b0616-4ce8-4d52-86f0-a03b797a3eea.jpeg",
+    "code": "036",
+    "region": 12,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 490000,
+    "paid": false,
+    "url": "http://ksu.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 57,
+    "name": {
+      "ru": "Костанайский региональный университет имени А. Байтурсынова",
+      "kk": "А. Байтұрсынов атындағы Қостанай өңірлік университеті",
+      "en": "A. Baitursynov Kostanay Regional University"
+    },
+    "short_name": {
+      "ru": "КРУ им. А. Байтурсынова",
+      "kk": "А. Байтұрсынов атындағы ҚРУ",
+      "en": "KRU named after A. Baitursynov"
+    },
+    "address": "г. Костанай, ул. А.Байтурсынова, 47"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/1fab8ee7-be29-47ea-95e2-bacf8362d1c9.png",
+    "code": "037",
+    "region": 17,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 700000,
+    "paid": false,
+    "url": "https://talapker.ayu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 85,
+    "name": {
+      "ru": "Университет имени Ахмеда Ясави",
+      "kk": "Ахмет Ясауи атындағы университеті",
+      "en": "Ahmet Yassawi University"
+    },
+    "short_name": {
+      "ru": "МКТУ",
+      "kk": "МКТУ",
+      "en": "MKTU"
+    },
+    "address": "г. Туркестан, пр. Б.Саттарханова, 29"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/9cd51518-edf7-4217-bd7f-0cf8ed928d60.jpeg",
+    "code": "038",
+    "region": 15,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 500000,
+    "paid": false,
+    "url": "https://tou.edu.kz/ru/",
+    "consult_landing_url": null,
+    "specialities_count": 65,
+    "name": {
+      "ru": "Университет Торайгырова",
+      "kk": "Торайғыров университеті",
+      "en": "Toraighyrov University"
+    },
+    "short_name": {
+      "ru": "ПГУ",
+      "kk": "ПГУ",
+      "en": "PSU"
+    },
+    "address": "г. Павлодар, ул. Ломова,64"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/6ce43b98-16d3-4ab7-8889-fdf92846ba6b.png",
+    "code": "039",
+    "region": 12,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 410000,
+    "paid": false,
+    "url": "https://www.rii.edu.kz/kk/%D0%B1%D0%B0%D1%81%D1%82%D1%8B-%D0%B1%D0%B5%D1%82/",
+    "consult_landing_url": null,
+    "specialities_count": 19,
+    "name": {
+      "ru": "Рудненский индустриальный институт",
+      "kk": "Рудный индустриалдық институты",
+      "en": "Rudny Industrial Institute"
+    },
+    "short_name": {
+      "ru": "РИИ",
+      "kk": "РИИ",
+      "en": "RII"
+    },
+    "address": "г. Рудный, ул. 50 лет Октября. 38,"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/8132856d-852a-4846-84a7-145c4a8dd5f2.png",
+    "code": "040",
+    "region": 16,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://astra.ku.edu.kz/marketing-main",
+    "consult_landing_url": null,
+    "specialities_count": 5,
+    "name": {
+      "ru": "Филиал The University of Arizona",
+      "kk": "The University of Arizona филиалы",
+      "en": "The University of Arizona Branch"
+    },
+    "short_name": {
+      "ru": "Университет Аризоны",
+      "kk": "Аризона университеті",
+      "en": "University of Arizona"
+    },
+    "address": "г. Петропавловск ул. Пушкина, 86"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/3aaa1c32-5d6c-4de5-b388-cfc9b8ad6995.jpeg",
+    "code": "040",
+    "region": 16,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 550000,
+    "paid": false,
+    "url": "http://nkzu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 80,
+    "name": {
+      "ru": "Северо-Казахстанский университет имени М. Козыбаева",
+      "kk": "М. Қозыбаев атындағы Солтүстік Қазақстан университеті",
+      "en": "M. Kozybayev North Kazakhstan University"
+    },
+    "short_name": {
+      "ru": "СКУ",
+      "kk": "СҚУ",
+      "en": "NKU"
+    },
+    "address": "г. Петропавловск, ул. Пушкина, 86"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/12e52a6c-f606-4ac7-85f1-d0e8ed5702d2.png",
+    "code": "041",
+    "region": 8,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 960000,
+    "paid": false,
+    "url": "https://smu.edu.kz/ru/",
+    "consult_landing_url": null,
+    "specialities_count": 7,
+    "name": {
+      "ru": "Медицинский университет Семей",
+      "kk": "Семей медицина университеті",
+      "en": "Semey Medical University"
+    },
+    "short_name": {
+      "ru": "МУС",
+      "kk": "СМУ",
+      "en": "SMU"
+    },
+    "address": "г. Семей, ул. Абая Кунанбаева 103."
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/5e14a5e4-af6f-4841-a440-1e35098b5fba.png",
+    "code": "042",
+    "region": 8,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 500000,
+    "paid": false,
+    "url": "https://shakarim.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 73,
+    "name": {
+      "ru": "Семейский университет имени Шакарима",
+      "kk": "Шәкәрім атындағы Семей университеті",
+      "en": "Shakarim University of Semey"
+    },
+    "short_name": {
+      "ru": "СГУ",
+      "kk": "СГУ",
+      "en": "Shakarim University"
+    },
+    "address": "г. Семей, ул. Глинки, 20А"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/d8fb610e-4fbe-4c5f-836a-1dc2e69974d7.png",
+    "code": "043",
+    "region": 9,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 545000,
+    "paid": false,
+    "url": "https://dulaty.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 88,
+    "name": {
+      "ru": "Таразский региональный университет имени М. Х. Дулати",
+      "kk": "М. Х. Дулати атындағы Тараз өңірлік университеті",
+      "en": "M. H. Dulaty Taraz Regional University"
+    },
+    "short_name": {
+      "ru": "ТарГУ",
+      "kk": "ТарРУ",
+      "en": "TRU"
+    },
+    "address": "г. Тараз ул. Сулейманова, 7"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/b807c373-0cab-49d7-9e5c-53eb232edc9f.png",
+    "code": "044",
+    "region": 3,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1100000,
+    "paid": false,
+    "url": "https://skma.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 9,
+    "name": {
+      "ru": "Южно-Казахстанская медицинская академия",
+      "kk": "Оңтүстік Қазақстан медицина академиясы",
+      "en": "South Kazakhstan Medical Academy"
+    },
+    "short_name": {
+      "ru": "ЮКГМА",
+      "kk": "ОҚМА",
+      "en": "SKMA"
+    },
+    "address": "пр. Аль-Фараби, 1/1"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/59d5fc37-6cb5-45de-a581-a32926c06a8c.png",
+    "code": "045",
+    "region": 3,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 500000,
+    "paid": false,
+    "url": "https://auezov.edu.kz/kaz/",
+    "consult_landing_url": null,
+    "specialities_count": 106,
+    "name": {
+      "ru": "Южно-Казахстанский университет имени М. Ауезова",
+      "kk": "М. Әуезов атындағы Оңтүстік Қазақстан университеті",
+      "en": "M. Auezov South Kazakhstan University"
+    },
+    "short_name": {
+      "ru": "ЮКГУ",
+      "kk": "ОҚУ",
+      "en": "SKU"
+    },
+    "address": "пр. Тауке хана, 5"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/8024383c-8349-4f7c-85e3-e40ebf784617.jpeg",
+    "code": "047",
+    "region": 2,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 650000,
+    "paid": true,
+    "url": "http://www.egi.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 9,
+    "name": {
+      "ru": "Евразийский гуманитарный институт имени А. К. Кусаинова",
+      "kk": "А. Қ. Қусаинов атындағы Еуразия гуманитарлық институты",
+      "en": "A. K. Kusainov Eurasian Humanities Institute"
+    },
+    "short_name": {
+      "ru": "ЕАГИ",
+      "kk": "ЕАГИ",
+      "en": "EAGI"
+    },
+    "address": "район Алматы, пр. М. Жумабаева, 4"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/e1dc2202-71e9-4d2c-acb4-9f76bd2a372d.jpeg",
+    "code": "048",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 550000,
+    "paid": false,
+    "url": "https://kazatiso.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 17,
+    "name": {
+      "ru": "Казахская академия труда и социальных отношений",
+      "kk": "Қазақ еңбек және әлеуметтік қатынастар академиясы",
+      "en": "Kazakh Academy of Labour and Social Relations"
+    },
+    "short_name": {
+      "ru": "КазАТиСО",
+      "kk": "ҚазАТиСҚА",
+      "en": "KazATiSO"
+    },
+    "address": "ул. Наурызбай батыра, 9"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/5e3660b0-b224-496c-b197-050de9606e9b.jpeg",
+    "code": "049",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 695000,
+    "paid": true,
+    "url": "https://metu.edu.kz/",
+    "consult_landing_url": "https://wa.me/77750075055?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%F0%9F%91%8B%20%D0%9F%D0%B8%D1%88%D1%83%20%D0%B2%D0%B0%D0%BC%20%D1%81%20joo.kz",
+    "specialities_count": 17,
+    "name": {
+      "ru": "Международный инженерно-технологический университет",
+      "kk": "Халықаралық инженерлік-технологиялық университеті",
+      "en": "International Engineering and Technology University"
+    },
+    "short_name": {
+      "ru": "METU",
+      "kk": "METU",
+      "en": "METU"
+    },
+    "address": "пр. Аль-Фараби 93 А"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/3784f564-c18d-40f1-898f-3f06586d999b.png",
+    "code": "053",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 700000,
+    "paid": false,
+    "url": "https://atu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 21,
+    "name": {
+      "ru": "Алматинский технологический университет",
+      "kk": "Алматы технологиялық университеті",
+      "en": "Almaty Technological University"
+    },
+    "short_name": {
+      "ru": "АТУ",
+      "kk": "АТУ",
+      "en": "ATU"
+    },
+    "address": "ул. Толеби 100, уг. ул. Байтурсынова"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/30a0cc7f-d981-43a9-b3e2-689797ab4ba1.jpeg",
+    "code": "057",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 750000,
+    "paid": true,
+    "url": "https://energo.university/",
+    "consult_landing_url": "https://api.whatsapp.com/send?phone=77072600533&text=Сәлеметсіз+бе!+Joo.kz+қосымшасынан+жазып+тұрмын",
+    "specialities_count": 16,
+    "name": {
+      "ru": "Energo University (АУЭС)",
+      "kk": "Energo University (АУЭС)",
+      "en": "Energo University (AUES)"
+    },
+    "short_name": {
+      "ru": "АУЭС",
+      "kk": "АУЭС",
+      "en": "AUES"
+    },
+    "address": "ул. А. Байтурсынулы, 126/1"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/4f7b7dd8-4808-45a8-bfbb-805b57860336.jpeg",
+    "code": "069",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": false,
+    "price": 1650000,
+    "paid": true,
+    "url": "https://uib.edu.kz/",
+    "consult_landing_url": "https://b24-es3qjt.bitrix24.site/crm_form_5dsnn/",
+    "specialities_count": 23,
+    "name": {
+      "ru": "UIB",
+      "kk": "UIB",
+      "en": "UIB"
+    },
+    "short_name": {
+      "ru": "UIB",
+      "kk": "UIB",
+      "en": "UIB"
+    },
+    "address": "пр. Абая 8а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/8a8eb05a-dbc8-40bc-9010-cc9a5b980aed.png",
+    "code": "078",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 690000,
+    "paid": false,
+    "url": "https://kazadi.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 14,
+    "name": {
+      "ru": "Казахская автомобильно-дорожная академия им. Л. Б. Гончарова",
+      "kk": "Л. Б. Гончаров атындағы Қазақ автомобиль-жол академиясы",
+      "en": "L. B. Goncharov Kazakh Automobile and Road Academy"
+    },
+    "short_name": {
+      "ru": "КазАДИ",
+      "kk": "ҚазАДИ",
+      "en": "KazADI"
+    },
+    "address": "проспект Райымбека, 415B"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/537c0006-2e04-4aad-8aa5-30345f576a98.jpg",
+    "code": "079",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 1050000,
+    "paid": true,
+    "url": "http://cu.edu.kz",
+    "consult_landing_url": "https://l.clck.bar/22ae78",
+    "specialities_count": 23,
+    "name": {
+      "ru": "CASPIAN UNIVERSITY",
+      "kk": "CASPIAN UNIVERSITY",
+      "en": "CASPIAN UNIVERSITY"
+    },
+    "short_name": {
+      "ru": "CASPIAN UNIVERSITY",
+      "kk": "CASPIAN UNIVERSITY",
+      "en": "CASPIAN UNIVERSITY"
+    },
+    "address": "Достык 85А"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/19fdfde0-8205-4451-9ac3-21b7aefda1b3.png",
+    "code": "080",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 950000,
+    "paid": false,
+    "url": "http://medkrmu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 5,
+    "name": {
+      "ru": "Казахстанско-Российский медицинский университет",
+      "kk": "Қазақстан-Ресей медицина университеті",
+      "en": "Kazakhstan-Russian Medical University"
+    },
+    "short_name": {
+      "ru": "КРМУ",
+      "kk": "ҚРМУ",
+      "en": "KRMU"
+    },
+    "address": "ул. Торекулова-71"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/7e6b5ad0-8d1d-43fb-a084-69f4f99b7c91.png",
+    "code": "082",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 1500000,
+    "paid": false,
+    "url": "http://dku.kz",
+    "consult_landing_url": null,
+    "specialities_count": 7,
+    "name": {
+      "ru": "Казахстанско-Немецкий университет",
+      "kk": "Қазақстан-Неміс университеті",
+      "en": "Kazakh-German University"
+    },
+    "short_name": {
+      "ru": "КНУ",
+      "kk": "ҚНУ",
+      "en": "KGU"
+    },
+    "address": "ул. Пушкина, 111"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/108f9b13-ca69-44fa-b54e-bad946396eff.png",
+    "code": "083",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": false,
+    "price": 2400000,
+    "paid": true,
+    "url": "https://almau4u.kz/",
+    "consult_landing_url": "http://wa.me/77715527861",
+    "specialities_count": 27,
+    "name": {
+      "ru": "AlmaUniversity",
+      "kk": "AlmaUniversity",
+      "en": "AlmaUniversity"
+    },
+    "short_name": {
+      "ru": "AlmaU",
+      "kk": "AlmaU",
+      "en": "AlmaU"
+    },
+    "address": "Розыбакиева 227"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/2ab26981-6645-4272-a1de-4ef7a968458b.png",
+    "code": "089",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 570000,
+    "paid": false,
+    "url": "http://www.kainar-edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 17,
+    "name": {
+      "ru": "Q University",
+      "kk": "Q University",
+      "en": "Q University"
+    },
+    "short_name": {
+      "ru": "Q University",
+      "kk": "Q University",
+      "en": "Q University"
+    },
+    "address": "Сатпаева 7а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/180310cc-7de9-4a52-b17a-321a2b5460c8.png",
+    "code": "093",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 970000,
+    "paid": false,
+    "url": "http://turan.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 25,
+    "name": {
+      "ru": "Университет Туран",
+      "kk": "Туран университеті",
+      "en": "Turan University"
+    },
+    "short_name": {
+      "ru": "Туран",
+      "kk": "Туран",
+      "en": "Turan"
+    },
+    "address": "ул. Сатпаева 16а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/da9a1a91-cc55-448c-b43a-c8f3d15de0c8.png",
+    "code": "108",
+    "region": 8,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://openu.kz/kz/institution/114",
+    "consult_landing_url": null,
+    "specialities_count": 14,
+    "name": {
+      "ru": "Казахстанский инновационный университет",
+      "kk": "Қазақстан инновациялық университеті",
+      "en": "Kazakhstan Innovative University"
+    },
+    "short_name": {
+      "ru": "КИУ",
+      "kk": "ҚИУ",
+      "en": "KIU"
+    },
+    "address": "г. Семей, ул. Байсеитова, 5"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/ab4c2e27-5b9d-46a9-a5bb-133ed819a14b.png",
+    "code": "116",
+    "region": 11,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://bolashaq.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 9,
+    "name": {
+      "ru": "Частное учреждение «Академия «Bolashaq»",
+      "kk": "«Bolashaq» академиясы",
+      "en": "Bolashaq Academy"
+    },
+    "short_name": {
+      "ru": "Болашак",
+      "kk": "Bolashaq",
+      "en": "Bolashaq"
+    },
+    "address": "г. Караганда, ул. Ерубаева, 16."
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/51cc976f-1c0a-4423-92d6-83f080331b50.png",
+    "code": "122",
+    "region": 11,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 431000,
+    "paid": false,
+    "url": "https://kaztbu.edu.kz/ru",
+    "consult_landing_url": null,
+    "specialities_count": 25,
+    "name": {
+      "ru": "Карагандинский экономический университет Казпотребсоюза",
+      "kk": "Қазтұтынуодағы Қарағанды экономикалық университеті",
+      "en": "Karaganda Economic University of Kazpotrebsoyuz"
+    },
+    "short_name": {
+      "ru": "КЭУК",
+      "kk": "ҚЭУҚ",
+      "en": "KEUK"
+    },
+    "address": "г. Караганда, ул. Академическая, 9"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/817cc7f0-75fa-4e7e-8e52-8408e8966eb4.png",
+    "code": "140",
+    "region": 12,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 420000,
+    "paid": false,
+    "url": "http://kineu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 21,
+    "name": {
+      "ru": "Костанайский инженерно-экономический университет им. М. Дулатова",
+      "kk": "М. Дулатов атындағы Қостанай инженерлік-экономикалық университеті",
+      "en": "M. Dulatov Kostanay Engineering and Economics University"
+    },
+    "short_name": {
+      "ru": "КИПУ",
+      "kk": "ҚИЭУ",
+      "en": "KIEU"
+    },
+    "address": "г. Костанай, ул. Чернышевского 59"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/cb43660b-3fcb-442e-9a03-dbc02d18f07d.jpeg",
+    "code": "141",
+    "region": 8,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://abu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 36,
+    "name": {
+      "ru": "Alikhan Bokeikhan University (Казахский гуманитарно-юридический инновационный университет)",
+      "kk": "Alikhan Bokeikhan University (Қазақ гуманитарлық-заң инновациялық университеті)",
+      "en": "Alikhan Bokeikhan University (Kazakh Humanities and Law Innovative University)"
+    },
+    "short_name": {
+      "ru": "ABU",
+      "kk": "ABU",
+      "en": "ABU"
+    },
+    "address": "г. Семей, ул. Мангилик ел, 11"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/5f0889c8-5641-4c4a-846c-cbfa3c897961.png",
+    "code": "143",
+    "region": 3,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": null,
+    "paid": true,
+    "url": "https://tashenev.edu.kz/index.php/kk",
+    "consult_landing_url": null,
+    "specialities_count": 28,
+    "name": {
+      "ru": "Tashenev University",
+      "kk": "Tashenev University",
+      "en": "Tashenev University"
+    },
+    "short_name": {
+      "ru": "Сырдария, Ташенов",
+      "kk": "Сырдария, Ташенов",
+      "en": "Syrdariya, Tashenev"
+    },
+    "address": "Конаева 21"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/ecc88236-bb35-4e9a-930c-8eba4ccee4a0.png",
+    "code": "145",
+    "region": 12,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://kosstu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 22,
+    "name": {
+      "ru": "Костанайский социально-технический университет им. академика З. Алдамжар",
+      "kk": "академик З. Алдамжар атындағы Қостанай әлеуметтік-техникалық университеті",
+      "en": "Kostanay Social and Technical University named after Academician Z. Aldamzhar"
+    },
+    "short_name": {
+      "ru": "КСТУ",
+      "kk": "ҚСТУ",
+      "en": "KSTU"
+    },
+    "address": "г. Костанай, пр. Кобыланды батыра, 27"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/2bbcc016-6a72-4e00-8202-0a9d4043b68f.png",
+    "code": "146",
+    "region": 15,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 342900,
+    "paid": false,
+    "url": "http://ineu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 42,
+    "name": {
+      "ru": "Инновационный Евразийский университет",
+      "kk": "Инновациялық Еуразия университеті",
+      "en": "Innovative Eurasian University"
+    },
+    "short_name": {
+      "ru": "ИнЕУ",
+      "kk": "ИнЕУ",
+      "en": "InEU"
+    },
+    "address": "г. Павлодар, ул. Ломова, 45"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/e6d44fc9-0f8e-4b9a-b640-d0e55786c37d.png",
+    "code": "147",
+    "region": 15,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://eiti.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 16,
+    "name": {
+      "ru": "Экибастузский инженерно-технический институт имени академика К. И. Сатпаева",
+      "kk": "академик К. И. Сәтбаев атындағы Екібастұз инженерлік-техникалық институты",
+      "en": "Ekbastuz Engineering and Technical Institute named after Academician K. I. Satpayev"
+    },
+    "short_name": {
+      "ru": "ЭИТИ",
+      "kk": "ЭИТИ",
+      "en": "EITI"
+    },
+    "address": "г. Экибастуз, ул. Энергетиков 54А"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/825a7ffc-e031-44d8-96ea-886975acdbfd.png",
+    "code": "151",
+    "region": 4,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "http://gta.kz",
+    "consult_landing_url": null,
+    "specialities_count": 9,
+    "name": {
+      "ru": "Гуманитарно-Техническая Академия",
+      "kk": "Гуманитарлық-Техникалық Академия",
+      "en": "Humanitarian-Technical Academy"
+    },
+    "short_name": {
+      "ru": "ГТА",
+      "kk": "ГТА",
+      "en": "HTA"
+    },
+    "address": "г. Кокшетау, ул. Джамбула 35"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/3d9b2b3c-b632-4205-a954-1fb487038d92.jpeg",
+    "code": "153",
+    "region": 8,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 393100,
+    "paid": false,
+    "url": "http://kafu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 26,
+    "name": {
+      "ru": "Казахстанско-Американский свободный университет",
+      "kk": "Қазақстан-Америка еркін университеті",
+      "en": "Kazakhstan-American Free University"
+    },
+    "short_name": {
+      "ru": "КАСУ",
+      "kk": "КАСУ",
+      "en": "KAFU"
+    },
+    "address": "г. Усть-Каменогорск, ул.М.Горького, 76"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/52130dd3-d05e-4bde-893c-aaa57d938712.jpeg",
+    "code": "154",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 300000,
+    "paid": false,
+    "url": "https://ageu.edu.kz/kz",
+    "consult_landing_url": null,
+    "specialities_count": 24,
+    "name": {
+      "ru": "Алматинский гуманитарно-экономический университет",
+      "kk": "Алматы гуманитарлық-экономикалық университеті",
+      "en": "Almaty Humanitarian and Economic University"
+    },
+    "short_name": {
+      "ru": "ААЭС",
+      "kk": "ААЭС",
+      "en": "AHEU"
+    },
+    "address": "ул. Жандосова, 59"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/b21898dd-a2fa-4fd2-a177-b25f8c9e917f.jpg",
+    "code": "157",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 980000,
+    "paid": false,
+    "url": "https://caa.edu.kz/obrazovatelnye-programmy-349",
+    "consult_landing_url": null,
+    "specialities_count": 10,
+    "name": {
+      "ru": "Академия гражданской авиации",
+      "kk": "Азаматтық авиация академиясы",
+      "en": "Civil Aviation Academy"
+    },
+    "short_name": {
+      "ru": "АГА",
+      "kk": "ААА",
+      "en": "CAA"
+    },
+    "address": "ул. Ахметова, 44"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/0a75c0b0-be59-404b-b5ad-fcf4221935d5.png",
+    "code": "158",
+    "region": 4,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 342900,
+    "paid": false,
+    "url": "https://kuam.edu.kz/#gsc.tab=0",
+    "consult_landing_url": null,
+    "specialities_count": 24,
+    "name": {
+      "ru": "Кокшетауский университет имени Абая Мырзахметова",
+      "kk": "Абай Мырзахметов атындағы Көкшетау университеті",
+      "en": "Abay Myrzakhmetov Kokshetau University"
+    },
+    "short_name": {
+      "ru": "КУ им. А. Мырзахметова",
+      "kk": "А. Мырзахметов атындағы КУ",
+      "en": "KMU"
+    },
+    "address": "г. Кокшетау, ул. М. Ауэзова, 189а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/01ee46f6-c6de-40ef-aaf4-6aeb9990078b.jpeg",
+    "code": "160",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 1100000,
+    "paid": true,
+    "url": "http://etu.edu.kz/",
+    "consult_landing_url": "https://l.clck.bar/27a18b",
+    "specialities_count": 18,
+    "name": {
+      "ru": "Евразийский технологический университет",
+      "kk": "Еуразиялық технологиялық университеті",
+      "en": "Eurasian Technological University"
+    },
+    "short_name": {
+      "ru": "ЕТУ",
+      "kk": "ЕТУ",
+      "en": "ETU"
+    },
+    "address": "ул. Толе би 109Б"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/efcbe5f8-a749-467c-bd1d-f474998bd957.png",
+    "code": "162",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://mtgu.edu.kz/ru",
+    "consult_landing_url": null,
+    "specialities_count": 20,
+    "name": {
+      "ru": "Международный транспортно-гуманитарный университет",
+      "kk": "Халықаралық көлік-гуманитарлық университеті",
+      "en": "International Transport and Humanities University"
+    },
+    "short_name": {
+      "ru": "КУПС",
+      "kk": "КУПС",
+      "en": "KUPS"
+    },
+    "address": "мкрн. Жетису-1, 32-А"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/f99fe207-378f-4849-a876-8b47ea00e064.png",
+    "code": "173",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://esil-edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 12,
+    "name": {
+      "ru": "Esil University",
+      "kk": "Esil University",
+      "en": "Esil University"
+    },
+    "short_name": {
+      "ru": "Esil",
+      "kk": "Esil",
+      "en": "Esil"
+    },
+    "address": "г. Нур-Султан, ул. А. Жубанова, 7"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/ce80cb0c-7b46-493f-a843-17b4969225f3.jpeg",
+    "code": "174",
+    "region": 2,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 2200000,
+    "paid": true,
+    "url": "https://mnu.kz/",
+    "consult_landing_url": "https://api.whatsapp.com/send/?phone=77001703030&text&type=phone_number&app_absent=0",
+    "specialities_count": 17,
+    "name": {
+      "ru": "MAQSUT NARIKBAYEV UNIVERSITY (MNU)",
+      "kk": "MAQSUT NARIKBAYEV UNIVERSITY (MNU)",
+      "en": "MAQSUT NARIKBAYEV UNIVERSITY (MNU)"
+    },
+    "short_name": {
+      "ru": "MNU",
+      "kk": "MNU",
+      "en": "MNU"
+    },
+    "address": "Коргалжинское шоссе, 8"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/2eb46220-2a96-45f5-83eb-eb3b1e3ea366.png",
+    "code": "182",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "http://www.kazutb.kz",
+    "consult_landing_url": null,
+    "specialities_count": 24,
+    "name": {
+      "ru": "Казахский университет технологии и бизнеса",
+      "kk": "Қазақ технология және бизнес университеті",
+      "en": "Kazakh University of Technology and Business"
+    },
+    "short_name": {
+      "ru": "КазУТБ",
+      "kk": "ҚазУТБ",
+      "en": "KazUTB"
+    },
+    "address": "ул. Кайым Мухамедханова, здание 37 А."
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/2a223a21-b979-4aff-9032-a96aabbb8100.jpeg",
+    "code": "185",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": 1300000,
+    "paid": false,
+    "url": "https://www.aiu.edu.kz/ru/blcu/83",
+    "consult_landing_url": null,
+    "specialities_count": 2,
+    "name": {
+      "ru": "Филиал Пекинского университета языка и культуры (BLCU)",
+      "kk": "Бейжің тіл және мәдениет университетінің филиалы (BLCU)",
+      "en": "Branch of Beijing Language and Culture University (BLCU)"
+    },
+    "short_name": {
+      "ru": "BLCU",
+      "kk": "BLCU",
+      "en": "BLCU"
+    },
+    "address": "Казахстан, г. Астана, проспект Кабанбай батыра, 8"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/37326d37-8bcc-4e95-85db-d799a8fc8b96.png",
+    "code": "185",
+    "region": 2,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 695000,
+    "paid": false,
+    "url": "http://www.aiu.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 31,
+    "name": {
+      "ru": "Международный университет Астана (AIU)",
+      "kk": "Astana International University (AIU)",
+      "en": "Astana International University (AIU)"
+    },
+    "short_name": {
+      "ru": "МУА",
+      "kk": "AIU",
+      "en": "AIU"
+    },
+    "address": "проспект Кабанбай батыр 8"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/d1233983-366c-408c-9eac-7148de41cdcc.jpeg",
+    "code": "190",
+    "region": 1,
+    "military_faculty": true,
+    "dormitory": false,
+    "price": 1280000,
+    "paid": false,
+    "url": "https://iitu.edu.kz/ru/",
+    "consult_landing_url": null,
+    "specialities_count": 10,
+    "name": {
+      "ru": "Международный университет информационных технологий",
+      "kk": "Ақпараттық технологиялар халықаралық университеті",
+      "en": "International University of Information Technologies"
+    },
+    "short_name": {
+      "ru": "МУИТ",
+      "kk": "МУИТ",
+      "en": "IITU"
+    },
+    "address": "ул. Манаса 34/1"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/12e72960-aa21-41a6-bd0c-bfcbcdfff3b4.png",
+    "code": "196",
+    "region": 3,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "http://okmpu.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 39,
+    "name": {
+      "ru": "Южно-Казахстанский государственный педагогический университет",
+      "kk": "Оңтүстік Қазақстан мемлекеттік педагогикалық университеті",
+      "en": "South Kazakhstan State Pedagogical University"
+    },
+    "short_name": {
+      "ru": "ЮКГПУ",
+      "kk": "ОҚМПУ",
+      "en": "SKSPU"
+    },
+    "address": "ул. А. Байтурсынова 13"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/b5b4ab98-3c54-47e3-8bc2-da28f397de70.jpeg",
+    "code": "198",
+    "region": 10,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://wkitu.kz/ru/glavnaja-stranica-2/",
+    "consult_landing_url": null,
+    "specialities_count": 58,
+    "name": {
+      "ru": "Западно-Казахстанский инновационно-технологический университет",
+      "kk": "Батыс Қазақстан инновациялық-технологиялық университеті",
+      "en": "West Kazakhstan Innovative Technological University"
+    },
+    "short_name": {
+      "ru": "ЗКИТУ",
+      "kk": "БҚИТУ",
+      "en": "WKITU"
+    },
+    "address": "г. Уральск, пр.Достык, 194"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/c40a06d7-a1c2-4098-b412-c68e38ec730b.jpeg",
+    "code": "199",
+    "region": 10,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 250000,
+    "paid": false,
+    "url": "http://kazuits.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 21,
+    "name": {
+      "ru": "Казахстанский университет инновационных и телекоммуникационных систем",
+      "kk": "Қазақстан инновациялық және телекоммуникациялық жүйелер университеті",
+      "en": "Kazakhstan University of Innovation and Telecommunication Systems"
+    },
+    "short_name": {
+      "ru": "КазИИТУ",
+      "kk": "ҚазИИТУ",
+      "en": "KazIITU"
+    },
+    "address": "г. Уральск, ул.М.Маметовой, 81"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/fb420e75-a3e5-4a07-b958-e215d9926848.png",
+    "code": "200",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 659999,
+    "paid": false,
+    "url": "https://vuzkunaeva.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 2,
+    "name": {
+      "ru": "Университет Кунаева",
+      "kk": "Қонаев университеті",
+      "en": "Kunaev University"
+    },
+    "short_name": {
+      "ru": "Университет Кунаева",
+      "kk": "Қонаев университеті",
+      "en": "Kunaev University"
+    },
+    "address": "ул. Курмангазы, 107"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/754bb5fd-3cfe-44fe-a248-20b79d797d8e.png",
+    "code": "202",
+    "region": 3,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "http://kipudn.kz",
+    "consult_landing_url": null,
+    "specialities_count": 37,
+    "name": {
+      "ru": "Университет дружбы народов имени академика А. Куатбекова",
+      "kk": "академик А. Қуатбеков атындағы Халықтар достығы университеті",
+      "en": "Peoples' Friendship University named after Academician A. Kuatbekov"
+    },
+    "short_name": {
+      "ru": "КИПУДН",
+      "kk": "КИПУДН",
+      "en": "KIPUDN"
+    },
+    "address": "ул. Толе би, 32"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/6af1ecd4-bb7d-4986-a0c4-ea0f64f3a8b8.png",
+    "code": "223",
+    "region": 9,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://htii.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 37,
+    "name": {
+      "ru": "Международный Таразский инновационный институт имени Шерхана Муртазы",
+      "kk": "Шерхан Мұртаза атындағы Халықаралық Тараз инновациялық институты",
+      "en": "International Taraz Innovative Institute named after Sherkhan Murtaza"
+    },
+    "short_name": {
+      "ru": "ТИГУ",
+      "kk": "ТИГУ",
+      "en": "TIGU"
+    },
+    "address": "г. Тараз, ул. Желтоксан, д. №69Б"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/b46a21c3-e719-4749-adb0-0d8ce4eb604f.jpeg",
+    "code": "302",
+    "region": 6,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 1400000,
+    "paid": false,
+    "url": "http://sdu.edu.kz",
+    "consult_landing_url": null,
+    "specialities_count": 32,
+    "name": {
+      "ru": "SDU University",
+      "kk": "SDU University",
+      "en": "SDU University"
+    },
+    "short_name": {
+      "ru": "СДУ",
+      "kk": "SDU",
+      "en": "SDU"
+    },
+    "address": "г. Каскелен, ул. Абылай хана, 1/1"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/eab53893-7e6f-4d32-85aa-471e995567b5.png",
+    "code": "318",
+    "region": 7,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "http://aigi.kz",
+    "consult_landing_url": null,
+    "specialities_count": 18,
+    "name": {
+      "ru": "Атырауский инженерно-гуманитарный институт",
+      "kk": "Атырау инженерлік-гуманитарлық институты",
+      "en": "Atyrau Engineering and Humanities Institute"
+    },
+    "short_name": {
+      "ru": "АИГИ",
+      "kk": "АИГИ",
+      "en": "AEGI"
+    },
+    "address": "г. Атырау, ул. Худина, 5а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/96c7e1cb-3fe3-4b2b-bd16-434b489def6a.jpg",
+    "code": "414",
+    "region": 3,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 300000,
+    "paid": false,
+    "url": "https://univershu.edu.kz/kz/",
+    "consult_landing_url": null,
+    "specialities_count": 23,
+    "name": {
+      "ru": "Шымкентский университет",
+      "kk": "Шымкент университеті",
+      "en": "Shymkent University"
+    },
+    "short_name": {
+      "ru": "ШУ",
+      "kk": "ШУ",
+      "en": "ShU"
+    },
+    "address": "Каратауский район, улица Жібек жолы, 131"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/7a9f2808-9092-46b7-b481-07d7f9601cf4.png",
+    "code": "416",
+    "region": 5,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://site.bu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 27,
+    "name": {
+      "ru": "Актюбинский университет имени С. Баишева",
+      "kk": "С. Бәйішев атындағы Ақтөбе университеті",
+      "en": "S. Baishev Aktobe University"
+    },
+    "short_name": {
+      "ru": "АУ им. С.Баишева",
+      "kk": "С. Бәйішев атындағы АУ",
+      "en": "AU named after S. Baishev"
+    },
+    "address": "г. Актобе, ул. Бр. Жубановых, 302а"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/17f97268-fd80-4c84-a71d-4a1a938ba6a1.png",
+    "code": "421",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 2400000,
+    "paid": true,
+    "url": "http://kbtu.kz",
+    "consult_landing_url": "https://wa.me/77058873813",
+    "specialities_count": 25,
+    "name": {
+      "ru": "Казахстанско-Британский технический университет",
+      "kk": "Қазақстан-Британ техникалық университеті",
+      "en": "Kazakhstan-British Technical University"
+    },
+    "short_name": {
+      "ru": "КБТУ",
+      "kk": "ҚБТУ",
+      "en": "KBTU"
+    },
+    "address": "ул. Толе би 59"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/0a687c20-72b2-4cf5-8bfb-3ef4b9c4182d.jpg",
+    "code": "501",
+    "region": 10,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "http://new.wkau.kz",
+    "consult_landing_url": null,
+    "specialities_count": 43,
+    "name": {
+      "ru": "Западно-Казахстанский аграрно-технический университет имени Жангир хана",
+      "kk": "Жәңгір хан атындағы Батыс Қазақстан аграрлық-техникалық университеті",
+      "en": "Zhangir Khan West Kazakhstan Agrarian and Technical University"
+    },
+    "short_name": {
+      "ru": "ЗКАТУ",
+      "kk": "БҚАТУ",
+      "en": "WKATU"
+    },
+    "address": "г. Уральск, ул. Жангир хана 51"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/2fea6f18-96f4-4cd8-b660-5c3c3a03a42d.png",
+    "code": "503",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 400000,
+    "paid": false,
+    "url": "https://www.nmu.edu.kz/ru/bas-bet-russkij/",
+    "consult_landing_url": null,
+    "specialities_count": 5,
+    "name": {
+      "ru": "Египетский университет исламской культуры Нур-Мубарак",
+      "kk": "Нұр-Мүбарак Египет ислам мәдениеті университеті",
+      "en": "Nur-Mubarak Egyptian University of Islamic Culture"
+    },
+    "short_name": {
+      "ru": "Нур-Мубарак",
+      "kk": "Нұр-Мүбарак",
+      "en": "Nur-Mubarak"
+    },
+    "address": "пр. Аль-фараби 73"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/bfd6ea02-56f8-4ed9-892c-060e833f8309.jpeg",
+    "code": "517",
+    "region": 15,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://ppu.edu.kz/kz/",
+    "consult_landing_url": null,
+    "specialities_count": 31,
+    "name": {
+      "ru": "Margulan University",
+      "kk": "Margulan University",
+      "en": "Margulan University"
+    },
+    "short_name": {
+      "ru": "Margulan University",
+      "kk": "Margulan University",
+      "en": "Margulan University"
+    },
+    "address": "г. Павлодар, улица Мира, д. 60"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/77f979e0-33fa-4c72-86e6-b6f8e51554b9.png",
+    "code": "522",
+    "region": 2,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 2500000,
+    "paid": true,
+    "url": "https://astanait.edu.kz/",
+    "consult_landing_url": "https://admission.astanait.edu.kz/",
+    "specialities_count": 9,
+    "name": {
+      "ru": "Astana IT University",
+      "kk": "Astana IT University",
+      "en": "Astana IT University"
+    },
+    "short_name": {
+      "ru": "Астана IT",
+      "kk": "Astana IT",
+      "en": "Astana IT"
+    },
+    "address": "ул. Мәңгілік ел, C1"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/eff05726-6420-4d10-b94c-4c0b5e6f75b4.png",
+    "code": "523",
+    "region": 17,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 450000,
+    "paid": false,
+    "url": "https://iuth.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 7,
+    "name": {
+      "ru": "Международный университет туризма и гостеприимства",
+      "kk": "Туризм және қонақжайлылық халықаралық университеті",
+      "en": "International University of Tourism and Hospitality"
+    },
+    "short_name": {
+      "ru": "МУТиГ",
+      "kk": "МУТиГ",
+      "en": "IUTH"
+    },
+    "address": "г. Туркестан, улица Рабиги Султан Бегим 14 “Б”"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/a12c7bb5-d0cc-437e-9bf0-e987512726ca.jpg",
+    "code": "526",
+    "region": 3,
+    "military_faculty": true,
+    "dormitory": true,
+    "price": 300000,
+    "paid": false,
+    "url": "https://caiu.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 5,
+    "name": {
+      "ru": "Центрально-Азиатский инновационный университет",
+      "kk": "Орталық Азия инновациялық университеті",
+      "en": "Central Asian Innovative University"
+    },
+    "short_name": {
+      "ru": "OAIU",
+      "kk": "OAIU",
+      "en": "OAIU"
+    },
+    "address": "улица Байтурсынова, 80  ул. Мадели Кожа, 137"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/2acaa70e-8ea9-4529-99d2-b0581d6a65aa.jpg",
+    "code": "527",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 1200000,
+    "paid": false,
+    "url": null,
+    "consult_landing_url": null,
+    "specialities_count": 2,
+    "name": {
+      "ru": "Академия физической культуры и массового спорта",
+      "kk": "Дене шынықтыру және бұқаралық спорт академиясы",
+      "en": "Academy of Physical Culture and Mass Sports"
+    },
+    "short_name": {
+      "ru": "APEMS",
+      "kk": "APEMS",
+      "en": "APEMS"
+    },
+    "address": "г. Астана, Бизнес-центр Экспо, пр. Мангилик Ел, B 2.2"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/b9115653-4882-497d-8806-6602ed8c920a.png",
+    "code": "528",
+    "region": 13,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 400000,
+    "paid": false,
+    "url": "https://ouk.edu.kz/kk/",
+    "consult_landing_url": null,
+    "specialities_count": 18,
+    "name": {
+      "ru": "Учреждение образования \"Кызылординский открытый университет\"",
+      "kk": "«Қызылорда ашық университеті» білім беру мекемесі",
+      "en": "Kyzylorda Open University"
+    },
+    "short_name": {
+      "ru": "Болашак",
+      "kk": "Bolashak",
+      "en": "Bolashak"
+    },
+    "address": "г. Кызылорда, Ғ.Муратбаев көшесі 72"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/4bea0791-df88-4e00-8ee0-0e1b6db140a7.jpeg",
+    "code": "529",
+    "region": 9,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": null,
+    "consult_landing_url": null,
+    "specialities_count": 30,
+    "name": {
+      "ru": "Казахский национальный университет водного хозяйства и ирригации",
+      "kk": "Қазақ су шаруашылығы және мелиорация ұлттық университеті",
+      "en": "Kazakh National University of Water Management and Irrigation"
+    },
+    "short_name": {
+      "ru": "Гидро Университет",
+      "kk": "Гидро университеті",
+      "en": "Hydro University"
+    },
+    "address": "ул.  К. Сатпаева, 28, Тараз, 080000, Казахстан"
+  },
+  {
+    "logo": "https://optim.tildacdn.com/tild3135-6163-4238-a562-626261626434/-/resize/182x/-/format/webp/image.png.webp",
+    "code": "533",
+    "region": 9,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": null,
+    "consult_landing_url": null,
+    "specialities_count": 2,
+    "name": {
+      "ru": "Филиал Российского химико-технологического университета им. Д. И. Менделеева",
+      "kk": "Д. И. Менделеев атындағы Ресей химия-технология университетінің филиалы",
+      "en": "Branch of D. I. Mendeleev Russian University of Chemical Technology"
+    },
+    "short_name": {
+      "ru": "РХТУ им. Д.И. Менделеева",
+      "kk": "РХТУ им. Д.И. Менделеева",
+      "en": "RUCT named after D. I. Mendeleev"
+    },
+    "address": "050040, Реcпублика Казахстан, г. Тараз, проспект Толе Би 62В"
+  },
+  {
+    "logo": "https://app.joo.kz/media/images/487bffda-b3b4-4608-893c-6932d9e66d0d.jpeg",
+    "code": "909",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://nu.edu.kz/ru",
+    "consult_landing_url": null,
+    "specialities_count": 14,
+    "name": {
+      "ru": "Назарбаев Университет",
+      "kk": "Назарбаев Университеті",
+      "en": "Nazarbayev University"
+    },
+    "short_name": {
+      "ru": "NU",
+      "kk": "NU",
+      "en": "NU"
+    },
+    "address": "г. Астана, пр.Кабанбай батыра, 53"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/eb1c2165-8ba9-4bec-816a-0815e6bc7298.png",
+    "code": "979",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": 4500000,
+    "paid": false,
+    "url": "http://kimep.kz",
+    "consult_landing_url": null,
+    "specialities_count": 14,
+    "name": {
+      "ru": "Университет КИМЭП",
+      "kk": "КИМЭП университеті",
+      "en": "KIMEP University"
+    },
+    "short_name": {
+      "ru": "КИМЭП",
+      "kk": "KIMEP",
+      "en": "KIMEP"
+    },
+    "address": "пр. Абая 2"
+  },
+  {
+    "logo": "https://voshod.mai.ru/bitrix/templates/mai_branch/img/logo/logo-2x.png",
+    "code": "989",
+    "region": 13,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": null,
+    "consult_landing_url": null,
+    "specialities_count": 3,
+    "name": {
+      "ru": "Филиал \"Восход\" Московского авиационного института",
+      "kk": "\"Восход\" Мәскеу авиация институтының филиалы",
+      "en": "\"Voskhod\" Branch of Moscow Aviation Institute"
+    },
+    "short_name": {
+      "ru": "Восход МАИ",
+      "kk": "Восход МАИ",
+      "en": "Voskhod MAI"
+    },
+    "address": "468320, г. Байконур, ул. Гагарина, д. 5"
+  },
+  {
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Cardiff_University_%28logo%29.svg/2131px-Cardiff_University_%28logo%29.svg.png",
+    "code": "999",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": 8000000,
+    "paid": false,
+    "url": "https://www.cardiff.ac.uk/kazakhstan",
+    "consult_landing_url": null,
+    "specialities_count": 4,
+    "name": {
+      "ru": "Филиал Cardiff University Kazakhstan",
+      "kk": "Cardiff University Kazakhstan филиалы",
+      "en": "Cardiff University Kazakhstan Branch"
+    },
+    "short_name": {
+      "ru": "Cardiff University Kazakhstan",
+      "kk": "Cardiff University Kazakhstan",
+      "en": "Cardiff University Kazakhstan"
+    },
+    "address": "Астана"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/1c3c0c20-b132-4c61-ac43-bdebac910eda.png",
+    "code": "999",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": 8000000,
+    "paid": false,
+    "url": "https://coventry.edu.kz/kz",
+    "consult_landing_url": null,
+    "specialities_count": 11,
+    "name": {
+      "ru": "Филиал Coventry University",
+      "kk": "Coventry University филиалы",
+      "en": "Coventry University Branch"
+    },
+    "short_name": {
+      "ru": "Coventry University",
+      "kk": "Coventry University",
+      "en": "Coventry University"
+    },
+    "address": "Казахстан, Астана, шоссе Коргалжын, 13А."
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/bae306f0-ee00-49d9-ad11-bb61513f692e.jpg",
+    "code": "999",
+    "region": 7,
+    "military_faculty": false,
+    "dormitory": true,
+    "price": null,
+    "paid": false,
+    "url": "https://aogu.edu.kz/programs-cooperation/rgu-gubkina/",
+    "consult_landing_url": null,
+    "specialities_count": 1,
+    "name": {
+      "ru": "Филиал Университета нефти и газа имени И.М. Губкина",
+      "kk": "И. М. Губкин атындағы Мұнай және газ университетінің филиалы",
+      "en": "Branch of Gubkin University of Oil and Gas"
+    },
+    "short_name": {
+      "ru": "Губкинский университет",
+      "kk": "Губкин университеті",
+      "en": "Gubkin University"
+    },
+    "address": "060027, г. Атырау, ул. Мусы Баймуханова 45А"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/6152e245-2868-4b1c-b1f2-64dbd4d66fa5.png",
+    "code": "999",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://almaty.mephi.ru/",
+    "consult_landing_url": null,
+    "specialities_count": 2,
+    "name": {
+      "ru": "Филиал НИЯУ МИФИ",
+      "kk": "МИФИ ҰЯУ филиалы",
+      "en": "Branch of National Research Nuclear University MEPhI"
+    },
+    "short_name": {
+      "ru": "МИФИ",
+      "kk": "МИФИ",
+      "en": "MEPhI"
+    },
+    "address": "050040, Республика Казахстан, г. Алматы, проспект аль-Фараби, 71 корпус 12."
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/0a60b360-f977-406c-8743-05150d1231ee.jpg",
+    "code": "999",
+    "region": 17,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://wsuk.wsu.ac.kr/RU/sub04/01.html",
+    "consult_landing_url": null,
+    "specialities_count": 2,
+    "name": {
+      "ru": "Woosong University Kazakhstan",
+      "kk": "Woosong University Kazakhstan",
+      "en": "Woosong University Kazakhstan"
+    },
+    "short_name": {
+      "ru": "Woosong University",
+      "kk": "Woosong University",
+      "en": "Woosong University"
+    },
+    "address": "39 Building, 160 Block, Zhana Kala Turkistan City, Kazakhstan"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/09153070-1ab0-4d36-a19d-7b0e3de8cd75.jpeg",
+    "code": "999",
+    "region": 1,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": 6400000,
+    "paid": false,
+    "url": "https://dmuk.edu.kz/",
+    "consult_landing_url": null,
+    "specialities_count": 0,
+    "name": {
+      "ru": "Филиал De Montfort University Kazakhstan",
+      "kk": "De Montfort University Kazakhstan филиалы",
+      "en": "De Montfort University Kazakhstan Branch"
+    },
+    "short_name": {
+      "ru": "DMU Kazakhstan",
+      "kk": "DMU Kazakhstan",
+      "en": "DMU Kazakhstan"
+    },
+    "address": "Almaty City, Medeu District, 120/48, premises 4, Al-Farabi Ave., 050044, Almaty, Republic of Kazakhstan"
+  },
+  {
+    "logo": "https://app.joo.kz/media/icons/d0fd0c82-6ecd-4989-aa19-2658cf2df4c1.jpeg",
+    "code": "999",
+    "region": 2,
+    "military_faculty": false,
+    "dormitory": false,
+    "price": null,
+    "paid": false,
+    "url": "https://msu.kz/ru/",
+    "consult_landing_url": null,
+    "specialities_count": 5,
+    "name": {
+      "ru": "Филиал Московского государственного университета имени М.В. Ломоносова",
+      "kk": "М. В. Ломоносов атындағы Мәскеу мемлекеттік университетінің филиалы",
+      "en": "Branch of Lomonosov Moscow State University"
+    },
+    "short_name": {
+      "ru": "Казахстанский филиал МГУ",
+      "kk": "Қазақстандық ММУ филиалы",
+      "en": "Kazakhstan Branch of MSU"
+    },
+    "address": "Республика Казахстан 010010 г. Астана ул. Кажымукана, 11"
+  }
+]

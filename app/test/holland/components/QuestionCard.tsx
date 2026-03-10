@@ -12,11 +12,14 @@ import {
   Typography,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
-import type { HollandQuestion } from "../questions";
-
+import { useLocale, useTranslations } from "next-intl";
 export interface QuestionCardProps {
-  question: HollandQuestion;
+  question: {
+    id: string;
+    text: { ru: string; kk: string; en: string } | string;
+    category?: "R" | "I" | "A" | "S" | "E" | "C";
+    weight?: number;
+  };
   value: number | null;
   onChange: (value: number) => void;
   questionNumber: number;
@@ -41,6 +44,8 @@ export const QuestionCard = ({
   totalQuestions,
 }: QuestionCardProps) => {
   const t = useTranslations();
+  const locale = useLocale();
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
@@ -51,7 +56,7 @@ export const QuestionCard = ({
       <Card sx={styles.card}>
         <CardContent sx={styles.content}>
           <Typography variant="h3" sx={styles.questionText}>
-            {question.text}
+            {questionNumber}. {(question.text as any)[locale]}
           </Typography>
           <FormControl component="fieldset" sx={styles.radioGroup}>
             <RadioGroup
@@ -119,7 +124,7 @@ const styles = {
   },
   radioLabel: {
     m: 0,
-    p: 0.5,
+    p: 0,
     borderRadius: 1,
     border: "2px solid transparent",
     transition: "all 0.2s ease",

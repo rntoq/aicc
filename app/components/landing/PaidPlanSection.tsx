@@ -16,7 +16,7 @@ import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
 
 const SECTIONS = [
   {
@@ -118,8 +118,9 @@ const styles = {
     borderRadius: 3,
     overflow: "hidden",
     boxShadow: "0 16px 48px rgba(15, 23, 42, 0.14)",
-    aspectRatio: "16/12",
-    maxWidth: "90vw",
+    // On mobile we need more vertical room for tabs + chips
+    aspectRatio: { xs: "9/18", sm: "16/14", md: "16/12" },
+    maxWidth: { xs: "92vw", sm: "90vw", md: 960 },
     mx: "auto",
     "& img": { objectFit: "cover" },
   },
@@ -129,21 +130,21 @@ const styles = {
     right: 0,
     top: 0,
     display: "flex",
-    gap: 1.5,
+    gap: { xs: 1, sm: 1.5 },
     justifyContent: "center",
-    pt: 2,
-    px: 2,
+    pt: { xs: 1.25, sm: 2 },
+    px: { xs: 1.25, sm: 2 },
     flexWrap: "wrap",
   },
   tabButton: {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    py: 1.5,
-    px: 3,
+    py: { xs: 1.1, sm: 1.5 },
+    px: { xs: 2, sm: 3 },
     borderRadius: 1.5,
     fontWeight: 600,
-    fontSize: "0.9375rem",
+    fontSize: { xs: "0.875rem", sm: "0.9375rem" },
     cursor: "pointer",
     border: "1px solid #06b6d4",
     bgcolor: "rgba(6, 182, 212, 0.06)",
@@ -163,17 +164,19 @@ const styles = {
   },
   chipsWrap: {
     position: "absolute",
-    right: 1.5,
-    left: 1.5,
-    bottom: 1.5,
+    right: { xs: 1.25, sm: 1.5 },
+    left: { xs: 1.25, sm: 1.5 },
+    bottom: { xs: 1.25, sm: 1.5 },
     top: "auto",
     transform: "none",
     width: "auto",
-    maxHeight: "50%",
-    overflowY: "auto",
+    maxHeight: { xs: "62%", sm: "55%", md: "85%" },
+    overflowY: { xs: "auto", md: "auto" },
     display: "flex",
     flexDirection: "column",
-    gap: 1,
+    gap: { xs: 0.75, sm: 1 },
+    borderRadius: { xs: 2, md: 0 },
+    p: { xs: 1, md: 0 },
     "@media (min-width: 900px)": {
       right: 2,
       left: "auto",
@@ -182,14 +185,16 @@ const styles = {
       transform: "translateY(-50%)",
       width: "min(280px, 42%)",
       maxHeight: "85%",
+      borderRadius: 0,
+      p: 0,
     },
   },
   featureChip: {
     display: "flex",
     alignItems: "center",
-    gap: 1.5,
-    py: 1.25,
-    px: 1.5,
+    gap: { xs: 1, sm: 1.5 },
+    py: { xs: 1, sm: 1.25 },
+    px: { xs: 1.25, sm: 1.5 },
     borderRadius: 1.75,
     bgcolor: "background.paper",
     boxShadow: "0 2px 8px rgba(15, 23, 42, 0.06)",
@@ -199,8 +204,8 @@ const styles = {
     "&:last-of-type": { mb: 0 },
   },
   iconWrap: {
-    width: 40,
-    height: 40,
+    width: { xs: 34, sm: 40 },
+    height: { xs: 34, sm: 40 },
     borderRadius: 1.25,
     bgcolor: "#06b6d4",
     color: "#fff",
@@ -208,6 +213,6 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
-    "& svg": { fontSize: 22 },
+    "& svg": { fontSize: { xs: 20, sm: 22 } },
   },
 };

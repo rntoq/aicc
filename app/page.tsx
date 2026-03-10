@@ -9,20 +9,25 @@ import {
   AIChatBlock,
   Footer,
 } from "@/app/components/landing";
+import { Header } from "./components/layout/Header";
 
 const styles = { main: { minHeight: "100vh", pt: { xs: 7, sm: 8 } } };
 
 const Home = () => (
-  <Box component="main" sx={styles.main}>
-    <Hero />
-    <WhatYouGet />
-    <HowItWorks />
-    <TestsCarousel />
-    <PaidPlanSection />
-    <StatsBlock />
-    <AIChatBlock />
-    <Footer />
-  </Box>
+
+  <>
+    <Header onLanding={true} />
+    <Box component="main" sx={styles.main}>
+      <Hero />
+      <WhatYouGet />
+      <HowItWorks />
+      <TestsCarousel />
+      <PaidPlanSection />
+      <StatsBlock />
+      <AIChatBlock />
+      <Footer />
+    </Box>
+  </>
 );
 
 export default Home;

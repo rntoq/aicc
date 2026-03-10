@@ -1,76 +1,77 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Container,
-} from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { usePhotoQuizStore } from "@/lib/store/photoQuizStore";
-import { PHOTO_QUESTIONS } from "./questions";
-import { PhotoPair } from "./components/PhotoPair";
-import { calculatePhotoQuizResult } from "./utils/scoring";
+import PHOTO_DATA from "./photo_questions.json";
+import { PhotoPair, type PhotoQuestion } from "./components/PhotoPair";
 import { useTestsStore } from "@/lib/store/testsStore";
+import { Header } from "@/app/components/layout/Header";
 
 const PhotoCareerQuizPage = () => {
   const t = useTranslations();
   const router = useRouter();
-  const { answers, setAnswer, startTest } = usePhotoQuizStore();
+  const { setResult } = usePhotoQuizStore();
   const { setCompleted } = useTestsStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    startTest();
-  }, [startTest]);
+  const PHOTO_QUESTIONS: PhotoQuestion[] =
+    (PHOTO_DATA as { PHOTO_QUESTIONS?: PhotoQuestion[] }).PHOTO_QUESTIONS ?? [];
 
-  const allAnswered = Object.keys(answers).length === PHOTO_QUESTIONS.length;
+  const [answers, setAnswers] = useState<Record<string, "optionA" | "optionB">>({});
 
-  const handleSubmit = async () => {
+  const allAnswered =
+    PHOTO_QUESTIONS.length > 0 &&
+    Object.keys(answers).length === PHOTO_QUESTIONS.length;
+
+  const handleSubmit = () => {
     if (!allAnswered) return;
     setIsSubmitting(true);
-    
-    // Calculate results
-    const result = calculatePhotoQuizResult(answers, PHOTO_QUESTIONS);
-    
-    // Save to store
-    useTestsStore.getState().setCompleted("photo-career");
-    
-    // Navigate to results
-    router.push(`/test/photo-career/result?code=${result.hollandCode}`);
+    setResult({
+      finishedAt: Date.now(),
+      payload: answers,
+    });
+    setCompleted("photo-career");
+    router.push("/test");
   };
 
   return (
-    <Box component="main" sx={styles.root}>
-      <Container maxWidth="xl" sx={styles.container}>
-        {PHOTO_QUESTIONS.map((question, index) => {
-          const questionAnswer = answers[question.id] || null;
-          return (
-            <PhotoPair
-              key={question.id}
-              question={question}
-              selected={questionAnswer}
-              onSelect={(option) => setAnswer(question.id, option)}
-            />
-          );
-        })}
+    <>
+      <Header />
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="xl" sx={styles.container}>
+          {PHOTO_QUESTIONS.map((question) => {
+            const questionAnswer = answers[question.id] || null;
+            return (
+              <PhotoPair
+                key={question.id}
+                question={question}
+                selected={questionAnswer}
+                onSelect={(option) =>
+                  setAnswers((prev) => ({ ...prev, [question.id]: option }))
+                }
+              />
+            );
+          })}
 
-        {allAnswered && (
-          <Box sx={styles.submitContainer}>
-            <Button
-              variant="contained"
-              size="large"
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              sx={styles.submitButton}
-            >
-              {isSubmitting ? "Отправка..." : t("holland_finish")}
-            </Button>
-          </Box>
-        )}
-      </Container>
-    </Box>
+          {allAnswered && (
+            <Box sx={styles.submitContainer}>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                sx={styles.submitButton}
+              >
+                {isSubmitting ? "Отправка..." : t("holland_finish")}
+              </Button>
+            </Box>
+          )}
+        </Container>
+      </Box>
+    </>
   );
 };
 
@@ -78,7 +79,7 @@ export default PhotoCareerQuizPage;
 
 const styles = {
   root: {
-    py: { xs: 2, md: 4 },
+    pt: { xs: 15, md: 12 },
     minHeight: "100vh",
   },
   container: {
@@ -91,7 +92,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     py: { xs: 4, md: 6 },
-    position: "sticky",
+    position: "sticky" as const,
     bottom: 0,
     bgcolor: "background.default",
     zIndex: 10,
@@ -105,3 +106,4 @@ const styles = {
     fontWeight: 600,
   },
 };
+

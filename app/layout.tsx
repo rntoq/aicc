@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import { Box } from "@mui/material";
 import "./globals.css";
 import StyledComponentsRegistry from "@/lib/registry";
 import { Providers } from "./providers";
-import { Header } from "@/app/components/layout";
+import { isValidLocale } from "@/lib/locale";
+import { initLogin } from "@/lib/initLogin";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -18,17 +20,24 @@ export const metadata: Metadata = {
     "Пройди научно-обоснованные тесты и получи персональный карьерный анализ с помощью AI. Профориентация для школьников и студентов в Казахстане.",
 };
 
-const RootLayout = ({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) => {
+}>) {
+  const cookieStore = await cookies();
+  const localeCookie = cookieStore.get("kariera-pro-locale")?.value;
+  const initialLocale = (localeCookie && isValidLocale(localeCookie)) ? localeCookie : "ru";
+  const { initialUser } = await initLogin();
+
   return (
-    <html lang="ru" className={inter.variable}>
+    <html lang={initialLocale} className={inter.variable} translate="no">
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
       <body>
         <StyledComponentsRegistry>
-          <Providers>
-            <Header />
+          <Providers initialLocale={initialLocale} initialUser={initialUser}>
             <Box component="main">
               {children}
             </Box>
@@ -37,6 +46,4 @@ const RootLayout = ({
       </body>
     </html>
   );
-};
-
-export default RootLayout;
+}

@@ -10,7 +10,18 @@ import {
   Typography,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import type { DiscQuestion } from "../questions";
+import { useLocale } from "next-intl";
+
+type DiscStatement = {
+  id: string;
+  text: string;
+};
+
+export type DiscQuestion = {
+  id: string;
+  number: number;
+  statements: DiscStatement[];
+};
 
 export interface DiscQuestionCardProps {
   question: DiscQuestion;
@@ -25,6 +36,8 @@ export const DiscQuestionCard = ({
   least,
   onChange,
 }: DiscQuestionCardProps) => {
+  const locale = useLocale();
+
   const handleMostChange = (_: unknown, value: string | null) => {
     if (!value) {
       onChange(null, least);
@@ -67,7 +80,7 @@ export const DiscQuestionCard = ({
             {question.statements.map((s) => (
               <Box key={s.id} sx={styles.row}>
                 <Typography variant="body1" sx={styles.statementText}>
-                  {s.text}
+                  {s.text as any}[locale]
                 </Typography>
                 <Box sx={styles.controls}>
                   <ToggleButtonGroup

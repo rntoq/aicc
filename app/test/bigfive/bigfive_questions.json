@@ -1,0 +1,582 @@
+[
+  {
+    "id": "bigfive_q001",
+    "text": { "ru": "Я принимаю людей такими, какие они есть.", "kk": "Мен адамдарды қандай болса, солай қабылдаймын.", "en": "I accept people the way they are." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q002",
+    "text": { "ru": "Я верю в важность искусства.", "kk": "Мен өнердің маңыздылығына сенемін.", "en": "I believe in the importance of art." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q003",
+    "text": { "ru": "Моё настроение легко меняется.", "kk": "Менің көңіл күйім оңай өзгереді.", "en": "My moods change easily." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q004",
+    "text": { "ru": "Я забочусь о других людях прежде, чем о себе.", "kk": "Мен алдымен өзімнен бұрын басқа адамдарға қамқорлық жасаймын.", "en": "I take care of other people before taking care of myself." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q005",
+    "text": { "ru": "Я всегда подготовлен(а).", "kk": "Мен әрқашан дайынмын.", "en": "I am always prepared." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q006",
+    "text": { "ru": "У меня богатое воображение.", "kk": "Менің қиялым бай.", "en": "I have a vivid imagination." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q007",
+    "text": { "ru": "Мне комфортно среди людей.", "kk": "Адамдардың арасында өзімді жайлы сезінемін.", "en": "I feel comfortable around people." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q008",
+    "text": { "ru": "Я часто грущу.", "kk": "Мен жиі мұңаямын.", "en": "I often feel blue." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q009",
+    "text": { "ru": "Я душа компании.", "kk": "Мен компанияның жаны боламын.", "en": "I am the life of the party." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q010",
+    "text": { "ru": "Я отношусь ко всем с добротой и сочувствием.", "kk": "Мен барлығына мейіріммен және жанашырлықпен қараймын.", "en": "I treat everyone with kindness and sympathy." },
+    "category": "BF",
+    "weight": 1
+  },
+
+  {
+    "id": "bigfive_q011",
+    "text": { "ru": "Я делаю дела по дому без промедления.", "kk": "Үй шаруасын бірден орындаймын.", "en": "I get chores done right away." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q012",
+    "text": { "ru": "У меня найдётся доброе слово для каждого.", "kk": "Әр адамға айтар жылы сөзім бар.", "en": "I have a kind word for everyone." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q013",
+    "text": { "ru": "Я хорошо справляюсь с социальными ситуациями.", "kk": "Мен әлеуметтік жағдайларда жақсы әрекет етемін.", "en": "I am skilled in handling social situations." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q014",
+    "text": { "ru": "Я часто тревожусь о том, что может пойти не так.", "kk": "Бірдеңе дұрыс болмай қалуы мүмкін деп жиі уайымдаймын.", "en": "I often feel anxious about what could go wrong." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q015",
+    "text": { "ru": "Я начинаю споры просто ради забавы.", "kk": "Кейде жай ғана көңіл үшін дау шығарамын.", "en": "I start arguments just for the fun of it." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q016",
+    "text": { "ru": "Я часто переживаю, что недостаточно хорош(а).", "kk": "Өзімді жеткілікті жақсы емеспін деп жиі уайымдаймын.", "en": "I often worry that I am not good enough." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q017",
+    "text": { "ru": "Мне трудно заставить себя работать.", "kk": "Жұмысқа кірісу маған қиын.", "en": "I find it difficult to get to work." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q018",
+    "text": { "ru": "Я держусь в тени.", "kk": "Мен көбіне назардан тыс қаламын.", "en": "I stay in the background." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q019",
+    "text": { "ru": "Во мне есть много того, что мне в себе не нравится.", "kk": "Өзімде ұнамайтын көп нәрсе бар.", "en": "There are many things that I do not like about myself." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q020",
+    "text": { "ru": "Я редко грущу.", "kk": "Мен сирек мұңаямын.", "en": "I seldom feel blue." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q021",
+    "text": { "ru": "Мне не нравится искусство.", "kk": "Маған өнер ұнамайды.", "en": "I do not like art." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q022",
+    "text": { "ru": "Я откладываю свои дела, чтобы помочь другим людям.", "kk": "Басқаларға көмектесу үшін өз ісімді тоқтата тұрамын.", "en": "I stop what I am doing to help other people." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q023",
+    "text": { "ru": "Я часто меняю планы.", "kk": "Мен жоспарымды жиі өзгертемін.", "en": "I change my plans frequently." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q024",
+    "text": { "ru": "Меня часто тревожат негативные мысли.", "kk": "Мені жиі жағымсыз ойлар мазалайды.", "en": "I am often troubled by negative thoughts." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q025",
+    "text": { "ru": "Я чувствую себя комфортно с самим(ой) собой.", "kk": "Өзіммен өзім болғанда өзімді жайлы сезінемін.", "en": "I feel comfortable with myself." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q026",
+    "text": { "ru": "Я избегаю философских дискуссий.", "kk": "Мен философиялық талқылаулардан қашқақтаймын.", "en": "I avoid philosophical discussions." },
+    "category": "BF",
+    "weight": 1
+  },
+
+  {
+    "id": "bigfive_w001",
+    "text": { "ru": "Оригинальный(ая)", "kk": "Түпнұсқа", "en": "Original" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w002",
+    "text": { "ru": "Систематичный(ая)", "kk": "Жүйелі", "en": "Systematic" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w003",
+    "text": { "ru": "Застенчивый(ая)", "kk": "Ұяң", "en": "Shy" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w004",
+    "text": { "ru": "Мягкосердечный(ая)", "kk": "Жұмсақ жүректі", "en": "Soft-Hearted" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w005",
+    "text": { "ru": "Напряжённый(ая)", "kk": "Шиеленісті", "en": "Tense" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w006",
+    "text": { "ru": "Любознательный(ая)", "kk": "Қызығушылығы жоғары", "en": "Inquisitive" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w007",
+    "text": { "ru": "Забывчивый(ая)", "kk": "Ұмытшақ", "en": "Forgetful" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w008",
+    "text": { "ru": "Сдержанный(ая)", "kk": "Тұйық", "en": "Reserved" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w009",
+    "text": { "ru": "Дружелюбный(ая)", "kk": "Достыққа бейім", "en": "Agreeable" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w010",
+    "text": { "ru": "Нервный(ая)", "kk": "Жүйкесі жұқа", "en": "Nervous" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w011",
+    "text": { "ru": "Творческий(ая)", "kk": "Шығармашыл", "en": "Creative" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w012",
+    "text": { "ru": "Самодисциплинированный(ая)", "kk": "Өзін-өзі тәртіпке келтіретін", "en": "Self-Disciplined" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w013",
+    "text": { "ru": "Общительный(ая)", "kk": "Ашық-жарқын", "en": "Outgoing" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w014",
+    "text": { "ru": "Милосердный(ая)", "kk": "Қайырымды", "en": "Charitable" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w015",
+    "text": { "ru": "Переменчивый(ая) в настроении", "kk": "Көңіл күйі құбылмалы", "en": "Moody" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w016",
+    "text": { "ru": "Воображающий(ая)", "kk": "Қиялшыл", "en": "Imaginative" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w017",
+    "text": { "ru": "Организованный(ая)", "kk": "Ұйымшыл", "en": "Organized" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w018",
+    "text": { "ru": "Разговорчивый(ая)", "kk": "Сөзі көп", "en": "Talkative" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w019",
+    "text": { "ru": "Скромный(ая)", "kk": "Қарапайым", "en": "Humble" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_w020",
+    "text": { "ru": "Пессимистичный(ая)", "kk": "Пессимист", "en": "Pessimistic" },
+    "category": "BF",
+    "weight": 1
+  },
+
+  {
+    "id": "bigfive_q027",
+    "text": { "ru": "Мне есть что сказать.", "kk": "Айтар сөзім көп.", "en": "I have a lot to say." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q028",
+    "text": { "ru": "Мне нравится ходить в художественные музеи.", "kk": "Маған өнер музейлеріне барған ұнайды.", "en": "I enjoy going to art museums." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q029",
+    "text": { "ru": "Я всегда эффективно использую своё время.", "kk": "Мен уақытымды әрқашан тиімді пайдаланамын.", "en": "I always make good use of my time." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q030",
+    "text": { "ru": "Меня интересует смысл вещей.", "kk": "Маған нәрселердің мәні қызық.", "en": "I am interested in the meaning of things." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q031",
+    "text": { "ru": "Я избегаю брать на себя большую ответственность.", "kk": "Мен үлкен жауапкершілікті алудан қашқақтаймын.", "en": "I avoid taking on a lot of responsibility." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q032",
+    "text": { "ru": "Мне не нравится привлекать к себе внимание.", "kk": "Маған өзіме назар аудартқан ұнамайды.", "en": "I don't like to draw attention to myself." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q033",
+    "text": { "ru": "Я считаю, что я лучше других людей.", "kk": "Мен өзімді басқа адамдардан артықпын деп ойлаймын.", "en": "I feel I am better than other people." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q034",
+    "text": { "ru": "Мне легко заводить друзей.", "kk": "Маған достар табу оңай.", "en": "I make friends easily." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q035",
+    "text": { "ru": "Я строю планы и придерживаюсь их.", "kk": "Мен жоспар жасап, соны ұстанамын.", "en": "I make plans and stick to them." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q036",
+    "text": { "ru": "Меня не интересуют абстрактные идеи.", "kk": "Маған абстрактілі идеялар қызық емес.", "en": "I am not interested in abstract ideas." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q037",
+    "text": { "ru": "Я критикую других людей.", "kk": "Мен басқа адамдарды сынаймын.", "en": "I criticize other people." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q038",
+    "text": { "ru": "Я не очень разговорчив(а).", "kk": "Мен көп сөйлемеймін.", "en": "I don't talk a lot." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q039",
+    "text": { "ru": "Мне нравится слушать новые идеи.", "kk": "Маған жаңа идеяларды тыңдаған ұнайды.", "en": "I enjoy hearing new ideas." },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q040",
+    "text": { "ru": "Мне важно, чтобы люди были пунктуальны.", "kk": "Адамдардың уақытында келгені мен үшін маңызды.", "en": "It’s important to me that people are on time." },
+    "category": "BF",
+    "weight": 1
+  },
+
+  {
+    "id": "bigfive_q041",
+    "text": { "ru": "Я выражаю себя через искусство, музыку или письмо.", "kk": "Мен өзімді өнер, музыка немесе жазу арқылы білдіремін.", "en": "I express myself through art, music, or writing" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q042",
+    "text": { "ru": "Я не пытаюсь предсказывать, что произойдёт в будущем.", "kk": "Болашақта не болатынын болжауға тырыспаймын.", "en": "I do not try to predict what may happen in the future" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q043",
+    "text": { "ru": "Я нахожу способы сделать счастливыми друзей и семью.", "kk": "Достарым мен отбасымды қуантудың жолын табамын.", "en": "I find ways to bring happiness to my friends and family" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q044",
+    "text": { "ru": "Я часто придумываю лучшие альтернативы устоявшимся процедурам.", "kk": "Қалыптасқан тәртіптерге жиі жақсы балама ойлап табамын.", "en": "I tend to come up with better alternatives to established procedures" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q045",
+    "text": { "ru": "Мне нравится шутить.", "kk": "Маған қалжыңдаған ұнайды.", "en": "I like to joke around" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q046",
+    "text": { "ru": "Я чувствую связь с более высокой силой или энергией в мире.", "kk": "Мен әлемдегі жоғары күшпен немесе қуатпен байланысымды сезінемін.", "en": "I feel connected to a larger force or power in the world around me" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q047",
+    "text": { "ru": "Я вижу свои чувства и опыт отражёнными в творческих произведениях.", "kk": "Өз сезімім мен тәжірибемді шығармашылық туындылардан көре аламын.", "en": "I can see my feelings and experiences reflected in creative works" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q048",
+    "text": { "ru": "Я ясно представляю, что может произойти в будущем.", "kk": "Болашақта не болуы мүмкін екенін анық елестете аламын.", "en": "I can clearly visualize what could happen in the future" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q049",
+    "text": { "ru": "Я провожу время, помогая самым близким людям.", "kk": "Жақындарыма көмектесуге уақыт жұмсаймын.", "en": "I spend my time helping the people closest to me" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q050",
+    "text": { "ru": "Я часто придумываю новый способ делать что‑то.", "kk": "Бір нәрсені жасаудың жаңа тәсілін жиі ойлап табамын.", "en": "I often come up with a new way of doing things" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q051",
+    "text": { "ru": "Мне кажется, что большинство ситуаций можно улучшить с помощью юмора и игры.", "kk": "Көп жағдайды әзіл мен ойын арқылы жақсартуға болады деп ойлаймын.", "en": "I feel that most situations can be improved with a little humor and playfulness" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q052",
+    "text": { "ru": "Я вижу, как универсальные или духовные силы проявляются в моей жизни.", "kk": "Өмірімде әмбебап не рухани күштердің әсерін байқаймын.", "en": "I see universal or spiritual forces at work in my life" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q053",
+    "text": { "ru": "Творчество помогает мне снять стресс.", "kk": "Шығармашылық маған стрессті азайтуға көмектеседі.", "en": "Creative outlets are a stress reliever for me" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q054",
+    "text": { "ru": "Я строю планы на многие годы вперёд.", "kk": "Мен көп жылға алдын ала жоспар құрамын.", "en": "I make plans for many years into the future" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q055",
+    "text": { "ru": "Я сделаю что‑то для близких прежде, чем сделаю что‑то для себя.", "kk": "Жақындарым үшін алдымен бір нәрсе жасаймын, өзім үшін кейін.", "en": "I will do things for my loved ones before I do things for myself" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q056",
+    "text": { "ru": "Мои идеи часто неожиданны и удивляют.", "kk": "Менің идеяларым жиі күтпеген әрі таңқалдырады.", "en": "My ideas are often unexpected and surprising" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q057",
+    "text": { "ru": "Я часто стараюсь разрядить обстановку шуткой.", "kk": "Көңіл күйді жиі әзілмен жеңілдетуге тырысамын.", "en": "I often try to lighten the mood with a joke" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q058",
+    "text": { "ru": "Я верю, что в моей жизни есть более высокая цель.", "kk": "Өмірімде жоғары мақсат бар деп сенемін.", "en": "I believe my life holds a higher purpose" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q059",
+    "text": { "ru": "Мне было бы интересно написать стихотворение о своих чувствах или опыте.", "kk": "Өз сезімім немесе тәжірибем туралы өлең жазғым келер еді.", "en": "I would enjoy writing a poem about my feelings or experiences" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q060",
+    "text": { "ru": "Я часто смотрю вперёд и предвосхищаю будущие события.", "kk": "Мен жиі алға қарап, болашақ оқиғаларды алдын ала ойлаймын.", "en": "I am often looking ahead, anticipating future events" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q061",
+    "text": { "ru": "Я часто нахожу маленькие повседневные способы быть добрым к другим.", "kk": "Күнделікті өмірде басқаларға мейірімді болудың ұсақ жолдарын жиі табамын.", "en": "I often come up with small, everyday ways to be kind to others" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q062",
+    "text": { "ru": "Я умею находить инновационные решения проблем.", "kk": "Мен мәселелерді инновациялық жолмен шеше аламын.", "en": "I am an innovative problem-solver" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q063",
+    "text": { "ru": "Я серьёзный человек.", "kk": "Мен салмақты адаммын.", "en": "I am a serious person" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q064",
+    "text": { "ru": "Я верю, что во Вселенной есть мощные тайны, которые мы не можем полностью понять.", "kk": "Ғаламда толық түсіне алмайтын құпиялар бар деп сенемін.", "en": "I believe the universe holds powerful mysteries that we cannot fully understand" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q065",
+    "text": { "ru": "Я могу представить, как превращаю свой опыт в книгу или песню.", "kk": "Өз тәжірибемді кітапқа немесе әнге айналдырғанымды елестете аламын.", "en": "I could imagine turning my experiences into a book or song" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q066",
+    "text": { "ru": "Я хорошо чувствую, каким будет моё будущее.", "kk": "Болашағым қандай болатынын жақсы сеземін.", "en": "I have a good sense of what my future holds" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q067",
+    "text": { "ru": "Я делаю одолжения другим людям.", "kk": "Мен басқа адамдарға жақсылық жасаймын.", "en": "I do favors for other people" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q068",
+    "text": { "ru": "У меня есть идеи, которые оригинальны и отличаются от того, что уже было сделано.", "kk": "Менде бұрын жасалғаннан өзгеше, бірегей идеялар болады.", "en": "I have ideas that are original and different from what has been done before" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q069",
+    "text": { "ru": "Иногда я могу быть игривым(ой) или даже немного глупым(ой).", "kk": "Кейде ойнақы, тіпті сәл күлкілі бола аламын.", "en": "I can be a playful or even silly person sometimes" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q070",
+    "text": { "ru": "Я глубоко ценю смысл и цель жизни.", "kk": "Өмірдің мәні мен мақсатын терең бағалаймын.", "en": "I feel deep appreciation for the purpose and meaning of life" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q071",
+    "text": { "ru": "Я использую творчество, чтобы придавать смысл своему опыту.", "kk": "Өз тәжірибеме мән беру үшін шығармашылықты қолданамын.", "en": "I use my creativity to bring meaning to my experiences" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q072",
+    "text": { "ru": "Мне трудно представить, где я буду через пять лет.", "kk": "Бес жылдан кейін қайда болатынымды елестету қиын.", "en": "I have trouble picturing where I will be in five years" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q073",
+    "text": { "ru": "Я делаю всё, чтобы сделать чей‑то день чуточку лучше.", "kk": "Басқалардың күнін сәл де болса жарқын ету үшін тырысамын.", "en": "I go out of my way to make other people’s days a bit brighter" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q074",
+    "text": { "ru": "Когда у меня есть проблема, я нахожу новый и неожиданный способ её решить.", "kk": "Мәселе туындаса, оны шешудің жаңа әрі күтпеген жолын табамын.", "en": "When I have a problem, I come up with a new and unexpected way to solve it" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q075",
+    "text": { "ru": "Меня знают как человека с отличным чувством юмора.", "kk": "Мені керемет әзілқой адам ретінде біледі.", "en": "I am known to have a great sense of humor" },
+    "category": "BF",
+    "weight": 1
+  },
+  {
+    "id": "bigfive_q076",
+    "text": { "ru": "Я чувствую, что мы все — часть чего‑то большего.", "kk": "Бәріміз бір үлкен нәрсенің бөлігі екенімізді сеземін.", "en": "I feel we are all a part of something greater than ourselves" },
+    "category": "BF",
+    "weight": 1
+  }
+]

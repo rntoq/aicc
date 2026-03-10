@@ -5,8 +5,9 @@ import { AppBar, Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, u
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTheme } from "@mui/material/styles";
-import {useRouter} from "next/navigation";
-import {LanguageDropdown} from "@/app/components/layout/LanguageDropdown";
+import { useRouter } from "next/navigation";
+import { LanguageDropdown } from "@/app/components/layout/LanguageDropdown";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 type TopbarProps = {
   title?: string;
@@ -18,6 +19,7 @@ export const Topbar = ({ title, onMenuClick }: TopbarProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const router = useRouter();
+  const { logout, loading } = useAuth();
   const open = Boolean(anchorEl);
 
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -25,6 +27,16 @@ export const Topbar = ({ title, onMenuClick }: TopbarProps) => {
   };
 
   const handleClose = () => setAnchorEl(null);
+
+  const handleLogout = async () => {
+    if (loading) return;
+    try {
+      await logout();
+    } finally {
+      setAnchorEl(null);
+      router.push("/login");
+    }
+  };
 
   return (
     <AppBar
@@ -69,8 +81,8 @@ export const Topbar = ({ title, onMenuClick }: TopbarProps) => {
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
-            <MenuItem onClick={() => router.push("/app/settings")} >Settings</MenuItem>
-            <MenuItem onClick={() => router.push("/logout")} >Logout</MenuItem>
+            <MenuItem onClick={() => router.push("/client/settings")} >Settings</MenuItem>
+            <MenuItem onClick={handleLogout} >Logout</MenuItem>
           </Menu>
         </Box>
       </Toolbar>

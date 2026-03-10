@@ -8,27 +8,34 @@ import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 const NAV_ITEMS = [
-  { label: "Dashboard", href: "/app", icon: DashboardOutlinedIcon },
-  { label: "Tests & Results", href: "/app/tests", icon: QueryStatsOutlinedIcon },
-  { label: "AI Chat", href: "/app/ai-chat", icon: ChatBubbleOutlineOutlinedIcon },
-  { label: "Careers", href: "/app/careers", icon: WorkOutlineOutlinedIcon },
-] as const;
-
-const BOTTOM_ITEMS = [
-  { label: "Settings", href: "/app/settings", icon: SettingsOutlinedIcon },
-  { label: "Logout", href: "/logout", icon: LogoutOutlinedIcon },
+  { label: "Dashboard", href: "/client", icon: DashboardOutlinedIcon },
+  { label: "Tests & Results", href: "/client/tests", icon: QueryStatsOutlinedIcon },
+  { label: "AI Chat", href: "/client/ai-chat", icon: ChatBubbleOutlineOutlinedIcon },
+  { label: "Careers", href: "/client/careers", icon: WorkOutlineOutlinedIcon },
 ] as const;
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { logout, loading } = useAuth();
 
   const isActive = (href: string) =>
-    pathname === href || (href !== "/app" && pathname.startsWith(href));
+    pathname === href || (href !== "/client" && pathname.startsWith(href));
+
+  const handleLogout = async () => {
+    if (loading) return;
+    try {
+      await logout();
+    } finally {
+      router.push("/login");
+    }
+  };
 
   return (
     <Box sx={styles.sidebar}>
@@ -67,22 +74,31 @@ export const Sidebar = () => {
       <Box sx={{ mt: "auto" }}>
         <Divider sx={{ mb: 1.5 }} />
         <List>
-          {BOTTOM_ITEMS.map(({ label, href, icon: Icon }) => (
-            <ListItemButton
-              key={href}
-              component={Link}
-              href={href}
-              sx={styles.bottomItem}
-            >
-              <ListItemIcon sx={{ minWidth: 40, color: "text.secondary" }}>
-                <Icon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText
-                primary={label}
-                primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
-              />
-            </ListItemButton>
-          ))}
+          <ListItemButton
+            component={Link}
+            href="/client/settings"
+            sx={styles.bottomItem}
+          >
+            <ListItemIcon sx={{ minWidth: 40, color: "text.secondary" }}>
+              <SettingsOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText
+              primary="Settings"
+              primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+            />
+          </ListItemButton>
+          <ListItemButton
+            onClick={handleLogout}
+            sx={styles.bottomItem}
+          >
+            <ListItemIcon sx={{ minWidth: 40, color: "text.secondary" }}>
+              <LogoutOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText
+              primary="Logout"
+              primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+            />
+          </ListItemButton>
         </List>
       </Box>
     </Box>

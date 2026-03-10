@@ -1,47 +1,48 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
+import type { Locale } from "@/lib/locale";
 
-export type Locale = "ru" | "kk" | "en";
+export type { Locale } from "@/lib/locale";
 
-const LOCALE_STORAGE_KEY = "kariera-pro-locale";
+const KEY = "kariera-pro-locale";
 
-function getStoredLocale(): Locale {
+function getStored(): Locale {
   if (typeof window === "undefined") return "ru";
-  const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-  return stored === "en" ? "en" : stored === "kk" ? "kk" : "ru";
-};
+  const v = localStorage.getItem(KEY);
+  return (v === "en" || v === "kk") ? v : "ru";
+}
 
-type LocaleContextValue = {
-  locale: Locale;
-  setLocale: (locale: Locale) => void;
-};
+function persist(value: Locale) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(KEY, value);
+  document.cookie = `${KEY}=${value}; path=/; max-age=31536000; SameSite=Lax`;
+}
 
-const LocaleContext = createContext<LocaleContextValue | null>(null);
+const Ctx = createContext<{ locale: Locale; setLocale: (l: Locale) => void } | null>(null);
 
-export const LocaleProvider = ({ children }: { children: React.ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>("ru");
+export const LocaleProvider = ({ children, initialLocale }: { children: React.ReactNode; initialLocale?: Locale }) => {
+  const [locale, set] = useState<Locale>(() => initialLocale ?? getStored());
 
   useEffect(() => {
-    setLocaleState(getStoredLocale());
+    const stored = getStored();
+    if (stored !== locale) {
+      set(stored);
+      persist(stored);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setLocale = useCallback((next: Locale) => {
-    setLocaleState(next);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(LOCALE_STORAGE_KEY, next);
-    }
+    set(next);
+    persist(next);
   }, []);
 
-  return (
-    <LocaleContext.Provider value={{ locale, setLocale }}>
-      {children}
-    </LocaleContext.Provider>
-  );
+  return <Ctx.Provider value={{ locale, setLocale }}>{children}</Ctx.Provider>;
 };
 
 export const useLocale = () => {
-  const ctx = useContext(LocaleContext);
+  const ctx = useContext(Ctx);
   if (!ctx) throw new Error("useLocale must be used within LocaleProvider");
   return ctx;
 };

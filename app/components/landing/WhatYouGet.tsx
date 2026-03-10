@@ -4,7 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
 
 const FADE_IN = {
   initial: { opacity: 0, y: 20 },
@@ -181,6 +181,14 @@ const sectionStyles = {
     right: "-10px",
     "& .whatyouget-image": {
       transition: "transform 300ms cubic-bezier(0.33, 1, 0.68, 1)",
+    },
+    "@media (max-width: 600px)": {
+      "& .whatyouget-image": {
+        width: "150px",
+        height: "100px",
+        bottom: "0",
+        right: "0",
+      },
     },
   },
   cardTitle: {

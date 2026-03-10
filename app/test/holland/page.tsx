@@ -12,47 +12,39 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useHollandStore } from "@/lib/store/hollandStore";
-import { HOLLAND_QUESTIONS } from "./questions";
+import QUESTIONS_JSON from "./holland_questions.json";
 import { QuestionCard } from "./components/QuestionCard";
 import { ProgressBar } from "./components/ProgressBar";
-import { calculateHollandResult } from "./utils/scoring";
 import { useTestsStore } from "@/lib/store/testsStore";
+import { Header } from "@/app/components/layout/Header";
 
 const HollandTestPage = () => {
   const t = useTranslations();
   const router = useRouter();
-  const {
-    answers,
-    currentQuestionIndex,
-    setAnswer,
-    setCurrentQuestion,
-    startTest,
-    getProgress,
-    reset,
-  } = useHollandStore();
+  const { setResult } = useHollandStore();
   const { setCompleted } = useTestsStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    startTest();
-    return () => {
-      // Don't reset on unmount - preserve answers
-    };
-  }, [startTest]);
+    // init local-only state; store используется только для сохранения финального результата
+  }, []);
 
-  const totalQuestions = HOLLAND_QUESTIONS.length;
-  const currentQuestion = HOLLAND_QUESTIONS[currentQuestionIndex];
+  const totalQuestions = QUESTIONS_JSON.length;
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const currentQuestion = QUESTIONS_JSON[currentQuestionIndex] as any;
   const currentAnswer = answers[currentQuestion.id] || null;
-  const progress = getProgress();
+  const progress = totalQuestions
+    ? Math.round((Object.keys(answers).length / totalQuestions) * 100)
+    : 0;
 
   const handleAnswerChange = (value: number) => {
     // Сохраняем ответ
-    setAnswer(currentQuestion.id, value);
-
     const updatedAnswers = {
       ...answers,
       [currentQuestion.id]: value,
     };
+    setAnswers(updatedAnswers);
     const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
     const allAnsweredAfter =
       Object.keys(updatedAnswers).length === totalQuestions;
@@ -60,19 +52,19 @@ const HollandTestPage = () => {
     if (isLastQuestion && allAnsweredAfter) {
       handleSubmit(updatedAnswers);
     } else if (!isLastQuestion) {
-      setCurrentQuestion(currentQuestionIndex + 1);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
   const handlePrev = () => {
     if (currentQuestionIndex > 0) {
-      setCurrentQuestion(currentQuestionIndex - 1);
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
 
   const handleNext = () => {
     if (currentQuestionIndex < totalQuestions - 1) {
-      setCurrentQuestion(currentQuestionIndex + 1);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
@@ -80,28 +72,28 @@ const HollandTestPage = () => {
     const usedAnswers = finalAnswers ?? answers;
     if (Object.keys(usedAnswers).length !== totalQuestions) return;
     setIsSubmitting(true);
-    
-    // Calculate results
-    const result = calculateHollandResult(usedAnswers, HOLLAND_QUESTIONS);
-    
-    // Save to stores
-    useHollandStore
-      .getState()
-      .saveResult(result.hollandCode.code, result.normalizedScores as unknown as Record<string, number>);
-    useTestsStore.getState().setCompleted("holland");
-    
-    // Navigate to results
-    router.push(`/test/holland/result?code=${result.hollandCode.code}`);
+    try {
+      setResult({
+        finishedAt: Date.now(),
+        payload: usedAnswers,
+      });
+      useTestsStore.getState().setCompleted("holland");
+      router.push("/test/holland/result");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
+    <> 
+    <Header />
     <Box component="main" sx={styles.root}>
       <Container maxWidth="md">
         <Box sx={styles.header}>
-          <Typography component="h1" variant="h1" sx={styles.title}>
+          <Typography component="h2" variant="h2" sx={styles.title}>
             {t("holland_title")}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body1" color="text.secondary">
             {t("holland_subtitle")}
           </Typography>
         </Box>
@@ -141,6 +133,7 @@ const HollandTestPage = () => {
         </Box>
       </Container>
     </Box>
+    </>
   );
 };
 
@@ -148,7 +141,7 @@ export default HollandTestPage;
 
 const styles = {
   root: {
-    py: { xs: 4, md: 6 },
+    pt: { xs: 15, md: 12 },
     minHeight: "80vh",
   },
   header: {
@@ -157,7 +150,7 @@ const styles = {
   },
   title: {
     mb: 1,
-    fontSize: "1.75rem",
+    fontSize: "1.25rem",
     fontWeight: 700,
   },
   navigation: {

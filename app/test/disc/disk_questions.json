@@ -1,226 +1,340 @@
 {
-    "pairs": [
-      {
-        "id": "disc_q01",
-        "number": 1,
-        "left": {
-          "text": {
-            "ru": "Открытый",
-            "kk": "Ашық",
-            "en": "Open"
-          },
-          "type": "I"
-        },
-        "right": {
-          "text": {
-            "ru": "Скептичный",
-            "kk": "Скептик",
-            "en": "Skeptical"
-          },
-          "type": "C"
-        }
+  "pairs": [
+    {
+      "id": "disc_q01",
+      "number": 1,
+      "left": { "text": { "ru": "Открытый", "kk": "Ашық", "en": "Open" } },
+      "right": { "text": { "ru": "Скептичный", "kk": "Күдікті", "en": "Skeptical" } }
+    },
+    {
+      "id": "disc_q02",
+      "number": 2,
+      "left": { "text": { "ru": "Жизнерадостный", "kk": "Көңілді", "en": "Cheerful" } },
+      "right": { "text": { "ru": "Методичный", "kk": "Жүйелі", "en": "Methodical" } }
+    },
+    {
+      "id": "disc_q03",
+      "number": 3,
+      "left": { "text": { "ru": "Сдержанный", "kk": "Сабырлы", "en": "Reserved" } },
+      "right": { "text": { "ru": "Динамичный", "kk": "Қарқынды", "en": "Dynamic" } }
+    },
+    {
+      "id": "disc_q04",
+      "number": 4,
+      "left": { "text": { "ru": "Скромный", "kk": "Кішіпейіл", "en": "Humble" } },
+      "right": { "text": { "ru": "Смелый", "kk": "Батыл", "en": "Bold" } }
+    },
+    {
+      "id": "disc_q05",
+      "number": 5,
+      "left": { "text": { "ru": "Щедрый", "kk": "Жомарт", "en": "Generous" } },
+      "right": { "text": { "ru": "Строгий", "kk": "Қатаң", "en": "Strict" } }
+    },
+    {
+      "id": "disc_q06",
+      "number": 6,
+      "left": { "text": { "ru": "Живой", "kk": "Ширақ", "en": "Lively" } },
+      "right": { "text": { "ru": "Систематичный", "kk": "Жүйеленген", "en": "Systematic" } }
+    },
+    {
+      "id": "disc_q07",
+      "number": 7,
+      "left": { "text": { "ru": "Послушный", "kk": "Тыңдағыш", "en": "Obedient" } },
+      "right": { "text": { "ru": "Прямолинейный", "kk": "Ашық айтатын", "en": "Outspoken" } }
+    },
+    {
+      "id": "disc_q08",
+      "number": 8,
+      "left": { "text": { "ru": "Скромный", "kk": "Момын", "en": "Modest" } },
+      "right": { "text": { "ru": "Бросающий вызов", "kk": "Шақыратын", "en": "Challenging" } }
+    },
+    {
+      "id": "disc_q09",
+      "number": 9,
+      "left": { "text": { "ru": "Помогающий", "kk": "Көмекші", "en": "Helpful" } },
+      "right": { "text": { "ru": "Решительный", "kk": "Нақтылы", "en": "Resolute" } }
+    },
+    {
+      "id": "disc_q10",
+      "number": 10,
+      "left": { "text": { "ru": "Воодушевлённый", "kk": "Шабыттанған", "en": "Enthusiastic" } },
+      "right": { "text": { "ru": "Точный", "kk": "Дәл", "en": "Accurate" } }
+    },
+    {
+      "id": "disc_q11",
+      "number": 11,
+      "left": { "text": { "ru": "Уступчивый", "kk": "Бойсұнғыш", "en": "Compliant" } },
+      "right": { "text": { "ru": "Предприимчивый", "kk": "Кәсіпкер", "en": "Enterprising" } }
+    },
+    {
+      "id": "disc_q12",
+      "number": 12,
+      "left": { "text": { "ru": "Мягкий", "kk": "Жұмсақ", "en": "Gentle" } },
+      "right": { "text": { "ru": "Прямой", "kk": "Тікелей", "en": "Direct" } }
+    },
+    {
+      "id": "disc_q13",
+      "number": 13,
+      "left": { "text": { "ru": "Уступчивый", "kk": "Ынтымақшыл", "en": "Accommodating" } },
+      "right": { "text": { "ru": "Твёрдый", "kk": "Қатал", "en": "Firm" } }
+    },
+    {
+      "id": "disc_q14",
+      "number": 14,
+      "left": { "text": { "ru": "Игривый", "kk": "Ойнақшы", "en": "Playful" } },
+      "right": { "text": { "ru": "Аналитичный", "kk": "Аналитикалық", "en": "Analytical" } }
+    },
+    {
+      "id": "disc_q15",
+      "number": 15,
+      "left": { "text": { "ru": "Тактичный", "kk": "Ізетті", "en": "Tactful" } },
+      "right": { "text": { "ru": "Выразительный", "kk": "Экспрессивті", "en": "Expressive" } }
+    },
+    {
+      "id": "disc_q16",
+      "number": 16,
+      "left": { "text": { "ru": "Уравновешенный", "kk": "Теңгерімді", "en": "Even‑Tempered" } },
+      "right": { "text": { "ru": "Жёсткий", "kk": "Қатал", "en": "Tough" } }
+    },
+    {
+      "id": "disc_q17",
+      "number": 17,
+      "left": { "text": { "ru": "Принимающий", "kk": "Қабылдағыш", "en": "Accepting" } },
+      "right": { "text": { "ru": "Фактичный", "kk": "Фактілі", "en": "Matter‑of‑Fact" } }
+    },
+    {
+      "id": "disc_q18",
+      "number": 18,
+      "left": { "text": { "ru": "Оптимистичный", "kk": "Оптимист", "en": "Optimistic" } },
+      "right": { "text": { "ru": "Перфекционист", "kk": "Кемшіліксіздікке ұмтылатын", "en": "Perfectionistic" } }
+    },
+    {
+      "id": "disc_q19",
+      "number": 19,
+      "left": { "text": { "ru": "Тихий", "kk": "Тыныш", "en": "Quiet" } },
+      "right": { "text": { "ru": "Харизматичный", "kk": "Харизматикалық", "en": "Charismatic" } }
+    },
+    {
+      "id": "disc_q20",
+      "number": 20,
+      "left": { "text": { "ru": "Услужливый", "kk": "Қызмет көрсетуге бейім", "en": "Obliging" } },
+      "right": { "text": { "ru": "Напористый", "kk": "Табысты, табанды", "en": "Assertive" } }
+    },
+    {
+      "id": "disc_q21",
+      "number": 21,
+      "left": { "text": { "ru": "Доверчивый", "kk": "Сенгіш", "en": "Trusting" } },
+      "right": { "text": { "ru": "Вопрошающий", "kk": "Сұрақ қоятын", "en": "Questioning" } }
+    },
+    {
+      "id": "disc_q22",
+      "number": 22,
+      "left": { "text": { "ru": "Лёгкий на подъём", "kk": "Жайдары", "en": "Light‑Hearted" } },
+      "right": { "text": { "ru": "Точный", "kk": "Мұқият", "en": "Precise" } }
+    },
+    {
+      "id": "disc_q23",
+      "number": 23,
+      "left": { "text": { "ru": "Осторожный", "kk": "Сақ", "en": "Cautious" } },
+      "right": { "text": { "ru": "Авантюрный", "kk": "Шытырман", "en": "Adventurous" } }
+    },
+    {
+      "id": "disc_q24",
+      "number": 24,
+      "left": { "text": { "ru": "Восприимчивый", "kk": "Қабылдағыш", "en": "Receptive" } },
+      "right": { "text": { "ru": "Решительный", "kk": "Шешімді", "en": "Decisive" } }
+    }
+  ],
+  "singleWords": [
+    {
+      "id": "agreeable",
+      "text": { "ru": "Дружелюбный", "kk": "Достыққа бейім", "en": "Agreeable" }
+    },
+    {
+      "id": "daring",
+      "text": { "ru": "Смелый", "kk": "Батыл", "en": "Daring" }
+    },
+    {
+      "id": "sociable",
+      "text": { "ru": "Общительный", "kk": "Қарым‑қатынасқа ашық", "en": "Sociable" }
+    },
+    {
+      "id": "dominant",
+      "text": { "ru": "Доминирующий", "kk": "Басымды", "en": "Dominant" }
+    },
+    {
+      "id": "patient",
+      "text": { "ru": "Терпеливый", "kk": "Сабырлы", "en": "Patient" }
+    },
+    {
+      "id": "soft_spoken",
+      "text": { "ru": "Говорящий тихо", "kk": "Баяу сөйлейтін", "en": "Soft‑Spoken" }
+    },
+    {
+      "id": "detail_oriented",
+      "text": { "ru": "Детальный", "kk": "Ұқыпты", "en": "Detail‑Oriented" }
+    },
+    {
+      "id": "competitive",
+      "text": { "ru": "Соревнующийся", "kk": "Бәсекеге қабілетті", "en": "Competitive" }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "group_role",
+      "question": {
+        "ru": "В группе я обычно…",
+        "kk": "Топта мен әдетте…",
+        "en": "In a group, I usually…"
       },
-      {
-        "id": "disc_q02",
-        "number": 2,
-        "left": {
-          "text": {
-            "ru": "Жизнерадостный",
-            "kk": "Көңілді",
-            "en": "Cheerful"
-          },
-          "type": "I"
-        },
-        "right": {
-          "text": {
-            "ru": "Методичный",
-            "kk": "Жүйелі",
-            "en": "Methodical"
-          },
-          "type": "C"
-        }
-      },
-      {
-        "id": "disc_q03",
-        "number": 3,
-        "left": {
-          "text": {
-            "ru": "Сдержанный",
-            "kk": "Сабырлы",
-            "en": "Reserved"
-          },
-          "type": "C"
-        },
-        "right": {
-          "text": {
-            "ru": "Динамичный",
-            "kk": "Белсенді",
-            "en": "Dynamic"
-          },
-          "type": "D"
-        }
-      }
-    ],
-  
-    "singleWords": [
-      {
-        "id": "agreeable",
-        "text": {
-          "ru": "Дружелюбный",
-          "kk": "Достыққа бейім",
-          "en": "Agreeable"
-        }
-      },
-      {
-        "id": "daring",
-        "text": {
-          "ru": "Смелый",
-          "kk": "Батыл",
-          "en": "Daring"
-        }
-      },
-      {
-        "id": "sociable",
-        "text": {
-          "ru": "Общительный",
-          "kk": "Қарым-қатынасқа ашық",
-          "en": "Sociable"
-        }
-      },
-      {
-        "id": "dominant",
-        "text": {
-          "ru": "Доминирующий",
-          "kk": "Басқарушы",
-          "en": "Dominant"
-        }
-      }
-    ],
-  
-    "scenarios": [
-      {
-        "id": "group_role",
-        "question": {
-          "ru": "В группе я…",
-          "kk": "Топта мен…",
-          "en": "In a group, I usually…"
-        },
-        "options": [
-          {
-            "id": "speak_up",
-            "label": {
-              "ru": "Чаще высказываюсь",
-              "kk": "Көбірек сөйлеймін",
-              "en": "Speak up often"
-            }
-          },
-          {
-            "id": "stay_quiet",
-            "label": {
-              "ru": "Скорее слушаю других",
-              "kk": "Көбіне тыңдаймын",
-              "en": "Stay quiet and listen"
-            }
+      "options": [
+        {
+          "id": "speak_up",
+          "label": {
+            "ru": "Чаще высказываюсь",
+            "kk": "Көбірек сөйлеймін",
+            "en": "Likely to speak up"
           }
-        ]
+        },
+        {
+          "id": "stay_quiet",
+          "label": {
+            "ru": "Скорее слушаю и молчу",
+            "kk": "Көбіне тыңдаймын",
+            "en": "Likely to stay quiet and listen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "team_focus",
+      "question": {
+        "ru": "В командном проекте я больше всего забочусь о…",
+        "kk": "Командалық жобада мен ең көп мән беретінім…",
+        "en": "On a team project, I am most concerned with…"
       },
-      {
-        "id": "decision_style",
-        "question": {
-          "ru": "Мне комфортнее…",
-          "kk": "Маған ыңғайлы…",
-          "en": "I feel more comfortable…"
-        },
-        "options": [
-          {
-            "id": "lead",
-            "label": {
-              "ru": "Принимать решения",
-              "kk": "Шешім қабылдау",
-              "en": "Making decisions"
-            }
-          },
-          {
-            "id": "support",
-            "label": {
-              "ru": "Следовать за другими",
-              "kk": "Басқаларды қолдау",
-              "en": "Supporting others"
-            }
+      "options": [
+        {
+          "id": "accuracy",
+          "label": {
+            "ru": "Точности и эффективности выполнения задач",
+            "kk": "Тапсырмалардың дәл әрі тиімді орындалуы",
+            "en": "Getting things done correctly and efficiently"
           }
-        ]
-      }
-    ],
-  
-    "survey": [
-      {
-        "id": "team_size",
-        "label": {
-          "ru": "Сколько людей вы руководите?",
-          "kk": "Қанша адамды басқарасыз?",
-          "en": "How many people do you manage?"
         },
-        "options": [
-          {
-            "value": "none",
-            "label": {
-              "ru": "Никого",
-              "kk": "Ешкімді емес",
-              "en": "None"
-            }
-          },
-          {
-            "value": "small",
-            "label": {
-              "ru": "1-5 человек",
-              "kk": "1-5 адам",
-              "en": "1-5 people"
-            }
-          },
-          {
-            "value": "large",
-            "label": {
-              "ru": "5+ человек",
-              "kk": "5+ адам",
-              "en": "5+ people"
-            }
+        {
+          "id": "people",
+          "label": {
+            "ru": "Комфорте и вовлечённости людей",
+            "kk": "Адамдардың жайлылығы мен қатысуы",
+            "en": "Making sure the people involved are engaged and supported"
           }
-        ]
+        }
+      ]
+    },
+    {
+      "id": "decision_style",
+      "question": {
+        "ru": "Мне комфортнее…",
+        "kk": "Маған ыңғайлы…",
+        "en": "I am most comfortable…"
       },
-      {
-        "id": "age",
-        "label": {
-          "ru": "Ваш возраст",
-          "kk": "Жасыңыз",
-          "en": "Your age"
-        },
-        "options": [
-          {
-            "value": "under18",
-            "label": {
-              "ru": "До 18",
-              "kk": "18 жасқа дейін",
-              "en": "Under 18"
-            }
-          },
-          {
-            "value": "18-25",
-            "label": {
-              "ru": "18-25",
-              "kk": "18-25",
-              "en": "18-25"
-            }
-          },
-          {
-            "value": "25+",
-            "label": {
-              "ru": "25+",
-              "kk": "25+",
-              "en": "25+"
-            }
+      "options": [
+        {
+          "id": "take_command",
+          "label": {
+            "ru": "Брать на себя решение",
+            "kk": "Шешімді өзім қабылдау",
+            "en": "Taking command to make a decision"
           }
-        ]
-      }
-    ]
-  }
-  
+        },
+        {
+          "id": "let_others",
+          "label": {
+            "ru": "Давать другим принимать финальное решение",
+            "kk": "Соңғы шешімді басқаларға беру",
+            "en": "Letting others make the final decision"
+          }
+        }
+      ]
+    },
+    {
+      "id": "feedback_focus",
+      "question": {
+        "ru": "Когда даю обратную связь, я больше фокусируюсь на…",
+        "kk": "Кері байланыс бергенде, мен көбірек мән беретінім…",
+        "en": "When giving feedback to someone, I focus on…"
+      },
+      "options": [
+        {
+          "id": "motivation",
+          "label": {
+            "ru": "Мотивации и признании человека",
+            "kk": "Адамды қолдауға және мойындауға",
+            "en": "Motivating the person and letting them know they’re appreciated"
+          }
+        },
+        {
+          "id": "performance",
+          "label": {
+            "ru": "Точной и фактической оценке результата",
+            "kk": "Нәтижені нақты бағалауға",
+            "en": "Being accurate and factual about the person’s performance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "work_pref",
+      "question": {
+        "ru": "Меня больше привлекает…",
+        "kk": "Маған көбірек ұнайды…",
+        "en": "I am most attracted to…"
+      },
+      "options": [
+        {
+          "id": "solo",
+          "label": {
+            "ru": "Работа, которую можно делать самостоятельно",
+            "kk": "Өз бетімше жасайтын жұмыс",
+            "en": "Work I can do alone"
+          }
+        },
+        {
+          "id": "with_people",
+          "label": {
+            "ru": "Работа с большим количеством взаимодействия с людьми",
+            "kk": "Көп адамдармен қарым‑қатынасты қажет ететін жұмыс",
+            "en": "Work that requires lots of interaction with others"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plan_reaction",
+      "question": {
+        "ru": "Когда кто‑то предлагает план, я скорее…",
+        "kk": "Біреу жоспар ұсынғанда, мен көбірек…",
+        "en": "When someone presents a plan, I’m more likely to…"
+      },
+      "options": [
+        {
+          "id": "analyze_flaws",
+          "label": {
+            "ru": "Анализирую и указываю на слабые места плана",
+            "kk": "Жоспардың әлсіз тұстарын талдаймын",
+            "en": "Analyze and point out the flaws in the plan"
+          }
+        },
+        {
+          "id": "think_help",
+          "label": {
+            "ru": "Думаю, чем могу помочь, чтобы план реализовался",
+            "kk": "Жоспарды іске асыруға қалай көмектесе алатынымды ойлаймын",
+            "en": "Think about how I can be helpful in making the plan happen"
+          }
+        }
+      ]
+    }
+  ]
+}

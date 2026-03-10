@@ -1,12 +1,20 @@
 "use client";
 
-import {
-  Box,
-  Card,
-} from "@mui/material";
+import { Box, Card } from "@mui/material";
 import Image from "next/image";
-import type { PhotoQuestion } from "../questions";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
+
+export interface PhotoOption {
+  id: string;
+  imageSrc: string;
+  description: string;
+}
+
+export interface PhotoQuestion {
+  id: string;
+  optionA: PhotoOption;
+  optionB: PhotoOption;
+}
 
 export interface PhotoPairProps {
   question: PhotoQuestion;
@@ -14,36 +22,61 @@ export interface PhotoPairProps {
   onSelect: (option: "optionA" | "optionB") => void;
 }
 
-export const PhotoPair = ({ question, onSelect }: PhotoPairProps) => {
+export const PhotoPair = ({ question, selected, onSelect }: PhotoPairProps) => {
+  const srcA = question.optionA.imageSrc || BANNER_PLACEHOLDER_IMAGE;
+  const srcB = question.optionB.imageSrc || BANNER_PLACEHOLDER_IMAGE;
+  const isSelectedA = selected === "optionA";
+  const isSelectedB = selected === "optionB";
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.pairContainer}>
-        {/* Option A */}
         <Card
-          sx={styles.imageCard}
+          sx={{
+            ...styles.imageCard,
+            borderColor: isSelectedA ? "primary.main" : "transparent",
+          }}
           onClick={() => onSelect("optionA")}
         >
-          <Image
-            src={BANNER_PLACEHOLDER_IMAGE}
-            alt={question.optionA.description}
-            style={{ display: "block", width: "100%", height: "auto", objectFit: "cover" }}
-            width={300}
-            height={200}
-          />
+          <Box sx={styles.imageWrapper}>
+            <Image
+              src={srcA}
+              alt={question.optionA.description}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+              width={300}
+              height={200}
+            />
+            {isSelectedA && <Box sx={styles.overlay} />}
+          </Box>
         </Card>
 
-        {/* Option B */}
         <Card
-          sx={styles.imageCard}
+          sx={{
+            ...styles.imageCard,
+            borderColor: isSelectedB ? "primary.main" : "transparent",
+          }}
           onClick={() => onSelect("optionB")}
         >
-          <Image
-            src={BANNER_PLACEHOLDER_IMAGE}
-            alt={question.optionB.description}
-            style={{ display: "block", width: "100%", height: "auto", objectFit: "cover" }}
-            width={300}
-            height={200}
-          />
+          <Box sx={styles.imageWrapper}>
+            <Image
+              src={srcB}
+              alt={question.optionB.description}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+              width={300}
+              height={200}
+            />
+            {isSelectedB && <Box sx={styles.overlay} />}
+          </Box>
         </Card>
       </Box>
     </Box>
@@ -63,9 +96,17 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     gap: { xs: 3, md: 6 },
-    flexDirection: { xs: "column", md: "row" },
+    flexDirection: "row",
     width: "100%",
     maxWidth: { xs: "100%", md: "1400px" },
+    "@media (max-width: 600px)": {
+      backgroundColor: "background.paper",
+      border: "1px solid",
+      borderColor: "divider",
+      borderRadius: 2,
+      flexDirection: "column",
+      padding: 2,
+    },
   },
   imageCard: {
     flex: { xs: "none", md: 1 },
@@ -81,10 +122,15 @@ const styles = {
       boxShadow: "0 12px 32px rgba(0,0,0,0.2)",
     },
   },
-  image: {
-    display: "block",
+  imageWrapper: {
+    position: "relative" as const,
     width: "100%",
-    height: "auto",
-    objectFit: "cover",
+    height: "100%",
+  },
+  overlay: {
+    position: "absolute" as const,
+    inset: 0,
+    bgcolor: "rgba(0,0,0,0.70)",
   },
 };
+

@@ -28,19 +28,12 @@ const getBadgeLabel = (
   t: ReturnType<typeof useTranslations>
 ): ReactNode => {
   if (test.required) return <><LockResetIcon sx={{ fontSize: 14, mr: 0.5 }} /> {t("tests_badge_required")}</>;
-  if (test.status === "paid" && test.price) return `${test.price}₸`;
-  if (test.status === "premium" && test.price) return `${test.price}₸`;
-  if (test.status === "free" && !test.required) return <><InfoOutlinedIcon sx={{ fontSize: 14, mr: 0.5 }} /> {t("tests_badge_optional")}</>;
-  return t("tests_badge_free");
+  return t("tests_badge_optional");
 };
 
 const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
   if (test.required) return { bg: "rgba(99, 102, 241, 0.15)", color: "#6366F1" };
-  if (test.status === "paid" || test.status === "premium")
-    return { bg: "rgba(2, 255, 36, 0.15)", color: "#10b981" };
-  if (test.status === "free" && !test.required)
-    return { bg: "rgba(100, 116, 139, 0.15)", color: "#64748B" };
-  return { bg: "rgba(34, 197, 94, 0.15)", color: "#22C55E" };
+  return { bg: "rgba(59, 59, 59, 0.15)", color: "#3B3B3B" };
 };
 
 export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, index: number, variant: String, disabled?: boolean }) => {
@@ -75,8 +68,8 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
           router.push("/test/photo-career");
         } else if (test.id === "disc") {
           router.push("/test/disc");
-        } else if (test.id === "career-values") {
-          router.push("/test/values");
+        } else if (test.id === "career-aptitude") {
+          router.push("/test/career-aptitude");
         } else if (test.id === "big-five") {
           router.push("/test/bigfive");
         } else {
@@ -93,8 +86,8 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
           router.push("/test/photo-career/result");
         } else if (test.id === "disc") {
           router.push("/test/disc/result");
-        } else if (test.id === "career-values") {
-          router.push("/test/values/result");
+        } else if (test.id === "career-aptitude") {
+          router.push("/test/career-aptitude/result");
         } else if (test.id === "big-five") {
           router.push("/test/bigfive/result");
         } else {
@@ -140,15 +133,6 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
                             {category}
                           </Typography>
                         )}
-                        {test.status === "paid" && <Box
-                          sx={{
-                            ...styles.badge,
-                            background: badgeStyle.bg,
-                            color: badgeStyle.color,
-                          }}
-                        >
-                          {badgeLabel}
-                        </Box>}
                         </Box>
                         <Typography variant="subtitle1" sx={{ ...styles.itemTitle, color: accent.titleColor }}>
                           {name}

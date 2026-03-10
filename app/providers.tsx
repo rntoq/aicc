@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextIntlClientProvider } from "next-intl";
 import { ToastContainer } from "react-toastify";
 import { muiTheme } from "@/ui/theme/muiTheme";
-import { GlobalStyles } from "@/ui/styles/global";
-import { LocaleProvider, useLocale } from "@/app/context/LocaleContext";
+import { LocaleProvider, useLocale, type Locale } from "@/app/context/LocaleContext";
+import type { User } from "@/lib/types";
+import { useAuth } from "@/lib/hooks/useAuth";
 import ru from "@/messages/ru.json";
 import kk from "@/messages/kk.json";
 import en from "@/messages/en.json";
@@ -29,7 +30,33 @@ function IntlProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const Providers = ({ children }: { children: React.ReactNode }) => {
+function AuthBootstrap({
+  children,
+  initialUser,
+}: {
+  children: React.ReactNode;
+  initialUser: User | null;
+}) {
+  const { bootstrap, hydrated } = useAuth();
+
+  useEffect(() => {
+    if (!hydrated) {
+      bootstrap(initialUser);
+    }
+  }, [bootstrap, hydrated, initialUser]);
+
+  return <>{children}</>;
+}
+
+export const Providers = ({
+  children,
+  initialLocale,
+  initialUser,
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+  initialUser: User | null;
+}) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -44,10 +71,11 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={muiTheme}>
-        <LocaleProvider>
+        <LocaleProvider initialLocale={initialLocale}>
           <IntlProvider>
-            <GlobalStyles />
-            {children}
+            <AuthBootstrap initialUser={initialUser}>
+              {children}
+            </AuthBootstrap>
             <ToastContainer position="top-right" />
           </IntlProvider>
         </LocaleProvider>

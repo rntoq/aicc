@@ -1,0 +1,395 @@
+{
+  "PHOTO_QUESTIONS": [
+    {
+      "id": "photo_q_01",
+      "optionA": {
+        "id": "R_Carpenter",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_Carpenter.jpg",
+        "description": "R_Carpenter"
+      },
+      "optionB": {
+        "id": "S_DentalTech",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_DentalTech.jpg",
+        "description": "S_DentalTech"
+      }
+    },
+    {
+      "id": "photo_q_02",
+      "optionA": {
+        "id": "I_OrganicChemistry",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_OrganicChemistry.jpg",
+        "description": "I_OrganicChemistry"
+      },
+      "optionB": {
+        "id": "E_Speech",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Speech.jpg",
+        "description": "E_Speech"
+      }
+    },
+    {
+      "id": "photo_q_03",
+      "optionA": {
+        "id": "A_FashionDesigner",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_FashionDesigner.jpg",
+        "description": "A_FashionDesigner"
+      },
+      "optionB": {
+        "id": "C_CourtReporter",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_CourtReporter.jpg",
+        "description": "C_CourtReporter"
+      }
+    },
+    {
+      "id": "photo_q_04",
+      "optionA": {
+        "id": "R_Daredevil",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_Daredevil.jpg",
+        "description": "R_Daredevil"
+      },
+      "optionB": {
+        "id": "C_Calculator",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_Calculator.jpg",
+        "description": "C_Calculator"
+      }
+    },
+    {
+      "id": "photo_q_05",
+      "optionA": {
+        "id": "I_Professor",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_Professor.jpg",
+        "description": "I_Professor"
+      },
+      "optionB": {
+        "id": "S_ElderlyCaregiver",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_ElderlyCaregiver.jpg",
+        "description": "S_ElderlyCaregiver"
+      }
+    },
+    {
+      "id": "photo_q_06",
+      "optionA": {
+        "id": "A_GraphicDesigner",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_GraphicDesigner.jpg",
+        "description": "A_GraphicDesigner"
+      },
+      "optionB": {
+        "id": "E_Businessperson",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Businessperson.jpg",
+        "description": "E_Businessperson"
+      }
+    },
+    {
+      "id": "photo_q_07",
+      "optionA": {
+        "id": "R_Firefighter",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_Firefighter.jpg",
+        "description": "R_Firefighter"
+      },
+      "optionB": {
+        "id": "E_Broker",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Broker.jpg",
+        "description": "E_Broker"
+      }
+    },
+    {
+      "id": "photo_q_08",
+      "optionA": {
+        "id": "I_ScientistTestTubes",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_ScientistTestTubes.jpg",
+        "description": "I_ScientistTestTubes"
+      },
+      "optionB": {
+        "id": "C_NumberColumns",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_NumberColumns.jpg",
+        "description": "C_NumberColumns"
+      }
+    },
+    {
+      "id": "photo_q_09",
+      "optionA": {
+        "id": "A_Musician",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_Musician.jpg",
+        "description": "A_Musician"
+      },
+      "optionB": {
+        "id": "S_MaleNurse",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_MaleNurse.jpg",
+        "description": "S_MaleNurse"
+      }
+    },
+    {
+      "id": "photo_q_10",
+      "optionA": {
+        "id": "R_Forester",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_Forester.jpg",
+        "description": "R_Forester"
+      },
+      "optionB": {
+        "id": "I_Researcher",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_Researcher.jpg",
+        "description": "I_Researcher"
+      }
+    },
+    {
+      "id": "photo_q_11",
+      "optionA": {
+        "id": "A_Sketching",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_Sketching.jpg",
+        "description": "A_Sketching"
+      },
+      "optionB": {
+        "id": "R_CarRepair",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_CarRepair.jpg",
+        "description": "R_CarRepair"
+      }
+    },
+    {
+      "id": "photo_q_12",
+      "optionA": {
+        "id": "A_Writer",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_Writer.jpg",
+        "description": "A_Writer"
+      },
+      "optionB": {
+        "id": "I_ScientistLab",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_ScientistLab.jpg",
+        "description": "I_ScientistLab"
+      }
+    },
+    {
+      "id": "photo_q_13",
+      "optionA": {
+        "id": "S_ElementaryTeacher",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_ElementaryTeacher.jpg",
+        "description": "S_ElementaryTeacher"
+      },
+      "optionB": {
+        "id": "E_Lawyer",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Lawyer.jpg",
+        "description": "E_Lawyer"
+      }
+    },
+    {
+      "id": "photo_q_14",
+      "optionA": {
+        "id": "C_SystemsAdministrator",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_SystemsAdministrator.jpg",
+        "description": "C_SystemsAdministrator"
+      },
+      "optionB": {
+        "id": "S_FamilyCounselor",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_FamilyCounselor.jpg",
+        "description": "S_FamilyCounselor"
+      }
+    },
+    {
+      "id": "photo_q_15",
+      "optionA": {
+        "id": "E_Meeting",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Meeting.jpg",
+        "description": "E_Meeting"
+      },
+      "optionB": {
+        "id": "C_Accountant",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_Accountant.jpg",
+        "description": "C_Accountant"
+      }
+    },
+    {
+      "id": "photo_q_16",
+      "optionA": {
+        "id": "R_Athlete",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_Athlete.jpg",
+        "description": "R_Athlete"
+      },
+      "optionB": {
+        "id": "S_ChildhoodEducator",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_ChildhoodEducator.jpg",
+        "description": "S_ChildhoodEducator"
+      }
+    },
+    {
+      "id": "photo_q_17",
+      "optionA": {
+        "id": "I_Archaeologist",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_Archaeologist.jpg",
+        "description": "I_Archaeologist"
+      },
+      "optionB": {
+        "id": "E_Attorney",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Attorney.jpg",
+        "description": "E_Attorney"
+      }
+    },
+    {
+      "id": "photo_q_18",
+      "optionA": {
+        "id": "A_Dancer",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_Dancer.jpg",
+        "description": "A_Dancer"
+      },
+      "optionB": {
+        "id": "C_ClaimsAdjuster",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_ClaimsAdjuster.jpg",
+        "description": "C_ClaimsAdjuster"
+      }
+    },
+    {
+      "id": "photo_q_19",
+      "optionA": {
+        "id": "R_Cook",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_Cook.jpg",
+        "description": "R_Cook"
+      },
+      "optionB": {
+        "id": "C_Filing",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_Filing.jpg",
+        "description": "C_Filing"
+      }
+    },
+    {
+      "id": "photo_q_20",
+      "optionA": {
+        "id": "I_Engineer",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_Engineer.jpg",
+        "description": "I_Engineer"
+      },
+      "optionB": {
+        "id": "S_MaleTeacher",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_MaleTeacher.jpg",
+        "description": "S_MaleTeacher"
+      }
+    },
+    {
+      "id": "photo_q_21",
+      "optionA": {
+        "id": "A_Designer",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_Designer.jpg",
+        "description": "A_Designer"
+      },
+      "optionB": {
+        "id": "E_Conference",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Conference.jpg",
+        "description": "E_Conference"
+      }
+    },
+    {
+      "id": "photo_q_22",
+      "optionA": {
+        "id": "R_Cowboy",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_Cowboy.jpg",
+        "description": "R_Cowboy"
+      },
+      "optionB": {
+        "id": "E_CEO",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_CEO.jpg",
+        "description": "E_CEO"
+      }
+    },
+    {
+      "id": "photo_q_23",
+      "optionA": {
+        "id": "I_Pharmacist",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_Pharmacist.jpg",
+        "description": "I_Pharmacist"
+      },
+      "optionB": {
+        "id": "C_Forms",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_Forms.jpg",
+        "description": "C_Forms"
+      }
+    },
+    {
+      "id": "photo_q_24",
+      "optionA": {
+        "id": "A_LandscapeArchitect",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_LandscapeArchitect.jpg",
+        "description": "A_LandscapeArchitect"
+      },
+      "optionB": {
+        "id": "S_GoatFeeding",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_GoatFeeding.jpg",
+        "description": "S_GoatFeeding"
+      }
+    },
+    {
+      "id": "photo_q_25",
+      "optionA": {
+        "id": "R_HVACTech",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_HVACTech.jpg",
+        "description": "R_HVACTech"
+      },
+      "optionB": {
+        "id": "I_Radiologist",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_Radiologist.jpg",
+        "description": "I_Radiologist"
+      }
+    },
+    {
+      "id": "photo_q_26",
+      "optionA": {
+        "id": "A_Painter2",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_Painter2.jpg",
+        "description": "A_Painter2"
+      },
+      "optionB": {
+        "id": "R_Pilot",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/R_Pilot.jpg",
+        "description": "R_Pilot"
+      }
+    },
+    {
+      "id": "photo_q_27",
+      "optionA": {
+        "id": "A_StageMakeup",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/A_StageMakeup.jpg",
+        "description": "A_StageMakeup"
+      },
+      "optionB": {
+        "id": "I_Surgeon",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/I_Surgeon.jpg",
+        "description": "I_Surgeon"
+      }
+    },
+    {
+      "id": "photo_q_28",
+      "optionA": {
+        "id": "S_MassageTherapist",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_MassageTherapist.jpg",
+        "description": "S_MassageTherapist"
+      },
+      "optionB": {
+        "id": "E_Manager",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Manager.jpg",
+        "description": "E_Manager"
+      }
+    },
+    {
+      "id": "photo_q_29",
+      "optionA": {
+        "id": "C_MedicalSecretary",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_MedicalSecretary.jpg",
+        "description": "C_MedicalSecretary"
+      },
+      "optionB": {
+        "id": "S_Psychotherapist",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/S_Psychotherapist.jpg",
+        "description": "S_Psychotherapist"
+      }
+    },
+    {
+      "id": "photo_q_30",
+      "optionA": {
+        "id": "E_Realtor",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/E_Realtor.jpg",
+        "description": "E_Realtor"
+      },
+      "optionB": {
+        "id": "C_Military",
+        "imageSrc": "https://d31u95r9ywbjex.cloudfront.net/sites/default/files/images/visualtests/C_Military.jpg",
+        "description": "C_Military"
+      }
+    }
+  ]
+}
+

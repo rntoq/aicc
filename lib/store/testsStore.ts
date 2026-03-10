@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 export interface TestsState {
-  /** IDs of tests that user has completed (for UI: show "Показать результат") */
+  /** IDs тестов, которые пользователь завершил (для UI: показывать "Показать результат") */
   completedTestIds: Set<string>;
-  /** ID of test whose result modal is open, or null */
+  /** ID теста, для которого открыт модальный результат, или null */
   openResultModalId: string | null;
   setCompleted: (id: string) => void;
   setOpenResultModalId: (id: string | null) => void;
@@ -23,3 +23,4 @@ export const useTestsStore = create<TestsState>((set, get) => ({
 
   isCompleted: (id) => get().completedTestIds.has(id),
 }));
+

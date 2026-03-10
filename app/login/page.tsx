@@ -9,90 +9,108 @@ import {
   Stack,
   TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@/lib/hooks/useAuth";
+import { Header } from "../components/layout/Header";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
 
 const LoginPage = () => {
+  const t = useTranslations();
+  const { login, loading, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/client";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (submitting) return;
-    setSubmitting(true);
-    // TODO: интегрировать с backend API.
-    // Сейчас просто имитация запроса.
-    setTimeout(() => {
-      setSubmitting(false);
-      router.push("/app");
-    }, 800);
+    if (!email || !password || loading) return;
+
+    try {
+      await login({ email, password });
+      router.push(redirect);
+    } catch {
+      // ошибка уже записана в authStore.error
+    }
   };
 
   return (
-    <Box sx={styles.root}>
-      <Container maxWidth="sm">
-        <Paper sx={styles.paper}>
-          <Typography component="h1" variant="h4" sx={styles.title}>
-            Вход
-          </Typography>
-          <Typography variant="body2" sx={styles.subtitle}>
-            Войдите по e‑mail и паролю, чтобы продолжить.
-          </Typography>
-
-          <Box component="form" noValidate onSubmit={handleSubmit}>
-            <Stack spacing={2.5}>
-              <TextField
-                label="E‑mail"
-                type="email"
-                name="email"
-                autoComplete="email"
-                required
-                fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <TextField
-                label="Пароль"
-                type="password"
-                name="password"
-                autoComplete="current-password"
-                required
-                fullWidth
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                helperText="Минимум 8 символов, используйте буквы и цифры."
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                size="large"
-                fullWidth
-                disabled={submitting}
-              >
-                {submitting ? "Вход..." : "Войти"}
-              </Button>
-            </Stack>
-
-            <Box sx={styles.actionsRow}>
-              <Typography variant="body2" color="text.secondary">
-                Нет аккаунта?
-              </Typography>
-              <Button
-                component={Link}
-                href="/register"
-                size="small"
-                variant="text"
-              >
-                Зарегистрироваться
-              </Button>
+    <>
+      <Header />
+      <Box sx={styles.root}>
+        <Container maxWidth="sm">
+          <Paper sx={styles.paper}>
+            <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
+              <Image src={BANNER_PLACEHOLDER_IMAGE} alt="logo" width={100} height={48} />
             </Box>
-          </Box>
-        </Paper>
-      </Container>
-    </Box>
+
+            {error && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{ mb: 2 }}
+              >
+                {error}
+              </Typography>
+            )}
+
+            <Box component="form" noValidate onSubmit={handleSubmit}>
+              <Stack spacing={4}>
+                <TextField
+                  label="E‑mail"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  fullWidth
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <TextField
+                  label="Пароль"
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  required
+                  fullWidth
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  fullWidth
+                  disabled={loading}
+                >
+                  {loading ? <CircularProgress size={20} /> : t("login")}
+                </Button>
+              </Stack>
+
+              <Box sx={styles.actionsRow}>
+                <Typography variant="body2" color="text.secondary">
+                  Нет аккаунта?
+                </Typography>
+                <Button
+                  component={Link}
+                  href="/register"
+                  size="small"
+                  variant="text"
+                >
+                  Зарегистрироваться
+                </Button>
+              </Box>
+            </Box>
+          </Paper>
+        </Container>
+      </Box>
+    </>
   );
 };
 
@@ -113,16 +131,8 @@ const styles = {
     borderRadius: 3,
     boxShadow: "0 18px 45px rgba(15,23,42,0.18)",
   },
-  title: {
-    mb: 0.5,
-    fontWeight: 700,
-  },
-  subtitle: {
-    mb: 3,
-    color: "text.secondary",
-  },
   actionsRow: {
-    mt: 2,
+    mt: 1,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",

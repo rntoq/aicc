@@ -14,11 +14,12 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/ui/styles/global";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
 import { Footer } from "@/app/components/landing/Footer";
 import { ALL_TESTS, getRecommendedTests } from "./constants";
 import { TestCard } from "./components/TestCard";
 import { TestResultModal } from "./components/TestResultModal";
+import { Header } from "../components/layout/Header";
 
 const MAX_CUSTOM_SELECT = 4;
 
@@ -61,164 +62,167 @@ const TestPage = () => {
   };
 
   return (
-    <Box component="main" sx={styles.root}>
-      <Container maxWidth="lg">
-        <motion.section {...HERO_ANIMATION}>
-          <Box sx={styles.heroBox}>
-            <Box sx={styles.heroImage}>
-              <Image
-                src={BANNER_PLACEHOLDER_IMAGE}
-                alt=""
-                fill
-                sizes="(max-width: 768px) 100vw, 1200px"
-              />
-            </Box>
-            <Box sx={styles.heroContent}>
-              <Box sx={styles.heroInner}>
-                <Box sx={styles.heroTextCol}>
-                  <Typography component="h1" variant="h1" sx={styles.heroTitle}>
-                    {t("test_title")}
-                  </Typography>
-                  <Typography variant="body1" sx={styles.heroSubtitle}>
-                    {t("test_subtitle")}
-                  </Typography>
-                </Box>
+    <>
+      <Header onLanding={true} />
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="lg">
+          <motion.section {...HERO_ANIMATION}>
+            <Box sx={styles.heroBox}>
+              <Box sx={styles.heroImage}>
+                <Image
+                  src={BANNER_PLACEHOLDER_IMAGE}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 1200px"
+                />
+              </Box>
+              <Box sx={styles.heroContent}>
+                <Box sx={styles.heroInner}>
+                  <Box sx={styles.heroTextCol}>
+                    <Typography component="h1" variant="h1" sx={styles.heroTitle}>
+                      {t("test_title")}
+                    </Typography>
+                    <Typography variant="body1" sx={styles.heroSubtitle}>
+                      {t("test_subtitle")}
+                    </Typography>
+                  </Box>
 
-                <Box
-                  sx={styles.heroMetaCol}
-                >
-                  <Chip label={t("test_hero_chip_time")} sx={styles.heroChip} />
-                  <Chip label={t("test_hero_chip_accuracy")} sx={styles.heroChip} />
+                  <Box
+                    sx={styles.heroMetaCol}
+                  >
+                    <Chip label={t("test_hero_chip_time")} sx={styles.heroChip} />
+                    <Chip label={t("test_hero_chip_accuracy")} sx={styles.heroChip} />
+                  </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>
-        </motion.section>
+          </motion.section>
 
-        <Box component="section" sx={styles.section} ref={recommendedRef}>
-          <Box sx={styles.recommendedHeader}>
-            <Box>
-              <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
-                {t("test_recommended_title")}
-              </Typography>
-              <Typography variant="body1" color="text.secondary" sx={styles.sectionSubtitle}>
-                {t("test_recommended_subtitle")}
-              </Typography>
-            </Box>
-            <Button
-              size="large"
-              color="primary"
-              sx={styles.headerButton}
-              onClick={openCustomSection}
-            >
-              {t("test_showAllTests")}
-            </Button>
-          </Box>
-          <Grid container spacing={3} sx={styles.grid}>
-            {recommended.map((test, index) => (
-              <Grid key={test.id} size={{ xs: 12, sm: 6, md: 4 }}>
-                <TestCard test={test} variant="recommended" index={index} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        <Box component="section" sx={styles.section}>
-          <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
-            {t("test_why_title")}
-          </Typography>
-          <Paper elevation={0} sx={styles.infoPaper}>
-            <Grid container spacing={2}>
-              {WHY_ITEM_KEYS.map((item) => (
-                <Grid key={item.titleKey} size={{ xs: 12, sm: 6 }}>
-                  <Box sx={styles.whyItem}>
-                    <Typography variant="h3" sx={styles.whyItemTitle}>
-                      {t(item.titleKey)}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {t(item.textKey)}
-                    </Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-            <Box sx={styles.whyConclusion}>
-              <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                {t("test_why_conclusion")}
-              </Typography>
-            </Box>
-          </Paper>
-        </Box>
-
-        <Box component="section" sx={styles.section}>
-          <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
-            {t("test_what_title")}
-          </Typography>
-          <Paper elevation={0} sx={styles.resultPaper}>
-            <Grid container spacing={1.5}>
-              {RESULT_ITEM_KEYS.map((key) => (
-                <Grid key={key} size={{ xs: 12, sm: 6 }}>
-                  <Typography variant="body1" sx={styles.resultItem}>
-                    ✓ {t(key)}
-                  </Typography>
-                </Grid>
-              ))}
-            </Grid>
-          </Paper>
-        </Box>
-
-        <Box component="section" sx={styles.section}>
-          <Paper elevation={0} sx={styles.ctaPaper}>
-            <Typography component="h2" variant="h2" sx={styles.ctaTitle}>
-              {t("test_cta_title")}
-            </Typography>
-            <Stack direction="row" spacing={2} flexWrap="wrap" justifyContent="center">
+          <Box component="section" sx={styles.section} ref={recommendedRef}>
+            <Box sx={styles.recommendedHeader}>
+              <Box>
+                <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
+                  {t("test_recommended_title")}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={styles.sectionSubtitle}>
+                  {t("test_recommended_subtitle")}
+                </Typography>
+              </Box>
               <Button
-                variant="contained"
                 size="large"
-                onClick={() => scrollToRef(recommendedRef)}
-                sx={styles.ctaPrimaryButton}
-              >
-                {t("test_cta_start")}
-              </Button>
-              <Button
-                variant="outlined"
-                size="large"
+                color="primary"
+                sx={styles.headerButton}
                 onClick={openCustomSection}
-                sx={styles.ctaSecondaryButton}
               >
-                {t("test_cta_custom")}
+                {t("test_showAllTests")}
               </Button>
-            </Stack>
-          </Paper>
-        </Box>
-
-        {showCustom && (
-          <Box component="section" sx={styles.section} ref={customRef}>
-            <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
-              {t("test_custom_title", { max: MAX_CUSTOM_SELECT })}
-            </Typography>
+            </Box>
             <Grid container spacing={3} sx={styles.grid}>
-              {ALL_TESTS.map((test, index) => (
-                <Grid key={test.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-                  <TestCard
-                    test={test}
-                    variant="custom"
-                    index={index}
-                  />
+              {recommended.map((test, index) => (
+                <Grid key={test.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                  <TestCard test={test} variant="recommended" index={index} />
                 </Grid>
               ))}
             </Grid>
-            <Typography variant="body2" color="text.secondary" sx={styles.warningText}>
-              {t("test_custom_warning")}
-            </Typography>
           </Box>
-        )}
-      </Container>
 
-      <TestResultModal />
-      <Footer />
-    </Box>
+          <Box component="section" sx={styles.section}>
+            <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
+              {t("test_why_title")}
+            </Typography>
+            <Paper elevation={0} sx={styles.infoPaper}>
+              <Grid container spacing={2}>
+                {WHY_ITEM_KEYS.map((item) => (
+                  <Grid key={item.titleKey} size={{ xs: 12, sm: 6 }}>
+                    <Box sx={styles.whyItem}>
+                      <Typography variant="h3" sx={styles.whyItemTitle}>
+                        {t(item.titleKey)}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {t(item.textKey)}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+              <Box sx={styles.whyConclusion}>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  {t("test_why_conclusion")}
+                </Typography>
+              </Box>
+            </Paper>
+          </Box>
+
+          <Box component="section" sx={styles.section}>
+            <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
+              {t("test_what_title")}
+            </Typography>
+            <Paper elevation={0} sx={styles.resultPaper}>
+              <Grid container spacing={1.5}>
+                {RESULT_ITEM_KEYS.map((key) => (
+                  <Grid key={key} size={{ xs: 12, sm: 6 }}>
+                    <Typography variant="body1" sx={styles.resultItem}>
+                      ✓ {t(key)}
+                    </Typography>
+                  </Grid>
+                ))}
+              </Grid>
+            </Paper>
+          </Box>
+
+          <Box component="section" sx={styles.section}>
+            <Paper elevation={0} sx={styles.ctaPaper}>
+              <Typography component="h2" variant="h2" sx={styles.ctaTitle}>
+                {t("test_cta_title")}
+              </Typography>
+              <Stack direction="row" spacing={2} flexWrap="wrap" justifyContent="center">
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={() => scrollToRef(recommendedRef)}
+                  sx={styles.ctaPrimaryButton}
+                >
+                  {t("test_cta_start")}
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={openCustomSection}
+                  sx={styles.ctaSecondaryButton}
+                >
+                  {t("test_cta_custom")}
+                </Button>
+              </Stack>
+            </Paper>
+          </Box>
+
+          {showCustom && (
+            <Box component="section" sx={styles.section} ref={customRef}>
+              <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
+                {t("test_custom_title", { max: MAX_CUSTOM_SELECT })}
+              </Typography>
+              <Grid container spacing={3} sx={styles.grid}>
+                {ALL_TESTS.map((test, index) => (
+                  <Grid key={test.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                    <TestCard
+                      test={test}
+                      variant="custom"
+                      index={index}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+              <Typography variant="body2" color="text.secondary" sx={styles.warningText}>
+                {t("test_custom_warning")}
+              </Typography>
+            </Box>
+          )}
+        </Container>
+
+        <TestResultModal />
+        <Footer />
+      </Box>
+    </>
   );
 };
 

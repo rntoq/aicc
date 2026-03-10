@@ -26,19 +26,12 @@ const getBadgeLabel = (
   t: ReturnType<typeof useTranslations>
 ): string => {
   if (test.required) return t("tests_badge_recommended");
-  if (test.status === "paid" && test.price) return `${test.price}₸`;
-  if (test.status === "premium" && test.price) return `${test.price}₸`;
-  if (!test.required && test.status === "free") return t("tests_badge_optional");
-  return t("tests_badge_free");
+  return t("tests_badge_optional");
 };
 
 const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
   if (test.required) return { bg: "rgba(99, 102, 241, 0.15)", color: "#6366F1" };
-  if (test.status === "paid" || test.status === "premium")
-    return { bg: "rgba(2, 255, 36, 0.15)", color: "#10b981" };
-  if (test.status === "free" && !test.required)
-    return { bg: "rgba(100, 116, 139, 0.15)", color: "#64748B" };
-  return { bg: "rgba(34, 197, 94, 0.15)", color: "#22C55E" };
+  return { bg: "rgba(59, 59, 59, 0.15)", color: "#3B3B3B" };
 };
 
 export const TestsCarousel = () => {
