@@ -92,6 +92,13 @@ export const ALL_TESTS: TestItem[] = [
     duration: 12,
     questions: undefined,
   },
+  {
+    id: "strengths",
+    name: "Personal Strengths Test",
+    icon: <StarBorderOutlinedIcon />,
+    duration: 10,
+    questions: undefined,
+  },
 ];
 
 export const getTestById = (id: string): TestItem | undefined =>

@@ -1,5 +1,5 @@
 [
-  {
+    {
     "id": "agriculture_environment",
     "name": {
       "ru": "Сельское хозяйство и экология",
@@ -160,5 +160,5 @@
       "en": "Transportation & Logistics"
     },
     "professions_count": 5
-  }
-]
+    }
+  ]
