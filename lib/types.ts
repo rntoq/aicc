@@ -116,7 +116,7 @@ export type PublicProfession = {
   /** Industry id used for grouping/filtering (e.g. `it_technology`) */
   industry: string;
   /** Specialty codes (e.g. `B049`) */
-  specialties: string[];
+  specialities: string[];
   demand_level: ProfessionDemandLevel;
   salary_kzt: SalaryKzt;
   description?: LocalizedText;
@@ -157,4 +157,189 @@ export type PublicIndustry = {
   id: string;
   name: LocalizedText;
   professions_count: number;
+};
+
+// ===== Quizzes (tests, categories, sessions) =====
+
+export type QuizTestType =
+  | "holland"
+  | "disc"
+  | "big_five"
+  | "photo"
+  | "career_aptitude"
+  | "values"
+  | "skills"
+  | "eq"
+  | "vark"
+  | "motivation"
+  | "strengths"
+  | (string & {});
+
+export type QuizTier = "core" | "additional" | (string & {});
+
+export type QuizListParams = {
+  type?: QuizTestType;
+  tier?: QuizTier;
+  mandatory?: boolean;
+  free?: boolean;
+};
+
+export interface QuizTest {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  category_name: string;
+  category_type: QuizTestType;
+  tier: QuizTier;
+  is_mandatory: boolean;
+  weight: number;
+  price: number;
+  icon: string;
+  color: string;
+  duration_minutes: number;
+  is_free: boolean;
+  total_questions: number;
+}
+
+export interface QuizCategory {
+  id: number;
+  name: string;
+  slug: string;
+  test_type: QuizTestType;
+  tier: QuizTier;
+  description: string;
+  icon: string;
+  color: string;
+  is_free: boolean;
+  is_mandatory: boolean;
+  price: number;
+  weight: number;
+  order: number;
+  tests: QuizTest[];
+}
+
+export interface QuizTestTypeMeta {
+  name: string;
+  question_type: "scale" | "image_pair" | "single" | (string & {});
+  submit_field: "scale_value" | "answer_id" | "answer_code" | (string & {});
+  submit_example?: Record<string, unknown>;
+  scales?: string[];
+  scale_range?: {
+    min: number;
+    max: number;
+  };
+  min_value?: number;
+  max_value?: number;
+  example?: unknown;
+  [key: string]: unknown;
+}
+
+export type QuizTestTypeMetaResponse = Record<QuizTestType, QuizTestTypeMeta>;
+
+export interface QuizSession {
+  id: number;
+  test_slug: string;
+  test_type: QuizTestType;
+  completed: boolean;
+  progress?: number;
+  created_at?: string;
+  updated_at?: string;
+  [key: string]: unknown;
+}
+
+export type QuizSessionsListItem = QuizSession & {
+  result_id?: number | null;
+};
+
+export type QuizSessionsListParams = {
+  completed?: boolean;
+  type?: QuizTestType;
+};
+
+export interface QuizMyResultsResponse {
+  total_tests_available: number;
+  total_tests_completed: number;
+  mandatory_completed: number;
+  mandatory_total: number;
+  can_get_recommendations: boolean;
+  results: unknown[];
+}
+
+export interface QuizResult {
+  id: number;
+  test_title: string;
+  test_type: QuizTestType;
+  scores?: Record<string, number>;
+  primary_type?: string;
+  secondary_type?: string | null;
+  summary?: string;
+  detailed_report?: string;
+  created_at?: string;
+  [key: string]: unknown;
+}
+
+export interface QuickQuizPayload {
+  test_type: QuizTestType;
+  questions: unknown[];
+  meta?: Record<string, unknown>;
+}
+
+export type QuickQuizResult = QuizResult;
+
+export type SubmitQuickQuizVariables = {
+  testType: QuizTestType;
+  body: Record<string, unknown>;
+};
+
+export type StartQuizSessionVariables = {
+  test_slug: string;
+};
+
+export type AnswerQuizQuestionPayload =
+  | {
+      session_id: number | string;
+      question_id: number | string;
+      scale_value: number;
+    }
+  | {
+      session_id: number | string;
+      question_id: number | string;
+      answer_id: number | string;
+    }
+  | {
+      session_id: number | string;
+      question_id: number | string;
+      answer_code: string;
+    };
+
+export interface AnswerQuizQuestionResponse {
+  status: string;
+  answered: number;
+  total: number;
+  progress: number;
+  [key: string]: unknown;
+}
+
+export interface BulkAnswerQuizPayload {
+  session_id: number | string;
+  answers: {
+    question_id: number | string;
+    scale_value?: number;
+    answer_id?: number | string;
+    answer_code?: string;
+  }[];
+}
+
+export interface BulkAnswerQuizResponse {
+  status: string;
+  saved: number;
+  errors: unknown[];
+  total_questions: number;
+  answered: number;
+  [key: string]: unknown;
+}
+
+export type FinishQuizSessionVariables = {
+  session_id: number | string;
 };

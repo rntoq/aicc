@@ -17,6 +17,15 @@ import { QuestionCard } from "./components/QuestionCard";
 import { ProgressBar } from "./components/ProgressBar";
 import { useTestsStore } from "@/lib/store/testsStore";
 import { Header } from "@/app/components/layout/Header";
+import { api } from "@/lib/api/api";
+import type {
+  BulkAnswerQuizPayload,
+  FinishQuizSessionVariables,
+  HollandSessionFinishResponse,
+  QuizSession,
+  QuizTest,
+  StartQuizSessionVariables,
+} from "@/lib/types";
 
 const HollandTestPage = () => {
   const t = useTranslations();
@@ -24,9 +33,49 @@ const HollandTestPage = () => {
   const { setResult } = useHollandStore();
   const { setCompleted } = useTestsStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sessionId, setSessionId] = useState<number | null>(null);
+  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
 
   useEffect(() => {
-    // init local-only state; store используется только для сохранения финального результата
+    let cancelled = false;
+
+    const initSession = async () => {
+      try {
+        // 1) Получаем Holland-тест и его slug
+        const { data: tests } = await api.get<QuizTest[]>(
+          "/api/v1/quizzes/tests/",
+          { params: { type: "holland" } }
+        );
+        const slug = tests[0]?.slug;
+        if (!slug) return;
+
+        // 2) Стартуем сессию
+        const { data: session } = await api.post<
+          QuizSession,
+          StartQuizSessionVariables
+        >("/api/v1/quizzes/sessions/start/", { test_slug: slug });
+
+        // 3) Получаем вопросы с бэкенда, чтобы знать их numeric id
+        const { data: testDetail } = await api.get<{
+          questions: { id: number }[];
+        }>(`/api/v1/quizzes/tests/${slug}/`);
+
+        if (!cancelled) {
+          setSessionId(session.id);
+          setBackendQuestionIds(
+            (testDetail.questions ?? []).map((q) => q.id)
+          );
+        }
+      } catch {
+        // Если бэкенд недоступен — просто работаем в локальном режиме.
+      }
+    };
+
+    void initSession();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const totalQuestions = QUESTIONS_JSON.length;
@@ -73,12 +122,50 @@ const HollandTestPage = () => {
     if (Object.keys(usedAnswers).length !== totalQuestions) return;
     setIsSubmitting(true);
     try {
+      let backendResult: HollandSessionFinishResponse | null = null;
+      let bulkPayload: BulkAnswerQuizPayload | null = null;
+
+      if (
+        sessionId &&
+        backendQuestionIds.length === totalQuestions
+      ) {
+        const answersPayload: BulkAnswerQuizPayload["answers"] =
+          QUESTIONS_JSON.map((q: any, index: number) => ({
+            question_id: backendQuestionIds[index],
+            scale_value: usedAnswers[q.id],
+          }));
+
+        bulkPayload = {
+          session_id: sessionId,
+          answers: answersPayload,
+        };
+
+        await api.post<unknown, BulkAnswerQuizPayload>(
+          "/api/v1/quizzes/sessions/bulk-answer/",
+          bulkPayload
+        );
+
+        const { data } = await api.post<
+          HollandSessionFinishResponse,
+          FinishQuizSessionVariables
+        >("/api/v1/quizzes/sessions/finish/", {
+          session_id: sessionId,
+        });
+
+        backendResult = data;
+      }
+
       setResult({
         finishedAt: Date.now(),
-        payload: usedAnswers,
+        payload: {
+          answers: usedAnswers,
+          sessionId,
+          bulkPayload,
+          backendResult,
+        },
       });
       useTestsStore.getState().setCompleted("holland");
-      router.push("/test/holland/result");
+      router.push("/test");
     } finally {
       setIsSubmitting(false);
     }

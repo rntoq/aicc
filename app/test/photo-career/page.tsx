@@ -9,6 +9,16 @@ import PHOTO_DATA from "./photo_questions.json";
 import { PhotoPair, type PhotoQuestion } from "./components/PhotoPair";
 import { useTestsStore } from "@/lib/store/testsStore";
 import { Header } from "@/app/components/layout/Header";
+import { api } from "@/lib/api/api";
+import type {
+  AnswerQuizQuestionPayload,
+  BulkAnswerQuizPayload,
+  FinishQuizSessionVariables,
+  QuizResult,
+  QuizSession,
+  QuizTest,
+  StartQuizSessionVariables,
+} from "@/lib/types";
 
 const PhotoCareerQuizPage = () => {
   const t = useTranslations();
@@ -16,6 +26,10 @@ const PhotoCareerQuizPage = () => {
   const { setResult } = usePhotoQuizStore();
   const { setCompleted } = useTestsStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sessionId, setSessionId] = useState<number | null>(null);
+  const [backendQuestions, setBackendQuestions] = useState<
+    { id: number; answers: { code: string }[] }[]
+  >([]);
 
   const PHOTO_QUESTIONS: PhotoQuestion[] =
     (PHOTO_DATA as { PHOTO_QUESTIONS?: PhotoQuestion[] }).PHOTO_QUESTIONS ?? [];
@@ -26,15 +40,120 @@ const PhotoCareerQuizPage = () => {
     PHOTO_QUESTIONS.length > 0 &&
     Object.keys(answers).length === PHOTO_QUESTIONS.length;
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const initSession = async () => {
+      try {
+        const { data: tests } = await api.get<QuizTest[]>(
+          "/api/v1/quizzes/tests/",
+          { params: { type: "photo" } }
+        );
+
+        const slug = tests[0]?.slug;
+        if (!slug) return;
+
+        const { data: session } = await api.post<
+          QuizSession,
+          StartQuizSessionVariables
+        >("/api/v1/quizzes/sessions/start/", { test_slug: slug });
+
+        const { data: testDetail } = await api.get<{
+          questions: { id: number; answers: { code: string }[] }[];
+        }>(`/api/v1/quizzes/tests/${slug}/`);
+
+        const questions = testDetail.questions ?? [];
+
+        if (!cancelled && questions.length > 0) {
+          setSessionId(session.id);
+          setBackendQuestions(questions);
+        }
+      } catch {
+        // если бэкенд недоступен — продолжаем только локально
+      }
+    };
+
+    void initSession();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const handleSubmit = () => {
     if (!allAnswered) return;
     setIsSubmitting(true);
-    setResult({
-      finishedAt: Date.now(),
-      payload: answers,
-    });
-    setCompleted("photo-career");
-    router.push("/test");
+
+    const finish = async () => {
+      let backendResult: QuizResult | null = null;
+      let bulkPayload: BulkAnswerQuizPayload | null = null;
+
+      try {
+        if (sessionId && backendQuestions.length > 0 && PHOTO_QUESTIONS.length > 0) {
+          const maxCount = Math.min(
+            backendQuestions.length,
+            PHOTO_QUESTIONS.length
+          );
+
+          const answersPayload: BulkAnswerQuizPayload["answers"] = [];
+
+          for (let i = 0; i < maxCount; i++) {
+            const q = PHOTO_QUESTIONS[i];
+            const selected = answers[q.id];
+            if (!selected) continue;
+
+            const backendQuestion = backendQuestions[i];
+            const backendAnswers = backendQuestion.answers ?? [];
+            const backendAnswer =
+              selected === "optionA" ? backendAnswers[0] : backendAnswers[1];
+            if (!backendAnswer) continue;
+
+            const code = backendAnswer.code;
+
+            answersPayload.push({
+              question_id: backendQuestion.id,
+              answer_code: code,
+            });
+          }
+
+          if (answersPayload.length > 0) {
+            bulkPayload = {
+              session_id: sessionId,
+              answers: answersPayload,
+            };
+
+            await api.post<unknown, BulkAnswerQuizPayload>(
+              "/api/v1/quizzes/sessions/bulk-answer/",
+              bulkPayload
+            );
+
+            const { data } = await api.post<
+              QuizResult,
+              FinishQuizSessionVariables
+            >("/api/v1/quizzes/sessions/finish/", {
+              session_id: sessionId,
+            });
+
+            backendResult = data;
+          }
+        }
+      } finally {
+        setResult({
+          finishedAt: Date.now(),
+          payload: {
+            answers,
+            sessionId,
+            bulkPayload,
+            backendResult,
+          },
+        });
+        setCompleted("photo-career");
+        router.push("/test");
+        setIsSubmitting(false);
+      }
+    };
+
+    void finish();
   };
 
   return (

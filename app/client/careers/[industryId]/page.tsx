@@ -11,6 +11,7 @@ import { ProfessionCard } from "@/app/components/clientLayout";
 import { INDUSTRIES } from "@/lib/constants";
 import type { PublicProfession } from "@/lib/types";
 import PROFESSIONS_JSON from "@/public/professions.json";
+import { useIndustry } from "@/lib/hooks/useIndustries";
 
 type ProfJson = PublicProfession;
 
@@ -20,8 +21,11 @@ function useIndustryData(industryId: string) {
     [industryId]
   );
   const professions = useMemo(
-    () => (PROFESSIONS_JSON as ProfJson[]).slice(80, 100),
-    []
+    () =>
+      (PROFESSIONS_JSON as ProfJson[]).filter(
+        (prof) => prof.industry === industryId
+      ),
+    [industryId]
   );
   return { industry, professions };
 }
@@ -42,10 +46,11 @@ function IndustryNotFound() {
   );
 }
 
-export default function IndustryProfessionsPage() {
+const IndustryProfessionsPage = () => {
   const t = useTranslations();
   const params = useParams();
   const industryId = typeof params.industryId === "string" ? params.industryId : "";
+  useIndustry(industryId || null);
   const { industry, professions } = useIndustryData(industryId);
 
   if (!industry) {
@@ -97,4 +102,6 @@ export default function IndustryProfessionsPage() {
       </Box>
     </AppLayout>
   );
-}
+};
+
+export default IndustryProfessionsPage;

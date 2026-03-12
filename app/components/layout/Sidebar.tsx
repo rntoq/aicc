@@ -7,6 +7,7 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
@@ -18,6 +19,7 @@ const NAV_ITEMS = [
   { label: "Tests & Results", href: "/client/tests", icon: QueryStatsOutlinedIcon },
   { label: "AI Chat", href: "/client/ai-chat", icon: ChatBubbleOutlineOutlinedIcon },
   { label: "Careers", href: "/client/careers", icon: WorkOutlineOutlinedIcon },
+  { label: "Education", href: "/client/education", icon: SchoolOutlinedIcon },
 ] as const;
 
 export const Sidebar = () => {

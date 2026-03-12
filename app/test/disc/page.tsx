@@ -20,6 +20,15 @@ import { useLocale } from "next-intl";
 import { LikertWordQuestionCard } from "@/app/test/components/QuestionCard";
 import { OptionsHeader } from "@/app/test/components/OptionsHeader";
 import { Header } from "@/app/components/layout/Header";
+import { api } from "@/lib/api/api";
+import type {
+  BulkAnswerQuizPayload,
+  FinishQuizSessionVariables,
+  QuizSession,
+  QuizTest,
+  QuizResult,
+  StartQuizSessionVariables,
+} from "@/lib/types";
 
 const PAIRS = (DISC_DATA as any).pairs || [];
 const SINGLE_WORD_ITEMS: string[] =
@@ -51,8 +60,49 @@ const DiscPage = () => {
   const [scenarioValues, setScenarioValues] = useState<Record<string, string>>({});
   const [surveyValues, setSurveyValues] = useState<Record<string, string>>({});
 
+  const [sessionId, setSessionId] = useState<number | null>(null);
+  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
+
   useEffect(() => {
-    // init local-only state; store используется только для сохранения финального результата
+    let cancelled = false;
+
+    const initSession = async () => {
+      try {
+        const { data: tests } = await api.get<QuizTest[]>(
+          "/api/v1/quizzes/tests/",
+          { params: { type: "disc" } }
+        );
+
+        const slug = tests[0]?.slug;
+        if (!slug) return;
+
+        const { data: session } = await api.post<
+          QuizSession,
+          StartQuizSessionVariables
+        >("/api/v1/quizzes/sessions/start/", { test_slug: slug });
+
+        const { data: testDetail } = await api.get<{
+          questions: { id: number }[];
+        }>(`/api/v1/quizzes/tests/${slug}/`);
+
+        const allBackendIds = (testDetail.questions ?? []).map((q) => q.id);
+        const expectedCount =
+          PAIRS.length + SINGLE_WORD_ITEMS.length + SCENARIO_ITEMS.length;
+
+        if (!cancelled && allBackendIds.length === expectedCount) {
+          setSessionId(session.id);
+          setBackendQuestionIds(allBackendIds);
+        }
+      } catch {
+        // Если бэкенд недоступен — продолжаем работать в локальном режиме.
+      }
+    };
+
+    void initSession();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handlePairChange = (questionId: string, value: number) => {
@@ -83,19 +133,102 @@ const DiscPage = () => {
     // финальная валидация по локальному состоянию
     const allAnsweredPairs =
       PAIRS.every((q: { id: string }) => pairValues[q.id] != null);
-    if (!allAnsweredPairs) return;
+    const allAnsweredSingles = SINGLE_WORD_ITEMS.every(
+      (id: string) => singleValues[id] != null
+    );
+    const allAnsweredScenarios = SCENARIO_ITEMS.every(
+      (q: { id: string }) => scenarioValues[q.id]
+    );
+    if (!allAnsweredPairs || !allAnsweredSingles || !allAnsweredScenarios)
+      return;
 
-    setResult({
-      finishedAt: Date.now(),
-      payload: {
-        pairValues,
-        singleValues,
-        scenarioValues,
-      },
-    });
     setSubmitting(true);
-    setCompleted("disc-assessment");
-    router.push(`/test/disc/result`);
+    const finish = async () => {
+      let backendResult: QuizResult | null = null;
+
+      try {
+        if (sessionId && backendQuestionIds.length > 0) {
+          const localOrder: { kind: "pair" | "single" | "scenario"; id: string }[] =
+            [
+              ...PAIRS.map((q: any) => ({ kind: "pair" as const, id: q.id })),
+              ...SINGLE_WORD_ITEMS.map((id: string) => ({
+                kind: "single" as const,
+                id,
+              })),
+              ...SCENARIO_ITEMS.map((q: any) => ({
+                kind: "scenario" as const,
+                id: q.id,
+              })),
+            ];
+
+          const maxCount = Math.min(
+            backendQuestionIds.length,
+            localOrder.length
+          );
+
+          const answersPayload: BulkAnswerQuizPayload["answers"] =
+            localOrder.slice(0, maxCount).map((item, index) => {
+              const question_id = backendQuestionIds[index];
+              let scale_value: number | undefined;
+
+              if (item.kind === "pair") {
+                scale_value = pairValues[item.id];
+              } else if (item.kind === "single") {
+                scale_value = singleValues[item.id];
+              } else {
+                const raw = scenarioValues[item.id];
+                const scenario = SCENARIO_ITEMS.find(
+                  (q: any) => q.id === item.id
+                );
+                const firstId = scenario?.options?.[0]?.id;
+                if (!raw || !scenario) {
+                  scale_value = undefined;
+                } else {
+                  scale_value = raw === firstId ? 1 : 5;
+                }
+              }
+
+              return {
+                question_id,
+                scale_value: scale_value ?? 3,
+              };
+            });
+
+          await api.post<unknown, BulkAnswerQuizPayload>(
+            "/api/v1/quizzes/sessions/bulk-answer/",
+            {
+              session_id: sessionId,
+              answers: answersPayload,
+            }
+          );
+
+          const { data } = await api.post<
+            QuizResult,
+            FinishQuizSessionVariables
+          >("/api/v1/quizzes/sessions/finish/", {
+            session_id: sessionId,
+          });
+
+          backendResult = data;
+        }
+      } finally {
+        setResult({
+          finishedAt: Date.now(),
+          payload: {
+            pairValues,
+            singleValues,
+            scenarioValues,
+            sessionId,
+            backendResult,
+          },
+        });
+        setCompleted("disc");
+        router.push(`/test`);
+        setSubmitting(false);
+      }
+    };
+
+    void finish();
   };
 
   return (

@@ -20,6 +20,12 @@ import { ALL_TESTS, getRecommendedTests } from "./constants";
 import { TestCard } from "./components/TestCard";
 import { TestResultModal } from "./components/TestResultModal";
 import { Header } from "../components/layout/Header";
+import { useQuizCategories, useQuizTestTypes, useQuizTests } from "@/lib/hooks/useQuizzes";
+import { HollandResultDialog } from "./holland/components/hollandResultDialog";
+import { PhotoResultDialog } from "./photo-career/components/photoResultDialog";
+import { useTestsStore } from "@/lib/store/testsStore";
+import { useHollandStore } from "@/lib/store/hollandStore";
+import type { HollandSessionFinishResponse } from "@/lib/types";
 
 const MAX_CUSTOM_SELECT = 4;
 
@@ -55,6 +61,23 @@ const TestPage = () => {
   const [showCustom, setShowCustom] = useState(false);
   const recommendedRef = useRef<HTMLDivElement | null>(null);
   const customRef = useRef<HTMLDivElement | null>(null);
+
+  const { openResultModalId, setOpenResultModalId } = useTestsStore();
+  const { result: hollandLocal } = useHollandStore();
+
+  const hollandBackendResult: HollandSessionFinishResponse | null =
+    openResultModalId === "holland" &&
+    hollandLocal &&
+    hollandLocal.payload &&
+    (hollandLocal.payload as any).backendResult
+      ? ((hollandLocal.payload as any)
+          .backendResult as HollandSessionFinishResponse)
+      : null;
+
+  // Подгружаем категории/типы тестов с бэкенда (prefetch)
+  useQuizCategories();
+  useQuizTestTypes();
+  useQuizTests();
 
   const openCustomSection = () => {
     setShowCustom(true);
@@ -220,6 +243,15 @@ const TestPage = () => {
         </Container>
 
         <TestResultModal />
+        <HollandResultDialog
+          open={openResultModalId === "holland"}
+          onClose={() => setOpenResultModalId(null)}
+          result={hollandBackendResult}
+        />
+        <PhotoResultDialog
+          open={openResultModalId === "photo-career"}
+          onClose={() => setOpenResultModalId(null)}
+        />
         <Footer />
       </Box>
     </>

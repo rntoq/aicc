@@ -1,2205 +1,3785 @@
 [
-    {
-      "id": "001",
-      "name": {
-        "ru": "Разработчик ПО",
-        "kk": "Бағдарламалық қамтамасыз ету әзірлеушісі",
-        "en": "Software Developer"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1500000,
-        "average": 600000
-      },
-      "description": {
-        "ru": "Создание программного обеспечения: веб, мобильные приложения, backend",
-        "kk": "Бағдарламалық қамтамасыз етуді жасау",
-        "en": "Software development: web, mobile, backend"
-      }
-    },
-    {
-      "id": "002",
-      "name": {
-        "ru": "Data Scientist / Аналитик данных",
-        "kk": "Деректер талдаушысы",
-        "en": "Data Scientist"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057",
-        "00000"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 400000,
-        "max": 2000000,
-        "average": 800000
-      }
-    },
-    {
-      "id": "003",
-      "name": {
-        "ru": "AI/ML Engineer",
-        "kk": "Жасанды интеллект инженері",
-        "en": "AI/ML Engineer"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057",
-        "00000000"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 500000,
-        "max": 2500000,
-        "average": 1000000
-      }
-    },
-    {
-      "id": "004",
-      "name": {
-        "ru": "Специалист по кибербезопасности",
-        "kk": "Киберқауіпсіздік маманы",
-        "en": "Cybersecurity Specialist"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B058"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 350000,
-        "max": 1800000,
-        "average": 700000
-      }
-    },
-    {
-      "id": "005",
-      "name": {
-        "ru": "DevOps Engineer",
-        "kk": "DevOps инженері",
-        "en": "DevOps Engineer"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 400000,
-        "max": 2000000,
-        "average": 800000
-      }
-    },
-    {
-      "id": "006",
-      "name": {
-        "ru": "QA Engineer / Тестировщик",
-        "kk": "Сапа бақылау инженері",
-        "en": "QA Engineer"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 800000,
-        "average": 400000
-      }
-    },
-    {
-      "id": "007",
-      "name": {
-        "ru": "Системный администратор",
-        "kk": "Жүйе әкімшісі",
-        "en": "System Administrator"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "008",
-      "name": {
-        "ru": "Сетевой инженер",
-        "kk": "Желі инженері",
-        "en": "Network Engineer"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B059"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "009",
-      "name": {
-        "ru": "Database Administrator",
-        "kk": "Деректер қоры әкімшісі",
-        "en": "Database Administrator"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1000000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "010",
-      "name": {
-        "ru": "IT Project Manager",
-        "kk": "IT жоба менеджері",
-        "en": "IT Project Manager"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057",
-        "B044"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 400000,
-        "max": 1500000,
-        "average": 700000
-      }
-    },
-    {
-      "id": "011",
-      "name": {
-        "ru": "Product Manager (Tech)",
-        "kk": "Өнім менеджері (Tech)",
-        "en": "Product Manager"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057",
-        "B044"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 400000,
-        "max": 2000000,
-        "average": 800000
-      }
-    },
-    {
-      "id": "012",
-      "name": {
-        "ru": "Business Analyst (IT)",
-        "kk": "Бизнес-аналитик (IT)",
-        "en": "Business Analyst"
-      },
-      "industry": "it_technology",
-      "specialties": [
-        "B057",
-        "B046"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 550000
-      }
-    },
-    {
-      "id": "013",
-      "name": {
-        "ru": "UX/UI Дизайнер",
-        "kk": "UX/UI дизайнері",
-        "en": "UX/UI Designer"
-      },
-      "industry": "design_creative",
-      "specialties": [
-        "B031"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "014",
-      "name": {
-        "ru": "Графический дизайнер",
-        "kk": "Графикалық дизайнер",
-        "en": "Graphic Designer"
-      },
-      "industry": "design_creative",
-      "specialties": [
-        "B031",
-        "B030"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "015",
-      "name": {
-        "ru": "Product Designer",
-        "kk": "Өнім дизайнері",
-        "en": "Product Designer"
-      },
-      "industry": "design_creative",
-      "specialties": [
-        "B031"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 550000
-      }
-    },
-    {
-      "id": "016",
-      "name": {
-        "ru": "Motion Designer",
-        "kk": "Қозғалыс дизайнері",
-        "en": "Motion Designer"
-      },
-      "industry": "design_creative",
-      "specialties": [
-        "B029",
-        "B031"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 800000,
-        "average": 400000
-      }
-    },
-    {
-      "id": "017",
-      "name": {
-        "ru": "3D Дизайнер / Моделлер",
-        "kk": "3D дизайнері",
-        "en": "3D Designer"
-      },
-      "industry": "design_creative",
-      "specialties": [
-        "B029",
-        "B031"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "018",
-      "name": {
-        "ru": "Web Designer",
-        "kk": "Веб-дизайнер",
-        "en": "Web Designer"
-      },
-      "industry": "design_creative",
-      "specialties": [
-        "B031",
-        "B057"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "019",
-      "name": {
-        "ru": "Иллюстратор",
-        "kk": "Иллюстратор",
-        "en": "Illustrator"
-      },
-      "industry": "design_creative",
-      "specialties": [
-        "B030"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 500000,
-        "average": 250000
-      }
-    },
-    {
-      "id": "020",
-      "name": {
-        "ru": "Brand Designer",
-        "kk": "Бренд дизайнері",
-        "en": "Brand Designer"
-      },
-      "industry": "design_creative",
-      "specialties": [
-        "B031",
-        "B047"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "021",
-      "name": {
-        "ru": "Менеджер проектов",
-        "kk": "Жоба менеджері",
-        "en": "Project Manager"
-      },
-      "industry": "business_management",
-      "specialties": [
-        "B044"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1500000,
-        "average": 650000
-      }
-    },
-    {
-      "id": "022",
-      "name": {
-        "ru": "Генеральный директор (CEO)",
-        "kk": "Бас атқарушы директор",
-        "en": "Chief Executive Officer"
-      },
-      "industry": "business_management",
-      "specialties": [
-        "B044",
-        "B046"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 800000,
-        "max": 5000000,
-        "average": 2000000
-      }
-    },
-    {
-      "id": "023",
-      "name": {
-        "ru": "Операционный директор (COO)",
-        "kk": "Операциялық директор",
-        "en": "Chief Operating Officer"
-      },
-      "industry": "business_management",
-      "specialties": [
-        "B044"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 600000,
-        "max": 3000000,
-        "average": 1200000
-      }
-    },
-    {
-      "id": "024",
-      "name": {
-        "ru": "Бизнес-аналитик",
-        "kk": "Бизнес-аналитик",
-        "en": "Business Analyst"
-      },
-      "industry": "business_management",
-      "specialties": [
-        "B046",
-        "B044"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 550000
-      }
-    },
-    {
-      "id": "025",
-      "name": {
-        "ru": "Управляющий консультант",
-        "kk": "Басқару кеңесшісі",
-        "en": "Management Consultant"
-      },
-      "industry": "business_management",
-      "specialties": [
-        "B044",
-        "B046"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 400000,
-        "max": 2000000,
-        "average": 800000
-      }
-    },
-    {
-      "id": "026",
-      "name": {
-        "ru": "Предприниматель",
-        "kk": "Кәсіпкер",
-        "en": "Entrepreneur"
-      },
-      "industry": "business_management",
-      "specialties": [
-        "B044",
-        "B046"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 0,
-        "max": 10000000,
-        "average": 800000
-      }
-    },
-    {
-      "id": "027",
-      "name": {
-        "ru": "Менеджер по развитию бизнеса",
-        "kk": "Бизнесті дамыту менеджері",
-        "en": "Business Development Manager"
-      },
-      "industry": "business_management",
-      "specialties": [
-        "B044",
-        "B047"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1500000,
-        "average": 600000
-      }
-    },
-    {
-      "id": "028",
-      "name": {
-        "ru": "Digital-маркетолог",
-        "kk": "Сандық маркетолог",
-        "en": "Digital Marketer"
-      },
-      "industry": "marketing_sales",
-      "specialties": [
-        "B047"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "029",
-      "name": {
-        "ru": "Performance-маркетолог",
-        "kk": "Performance маркетолог",
-        "en": "Performance Marketer"
-      },
-      "industry": "marketing_sales",
-      "specialties": [
-        "B047"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 600000
-      }
-    },
-    {
-      "id": "030",
-      "name": {
-        "ru": "Бренд-менеджер",
-        "kk": "Бренд-менеджер",
-        "en": "Brand Manager"
-      },
-      "industry": "marketing_sales",
-      "specialties": [
-        "B047"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 600000
-      }
-    },
-    {
-      "id": "031",
-      "name": {
-        "ru": "Менеджер по продажам",
-        "kk": "Сату менеджері",
-        "en": "Sales Manager"
-      },
-      "industry": "marketing_sales",
-      "specialties": [
-        "B044",
-        "B047"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 1500000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "032",
-      "name": {
-        "ru": "Account Manager",
-        "kk": "Тұтынушылармен жұмыс менеджері",
-        "en": "Account Manager"
-      },
-      "industry": "marketing_sales",
-      "specialties": [
-        "B044",
-        "B047"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "033",
-      "name": {
-        "ru": "Директор по маркетингу (CMO)",
-        "kk": "Маркетинг директоры",
-        "en": "Chief Marketing Officer"
-      },
-      "industry": "marketing_sales",
-      "specialties": [
-        "B047"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 500000,
-        "max": 2500000,
-        "average": 1000000
-      }
-    },
-    {
-      "id": "034",
-      "name": {
-        "ru": "PR-менеджер",
-        "kk": "PR-менеджер",
-        "en": "PR Manager"
-      },
-      "industry": "marketing_sales",
-      "specialties": [
-        "B042",
-        "B047"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "035",
-      "name": {
-        "ru": "Бухгалтер",
-        "kk": "Бухгалтер",
-        "en": "Accountant"
-      },
-      "industry": "finance_accounting",
-      "specialties": [
-        "B045"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "036",
-      "name": {
-        "ru": "Аудитор",
-        "kk": "Аудитор",
-        "en": "Auditor"
-      },
-      "industry": "finance_accounting",
-      "specialties": [
-        "B045"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "037",
-      "name": {
-        "ru": "Финансовый аналитик",
-        "kk": "Қаржылық талдаушы",
-        "en": "Financial Analyst"
-      },
-      "industry": "finance_accounting",
-      "specialties": [
-        "B046"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1500000,
-        "average": 650000
-      }
-    },
-    {
-      "id": "038",
-      "name": {
-        "ru": "Финансовый директор (CFO)",
-        "kk": "Қаржы директоры",
-        "en": "Chief Financial Officer"
-      },
-      "industry": "finance_accounting",
-      "specialties": [
-        "B046"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 600000,
-        "max": 3000000,
-        "average": 1300000
-      }
-    },
-    {
-      "id": "039",
-      "name": {
-        "ru": "Риск-менеджер",
-        "kk": "Тәуекел-менеджер",
-        "en": "Risk Manager"
-      },
-      "industry": "finance_accounting",
-      "specialties": [
-        "B046",
-        "B045"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 600000
-      }
-    },
-    {
-      "id": "040",
-      "name": {
-        "ru": "Налоговый консультант",
-        "kk": "Салық кеңесшісі",
-        "en": "Tax Consultant"
-      },
-      "industry": "finance_accounting",
-      "specialties": [
-        "B045"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "041",
-      "name": {
-        "ru": "Банкир / Банковский специалист",
-        "kk": "Банкир",
-        "en": "Banking Specialist"
-      },
-      "industry": "finance_accounting",
-      "specialties": [
-        "B046"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1500000,
-        "average": 550000
-      }
-    },
-    {
-      "id": "042",
-      "name": {
-        "ru": "Врач общей практики",
-        "kk": "Жалпы тәжірибе дәрігері",
-        "en": "General Practitioner"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "BM086"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "043",
-      "name": {
-        "ru": "Хирург",
-        "kk": "Хирург",
-        "en": "Surgeon"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "BM086"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 400000,
-        "max": 2000000,
-        "average": 800000
-      }
-    },
-    {
-      "id": "044",
-      "name": {
-        "ru": "Педиатр",
-        "kk": "Педиатр",
-        "en": "Pediatrician"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "BM088"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "045",
-      "name": {
-        "ru": "Стоматолог",
-        "kk": "Стоматолог",
-        "en": "Dentist"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "BM087"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1500000,
-        "average": 650000
-      }
-    },
-    {
-      "id": "046",
-      "name": {
-        "ru": "Фармацевт",
-        "kk": "Фармацевт",
-        "en": "Pharmacist"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "B085"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 600000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "047",
-      "name": {
-        "ru": "Медсестра / Медбрат",
-        "kk": "Медбике",
-        "en": "Nurse"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "B084"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 400000,
-        "average": 220000
-      }
-    },
-    {
-      "id": "048",
-      "name": {
-        "ru": "Психолог",
-        "kk": "Психолог",
-        "en": "Psychologist"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "B041"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "049",
-      "name": {
-        "ru": "Ветеринар",
-        "kk": "Ветеринар",
-        "en": "Veterinarian"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "B083"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "050",
-      "name": {
-        "ru": "Специалист по общественному здравоохранению",
-        "kk": "Қоғамдық денсаулық сақтау маманы",
-        "en": "Public Health Specialist"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "B089"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "051",
-      "name": {
-        "ru": "Медицинский технолог / Лаборант",
-        "kk": "Медициналық технолог",
-        "en": "Medical Technologist"
-      },
-      "industry": "healthcare_medicine",
-      "specialties": [
-        "B072"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 400000,
-        "average": 220000
-      }
-    },
-    {
-      "id": "052",
-      "name": {
-        "ru": "Учитель начальных классов",
-        "kk": "Бастауыш сынып мұғалімі",
-        "en": "Elementary School Teacher"
-      },
-      "industry": "education_training",
-      "specialties": [
-        "B003"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 120000,
-        "max": 350000,
-        "average": 200000
-      }
-    },
-    {
-      "id": "053",
-      "name": {
-        "ru": "Учитель средней школы",
-        "kk": "Орта мектеп мұғалімі",
-        "en": "Secondary School Teacher"
-      },
-      "industry": "education_training",
-      "specialties": [
-        "B009",
-        "B010",
-        "B011",
-        "B012",
-        "B013",
-        "B014",
-        "B015",
-        "B016",
-        "B017",
-        "B018"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 130000,
-        "max": 400000,
-        "average": 220000
-      }
-    },
-    {
-      "id": "054",
-      "name": {
-        "ru": "Воспитатель детского сада",
-        "kk": "Балабақша тәрбиешісі",
-        "en": "Kindergarten Teacher"
-      },
-      "industry": "education_training",
-      "specialties": [
-        "B002"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 100000,
-        "max": 300000,
-        "average": 170000
-      }
-    },
-    {
-      "id": "055",
-      "name": {
-        "ru": "Преподаватель вуза",
-        "kk": "ЖОО оқытушысы",
-        "en": "University Lecturer"
-      },
-      "industry": "education_training",
-      "specialties": [
-        "B001"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 600000,
-        "average": 280000
-      }
-    },
-    {
-      "id": "056",
-      "name": {
-        "ru": "Специальный педагог / Дефектолог",
-        "kk": "Арнайы педагог",
-        "en": "Special Education Teacher"
-      },
-      "industry": "education_training",
-      "specialties": [
-        "B020"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 130000,
-        "max": 400000,
-        "average": 220000
-      }
-    },
-    {
-      "id": "057",
-      "name": {
-        "ru": "Корпоративный тренер",
-        "kk": "Корпоративті тренер",
-        "en": "Corporate Trainer"
-      },
-      "industry": "education_training",
-      "specialties": [
-        "B001",
-        "B044"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 800000,
-        "average": 400000
-      }
-    },
-    {
-      "id": "058",
-      "name": {
-        "ru": "Переводчик",
-        "kk": "Аудармашы",
-        "en": "Translator / Interpreter"
-      },
-      "industry": "education_training",
-      "specialties": [
-        "B036"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "059",
-      "name": {
-        "ru": "HR-менеджер",
-        "kk": "HR-менеджер",
-        "en": "HR Manager"
-      },
-      "industry": "human_resources",
-      "specialties": [
-        "B044",
-        "B001"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "060",
-      "name": {
-        "ru": "Рекрутер",
-        "kk": "Рекрутер",
-        "en": "Recruiter"
-      },
-      "industry": "human_resources",
-      "specialties": [
-        "B044",
-        "B041"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "061",
-      "name": {
-        "ru": "HR Business Partner",
-        "kk": "HR Бизнес-Серіктес",
-        "en": "HR Business Partner"
-      },
-      "industry": "human_resources",
-      "specialties": [
-        "B044"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1000000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "062",
-      "name": {
-        "ru": "Специалист по обучению и развитию",
-        "kk": "Оқыту және даму маманы",
-        "en": "Learning & Development Specialist"
-      },
-      "industry": "human_resources",
-      "specialties": [
-        "B001",
-        "B044"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "063",
-      "name": {
-        "ru": "Специалист по компенсациям и льготам",
-        "kk": "Өтемақы мен жеңілдіктер маманы",
-        "en": "Compensation & Benefits Specialist"
-      },
-      "industry": "human_resources",
-      "specialties": [
-        "B044",
-        "B046"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 800000,
-        "average": 400000
-      }
-    },
-    {
-      "id": "064",
-      "name": {
-        "ru": "Директор по персоналу (CHRO)",
-        "kk": "Персонал директоры",
-        "en": "Chief Human Resources Officer"
-      },
-      "industry": "human_resources",
-      "specialties": [
-        "B044"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 500000,
-        "max": 2000000,
-        "average": 900000
-      }
-    },
-    {
-      "id": "065",
-      "name": {
-        "ru": "Журналист",
-        "kk": "Журналист",
-        "en": "Journalist"
-      },
-      "industry": "media_communications",
-      "specialties": [
-        "B042"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "066",
-      "name": {
-        "ru": "Редактор",
-        "kk": "Редактор",
-        "en": "Editor"
-      },
-      "industry": "media_communications",
-      "specialties": [
-        "B042"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "067",
-      "name": {
-        "ru": "Видеопродюсер",
-        "kk": "Видео-продюсер",
-        "en": "Video Producer"
-      },
-      "industry": "media_communications",
-      "specialties": [
-        "B029"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 800000,
-        "average": 400000
-      }
-    },
-    {
-      "id": "068",
-      "name": {
-        "ru": "Видеограф / Оператор",
-        "kk": "Видеограф",
-        "en": "Videographer"
-      },
-      "industry": "media_communications",
-      "specialties": [
-        "B029"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "069",
-      "name": {
-        "ru": "Контент-криейтор",
-        "kk": "Контент-жасаушы",
-        "en": "Content Creator"
-      },
-      "industry": "media_communications",
-      "specialties": [
-        "B042",
-        "B029"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 1000000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "070",
-      "name": {
-        "ru": "Копирайтер",
-        "kk": "Копирайтер",
-        "en": "Copywriter"
-      },
-      "industry": "media_communications",
-      "specialties": [
-        "B042",
-        "B047"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "071",
-      "name": {
-        "ru": "Звукорежиссер",
-        "kk": "Дыбыс режиссері",
-        "en": "Sound Engineer"
-      },
-      "industry": "media_communications",
-      "specialties": [
-        "B029"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "072",
-      "name": {
-        "ru": "Инженер-механик",
-        "kk": "Механика инженері",
-        "en": "Mechanical Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B064"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "073",
-      "name": {
-        "ru": "Инженер-электрик",
-        "kk": "Электр инженері",
-        "en": "Electrical Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B062"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "074",
-      "name": {
-        "ru": "Инженер-строитель",
-        "kk": "Құрылыс инженері",
-        "en": "Civil Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B074"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "075",
-      "name": {
-        "ru": "Архитектор",
-        "kk": "Сәулетші",
-        "en": "Architect"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B073"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1200000,
-        "average": 550000
-      }
-    },
-    {
-      "id": "076",
-      "name": {
-        "ru": "Инженер-химик",
-        "kk": "Химия инженері",
-        "en": "Chemical Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B060"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "077",
-      "name": {
-        "ru": "Инженер-нефтяник",
-        "kk": "Мұнай инженері",
-        "en": "Petroleum Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B271"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 350000,
-        "max": 1500000,
-        "average": 700000
-      }
-    },
-    {
-      "id": "078",
-      "name": {
-        "ru": "Инженер по автоматизации",
-        "kk": "Автоматтандыру инженері",
-        "en": "Automation Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B063"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 600000
-      }
-    },
-    {
-      "id": "079",
-      "name": {
-        "ru": "Инженер-металлург",
-        "kk": "Металлургия инженері",
-        "en": "Metallurgical Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B171"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "080",
-      "name": {
-        "ru": "Инженер-технолог",
-        "kk": "Инженер-технолог",
-        "en": "Process Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B061"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "081",
-      "name": {
-        "ru": "Инженер по качеству",
-        "kk": "Сапа инженері",
-        "en": "Quality Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B076"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 800000,
-        "average": 400000
-      }
-    },
-    {
-      "id": "082",
-      "name": {
-        "ru": "Горный инженер",
-        "kk": "Тау-кен инженері",
-        "en": "Mining Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B071"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 600000
-      }
-    },
-    {
-      "id": "083",
-      "name": {
-        "ru": "Специалист по робототехнике",
-        "kk": "Робототехника маманы",
-        "en": "Robotics Engineer"
-      },
-      "industry": "engineering_manufacturing",
-      "specialties": [
-        "B063"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1500000,
-        "average": 700000
-      }
-    },
-    {
-      "id": "084",
-      "name": {
-        "ru": "Логист",
-        "kk": "Логист",
-        "en": "Logistics Specialist"
-      },
-      "industry": "transportation_logistics",
-      "specialties": [
-        "B095"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 800000,
-        "average": 400000
-      }
-    },
-    {
-      "id": "085",
-      "name": {
-        "ru": "Менеджер по цепочкам поставок",
-        "kk": "Жабдықтау тізбегі менеджері",
-        "en": "Supply Chain Manager"
-      },
-      "industry": "transportation_logistics",
-      "specialties": [
-        "B095",
-        "B044"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 600000
-      }
-    },
-    {
-      "id": "086",
-      "name": {
-        "ru": "Пилот",
-        "kk": "Ұшқыш",
-        "en": "Pilot"
-      },
-      "industry": "transportation_logistics",
-      "specialties": [
-        "B167"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 500000,
-        "max": 3000000,
-        "average": 1200000
-      }
-    },
-    {
-      "id": "087",
-      "name": {
-        "ru": "Авиационный инженер",
-        "kk": "Авиация инженері",
-        "en": "Aviation Engineer"
-      },
-      "industry": "transportation_logistics",
-      "specialties": [
-        "B067"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 1200000,
-        "average": 600000
-      }
-    },
-    {
-      "id": "088",
-      "name": {
-        "ru": "Транспортный менеджер",
-        "kk": "Көлік менеджері",
-        "en": "Transport Manager"
-      },
-      "industry": "transportation_logistics",
-      "specialties": [
-        "B095"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 900000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "089",
-      "name": {
-        "ru": "Агроном",
-        "kk": "Агроном",
-        "en": "Agronomist"
-      },
-      "industry": "agriculture_environment",
-      "specialties": [
-        "B077"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 500000,
-        "average": 250000
-      }
-    },
-    {
-      "id": "090",
-      "name": {
-        "ru": "Зоотехник",
-        "kk": "Зоотехник",
-        "en": "Animal Scientist"
-      },
-      "industry": "agriculture_environment",
-      "specialties": [
-        "B078"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 500000,
-        "average": 250000
-      }
-    },
-    {
-      "id": "091",
-      "name": {
-        "ru": "Эколог",
-        "kk": "Эколог",
-        "en": "Ecologist"
-      },
-      "industry": "agriculture_environment",
-      "specialties": [
-        "B051"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "092",
-      "name": {
-        "ru": "Ландшафтный дизайнер",
-        "kk": "Ландшафт дизайнері",
-        "en": "Landscape Designer"
-      },
-      "industry": "agriculture_environment",
-      "specialties": [
-        "B079"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "093",
-      "name": {
-        "ru": "Специалист по водным ресурсам",
-        "kk": "Су ресурстары маманы",
-        "en": "Water Resources Specialist"
-      },
-      "industry": "agriculture_environment",
-      "specialties": [
-        "B082"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "094",
-      "name": {
-        "ru": "Агроинженер",
-        "kk": "Агроинженер",
-        "en": "Agricultural Engineer"
-      },
-      "industry": "agriculture_environment",
-      "specialties": [
-        "B183"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 700000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "095",
-      "name": {
-        "ru": "Специалист по рыбному хозяйству",
-        "kk": "Балық шаруашылығы маманы",
-        "en": "Fisheries Specialist"
-      },
-      "industry": "agriculture_environment",
-      "specialties": [
-        "B080"
-      ],
-      "demand_level": "low",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 500000,
-        "average": 250000
-      }
-    },
-    {
-      "id": "096",
-      "name": {
-        "ru": "Электрик",
-        "kk": "Электрші",
-        "en": "Electrician"
-      },
-      "industry": "skilled_trades_services",
-      "specialties": [
-        "B062"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "097",
-      "name": {
-        "ru": "Сантехник",
-        "kk": "Сантехник",
-        "en": "Plumber"
-      },
-      "industry": "skilled_trades_services",
-      "specialties": [],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "098",
-      "name": {
-        "ru": "Автомеханик",
-        "kk": "Автомеханик",
-        "en": "Auto Mechanic"
-      },
-      "industry": "skilled_trades_services",
-      "specialties": [
-        "B065"
-      ],
-      "demand_level": "very_high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "099",
-      "name": {
-        "ru": "Сварщик",
-        "kk": "Дәнекерлеуші",
-        "en": "Welder"
-      },
-      "industry": "skilled_trades_services",
-      "specialties": [
-        "B064"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "100",
-      "name": {
-        "ru": "Плотник / Столяр",
-        "kk": "Ағаш ұстасы",
-        "en": "Carpenter"
-      },
-      "industry": "skilled_trades_services",
-      "specialties": [
-        "B069"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 500000,
-        "average": 280000
-      }
-    },
-    {
-      "id": "101",
-      "name": {
-        "ru": "Технолог пищевого производства",
-        "kk": "Тамақ өнеркәсібі технологы",
-        "en": "Food Technologist"
-      },
-      "industry": "skilled_trades_services",
-      "specialties": [
-        "B068"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "102",
-      "name": {
-        "ru": "Фотограф",
-        "kk": "Фотограф",
-        "en": "Photographer"
-      },
-      "industry": "arts_entertainment",
-      "specialties": [
-        "B029"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 120000,
-        "max": 800000,
-        "average": 280000
-      }
-    },
-    {
-      "id": "103",
-      "name": {
-        "ru": "Организатор мероприятий",
-        "kk": "Іс-шара ұйымдастырушысы",
-        "en": "Event Manager"
-      },
-      "industry": "arts_entertainment",
-      "specialties": [
-        "B092"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "104",
-      "name": {
-        "ru": "Арт-директор",
-        "kk": "Арт-директор",
-        "en": "Art Director"
-      },
-      "industry": "arts_entertainment",
-      "specialties": [
-        "B023"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 1000000,
-        "average": 450000
-      }
-    },
-    {
-      "id": "105",
-      "name": {
-        "ru": "Музыкальный продюсер",
-        "kk": "Музыкалық продюсер",
-        "en": "Music Producer"
-      },
-      "industry": "arts_entertainment",
-      "specialties": [
-        "B021"
-      ],
-      "demand_level": "low",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 1000000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "106",
-      "name": {
-        "ru": "Дизайнер интерьеров",
-        "kk": "Интерьер дизайнері",
-        "en": "Interior Designer"
-      },
-      "industry": "arts_entertainment",
-      "specialties": [
-        "B031",
-        "B073"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 800000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "107",
-      "name": {
-        "ru": "Тренер (спортивный / фитнес)",
-        "kk": "Жаттықтырушы",
-        "en": "Trainer"
-      },
-      "industry": "sports_fitness",
-      "specialties": [
-        "B005",
-        "B098"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 1000000,
-        "average": 300000
-      }
-    },
-    {
-      "id": "108",
-      "name": {
-        "ru": "Фитнес-инструктор",
-        "kk": "Фитнес-нұсқаушы",
-        "en": "Fitness Instructor"
-      },
-      "industry": "sports_fitness",
-      "specialties": [
-        "B005"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 120000,
-        "max": 600000,
-        "average": 250000
-      }
-    },
-    {
-      "id": "109",
-      "name": {
-        "ru": "Спортивный менеджер",
-        "kk": "Спорт менеджері",
-        "en": "Sports Manager"
-      },
-      "industry": "sports_fitness",
-      "specialties": [
-        "B044",
-        "B098"
-      ],
-      "demand_level": "low",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 900000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "110",
-      "name": {
-        "ru": "Менеджер отеля",
-        "kk": "Қонақ үй менеджері",
-        "en": "Hotel Manager"
-      },
-      "industry": "hospitality_tourism",
-      "specialties": [
-        "B093"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 800000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "111",
-      "name": {
-        "ru": "Менеджер ресторана",
-        "kk": "Мейрамхана менеджері",
-        "en": "Restaurant Manager"
-      },
-      "industry": "hospitality_tourism",
-      "specialties": [
-        "B093"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 700000,
-        "average": 320000
-      }
-    },
-    {
-      "id": "112",
-      "name": {
-        "ru": "Шеф-повар",
-        "kk": "Аспазбасы",
-        "en": "Chef"
-      },
-      "industry": "hospitality_tourism",
-      "specialties": [
-        "B093"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 1000000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "113",
-      "name": {
-        "ru": "Туристический менеджер",
-        "kk": "Туризм менеджері",
-        "en": "Tourism Manager"
-      },
-      "industry": "hospitality_tourism",
-      "specialties": [
-        "B091"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 600000,
-        "average": 280000
-      }
-    },
-    {
-      "id": "114",
-      "name": {
-        "ru": "Специалист по туризму",
-        "kk": "Туризм маманы",
-        "en": "Tourism Specialist"
-      },
-      "industry": "hospitality_tourism",
-      "specialties": [
-        "B091"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 600000,
-        "average": 280000
-      }
-    },
-    {
-      "id": "115",
-      "name": {
-        "ru": "Менеджер по гостеприимству",
-        "kk": "Қонақжайлылық менеджері",
-        "en": "Hospitality Manager"
-      },
-      "industry": "hospitality_tourism",
-      "specialties": [
-        "B093"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 800000,
-        "average": 350000
-      }
-    },
-    {
-      "id": "116",
-      "name": {
-        "ru": "Юрист",
-        "kk": "Заңгер",
-        "en": "Lawyer"
-      },
-      "industry": "law_legal",
-      "specialties": [
-        "B049"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 200000,
-        "max": 1500000,
-        "average": 500000
-      }
-    },
-    {
-      "id": "117",
-      "name": {
-        "ru": "Корпоративный юрист",
-        "kk": "Корпоративті заңгер",
-        "en": "Corporate Lawyer"
-      },
-      "industry": "law_legal",
-      "specialties": [
-        "B049"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 300000,
-        "max": 2000000,
-        "average": 700000
-      }
-    },
-    {
-      "id": "118",
-      "name": {
-        "ru": "Адвокат",
-        "kk": "Адвокат",
-        "en": "Defense Attorney"
-      },
-      "industry": "law_legal",
-      "specialties": [
-        "B049"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 250000,
-        "max": 2500000,
-        "average": 700000
-      }
-    },
-    {
-      "id": "119",
-      "name": {
-        "ru": "Сотрудник полиции",
-        "kk": "Полиция қызметкері",
-        "en": "Police Officer"
-      },
-      "industry": "law_enforcement_security",
-      "specialties": [
-        "B096"
-      ],
-      "demand_level": "high",
-      "salary_kzt": {
-        "min": 150000,
-        "max": 500000,
-        "average": 250000
-      }
-    },
-    {
-      "id": "120",
-      "name": {
-        "ru": "Специалист по пожарной безопасности",
-        "kk": "Өрт қауіпсіздігі маманы",
-        "en": "Fire Safety Specialist"
-      },
-      "industry": "law_enforcement_security",
-      "specialties": [
-        "B097"
-      ],
-      "demand_level": "medium",
-      "salary_kzt": {
-        "min": 180000,
-        "max": 600000,
-        "average": 300000
-      }
+  {
+    "id": "001",
+    "name": {
+      "ru": "Разработчик ПО",
+      "kk": "Бағдарламалық қамтамасыз ету әзірлеушісі",
+      "en": "Software Developer"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1500000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "002",
+    "name": {
+      "ru": "Data Scientist / Аналитик данных",
+      "kk": "Деректер талдаушысы",
+      "en": "Data Scientist"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057",
+      "00000"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 400000,
+      "max": 2000000,
+      "average": 800000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "A"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "003",
+    "name": {
+      "ru": "AI/ML Engineer",
+      "kk": "Жасанды интеллект инженері",
+      "en": "AI/ML Engineer"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057",
+      "00000000"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 500000,
+      "max": 2500000,
+      "average": 1000000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "A"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "004",
+    "name": {
+      "ru": "Специалист по кибербезопасности",
+      "kk": "Киберқауіпсіздік маманы",
+      "en": "Cybersecurity Specialist"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B058"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 350000,
+      "max": 1800000,
+      "average": 700000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "005",
+    "name": {
+      "ru": "DevOps Engineer",
+      "kk": "DevOps инженері",
+      "en": "DevOps Engineer"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 400000,
+      "max": 2000000,
+      "average": 800000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "006",
+    "name": {
+      "ru": "QA Engineer / Тестировщик",
+      "kk": "Сапа бақылау инженері",
+      "en": "QA Engineer"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 800000,
+      "average": 400000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "007",
+    "name": {
+      "ru": "Системный администратор",
+      "kk": "Жүйе әкімшісі",
+      "en": "System Administrator"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "008",
+    "name": {
+      "ru": "Сетевой инженер",
+      "kk": "Желі инженері",
+      "en": "Network Engineer"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B059"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "009",
+    "name": {
+      "ru": "Database Administrator",
+      "kk": "Деректер қоры әкімшісі",
+      "en": "Database Administrator"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1000000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "010",
+    "name": {
+      "ru": "IT Project Manager",
+      "kk": "IT жоба менеджері",
+      "en": "IT Project Manager"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057",
+      "B044"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 400000,
+      "max": 1500000,
+      "average": 700000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "011",
+    "name": {
+      "ru": "Product Manager (Tech)",
+      "kk": "Өнім менеджері (Tech)",
+      "en": "Product Manager"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057",
+      "B044"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 400000,
+      "max": 2000000,
+      "average": 800000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "012",
+    "name": {
+      "ru": "Business Analyst (IT)",
+      "kk": "Бизнес-аналитик (IT)",
+      "en": "Business Analyst"
+    },
+    "industry": "it_technology",
+    "specialities": [
+      "B057",
+      "B046"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 550000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "013",
+    "name": {
+      "ru": "UX/UI Дизайнер",
+      "kk": "UX/UI дизайнері",
+      "en": "UX/UI Designer"
+    },
+    "industry": "design_creative",
+    "specialities": [
+      "B031"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "014",
+    "name": {
+      "ru": "Графический дизайнер",
+      "kk": "Графикалық дизайнер",
+      "en": "Graphic Designer"
+    },
+    "industry": "design_creative",
+    "specialities": [
+      "B031",
+      "B030"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "015",
+    "name": {
+      "ru": "Product Designer",
+      "kk": "Өнім дизайнері",
+      "en": "Product Designer"
+    },
+    "industry": "design_creative",
+    "specialities": [
+      "B031"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 550000
+    },
+    "hollandCodes": [
+      "R",
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISFP",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "016",
+    "name": {
+      "ru": "Motion Designer",
+      "kk": "Қозғалыс дизайнері",
+      "en": "Motion Designer"
+    },
+    "industry": "design_creative",
+    "specialities": [
+      "B029",
+      "B031"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 800000,
+      "average": 400000
+    },
+    "hollandCodes": [
+      "A"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "017",
+    "name": {
+      "ru": "3D Дизайнер / Моделлер",
+      "kk": "3D дизайнері",
+      "en": "3D Designer"
+    },
+    "industry": "design_creative",
+    "specialities": [
+      "B029",
+      "B031"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "018",
+    "name": {
+      "ru": "Web Designer",
+      "kk": "Веб-дизайнер",
+      "en": "Web Designer"
+    },
+    "industry": "design_creative",
+    "specialities": [
+      "B031",
+      "B057"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "019",
+    "name": {
+      "ru": "Иллюстратор",
+      "kk": "Иллюстратор",
+      "en": "Illustrator"
+    },
+    "industry": "design_creative",
+    "specialities": [
+      "B030"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 500000,
+      "average": 250000
+    },
+    "hollandCodes": [
+      "R",
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTP",
+      "ISTP",
+      "ISFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "020",
+    "name": {
+      "ru": "Brand Designer",
+      "kk": "Бренд дизайнері",
+      "en": "Brand Designer"
+    },
+    "industry": "design_creative",
+    "specialities": [
+      "B031",
+      "B047"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "021",
+    "name": {
+      "ru": "Менеджер проектов",
+      "kk": "Жоба менеджері",
+      "en": "Project Manager"
+    },
+    "industry": "business_management",
+    "specialities": [
+      "B044"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1500000,
+      "average": 650000
+    },
+    "hollandCodes": [
+      "R",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "022",
+    "name": {
+      "ru": "Генеральный директор (CEO)",
+      "kk": "Бас атқарушы директор",
+      "en": "Chief Executive Officer"
+    },
+    "industry": "business_management",
+    "specialities": [
+      "B044",
+      "B046"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 800000,
+      "max": 5000000,
+      "average": 2000000
+    },
+    "hollandCodes": [
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "023",
+    "name": {
+      "ru": "Операционный директор (COO)",
+      "kk": "Операциялық директор",
+      "en": "Chief Operating Officer"
+    },
+    "industry": "business_management",
+    "specialities": [
+      "B044"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 600000,
+      "max": 3000000,
+      "average": 1200000
+    },
+    "hollandCodes": [
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "024",
+    "name": {
+      "ru": "Бизнес-аналитик",
+      "kk": "Бизнес-аналитик",
+      "en": "Business Analyst"
+    },
+    "industry": "business_management",
+    "specialities": [
+      "B046",
+      "B044"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 550000
     }
-  ]
-  
+  },
+  {
+    "id": "025",
+    "name": {
+      "ru": "Управляющий консультант",
+      "kk": "Басқару кеңесшісі",
+      "en": "Management Consultant"
+    },
+    "industry": "business_management",
+    "specialities": [
+      "B044",
+      "B046"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 400000,
+      "max": 2000000,
+      "average": 800000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "026",
+    "name": {
+      "ru": "Предприниматель",
+      "kk": "Кәсіпкер",
+      "en": "Entrepreneur"
+    },
+    "industry": "business_management",
+    "specialities": [
+      "B044",
+      "B046"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 0,
+      "max": 10000000,
+      "average": 800000
+    },
+    "hollandCodes": [
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "027",
+    "name": {
+      "ru": "Менеджер по развитию бизнеса",
+      "kk": "Бизнесті дамыту менеджері",
+      "en": "Business Development Manager"
+    },
+    "industry": "business_management",
+    "specialities": [
+      "B044",
+      "B047"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1500000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "028",
+    "name": {
+      "ru": "Digital-маркетолог",
+      "kk": "Сандық маркетолог",
+      "en": "Digital Marketer"
+    },
+    "industry": "marketing_sales",
+    "specialities": [
+      "B047"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "029",
+    "name": {
+      "ru": "Performance-маркетолог",
+      "kk": "Performance маркетолог",
+      "en": "Performance Marketer"
+    },
+    "industry": "marketing_sales",
+    "specialities": [
+      "B047"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "030",
+    "name": {
+      "ru": "Бренд-менеджер",
+      "kk": "Бренд-менеджер",
+      "en": "Brand Manager"
+    },
+    "industry": "marketing_sales",
+    "specialities": [
+      "B047"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "031",
+    "name": {
+      "ru": "Менеджер по продажам",
+      "kk": "Сату менеджері",
+      "en": "Sales Manager"
+    },
+    "industry": "marketing_sales",
+    "specialities": [
+      "B044",
+      "B047"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 1500000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "E"
+    ],
+    "personalities": [
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ISTJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "032",
+    "name": {
+      "ru": "Account Manager",
+      "kk": "Тұтынушылармен жұмыс менеджері",
+      "en": "Account Manager"
+    },
+    "industry": "marketing_sales",
+    "specialities": [
+      "B044",
+      "B047"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "033",
+    "name": {
+      "ru": "Директор по маркетингу (CMO)",
+      "kk": "Маркетинг директоры",
+      "en": "Chief Marketing Officer"
+    },
+    "industry": "marketing_sales",
+    "specialities": [
+      "B047"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 500000,
+      "max": 2500000,
+      "average": 1000000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "034",
+    "name": {
+      "ru": "PR-менеджер",
+      "kk": "PR-менеджер",
+      "en": "PR Manager"
+    },
+    "industry": "marketing_sales",
+    "specialities": [
+      "B042",
+      "B047"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "A",
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "035",
+    "name": {
+      "ru": "Бухгалтер",
+      "kk": "Бухгалтер",
+      "en": "Accountant"
+    },
+    "industry": "finance_accounting",
+    "specialities": [
+      "B045"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFJ",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "036",
+    "name": {
+      "ru": "Аудитор",
+      "kk": "Аудитор",
+      "en": "Auditor"
+    },
+    "industry": "finance_accounting",
+    "specialities": [
+      "B045"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFJ",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "037",
+    "name": {
+      "ru": "Финансовый аналитик",
+      "kk": "Қаржылық талдаушы",
+      "en": "Financial Analyst"
+    },
+    "industry": "finance_accounting",
+    "specialities": [
+      "B046"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1500000,
+      "average": 650000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "038",
+    "name": {
+      "ru": "Финансовый директор (CFO)",
+      "kk": "Қаржы директоры",
+      "en": "Chief Financial Officer"
+    },
+    "industry": "finance_accounting",
+    "specialities": [
+      "B046"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 600000,
+      "max": 3000000,
+      "average": 1300000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "039",
+    "name": {
+      "ru": "Риск-менеджер",
+      "kk": "Тәуекел-менеджер",
+      "en": "Risk Manager"
+    },
+    "industry": "finance_accounting",
+    "specialities": [
+      "B046",
+      "B045"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "040",
+    "name": {
+      "ru": "Налоговый консультант",
+      "kk": "Салық кеңесшісі",
+      "en": "Tax Consultant"
+    },
+    "industry": "finance_accounting",
+    "specialities": [
+      "B045"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "041",
+    "name": {
+      "ru": "Банкир / Банковский специалист",
+      "kk": "Банкир",
+      "en": "Banking Specialist"
+    },
+    "industry": "finance_accounting",
+    "specialities": [
+      "B046"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1500000,
+      "average": 550000
+    },
+    "hollandCodes": [
+      "S",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ISFP",
+      "ESFJ",
+      "ESFP",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "042",
+    "name": {
+      "ru": "Врач общей практики",
+      "kk": "Жалпы тәжірибе дәрігері",
+      "en": "General Practitioner"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "BM086"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "I"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "043",
+    "name": {
+      "ru": "Хирург",
+      "kk": "Хирург",
+      "en": "Surgeon"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "BM086"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 400000,
+      "max": 2000000,
+      "average": 800000
+    },
+    "hollandCodes": [
+      "I"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "044",
+    "name": {
+      "ru": "Педиатр",
+      "kk": "Педиатр",
+      "en": "Pediatrician"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "BM088"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "I"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "045",
+    "name": {
+      "ru": "Стоматолог",
+      "kk": "Стоматолог",
+      "en": "Dentist"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "BM087"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1500000,
+      "average": 650000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "S"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "046",
+    "name": {
+      "ru": "Фармацевт",
+      "kk": "Фармацевт",
+      "en": "Pharmacist"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "B085"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 600000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "I",
+      "S",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ISTJ",
+      "ISFJ",
+      "ISFP",
+      "ESFJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "047",
+    "name": {
+      "ru": "Медсестра / Медбрат",
+      "kk": "Медбике",
+      "en": "Nurse"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "B084"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 400000,
+      "average": 220000
+    },
+    "hollandCodes": [
+      "S",
+      "C"
+    ],
+    "personalities": [
+      "ISFJ",
+      "ISFP",
+      "ESFJ",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "048",
+    "name": {
+      "ru": "Психолог",
+      "kk": "Психолог",
+      "en": "Psychologist"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "B041"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "I",
+      "A",
+      "S"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "049",
+    "name": {
+      "ru": "Ветеринар",
+      "kk": "Ветеринар",
+      "en": "Veterinarian"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "B083"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "R",
+      "I"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "050",
+    "name": {
+      "ru": "Специалист по общественному здравоохранению",
+      "kk": "Қоғамдық денсаулық сақтау маманы",
+      "en": "Public Health Specialist"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "B089"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "I",
+      "S"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "051",
+    "name": {
+      "ru": "Медицинский технолог / Лаборант",
+      "kk": "Медициналық технолог",
+      "en": "Medical Technologist"
+    },
+    "industry": "healthcare_medicine",
+    "specialities": [
+      "B072"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 400000,
+      "average": 220000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "052",
+    "name": {
+      "ru": "Учитель начальных классов",
+      "kk": "Бастауыш сынып мұғалімі",
+      "en": "Elementary School Teacher"
+    },
+    "industry": "education_training",
+    "specialities": [
+      "B003"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 120000,
+      "max": 350000,
+      "average": 200000
+    },
+    "hollandCodes": [
+      "A",
+      "S"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "053",
+    "name": {
+      "ru": "Учитель средней школы",
+      "kk": "Орта мектеп мұғалімі",
+      "en": "Secondary School Teacher"
+    },
+    "industry": "education_training",
+    "specialities": [
+      "B009",
+      "B010",
+      "B011",
+      "B012",
+      "B013",
+      "B014",
+      "B015",
+      "B016",
+      "B017",
+      "B018"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 130000,
+      "max": 400000,
+      "average": 220000
+    },
+    "hollandCodes": [
+      "A",
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "054",
+    "name": {
+      "ru": "Воспитатель детского сада",
+      "kk": "Балабақша тәрбиешісі",
+      "en": "Kindergarten Teacher"
+    },
+    "industry": "education_training",
+    "specialities": [
+      "B002"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 100000,
+      "max": 300000,
+      "average": 170000
+    },
+    "hollandCodes": [
+      "A",
+      "S"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "055",
+    "name": {
+      "ru": "Преподаватель вуза",
+      "kk": "ЖОО оқытушысы",
+      "en": "University Lecturer"
+    },
+    "industry": "education_training",
+    "specialities": [
+      "B001"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 600000,
+      "average": 280000
+    },
+    "hollandCodes": [
+      "I",
+      "S"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "056",
+    "name": {
+      "ru": "Специальный педагог / Дефектолог",
+      "kk": "Арнайы педагог",
+      "en": "Special Education Teacher"
+    },
+    "industry": "education_training",
+    "specialities": [
+      "B020"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 130000,
+      "max": 400000,
+      "average": 220000
+    },
+    "hollandCodes": [
+      "A",
+      "S"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "057",
+    "name": {
+      "ru": "Корпоративный тренер",
+      "kk": "Корпоративті тренер",
+      "en": "Corporate Trainer"
+    },
+    "industry": "education_training",
+    "specialities": [
+      "B001",
+      "B044"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 800000,
+      "average": 400000
+    },
+    "hollandCodes": [
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "058",
+    "name": {
+      "ru": "Переводчик",
+      "kk": "Аудармашы",
+      "en": "Translator / Interpreter"
+    },
+    "industry": "education_training",
+    "specialities": [
+      "B036"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "A",
+      "S"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "059",
+    "name": {
+      "ru": "HR-менеджер",
+      "kk": "HR-менеджер",
+      "en": "HR Manager"
+    },
+    "industry": "human_resources",
+    "specialities": [
+      "B044",
+      "B001"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "060",
+    "name": {
+      "ru": "Рекрутер",
+      "kk": "Рекрутер",
+      "en": "Recruiter"
+    },
+    "industry": "human_resources",
+    "specialities": [
+      "B044",
+      "B041"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "S",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ISFJ",
+      "ISFP",
+      "ESFJ",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "061",
+    "name": {
+      "ru": "HR Business Partner",
+      "kk": "HR Бизнес-Серіктес",
+      "en": "HR Business Partner"
+    },
+    "industry": "human_resources",
+    "specialities": [
+      "B044"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1000000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "S",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ISFJ",
+      "ISFP",
+      "ESFJ",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "062",
+    "name": {
+      "ru": "Специалист по обучению и развитию",
+      "kk": "Оқыту және даму маманы",
+      "en": "Learning & Development Specialist"
+    },
+    "industry": "human_resources",
+    "specialities": [
+      "B001",
+      "B044"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "063",
+    "name": {
+      "ru": "Специалист по компенсациям и льготам",
+      "kk": "Өтемақы мен жеңілдіктер маманы",
+      "en": "Compensation & Benefits Specialist"
+    },
+    "industry": "human_resources",
+    "specialities": [
+      "B044",
+      "B046"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 800000,
+      "average": 400000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFJ",
+      "INTJ",
+      "ISTJ",
+      "ISFJ",
+      "ESFJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "064",
+    "name": {
+      "ru": "Директор по персоналу (CHRO)",
+      "kk": "Персонал директоры",
+      "en": "Chief Human Resources Officer"
+    },
+    "industry": "human_resources",
+    "specialities": [
+      "B044"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 500000,
+      "max": 2000000,
+      "average": 900000
+    },
+    "hollandCodes": [
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "065",
+    "name": {
+      "ru": "Журналист",
+      "kk": "Журналист",
+      "en": "Journalist"
+    },
+    "industry": "media_communications",
+    "specialities": [
+      "B042"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "I",
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "066",
+    "name": {
+      "ru": "Редактор",
+      "kk": "Редактор",
+      "en": "Editor"
+    },
+    "industry": "media_communications",
+    "specialities": [
+      "B042"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "067",
+    "name": {
+      "ru": "Видеопродюсер",
+      "kk": "Видео-продюсер",
+      "en": "Video Producer"
+    },
+    "industry": "media_communications",
+    "specialities": [
+      "B029"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 800000,
+      "average": 400000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "A"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ISFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "068",
+    "name": {
+      "ru": "Видеограф / Оператор",
+      "kk": "Видеограф",
+      "en": "Videographer"
+    },
+    "industry": "media_communications",
+    "specialities": [
+      "B029"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "A"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ISFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "069",
+    "name": {
+      "ru": "Контент-криейтор",
+      "kk": "Контент-жасаушы",
+      "en": "Content Creator"
+    },
+    "industry": "media_communications",
+    "specialities": [
+      "B042",
+      "B029"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 1000000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "A"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "070",
+    "name": {
+      "ru": "Копирайтер",
+      "kk": "Копирайтер",
+      "en": "Copywriter"
+    },
+    "industry": "media_communications",
+    "specialities": [
+      "B042",
+      "B047"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "A"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "071",
+    "name": {
+      "ru": "Звукорежиссер",
+      "kk": "Дыбыс режиссері",
+      "en": "Sound Engineer"
+    },
+    "industry": "media_communications",
+    "specialities": [
+      "B029"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "072",
+    "name": {
+      "ru": "Инженер-механик",
+      "kk": "Механика инженері",
+      "en": "Mechanical Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B064"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "073",
+    "name": {
+      "ru": "Инженер-электрик",
+      "kk": "Электр инженері",
+      "en": "Electrical Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B062"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "R",
+      "I"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "074",
+    "name": {
+      "ru": "Инженер-строитель",
+      "kk": "Құрылыс инженері",
+      "en": "Civil Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B074"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "075",
+    "name": {
+      "ru": "Архитектор",
+      "kk": "Сәулетші",
+      "en": "Architect"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B073"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1200000,
+      "average": 550000
+    },
+    "hollandCodes": [
+      "I",
+      "A"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "076",
+    "name": {
+      "ru": "Инженер-химик",
+      "kk": "Химия инженері",
+      "en": "Chemical Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B060"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "R",
+      "I"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "077",
+    "name": {
+      "ru": "Инженер-нефтяник",
+      "kk": "Мұнай инженері",
+      "en": "Petroleum Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B271"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 350000,
+      "max": 1500000,
+      "average": 700000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "078",
+    "name": {
+      "ru": "Инженер по автоматизации",
+      "kk": "Автоматтандыру инженері",
+      "en": "Automation Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B063"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "R",
+      "I"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "079",
+    "name": {
+      "ru": "Инженер-металлург",
+      "kk": "Металлургия инженері",
+      "en": "Metallurgical Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B171"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "080",
+    "name": {
+      "ru": "Инженер-технолог",
+      "kk": "Инженер-технолог",
+      "en": "Process Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B061"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "I",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "081",
+    "name": {
+      "ru": "Инженер по качеству",
+      "kk": "Сапа инженері",
+      "en": "Quality Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B076"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 800000,
+      "average": 400000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "082",
+    "name": {
+      "ru": "Горный инженер",
+      "kk": "Тау-кен инженері",
+      "en": "Mining Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B071"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "083",
+    "name": {
+      "ru": "Специалист по робототехнике",
+      "kk": "Робототехника маманы",
+      "en": "Robotics Engineer"
+    },
+    "industry": "engineering_manufacturing",
+    "specialities": [
+      "B063"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1500000,
+      "average": 700000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "084",
+    "name": {
+      "ru": "Логист",
+      "kk": "Логист",
+      "en": "Logistics Specialist"
+    },
+    "industry": "transportation_logistics",
+    "specialities": [
+      "B095"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 800000,
+      "average": 400000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "085",
+    "name": {
+      "ru": "Менеджер по цепочкам поставок",
+      "kk": "Жабдықтау тізбегі менеджері",
+      "en": "Supply Chain Manager"
+    },
+    "industry": "transportation_logistics",
+    "specialities": [
+      "B095",
+      "B044"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "086",
+    "name": {
+      "ru": "Пилот",
+      "kk": "Ұшқыш",
+      "en": "Pilot"
+    },
+    "industry": "transportation_logistics",
+    "specialities": [
+      "B167"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 500000,
+      "max": 3000000,
+      "average": 1200000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "087",
+    "name": {
+      "ru": "Авиационный инженер",
+      "kk": "Авиация инженері",
+      "en": "Aviation Engineer"
+    },
+    "industry": "transportation_logistics",
+    "specialities": [
+      "B067"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 1200000,
+      "average": 600000
+    },
+    "hollandCodes": [
+      "R",
+      "I"
+    ],
+    "personalities": [
+      "INFJ",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "088",
+    "name": {
+      "ru": "Транспортный менеджер",
+      "kk": "Көлік менеджері",
+      "en": "Transport Manager"
+    },
+    "industry": "transportation_logistics",
+    "specialities": [
+      "B095"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 900000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "R",
+      "C"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "089",
+    "name": {
+      "ru": "Агроном",
+      "kk": "Агроном",
+      "en": "Agronomist"
+    },
+    "industry": "agriculture_environment",
+    "specialities": [
+      "B077"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 500000,
+      "average": 250000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "090",
+    "name": {
+      "ru": "Зоотехник",
+      "kk": "Зоотехник",
+      "en": "Animal Scientist"
+    },
+    "industry": "agriculture_environment",
+    "specialities": [
+      "B078"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 500000,
+      "average": 250000
+    },
+    "hollandCodes": [
+      "R",
+      "I"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "091",
+    "name": {
+      "ru": "Эколог",
+      "kk": "Эколог",
+      "en": "Ecologist"
+    },
+    "industry": "agriculture_environment",
+    "specialities": [
+      "B051"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "092",
+    "name": {
+      "ru": "Ландшафтный дизайнер",
+      "kk": "Ландшафт дизайнері",
+      "en": "Landscape Designer"
+    },
+    "industry": "agriculture_environment",
+    "specialities": [
+      "B079"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "A"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "093",
+    "name": {
+      "ru": "Специалист по водным ресурсам",
+      "kk": "Су ресурстары маманы",
+      "en": "Water Resources Specialist"
+    },
+    "industry": "agriculture_environment",
+    "specialities": [
+      "B082"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "R",
+      "I"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "094",
+    "name": {
+      "ru": "Агроинженер",
+      "kk": "Агроинженер",
+      "en": "Agricultural Engineer"
+    },
+    "industry": "agriculture_environment",
+    "specialities": [
+      "B183"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 700000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "E"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "095",
+    "name": {
+      "ru": "Специалист по рыбному хозяйству",
+      "kk": "Балық шаруашылығы маманы",
+      "en": "Fisheries Specialist"
+    },
+    "industry": "agriculture_environment",
+    "specialities": [
+      "B080"
+    ],
+    "demand_level": "low",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 500000,
+      "average": 250000
+    },
+    "hollandCodes": [
+      "R"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "096",
+    "name": {
+      "ru": "Электрик",
+      "kk": "Электрші",
+      "en": "Electrician"
+    },
+    "industry": "skilled_trades_services",
+    "specialities": [
+      "B062"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "R",
+      "C"
+    ],
+    "personalities": [
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "097",
+    "name": {
+      "ru": "Сантехник",
+      "kk": "Сантехник",
+      "en": "Plumber"
+    },
+    "industry": "skilled_trades_services",
+    "specialities": [],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "098",
+    "name": {
+      "ru": "Автомеханик",
+      "kk": "Автомеханик",
+      "en": "Auto Mechanic"
+    },
+    "industry": "skilled_trades_services",
+    "specialities": [
+      "B065"
+    ],
+    "demand_level": "very_high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "R",
+      "I"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ISFP",
+      "ESFJ",
+      "ESFP",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "099",
+    "name": {
+      "ru": "Сварщик",
+      "kk": "Дәнекерлеуші",
+      "en": "Welder"
+    },
+    "industry": "skilled_trades_services",
+    "specialities": [
+      "B064"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "R",
+      "C"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "100",
+    "name": {
+      "ru": "Плотник / Столяр",
+      "kk": "Ағаш ұстасы",
+      "en": "Carpenter"
+    },
+    "industry": "skilled_trades_services",
+    "specialities": [
+      "B069"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 500000,
+      "average": 280000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "101",
+    "name": {
+      "ru": "Технолог пищевого производства",
+      "kk": "Тамақ өнеркәсібі технологы",
+      "en": "Food Technologist"
+    },
+    "industry": "skilled_trades_services",
+    "specialities": [
+      "B068"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "R",
+      "I",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "INTP",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "102",
+    "name": {
+      "ru": "Фотограф",
+      "kk": "Фотограф",
+      "en": "Photographer"
+    },
+    "industry": "arts_entertainment",
+    "specialities": [
+      "B029"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 120000,
+      "max": 800000,
+      "average": 280000
+    },
+    "hollandCodes": [
+      "R",
+      "A"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISTP",
+      "ISTJ",
+      "ISFP",
+      "ESFP",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "103",
+    "name": {
+      "ru": "Организатор мероприятий",
+      "kk": "Іс-шара ұйымдастырушысы",
+      "en": "Event Manager"
+    },
+    "industry": "arts_entertainment",
+    "specialities": [
+      "B092"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "S",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFJ",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ISFJ",
+      "ESFJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "104",
+    "name": {
+      "ru": "Арт-директор",
+      "kk": "Арт-директор",
+      "en": "Art Director"
+    },
+    "industry": "arts_entertainment",
+    "specialities": [
+      "B023"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 1000000,
+      "average": 450000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP"
+    ]
+  },
+  {
+    "id": "105",
+    "name": {
+      "ru": "Музыкальный продюсер",
+      "kk": "Музыкалық продюсер",
+      "en": "Music Producer"
+    },
+    "industry": "arts_entertainment",
+    "specialities": [
+      "B021"
+    ],
+    "demand_level": "low",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 1000000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "A",
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "106",
+    "name": {
+      "ru": "Дизайнер интерьеров",
+      "kk": "Интерьер дизайнері",
+      "en": "Interior Designer"
+    },
+    "industry": "arts_entertainment",
+    "specialities": [
+      "B031",
+      "B073"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 800000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "107",
+    "name": {
+      "ru": "Тренер (спортивный / фитнес)",
+      "kk": "Жаттықтырушы",
+      "en": "Trainer"
+    },
+    "industry": "sports_fitness",
+    "specialities": [
+      "B005",
+      "B098"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 1000000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "R",
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "108",
+    "name": {
+      "ru": "Фитнес-инструктор",
+      "kk": "Фитнес-нұсқаушы",
+      "en": "Fitness Instructor"
+    },
+    "industry": "sports_fitness",
+    "specialities": [
+      "B005"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 120000,
+      "max": 600000,
+      "average": 250000
+    },
+    "hollandCodes": [
+      "R",
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "109",
+    "name": {
+      "ru": "Спортивный менеджер",
+      "kk": "Спорт менеджері",
+      "en": "Sports Manager"
+    },
+    "industry": "sports_fitness",
+    "specialities": [
+      "B044",
+      "B098"
+    ],
+    "demand_level": "low",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 900000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "R",
+      "S",
+      "E"
+    ],
+    "personalities": [
+      "ENTJ",
+      "ESFP",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "110",
+    "name": {
+      "ru": "Менеджер отеля",
+      "kk": "Қонақ үй менеджері",
+      "en": "Hotel Manager"
+    },
+    "industry": "hospitality_tourism",
+    "specialities": [
+      "B093"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 800000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "S",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ISFJ",
+      "ESFJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "111",
+    "name": {
+      "ru": "Менеджер ресторана",
+      "kk": "Мейрамхана менеджері",
+      "en": "Restaurant Manager"
+    },
+    "industry": "hospitality_tourism",
+    "specialities": [
+      "B093"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 700000,
+      "average": 320000
+    },
+    "hollandCodes": [
+      "R",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "ENFJ",
+      "ENFP",
+      "ESFP",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "112",
+    "name": {
+      "ru": "Шеф-повар",
+      "kk": "Аспазбасы",
+      "en": "Chef"
+    },
+    "industry": "hospitality_tourism",
+    "specialities": [
+      "B093"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 1000000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "R",
+      "A",
+      "E"
+    ],
+    "personalities": [
+      "ENTJ",
+      "ISTP",
+      "ESFP",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "113",
+    "name": {
+      "ru": "Туристический менеджер",
+      "kk": "Туризм менеджері",
+      "en": "Tourism Manager"
+    },
+    "industry": "hospitality_tourism",
+    "specialities": [
+      "B091"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 600000,
+      "average": 280000
+    },
+    "hollandCodes": [
+      "S",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ISFJ",
+      "ESFJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "114",
+    "name": {
+      "ru": "Специалист по туризму",
+      "kk": "Туризм маманы",
+      "en": "Tourism Specialist"
+    },
+    "industry": "hospitality_tourism",
+    "specialities": [
+      "B091"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 600000,
+      "average": 280000
+    },
+    "hollandCodes": [
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ESFP"
+    ]
+  },
+  {
+    "id": "115",
+    "name": {
+      "ru": "Менеджер по гостеприимству",
+      "kk": "Қонақжайлылық менеджері",
+      "en": "Hospitality Manager"
+    },
+    "industry": "hospitality_tourism",
+    "specialities": [
+      "B093"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 800000,
+      "average": 350000
+    },
+    "hollandCodes": [
+      "S",
+      "E",
+      "C"
+    ],
+    "personalities": [
+      "INFP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ISFJ",
+      "ESFJ",
+      "ESFP",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "116",
+    "name": {
+      "ru": "Юрист",
+      "kk": "Заңгер",
+      "en": "Lawyer"
+    },
+    "industry": "law_legal",
+    "specialities": [
+      "B049"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 200000,
+      "max": 1500000,
+      "average": 500000
+    },
+    "hollandCodes": [
+      "I",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "117",
+    "name": {
+      "ru": "Корпоративный юрист",
+      "kk": "Корпоративті заңгер",
+      "en": "Corporate Lawyer"
+    },
+    "industry": "law_legal",
+    "specialities": [
+      "B049"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 300000,
+      "max": 2000000,
+      "average": 700000
+    },
+    "hollandCodes": [
+      "I",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "118",
+    "name": {
+      "ru": "Адвокат",
+      "kk": "Адвокат",
+      "en": "Defense Attorney"
+    },
+    "industry": "law_legal",
+    "specialities": [
+      "B049"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 250000,
+      "max": 2500000,
+      "average": 700000
+    },
+    "hollandCodes": [
+      "I",
+      "E"
+    ],
+    "personalities": [
+      "INFJ",
+      "INTJ",
+      "INTP",
+      "ENFJ",
+      "ENFP",
+      "ENTJ",
+      "ENTP",
+      "ISTJ",
+      "ESTJ"
+    ]
+  },
+  {
+    "id": "119",
+    "name": {
+      "ru": "Сотрудник полиции",
+      "kk": "Полиция қызметкері",
+      "en": "Police Officer"
+    },
+    "industry": "law_enforcement_security",
+    "specialities": [
+      "B096"
+    ],
+    "demand_level": "high",
+    "salary_kzt": {
+      "min": 150000,
+      "max": 500000,
+      "average": 250000
+    },
+    "hollandCodes": [
+      "R",
+      "C"
+    ],
+    "personalities": [
+      "INTJ",
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ISFJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  },
+  {
+    "id": "120",
+    "name": {
+      "ru": "Специалист по пожарной безопасности",
+      "kk": "Өрт қауіпсіздігі маманы",
+      "en": "Fire Safety Specialist"
+    },
+    "industry": "law_enforcement_security",
+    "specialities": [
+      "B097"
+    ],
+    "demand_level": "medium",
+    "salary_kzt": {
+      "min": 180000,
+      "max": 600000,
+      "average": 300000
+    },
+    "hollandCodes": [
+      "R",
+      "C"
+    ],
+    "personalities": [
+      "ENTJ",
+      "ISTP",
+      "ISTJ",
+      "ESTJ",
+      "ESTP"
+    ]
+  }
+]

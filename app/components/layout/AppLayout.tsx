@@ -91,7 +91,8 @@ export const AppLayout = ({ title, children }: AppLayoutProps) => {
           sx={{
             flexGrow: 1,
             px: { xs: 2, md: 3 },
-            py: 2,
+            pt: 1,
+            pb: 5,
           }}
         >
           {children}

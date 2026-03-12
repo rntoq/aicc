@@ -12,6 +12,26 @@ const nextConfig: NextConfig = {
         hostname: "d31u95r9ywbjex.cloudfront.net",
         pathname: "/sites/default/files/images/visualtests/**",
       },
+      {
+        protocol: "https",
+        hostname: "app.joo.kz",
+        pathname: "/media/**",
+      },
+      {
+        protocol: "https",
+        hostname: "optim.tildacdn.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "voshod.mai.ru",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        pathname: "/**",
+      },
     ],
   },
   turbopack: {

@@ -6,7 +6,7 @@ import { AppLayout } from "@/app/components/layout/AppLayout";
 import { ALL_TESTS } from "@/app/test/constants";
 import { TestCard } from "@/app/test/components/TestCard";
 
-export default function TestsPage() {
+const TestsPage = () => {
   const t = useTranslations();
 
   return (
@@ -28,4 +28,6 @@ export default function TestsPage() {
       </Box>
     </AppLayout>
   );
-}
+};
+
+export default TestsPage;

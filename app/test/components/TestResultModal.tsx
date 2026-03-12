@@ -17,6 +17,14 @@ import { useTestsStore } from "@/lib/store/testsStore";
 export const TestResultModal = () => {
   const t = useTranslations();
   const { openResultModalId, setOpenResultModalId } = useTestsStore();
+  if (openResultModalId === "holland") {
+    // Для Holland используем отдельный диалог hollandResultDialog
+    return null;
+  }
+  if (openResultModalId === "photo-career") {
+    // Для фото-теста используем отдельный диалог photoResultDialog
+    return null;
+  }
   const test = openResultModalId ? getTestById(openResultModalId) : null;
   const open = Boolean(test);
 

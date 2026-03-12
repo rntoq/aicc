@@ -10,13 +10,11 @@ export type TranslateFn = (key: string, values?: Record<string, string | number>
 type ProfessionCardProps = {
   profession: PublicProfession;
   t: TranslateFn;
-  /** Optional industry name shown above title (e.g. on careers list) */
-  industryName?: string;
   /** Constrain width for horizontal scroll layouts */
   compact?: boolean;
 };
 
-export function ProfessionCard({ profession, t, industryName, compact = false }: ProfessionCardProps) {
+export function ProfessionCard({ profession, t, compact = false }: ProfessionCardProps) {
   const locale = useLocale();
   const localeKey = locale as keyof PublicProfession["name"];
 
@@ -65,68 +63,36 @@ export function ProfessionCard({ profession, t, industryName, compact = false }:
     <Box
       sx={compact ? { ...styles.card, ...styles.cardCompact } : styles.card}
     >
-      <CardContent sx={styles.cardContent}>
-        {industryName != null && (
-          <Typography variant="subtitle2" color="text.secondary" sx={styles.industryName}>
-            {industryName}
-          </Typography>
-        )}
         <Typography variant="h6" sx={styles.title}>
           {title}
         </Typography>
-        {description && (
-          <Typography variant="body2" color="text.secondary" sx={styles.description}>
-            {description}
-          </Typography>
-        )}
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          sx={{ mt: 1, display: "block" }}
+        >
+          {t(profession.industry)}
+        </Typography>
         <Divider sx={{ my: 1.5 }} />
-
-        <Box sx={styles.chipsRow}>
-          {salaryLabel && (
-            <Chip
-              size="small"
-              icon={<AttachMoneyOutlinedIcon sx={styles.chipIcon} />}
-              label={salaryLabel}
-              variant="outlined"
-            />
-          )}
-          <Chip size="small" label={demandLabel} variant="outlined" color={demandColor} />
-        </Box>
-
-        {salary && (
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            sx={{ mt: 0.75, display: "block" }}
-          >
-            min: {salary.min ?? "—"} / max: {salary.max ?? "—"} / avg:{" "}
-            {salary.average ?? "—"} ₸
-          </Typography>
-        )}
-
         <Box sx={{ mt: 1.5 }}>
           <Typography
             variant="caption"
             color="text.secondary"
             sx={{ display: "block", mb: 0.5 }}
           >
-            specialties:
+            {t("specialities")}: {profession.specialities.join(", ")}
           </Typography>
-          <Box sx={styles.specialtiesRow}>
-            {profession.specialties.map((code) => (
-              <Chip key={code} size="small" label={code} variant="outlined" />
-            ))}
-          </Box>
+          <Typography variant="caption" fontWeight={500} color={demandColor}>{demandLabel}</Typography>
+          {salaryLabel && (
+            <Chip
+                size="medium"
+                icon={<AttachMoneyOutlinedIcon sx={styles.chipIcon} />}
+                label={salaryLabel}
+                variant="filled"
+                sx={{ width: "100%", marginTop: 1, fontWeight: 500, fontSize: "16px"}}
+            />
+          )}
         </Box>
-
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ mt: 1.5, display: "block" }}
-        >
-          industry: {profession.industry}
-        </Typography>
-      </CardContent>
     </Box>
   );
 }
@@ -134,7 +100,8 @@ export function ProfessionCard({ profession, t, industryName, compact = false }:
 const styles = {
   card: {
     height: "100%",
-    borderRadius: 2,
+    borderRadius: 1,
+    p: 2,
     border: "1px solid #9f9fc0",
     transition: "box-shadow 0.2s, border-color 0.2s",
     "&:hover": {
@@ -145,7 +112,6 @@ const styles = {
     minWidth: 280,
     maxWidth: 320,
   },
-  cardContent: { p: 2 },
   headerRow: {
     display: "flex",
     alignItems: "flex-start",
@@ -176,8 +142,8 @@ const styles = {
     gap: 1,
     alignItems: "center",
   },
-  chipIcon: { fontSize: 14 },
-  specialtiesRow: {
+  chipIcon: { fontSize: 24},
+  specialitiesRow: {
     display: "flex",
     flexWrap: "wrap",
     gap: 0.5,

@@ -7,8 +7,10 @@ import type { TestItem } from "@/app/test/constants";
 import { useRouter } from "next/navigation";
 import { useTestsStore } from "@/lib/store/testsStore";
 import type { ReactNode } from "react";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import LockResetIcon from '@mui/icons-material/LockReset';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import { api } from "@/lib/api/api";
+import type { QuizTestType } from "@/lib/types";
 
 const CARD_ACCENTS = [
   { border: "#7f7fd5", bg: "rgba(127, 127, 213, 0.06)", titleColor: "#7f7fd5" },
@@ -34,6 +36,23 @@ const getBadgeLabel = (
 const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
   if (test.required) return { bg: "rgba(99, 102, 241, 0.15)", color: "#6366F1" };
   return { bg: "rgba(59, 59, 59, 0.15)", color: "#3B3B3B" };
+};
+
+const mapTestIdToQuickType = (id: TestItem["id"]): QuizTestType | null => {
+  switch (id) {
+    case "holland":
+      return "holland";
+    case "photo-career":
+      return "photo";
+    case "disc":
+      return "disc";
+    case "career-aptitude":
+      return "career_aptitude";
+    case "big-five":
+      return "big_five";
+    default:
+      return null;
+  }
 };
 
 export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, index: number, variant: String, disabled?: boolean }) => {
@@ -62,6 +81,15 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
       const accent = CARD_ACCENTS[accentIndex];
 
       const handleStart = () => {
+        const quickType = mapTestIdToQuickType(test.id);
+        if (quickType) {
+          // Fire-and-forget запрос к /api/v1/quizzes/quick/${testType}/
+          void api.get(`/api/v1/quizzes/quick/${quickType}/`).catch(() => {
+            // Ошибку намеренно игнорируем на стороне UI:
+            // локальная логика тестов продолжает работать.
+          });
+        }
+
         if (test.id === "holland") {
           router.push("/test/holland");
         } else if (test.id === "photo-career") {
@@ -81,11 +109,11 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
     
       const handleShowResult = () => {
         if (test.id === "holland") {
-          router.push("/test/holland/result");
-        } else if (test.id === "photo-career") {
-          router.push("/test/photo-career/result");
+          setOpenResultModalId("holland");
         } else if (test.id === "disc") {
-          router.push("/test/disc/result");
+          setOpenResultModalId("disc");
+        } else if (test.id === "photo-career") {
+          setOpenResultModalId("photo-career");
         } else if (test.id === "career-aptitude") {
           router.push("/test/career-aptitude/result");
         } else if (test.id === "big-five") {

@@ -37,7 +37,7 @@ function PersonalResultSection() {
     id: string;
     name: { ru: string; kk: string; en: string };
     industry: string;
-    specialties: string[];
+    specialities: string[];
     demand_level: string;
     salary_kzt: { min: number; max: number; average: number };
   };
@@ -82,7 +82,7 @@ function PersonalResultSection() {
                 industry: {prof.industry}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                specialties: {prof.specialties.join(", ")}
+                specialities: {prof.specialities.join(", ")}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
                 demand_level: {prof.demand_level}
@@ -148,9 +148,6 @@ function IndustriesSection({
         <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
           {t("careers_explain_title")}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
-          {t("careers_explain_text")}
-        </Typography>
       </Box>
 
       <Box sx={styles.filtersRow}>
@@ -177,7 +174,7 @@ function IndustriesSection({
   );
 }
 
-export default function CareersPage() {
+const CareersPage = () => {
   const t = useTranslations();
   useIndustries();
   const hasPersonalResult = useTestsStore((s) => s.completedTestIds.size) > 0;
@@ -197,7 +194,9 @@ export default function CareersPage() {
       </Box>
     </AppLayout>
   );
-}
+};
+
+export default CareersPage;
 
 const styles = {
   personalScrollBox: {
