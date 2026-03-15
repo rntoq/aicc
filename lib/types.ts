@@ -76,6 +76,30 @@ export interface HollandSessionFinishResponse {
   created_at: string;
 }
 
+// ===== Big Five quiz result (finish session) =====
+
+export interface BigFiveScores {
+  O: number;
+  C: number;
+  E: number;
+  A: number;
+  N: number;
+}
+
+export interface BigFiveSessionFinishResponse {
+  id: number;
+  test_title: string;
+  test_slug: string;
+  test_type: "big_five";
+  /** Raw scores per dimension (0–100 scale from backend) */
+  scores: BigFiveScores;
+  primary_type: string;
+  secondary_type: string;
+  summary: string;
+  detailed_report: string;
+  created_at: string;
+}
+
 
 // ===== Professions =====
 
@@ -126,14 +150,18 @@ export type PublicProfession = {
  * From `public/specialities.json`
  */
 export type PublicSpeciality = {
+  id: number;
   code: string;
   name: LocalizedText;
+  /** List of university short_name.en values for this speciality */
+  Universities?: string[];
 };
 
 /**
  * From `public/universities.json`
  */
 export type PublicUniversity = {
+  id: number;
   logo: string | null;
   code: string;
   region: number | null;

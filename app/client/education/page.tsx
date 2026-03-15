@@ -1,10 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Box, Grid, TextField, Typography } from "@mui/material";
+import { Box, Link, TextField, Typography } from "@mui/material";
 import { useTranslations, useLocale } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
-import { SpecialityCard } from "@/app/components/clientLayout";
 import type { PublicSpeciality } from "@/lib/types";
 import SPECIALITIES_JSON from "@/public/specialities.json";
 
@@ -20,15 +19,8 @@ const EducationPage = () => {
     if (!query) return specialities;
 
     return specialities.filter((s) => {
-      const name =
-        s.name?.[locale as keyof PublicSpeciality["name"]] ??
-        s.name?.ru ??
-        s.name?.en ??
-        "";
-      return (
-        s.code.toLowerCase().includes(query) ||
-        name.toLowerCase().includes(query)
-      );
+      const name = s.name?.[locale as keyof PublicSpeciality["name"]] ?? "";
+      return s.code.toLowerCase().includes(query) || name.toLowerCase().includes(query);
     });
   }, [q, specialities, locale]);
 
@@ -48,13 +40,22 @@ const EducationPage = () => {
           fullWidth
         />
 
-        <Grid container spacing={10}  sx={{ rowGap: 3}}>
-          {filtered.map((s) => (
-            <Grid key={s.code} size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 4 }}>
-              <SpecialityCard speciality={s} href={`/client/education/${encodeURIComponent(s.code)}`} />
-            </Grid>
-          ))}
-        </Grid>
+        {filtered.map((s) => (
+          <Box key={s.id} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            {s.name?.[locale as keyof PublicSpeciality["name"]]} -
+            <Link
+              href={`/client/education/${encodeURIComponent(String(s.id))}`}
+              style={{
+                textDecoration: "underline",
+                color: "blue",
+                fontSize: "16px",
+                fontWeight: "300",
+              }}
+            >
+              {t("code")}: {s.code}
+            </Link>
+          </Box>
+        ))}
       </Box>
     </AppLayout>
   );

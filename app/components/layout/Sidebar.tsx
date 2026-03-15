@@ -11,18 +11,20 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
 import { useAuth } from "@/lib/hooks/useAuth";
 
 const NAV_ITEMS = [
-  { label: "Dashboard", href: "/client", icon: DashboardOutlinedIcon },
-  { label: "Tests & Results", href: "/client/tests", icon: QueryStatsOutlinedIcon },
-  { label: "AI Chat", href: "/client/ai-chat", icon: ChatBubbleOutlineOutlinedIcon },
-  { label: "Careers", href: "/client/careers", icon: WorkOutlineOutlinedIcon },
-  { label: "Education", href: "/client/education", icon: SchoolOutlinedIcon },
+  { labelKey: "sidebar_dashboard", href: "/client", icon: DashboardOutlinedIcon },
+  { labelKey: "sidebar_tests", href: "/client/tests", icon: QueryStatsOutlinedIcon },
+  { labelKey: "sidebar_ai_chat", href: "/client/ai-chat", icon: ChatBubbleOutlineOutlinedIcon },
+  { labelKey: "sidebar_careers", href: "/client/careers", icon: WorkOutlineOutlinedIcon },
+  { labelKey: "sidebar_education", href: "/client/education", icon: SchoolOutlinedIcon },
 ] as const;
 
 export const Sidebar = () => {
+  const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
   const { logout, loading } = useAuth();
@@ -47,7 +49,7 @@ export const Sidebar = () => {
         </Box>
 
         <List sx={{ my: 5 }}>
-          {NAV_ITEMS.map(({ label, href, icon: Icon }) => {
+          {NAV_ITEMS.map(({ labelKey, href, icon: Icon }) => {
             const active = isActive(href);
             return (
               <ListItemButton
@@ -64,7 +66,7 @@ export const Sidebar = () => {
                   <Icon fontSize="small" />
                 </ListItemIcon>
                 <ListItemText
-                  primary={label}
+                  primary={t(labelKey)}
                   primaryTypographyProps={{ fontSize: 14, color: active ? "primary.main" : "text.secondary", fontWeight: 600 }}
                 />
               </ListItemButton>
@@ -85,7 +87,7 @@ export const Sidebar = () => {
               <SettingsOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText
-              primary="Settings"
+              primary={t("sidebar_settings")}
               primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
             />
           </ListItemButton>
@@ -97,7 +99,7 @@ export const Sidebar = () => {
               <LogoutOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText
-              primary="Logout"
+              primary={t("sidebar_logout")}
               primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
             />
           </ListItemButton>

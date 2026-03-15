@@ -3,6 +3,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,11 +16,8 @@ import type { HollandSessionFinishResponse, HollandScores } from "@/lib/types";
 export type HollandResultDialogProps = {
   open: boolean;
   onClose: () => void;
-  /**
-   * Результат, вернувшийся с бэкенда после
-   * POST /api/v1/quizzes/sessions/finish/
-   */
   result: HollandSessionFinishResponse | null;
+  loading?: boolean;
 };
 
 const CATEGORY_LABELS: Record<keyof HollandScores, string> = {
@@ -35,15 +33,22 @@ export const HollandResultDialog = ({
   open,
   onClose,
   result,
+  loading = false,
 }: HollandResultDialogProps) => {
-  if (!result) {
+  if (loading || !result) {
     return (
       <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
-        <DialogTitle>Результат Holland ещё недоступен</DialogTitle>
+        <DialogTitle>Holland Code (RIASEC)</DialogTitle>
         <DialogContent>
-          <Typography variant="body2" color="text.secondary">
-            Пройдите тест Holland, чтобы увидеть ваш RIASEC‑профиль.
-          </Typography>
+          {loading ? (
+            <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              Пройдите тест Holland, чтобы увидеть ваш RIASEC‑профиль.
+            </Typography>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Закрыть</Button>

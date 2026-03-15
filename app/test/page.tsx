@@ -13,19 +13,22 @@ import {
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
 import { Footer } from "@/app/components/landing/Footer";
-import { ALL_TESTS, getRecommendedTests } from "./constants";
+import { ALL_TESTS, getRecommendedTests } from "@/lib/constants";
 import { TestCard } from "./components/TestCard";
-import { TestResultModal } from "./components/TestResultModal";
 import { Header } from "../components/layout/Header";
 import { useQuizCategories, useQuizTestTypes, useQuizTests } from "@/lib/hooks/useQuizzes";
-import { HollandResultDialog } from "./holland/components/hollandResultDialog";
-import { PhotoResultDialog } from "./photo-career/components/photoResultDialog";
+import { HollandResultDialog } from "./holland/hollandResultDialog";
+import { PhotoResultDialog } from "./photo-career/photoResultDialog";
+import { BigFiveResultDialog } from "./bigfive/bigfiveResultDialog";
+import { CareerResultDialog } from "./career-aptitude/careerResultDialog";
 import { useTestsStore } from "@/lib/store/testsStore";
-import { useHollandStore } from "@/lib/store/hollandStore";
-import type { HollandSessionFinishResponse } from "@/lib/types";
+import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { api } from "@/lib/api/api";
+import type { BigFiveSessionFinishResponse, HollandSessionFinishResponse } from "@/lib/types";
+import type { CareerAptitudeResult } from "./career-aptitude/careerResultDialog";
 
 const MAX_CUSTOM_SELECT = 4;
 
@@ -63,16 +66,40 @@ const TestPage = () => {
   const customRef = useRef<HTMLDivElement | null>(null);
 
   const { openResultModalId, setOpenResultModalId } = useTestsStore();
-  const { result: hollandLocal } = useHollandStore();
+  const { getSession, setResult } = useQuizSessionStore();
+  const [fetchingResult, setFetchingResult] = useState(false);
 
-  const hollandBackendResult: HollandSessionFinishResponse | null =
-    openResultModalId === "holland" &&
-    hollandLocal &&
-    hollandLocal.payload &&
-    (hollandLocal.payload as any).backendResult
-      ? ((hollandLocal.payload as any)
-          .backendResult as HollandSessionFinishResponse)
-      : null;
+  // При открытии диалога: если result пустой, но sessionId есть — запрашиваем finish
+  useEffect(() => {
+    if (!openResultModalId) return;
+
+    const entry = getSession(openResultModalId);
+    if (!entry?.sessionId || entry.result != null) return;
+
+    let cancelled = false;
+    setFetchingResult(true);
+
+    api
+      .post<unknown, { session_id: number }>(
+        "/api/v1/quizzes/sessions/finish/",
+        { session_id: entry.sessionId }
+      )
+      .then(({ data }) => {
+        if (!cancelled) setResult(openResultModalId, data);
+      })
+      .catch(() => {/* бэкенд недоступен — показываем диалог без результата */})
+      .finally(() => {
+        if (!cancelled) setFetchingResult(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [openResultModalId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const hollandResult = getSession("holland")?.result as HollandSessionFinishResponse | null | undefined;
+  const bigfiveResult = getSession("bigfive")?.result as BigFiveSessionFinishResponse | null | undefined;
+  const careerResult = getSession("career-aptitude")?.result as CareerAptitudeResult | null | undefined;
 
   // Подгружаем категории/типы тестов с бэкенда (prefetch)
   useQuizCategories();
@@ -242,15 +269,27 @@ const TestPage = () => {
           )}
         </Container>
 
-        <TestResultModal />
         <HollandResultDialog
           open={openResultModalId === "holland"}
           onClose={() => setOpenResultModalId(null)}
-          result={hollandBackendResult}
+          result={hollandResult ?? null}
+          loading={fetchingResult && openResultModalId === "holland"}
         />
         <PhotoResultDialog
           open={openResultModalId === "photo-career"}
           onClose={() => setOpenResultModalId(null)}
+        />
+        <BigFiveResultDialog
+          open={openResultModalId === "bigfive"}
+          onClose={() => setOpenResultModalId(null)}
+          result={bigfiveResult ?? null}
+          loading={fetchingResult && openResultModalId === "bigfive"}
+        />
+        <CareerResultDialog
+          open={openResultModalId === "career-aptitude"}
+          onClose={() => setOpenResultModalId(null)}
+          result={careerResult ?? null}
+          loading={fetchingResult && openResultModalId === "career-aptitude"}
         />
         <Footer />
       </Box>

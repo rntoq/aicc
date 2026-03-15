@@ -20,7 +20,8 @@
       "kk": "Туран-Астана",
       "en": "Turan-Astana"
     },
-    "address": "ул. Дукенулы, 29"
+    "address": "ул. Дукенулы, 29",
+    "id": 1
   },
   {
     "logo": "https://app.joo.kz/media/icons/b9745cc1-0646-4635-be2b-097df0f71bef.png",
@@ -43,7 +44,8 @@
       "kk": "АМУ",
       "en": "AMU"
     },
-    "address": "ул. Бейбитшилик, 49а"
+    "address": "ул. Бейбитшилик, 49а",
+    "id": 2
   },
   {
     "logo": "https://app.joo.kz/media/images/b1cf6121-3bde-4287-a904-85185beb0ce2.jpeg",
@@ -66,7 +68,8 @@
       "kk": "ҚазАТУ",
       "en": "KazATU"
     },
-    "address": "пр. Женис, 62"
+    "address": "пр. Женис, 62",
+    "id": 3
   },
   {
     "logo": "https://app.joo.kz/media/icons/6d68a48e-fae8-4ea3-a82b-563f5c6893fd.png",
@@ -80,7 +83,7 @@
     "consult_landing_url": null,
     "specialities_count": 52,
     "name": {
-      "ru": "Каспийский государственный университет технологии и инжиниринга имени Ш. Есенова",
+      "ru": "Каспийский государственный университет технологии и инжиниринга имени Ш.Есенова",
       "kk": "Ш. Есенов атындағы Каспий технологиялар және инжиниринг мемлекеттік университеті",
       "en": "Caspian State University of Technology and Engineering named after Sh. Yessenov"
     },
@@ -89,7 +92,8 @@
       "kk": "КГУТИ",
       "en": "KGUTE"
     },
-    "address": "г. Актау, 32 микрорайон"
+    "address": "г. Актау, 32 микрорайон",
+    "id": 4
   },
   {
     "logo": "https://app.joo.kz/media/icons/23408069-d074-4293-b113-e9fce6be2b80.jpg",
@@ -112,7 +116,8 @@
       "kk": "KINI",
       "en": "KINI"
     },
-    "address": "Республика Казахстан, г. Актау, 32-й мкр."
+    "address": "Республика Казахстан, г. Актау, 32-й мкр.",
+    "id": 5
   },
   {
     "logo": "https://app.joo.kz/media/images/568328c4-16e4-4883-9138-db328c6a5fb1.jpeg",
@@ -135,7 +140,8 @@
       "kk": "БҚМУ",
       "en": "WKMMU"
     },
-    "address": "г. Актобе, ул. Маресьева, 68"
+    "address": "г. Актобе, ул. Маресьева, 68",
+    "id": 6
   },
   {
     "logo": "https://app.joo.kz/media/images/b963849c-a3ac-4531-860c-f8e9ab7057b0.jpeg",
@@ -158,7 +164,8 @@
       "kk": "Zhubanov University",
       "en": "Zhubanov University"
     },
-    "address": "г. Актобе, пр. А.Молдагуловой,34"
+    "address": "г. Актобе, пр. А.Молдагуловой,34",
+    "id": 7
   },
   {
     "logo": "https://app.joo.kz/media/icons/5dba39e2-d32f-449a-9680-a6121b599699.jpeg",
@@ -181,7 +188,8 @@
       "kk": "Heriot-Watt University",
       "en": "Heriot-Watt University"
     },
-    "address": "город Актобе, ул. Братьев Жубановых 263"
+    "address": "город Актобе, ул. Братьев Жубановых 263",
+    "id": 8
   },
   {
     "logo": "https://app.joo.kz/media/icons/f233d8aa-dcc8-4736-bcb3-bbcd4a694e47.png",
@@ -204,7 +212,8 @@
       "kk": "ҚазҰК",
       "en": "KazNC"
     },
-    "address": "пр. Абылай-хана, 86"
+    "address": "пр. Абылай-хана, 86",
+    "id": 9
   },
   {
     "logo": "https://app.joo.kz/media/icons/24dd41fb-a054-4e1b-bdbd-32d6c6abfc7b.png",
@@ -227,7 +236,8 @@
       "kk": "ҚазҰПУ",
       "en": "Abai University"
     },
-    "address": "пр. Достык,13"
+    "address": "пр. Достык,13",
+    "id": 10
   },
   {
     "logo": "https://app.joo.kz/media/icons/72b53f79-cb44-4a96-b046-81372bcde511.jpg",
@@ -250,7 +260,8 @@
       "kk": "Altynsarin University",
       "en": "Altynsarin University"
     },
-    "address": "г. Аркалык, ул. Ауельбекова, 17"
+    "address": "г. Аркалык, ул. Ауельбекова, 17",
+    "id": 11
   },
   {
     "logo": "https://app.joo.kz/media/images/4cdf4b57-88c1-4133-8a95-d4f93ceb6b67.jpeg",
@@ -273,7 +284,8 @@
       "kk": "АУМжҒУ",
       "en": "Atyrau UOG"
     },
-    "address": "г. Атырау, ул. Баймуханова 45а"
+    "address": "г. Атырау, ул. Баймуханова 45а",
+    "id": 12
   },
   {
     "logo": "https://app.joo.kz/media/icons/65516630-7953-4f73-b9bb-a9b56b1c3860.png",
@@ -296,7 +308,8 @@
       "kk": "ХДУ Атырау",
       "en": "ADU"
     },
-    "address": "г. Атырау, пр. Студенческий, 1"
+    "address": "г. Атырау, пр. Студенческий, 1",
+    "id": 13
   },
   {
     "logo": "https://app.joo.kz/media/icons/80accf8e-038f-4a35-baab-56867dd9aa11.png",
@@ -319,7 +332,8 @@
       "kk": "ШҚУ",
       "en": "EKU"
     },
-    "address": "г. Усть-Каменогорск, ул. 30-й Гвардейской дивизии, 34"
+    "address": "г. Усть-Каменогорск, ул. 30-й Гвардейской дивизии, 34",
+    "id": 14
   },
   {
     "logo": "https://app.joo.kz/media/images/a48fc74e-79ca-4784-bb29-629224e2ac36.jpeg",
@@ -342,7 +356,8 @@
       "kk": "ШҚТУ",
       "en": "EKTU"
     },
-    "address": "г. Усть-Каменогорск, ул. Протозанова А.К., 69"
+    "address": "г. Усть-Каменогорск, ул. Протозанова А.К., 69",
+    "id": 15
   },
   {
     "logo": "https://app.joo.kz/media/images/2f38a94a-a6ff-4628-9335-6dca42723bd0.jpeg",
@@ -365,7 +380,8 @@
       "kk": "ЕҰУ",
       "en": "ENU"
     },
-    "address": "ул. Сатпаева, 2а"
+    "address": "ул. Сатпаева, 2а",
+    "id": 16
   },
   {
     "logo": "https://app.joo.kz/media/images/f91ca0be-860f-4410-a6a3-471added260d.jpeg",
@@ -388,7 +404,8 @@
       "kk": "ЖезУ",
       "en": "ZhezU"
     },
-    "address": "г. Жезказган, пр. Алашахана, 1б"
+    "address": "г. Жезказган, пр. Алашахана, 1б",
+    "id": 17
   },
   {
     "logo": "https://app.joo.kz/media/images/f35e93bc-1a97-4fcf-980b-f72bf71d7be0.jpeg",
@@ -411,7 +428,8 @@
       "kk": "ЖУ",
       "en": "ZU"
     },
-    "address": "г. Талдыкорган, ул. И.Жансугурова 187а"
+    "address": "г. Талдыкорган, ул. И.Жансугурова 187а",
+    "id": 18
   },
   {
     "logo": "https://app.joo.kz/media/images/22a0c9f0-fffd-4a2b-a126-95d3562586b1.jpeg",
@@ -434,7 +452,8 @@
       "kk": "БҚУ",
       "en": "WKU"
     },
-    "address": "г. Уральск, пр. Достык 162"
+    "address": "г. Уральск, пр. Достык 162",
+    "id": 19
   },
   {
     "logo": "https://app.joo.kz/media/images/42a145c8-6a40-4285-8d3f-ad2abc772033.jpeg",
@@ -457,7 +476,8 @@
       "kk": "ҚазҰӨА",
       "en": "KazNAA"
     },
-    "address": "ул. Панфилова, 127"
+    "address": "ул. Панфилова, 127",
+    "id": 20
   },
   {
     "logo": "https://app.joo.kz/media/icons/0f47fc46-5427-4f44-8e30-40a6d138e785.png",
@@ -480,7 +500,8 @@
       "kk": "ҚазҰӨУ",
       "en": "KazNUI"
     },
-    "address": "пр. Тауелсыздык, 50"
+    "address": "пр. Тауелсыздык, 50",
+    "id": 21
   },
   {
     "logo": "https://app.joo.kz/media/icons/36fe7720-7366-42de-9e37-df44f3cffac9.jpeg",
@@ -503,7 +524,8 @@
       "kk": "ALT",
       "en": "ALT"
     },
-    "address": "ул. Шевченко, 97"
+    "address": "ул. Шевченко, 97",
+    "id": 22
   },
   {
     "logo": "https://app.joo.kz/media/icons/03308801-b9c9-4456-95fc-8ef045402eb4.png",
@@ -526,7 +548,8 @@
       "kk": "ҚазАСТ",
       "en": "KazAST"
     },
-    "address": "пр. Абая 85"
+    "address": "пр. Абая 85",
+    "id": 23
   },
   {
     "logo": "https://app.joo.kz/media/images/57e77152-4ebb-4057-8b69-fe94b9e21d9c.jpeg",
@@ -549,7 +572,8 @@
       "kk": "Нархоз",
       "en": "Narxoz"
     },
-    "address": "ул. Жандосова, 55"
+    "address": "ул. Жандосова, 55",
+    "id": 24
   },
   {
     "logo": "https://app.joo.kz/media/icons/614a32e9-9ca3-4d77-88a5-bb24859145f3.png",
@@ -572,7 +596,8 @@
       "kk": "Queen's University Belfast",
       "en": "Queen's University Belfast"
     },
-    "address": "ул. Жандосова, 55 г. Алматы, Казахстан, 050035 (Narxoz University)"
+    "address": "ул. Жандосова, 55 г. Алматы, Казахстан, 050035 (Narxoz University)",
+    "id": 25
   },
   {
     "logo": "https://app.joo.kz/media/icons/6a5f309f-ca0b-4047-adad-6bb12ced5904.png",
@@ -595,7 +620,8 @@
       "kk": "KAU",
       "en": "KAU"
     },
-    "address": "Рыскулбекова 28"
+    "address": "Рыскулбекова 28",
+    "id": 26
   },
   {
     "logo": "https://app.joo.kz/media/icons/fc5462b0-647f-4e26-a38a-0d51fc77910c.jpg",
@@ -618,7 +644,8 @@
       "kk": "ҚазБСҚА",
       "en": "KazGASA"
     },
-    "address": "ул. Рыскулбекова, 28"
+    "address": "ул. Рыскулбекова, 28",
+    "id": 27
   },
   {
     "logo": "https://app.joo.kz/media/icons/2cf4b582-c84d-4506-80c6-5edc331f1887.png",
@@ -641,7 +668,8 @@
       "kk": "ҚазХҚӘТУ",
       "en": "KazUIRWL"
     },
-    "address": "ул. Муратбаева 200"
+    "address": "ул. Муратбаева 200",
+    "id": 28
   },
   {
     "logo": "https://app.joo.kz/media/images/12565424-f8fc-45e9-b993-998aadb5a89a.jpeg",
@@ -664,7 +692,8 @@
       "kk": "ҚазҰАЗУ",
       "en": "KazNAU"
     },
-    "address": "пр. Абая, 8"
+    "address": "пр. Абая, 8",
+    "id": 29
   },
   {
     "logo": "https://app.joo.kz/media/icons/b4fa2596-6c53-444b-88e4-e5ad0c9ecfde.jpg",
@@ -687,7 +716,8 @@
       "kk": "ТИИИМСХ филиалы",
       "en": "Branch of TIIAME"
     },
-    "address": "г.Алматы, 050010, проспект Абая, 8"
+    "address": "г.Алматы, 050010, проспект Абая, 8",
+    "id": 30
   },
   {
     "logo": "https://app.joo.kz/media/icons/ec851939-c142-4047-bbce-b17867227866.jpg",
@@ -710,7 +740,8 @@
       "kk": "Қазақ қыздар ПУ",
       "en": "KazNWPU"
     },
-    "address": "ул. Айтеке би 99"
+    "address": "ул. Айтеке би 99",
+    "id": 31
   },
   {
     "logo": "https://app.joo.kz/media/icons/349819df-7d91-4d3c-b173-ca7286d4a63a.png",
@@ -733,7 +764,8 @@
       "kk": "ҚазҰМУ",
       "en": "KazNMU"
     },
-    "address": "Толе-би 94"
+    "address": "Толе-би 94",
+    "id": 32
   },
   {
     "logo": "https://app.joo.kz/media/images/c0ce2d41-27fe-45a7-9af5-ae1dc1b93c29.jpeg",
@@ -756,7 +788,8 @@
       "kk": "ҚазҰУ",
       "en": "KazNU"
     },
-    "address": "пр. Аль-Фараби, 71"
+    "address": "пр. Аль-Фараби, 71",
+    "id": 33
   },
   {
     "logo": "https://app.joo.kz/media/icons/44ca72b5-b406-4a18-8ede-d743404e6152.png",
@@ -779,7 +812,8 @@
       "kk": "ҚазҰТЗУ",
       "en": "Satbayev University"
     },
-    "address": "ул. Сатпаева 22а"
+    "address": "ул. Сатпаева 22а",
+    "id": 34
   },
   {
     "logo": "https://app.joo.kz/media/icons/88ca9a93-8835-41b4-855b-a33d8ec86635.png",
@@ -802,7 +836,8 @@
       "kk": "CityU HK филиалы",
       "en": "CityU HK Branch"
     },
-    "address": "Республика Казахстан, г. Алматы, ул. Сатпаева 22"
+    "address": "Республика Казахстан, г. Алматы, ул. Сатпаева 22",
+    "id": 35
   },
   {
     "logo": "https://app.joo.kz/media/icons/3b2c1368-947c-43c3-ab47-c7808ba3859b.png",
@@ -825,7 +860,8 @@
       "kk": "ҚарМУ",
       "en": "KRMU"
     },
-    "address": "г. Караганда, ул. Гоголя, 40"
+    "address": "г. Караганда, ул. Гоголя, 40",
+    "id": 36
   },
   {
     "logo": "https://app.joo.kz/media/icons/11f9f661-f096-4684-81a8-026cc6d15f46.jpg",
@@ -848,7 +884,8 @@
       "kk": "ҚарУ",
       "en": "KarU"
     },
-    "address": "г. Караганда, ул. Университетская, 28"
+    "address": "г. Караганда, ул. Университетская, 28",
+    "id": 37
   },
   {
     "logo": "https://app.joo.kz/media/icons/78ccacaf-2665-40c5-b6ef-7744a3049780.png",
@@ -871,7 +908,8 @@
       "kk": "ҚарТУ",
       "en": "KTU"
     },
-    "address": "г. Караганда, Бульвар Мира, 56"
+    "address": "г. Караганда, Бульвар Мира, 56",
+    "id": 38
   },
   {
     "logo": "https://app.joo.kz/media/images/4a15a6ed-0504-49d5-a829-4c492dc18fc1.jpeg",
@@ -894,7 +932,8 @@
       "kk": "ҚарИУ",
       "en": "KIU"
     },
-    "address": "г. Темиртау, пр. Республики 30."
+    "address": "г. Темиртау, пр. Республики 30.",
+    "id": 39
   },
   {
     "logo": "https://app.joo.kz/media/images/274b865e-7450-4a33-85ca-36c3a2690e30.jpeg",
@@ -917,7 +956,8 @@
       "kk": "Қорқыт Ата ҚызУ",
       "en": "Korkyt Ata KU"
     },
-    "address": "г. Кызылорда, ул. Айтеке Би, 29А"
+    "address": "г. Кызылорда, ул. Айтеке Би, 29А",
+    "id": 40
   },
   {
     "logo": "https://app.joo.kz/media/icons/92b8d4be-58cb-4d19-9633-546a9b39cb75.jpg",
@@ -940,7 +980,8 @@
       "kk": "Ш. Уәлиханов атындағы КГУ",
       "en": "KSU named after Sh. Ualikhanov"
     },
-    "address": "г. Кокшетау, ул. Абая 76"
+    "address": "г. Кокшетау, ул. Абая 76",
+    "id": 41
   },
   {
     "logo": "https://app.joo.kz/media/images/1b3b0616-4ce8-4d52-86f0-a03b797a3eea.jpeg",
@@ -963,7 +1004,8 @@
       "kk": "А. Байтұрсынов атындағы ҚРУ",
       "en": "KRU named after A. Baitursynov"
     },
-    "address": "г. Костанай, ул. А.Байтурсынова, 47"
+    "address": "г. Костанай, ул. А.Байтурсынова, 47",
+    "id": 42
   },
   {
     "logo": "https://app.joo.kz/media/icons/1fab8ee7-be29-47ea-95e2-bacf8362d1c9.png",
@@ -986,7 +1028,8 @@
       "kk": "МКТУ",
       "en": "MKTU"
     },
-    "address": "г. Туркестан, пр. Б.Саттарханова, 29"
+    "address": "г. Туркестан, пр. Б.Саттарханова, 29",
+    "id": 43
   },
   {
     "logo": "https://app.joo.kz/media/images/9cd51518-edf7-4217-bd7f-0cf8ed928d60.jpeg",
@@ -1009,7 +1052,8 @@
       "kk": "ПГУ",
       "en": "PSU"
     },
-    "address": "г. Павлодар, ул. Ломова,64"
+    "address": "г. Павлодар, ул. Ломова,64",
+    "id": 44
   },
   {
     "logo": "https://app.joo.kz/media/icons/6ce43b98-16d3-4ab7-8889-fdf92846ba6b.png",
@@ -1032,7 +1076,8 @@
       "kk": "РИИ",
       "en": "RII"
     },
-    "address": "г. Рудный, ул. 50 лет Октября. 38,"
+    "address": "г. Рудный, ул. 50 лет Октября. 38,",
+    "id": 45
   },
   {
     "logo": "https://app.joo.kz/media/icons/8132856d-852a-4846-84a7-145c4a8dd5f2.png",
@@ -1055,7 +1100,8 @@
       "kk": "Аризона университеті",
       "en": "University of Arizona"
     },
-    "address": "г. Петропавловск ул. Пушкина, 86"
+    "address": "г. Петропавловск ул. Пушкина, 86",
+    "id": 46
   },
   {
     "logo": "https://app.joo.kz/media/images/3aaa1c32-5d6c-4de5-b388-cfc9b8ad6995.jpeg",
@@ -1078,7 +1124,8 @@
       "kk": "СҚУ",
       "en": "NKU"
     },
-    "address": "г. Петропавловск, ул. Пушкина, 86"
+    "address": "г. Петропавловск, ул. Пушкина, 86",
+    "id": 47
   },
   {
     "logo": "https://app.joo.kz/media/icons/12e52a6c-f606-4ac7-85f1-d0e8ed5702d2.png",
@@ -1101,7 +1148,8 @@
       "kk": "СМУ",
       "en": "SMU"
     },
-    "address": "г. Семей, ул. Абая Кунанбаева 103."
+    "address": "г. Семей, ул. Абая Кунанбаева 103.",
+    "id": 48
   },
   {
     "logo": "https://app.joo.kz/media/icons/5e14a5e4-af6f-4841-a440-1e35098b5fba.png",
@@ -1124,7 +1172,8 @@
       "kk": "СГУ",
       "en": "Shakarim University"
     },
-    "address": "г. Семей, ул. Глинки, 20А"
+    "address": "г. Семей, ул. Глинки, 20А",
+    "id": 49
   },
   {
     "logo": "https://app.joo.kz/media/icons/d8fb610e-4fbe-4c5f-836a-1dc2e69974d7.png",
@@ -1147,7 +1196,8 @@
       "kk": "ТарРУ",
       "en": "TRU"
     },
-    "address": "г. Тараз ул. Сулейманова, 7"
+    "address": "г. Тараз ул. Сулейманова, 7",
+    "id": 50
   },
   {
     "logo": "https://app.joo.kz/media/icons/b807c373-0cab-49d7-9e5c-53eb232edc9f.png",
@@ -1170,7 +1220,8 @@
       "kk": "ОҚМА",
       "en": "SKMA"
     },
-    "address": "пр. Аль-Фараби, 1/1"
+    "address": "пр. Аль-Фараби, 1/1",
+    "id": 51
   },
   {
     "logo": "https://app.joo.kz/media/icons/59d5fc37-6cb5-45de-a581-a32926c06a8c.png",
@@ -1193,7 +1244,8 @@
       "kk": "ОҚУ",
       "en": "SKU"
     },
-    "address": "пр. Тауке хана, 5"
+    "address": "пр. Тауке хана, 5",
+    "id": 52
   },
   {
     "logo": "https://app.joo.kz/media/icons/8024383c-8349-4f7c-85e3-e40ebf784617.jpeg",
@@ -1216,7 +1268,8 @@
       "kk": "ЕАГИ",
       "en": "EAGI"
     },
-    "address": "район Алматы, пр. М. Жумабаева, 4"
+    "address": "район Алматы, пр. М. Жумабаева, 4",
+    "id": 53
   },
   {
     "logo": "https://app.joo.kz/media/images/e1dc2202-71e9-4d2c-acb4-9f76bd2a372d.jpeg",
@@ -1239,7 +1292,8 @@
       "kk": "ҚазАТиСҚА",
       "en": "KazATiSO"
     },
-    "address": "ул. Наурызбай батыра, 9"
+    "address": "ул. Наурызбай батыра, 9",
+    "id": 54
   },
   {
     "logo": "https://app.joo.kz/media/icons/5e3660b0-b224-496c-b197-050de9606e9b.jpeg",
@@ -1262,7 +1316,8 @@
       "kk": "METU",
       "en": "METU"
     },
-    "address": "пр. Аль-Фараби 93 А"
+    "address": "пр. Аль-Фараби 93 А",
+    "id": 55
   },
   {
     "logo": "https://app.joo.kz/media/icons/3784f564-c18d-40f1-898f-3f06586d999b.png",
@@ -1285,7 +1340,8 @@
       "kk": "АТУ",
       "en": "ATU"
     },
-    "address": "ул. Толеби 100, уг. ул. Байтурсынова"
+    "address": "ул. Толеби 100, уг. ул. Байтурсынова",
+    "id": 56
   },
   {
     "logo": "https://app.joo.kz/media/icons/30a0cc7f-d981-43a9-b3e2-689797ab4ba1.jpeg",
@@ -1308,7 +1364,8 @@
       "kk": "АУЭС",
       "en": "AUES"
     },
-    "address": "ул. А. Байтурсынулы, 126/1"
+    "address": "ул. А. Байтурсынулы, 126/1",
+    "id": 57
   },
   {
     "logo": "https://app.joo.kz/media/icons/4f7b7dd8-4808-45a8-bfbb-805b57860336.jpeg",
@@ -1331,7 +1388,8 @@
       "kk": "UIB",
       "en": "UIB"
     },
-    "address": "пр. Абая 8а"
+    "address": "пр. Абая 8а",
+    "id": 58
   },
   {
     "logo": "https://app.joo.kz/media/icons/8a8eb05a-dbc8-40bc-9010-cc9a5b980aed.png",
@@ -1354,7 +1412,8 @@
       "kk": "ҚазАДИ",
       "en": "KazADI"
     },
-    "address": "проспект Райымбека, 415B"
+    "address": "проспект Райымбека, 415B",
+    "id": 59
   },
   {
     "logo": "https://app.joo.kz/media/icons/537c0006-2e04-4aad-8aa5-30345f576a98.jpg",
@@ -1377,7 +1436,8 @@
       "kk": "CASPIAN UNIVERSITY",
       "en": "CASPIAN UNIVERSITY"
     },
-    "address": "Достык 85А"
+    "address": "Достык 85А",
+    "id": 60
   },
   {
     "logo": "https://app.joo.kz/media/icons/19fdfde0-8205-4451-9ac3-21b7aefda1b3.png",
@@ -1400,7 +1460,8 @@
       "kk": "ҚРМУ",
       "en": "KRMU"
     },
-    "address": "ул. Торекулова-71"
+    "address": "ул. Торекулова-71",
+    "id": 61
   },
   {
     "logo": "https://app.joo.kz/media/icons/7e6b5ad0-8d1d-43fb-a084-69f4f99b7c91.png",
@@ -1423,7 +1484,8 @@
       "kk": "ҚНУ",
       "en": "KGU"
     },
-    "address": "ул. Пушкина, 111"
+    "address": "ул. Пушкина, 111",
+    "id": 62
   },
   {
     "logo": "https://app.joo.kz/media/icons/108f9b13-ca69-44fa-b54e-bad946396eff.png",
@@ -1446,7 +1508,8 @@
       "kk": "AlmaU",
       "en": "AlmaU"
     },
-    "address": "Розыбакиева 227"
+    "address": "Розыбакиева 227",
+    "id": 63
   },
   {
     "logo": "https://app.joo.kz/media/icons/2ab26981-6645-4272-a1de-4ef7a968458b.png",
@@ -1469,7 +1532,8 @@
       "kk": "Q University",
       "en": "Q University"
     },
-    "address": "Сатпаева 7а"
+    "address": "Сатпаева 7а",
+    "id": 64
   },
   {
     "logo": "https://app.joo.kz/media/icons/180310cc-7de9-4a52-b17a-321a2b5460c8.png",
@@ -1492,7 +1556,8 @@
       "kk": "Туран",
       "en": "Turan"
     },
-    "address": "ул. Сатпаева 16а"
+    "address": "ул. Сатпаева 16а",
+    "id": 65
   },
   {
     "logo": "https://app.joo.kz/media/icons/da9a1a91-cc55-448c-b43a-c8f3d15de0c8.png",
@@ -1515,7 +1580,8 @@
       "kk": "ҚИУ",
       "en": "KIU"
     },
-    "address": "г. Семей, ул. Байсеитова, 5"
+    "address": "г. Семей, ул. Байсеитова, 5",
+    "id": 66
   },
   {
     "logo": "https://app.joo.kz/media/icons/ab4c2e27-5b9d-46a9-a5bb-133ed819a14b.png",
@@ -1538,7 +1604,8 @@
       "kk": "Bolashaq",
       "en": "Bolashaq"
     },
-    "address": "г. Караганда, ул. Ерубаева, 16."
+    "address": "г. Караганда, ул. Ерубаева, 16.",
+    "id": 67
   },
   {
     "logo": "https://app.joo.kz/media/icons/51cc976f-1c0a-4423-92d6-83f080331b50.png",
@@ -1561,7 +1628,8 @@
       "kk": "ҚЭУҚ",
       "en": "KEUK"
     },
-    "address": "г. Караганда, ул. Академическая, 9"
+    "address": "г. Караганда, ул. Академическая, 9",
+    "id": 68
   },
   {
     "logo": "https://app.joo.kz/media/icons/817cc7f0-75fa-4e7e-8e52-8408e8966eb4.png",
@@ -1584,7 +1652,8 @@
       "kk": "ҚИЭУ",
       "en": "KIEU"
     },
-    "address": "г. Костанай, ул. Чернышевского 59"
+    "address": "г. Костанай, ул. Чернышевского 59",
+    "id": 69
   },
   {
     "logo": "https://app.joo.kz/media/images/cb43660b-3fcb-442e-9a03-dbc02d18f07d.jpeg",
@@ -1607,7 +1676,8 @@
       "kk": "ABU",
       "en": "ABU"
     },
-    "address": "г. Семей, ул. Мангилик ел, 11"
+    "address": "г. Семей, ул. Мангилик ел, 11",
+    "id": 70
   },
   {
     "logo": "https://app.joo.kz/media/icons/5f0889c8-5641-4c4a-846c-cbfa3c897961.png",
@@ -1630,7 +1700,8 @@
       "kk": "Сырдария, Ташенов",
       "en": "Syrdariya, Tashenev"
     },
-    "address": "Конаева 21"
+    "address": "Конаева 21",
+    "id": 71
   },
   {
     "logo": "https://app.joo.kz/media/icons/ecc88236-bb35-4e9a-930c-8eba4ccee4a0.png",
@@ -1653,7 +1724,8 @@
       "kk": "ҚСТУ",
       "en": "KSTU"
     },
-    "address": "г. Костанай, пр. Кобыланды батыра, 27"
+    "address": "г. Костанай, пр. Кобыланды батыра, 27",
+    "id": 72
   },
   {
     "logo": "https://app.joo.kz/media/icons/2bbcc016-6a72-4e00-8202-0a9d4043b68f.png",
@@ -1676,7 +1748,8 @@
       "kk": "ИнЕУ",
       "en": "InEU"
     },
-    "address": "г. Павлодар, ул. Ломова, 45"
+    "address": "г. Павлодар, ул. Ломова, 45",
+    "id": 73
   },
   {
     "logo": "https://app.joo.kz/media/icons/e6d44fc9-0f8e-4b9a-b640-d0e55786c37d.png",
@@ -1699,7 +1772,8 @@
       "kk": "ЭИТИ",
       "en": "EITI"
     },
-    "address": "г. Экибастуз, ул. Энергетиков 54А"
+    "address": "г. Экибастуз, ул. Энергетиков 54А",
+    "id": 74
   },
   {
     "logo": "https://app.joo.kz/media/icons/825a7ffc-e031-44d8-96ea-886975acdbfd.png",
@@ -1722,7 +1796,8 @@
       "kk": "ГТА",
       "en": "HTA"
     },
-    "address": "г. Кокшетау, ул. Джамбула 35"
+    "address": "г. Кокшетау, ул. Джамбула 35",
+    "id": 75
   },
   {
     "logo": "https://app.joo.kz/media/images/3d9b2b3c-b632-4205-a954-1fb487038d92.jpeg",
@@ -1745,7 +1820,8 @@
       "kk": "КАСУ",
       "en": "KAFU"
     },
-    "address": "г. Усть-Каменогорск, ул.М.Горького, 76"
+    "address": "г. Усть-Каменогорск, ул.М.Горького, 76",
+    "id": 76
   },
   {
     "logo": "https://app.joo.kz/media/images/52130dd3-d05e-4bde-893c-aaa57d938712.jpeg",
@@ -1768,7 +1844,8 @@
       "kk": "ААЭС",
       "en": "AHEU"
     },
-    "address": "ул. Жандосова, 59"
+    "address": "ул. Жандосова, 59",
+    "id": 77
   },
   {
     "logo": "https://app.joo.kz/media/icons/b21898dd-a2fa-4fd2-a177-b25f8c9e917f.jpg",
@@ -1791,7 +1868,8 @@
       "kk": "ААА",
       "en": "CAA"
     },
-    "address": "ул. Ахметова, 44"
+    "address": "ул. Ахметова, 44",
+    "id": 78
   },
   {
     "logo": "https://app.joo.kz/media/icons/0a75c0b0-be59-404b-b5ad-fcf4221935d5.png",
@@ -1814,7 +1892,8 @@
       "kk": "А. Мырзахметов атындағы КУ",
       "en": "KMU"
     },
-    "address": "г. Кокшетау, ул. М. Ауэзова, 189а"
+    "address": "г. Кокшетау, ул. М. Ауэзова, 189а",
+    "id": 79
   },
   {
     "logo": "https://app.joo.kz/media/images/01ee46f6-c6de-40ef-aaf4-6aeb9990078b.jpeg",
@@ -1837,7 +1916,8 @@
       "kk": "ЕТУ",
       "en": "ETU"
     },
-    "address": "ул. Толе би 109Б"
+    "address": "ул. Толе би 109Б",
+    "id": 80
   },
   {
     "logo": "https://app.joo.kz/media/icons/efcbe5f8-a749-467c-bd1d-f474998bd957.png",
@@ -1860,7 +1940,8 @@
       "kk": "КУПС",
       "en": "KUPS"
     },
-    "address": "мкрн. Жетису-1, 32-А"
+    "address": "мкрн. Жетису-1, 32-А",
+    "id": 81
   },
   {
     "logo": "https://app.joo.kz/media/icons/f99fe207-378f-4849-a876-8b47ea00e064.png",
@@ -1883,7 +1964,8 @@
       "kk": "Esil",
       "en": "Esil"
     },
-    "address": "г. Нур-Султан, ул. А. Жубанова, 7"
+    "address": "г. Нур-Султан, ул. А. Жубанова, 7",
+    "id": 82
   },
   {
     "logo": "https://app.joo.kz/media/images/ce80cb0c-7b46-493f-a843-17b4969225f3.jpeg",
@@ -1906,7 +1988,8 @@
       "kk": "MNU",
       "en": "MNU"
     },
-    "address": "Коргалжинское шоссе, 8"
+    "address": "Коргалжинское шоссе, 8",
+    "id": 83
   },
   {
     "logo": "https://app.joo.kz/media/icons/2eb46220-2a96-45f5-83eb-eb3b1e3ea366.png",
@@ -1929,7 +2012,8 @@
       "kk": "ҚазУТБ",
       "en": "KazUTB"
     },
-    "address": "ул. Кайым Мухамедханова, здание 37 А."
+    "address": "ул. Кайым Мухамедханова, здание 37 А.",
+    "id": 84
   },
   {
     "logo": "https://app.joo.kz/media/icons/2a223a21-b979-4aff-9032-a96aabbb8100.jpeg",
@@ -1952,7 +2036,8 @@
       "kk": "BLCU",
       "en": "BLCU"
     },
-    "address": "Казахстан, г. Астана, проспект Кабанбай батыра, 8"
+    "address": "Казахстан, г. Астана, проспект Кабанбай батыра, 8",
+    "id": 85
   },
   {
     "logo": "https://app.joo.kz/media/icons/37326d37-8bcc-4e95-85db-d799a8fc8b96.png",
@@ -1975,7 +2060,8 @@
       "kk": "AIU",
       "en": "AIU"
     },
-    "address": "проспект Кабанбай батыр 8"
+    "address": "проспект Кабанбай батыр 8",
+    "id": 86
   },
   {
     "logo": "https://app.joo.kz/media/images/d1233983-366c-408c-9eac-7148de41cdcc.jpeg",
@@ -1998,7 +2084,8 @@
       "kk": "МУИТ",
       "en": "IITU"
     },
-    "address": "ул. Манаса 34/1"
+    "address": "ул. Манаса 34/1",
+    "id": 87
   },
   {
     "logo": "https://app.joo.kz/media/icons/12e72960-aa21-41a6-bd0c-bfcbcdfff3b4.png",
@@ -2021,7 +2108,8 @@
       "kk": "ОҚМПУ",
       "en": "SKSPU"
     },
-    "address": "ул. А. Байтурсынова 13"
+    "address": "ул. А. Байтурсынова 13",
+    "id": 88
   },
   {
     "logo": "https://app.joo.kz/media/images/b5b4ab98-3c54-47e3-8bc2-da28f397de70.jpeg",
@@ -2044,7 +2132,8 @@
       "kk": "БҚИТУ",
       "en": "WKITU"
     },
-    "address": "г. Уральск, пр.Достык, 194"
+    "address": "г. Уральск, пр.Достык, 194",
+    "id": 89
   },
   {
     "logo": "https://app.joo.kz/media/images/c40a06d7-a1c2-4098-b412-c68e38ec730b.jpeg",
@@ -2067,7 +2156,8 @@
       "kk": "ҚазИИТУ",
       "en": "KazIITU"
     },
-    "address": "г. Уральск, ул.М.Маметовой, 81"
+    "address": "г. Уральск, ул.М.Маметовой, 81",
+    "id": 90
   },
   {
     "logo": "https://app.joo.kz/media/icons/fb420e75-a3e5-4a07-b958-e215d9926848.png",
@@ -2090,7 +2180,8 @@
       "kk": "Қонаев университеті",
       "en": "Kunaev University"
     },
-    "address": "ул. Курмангазы, 107"
+    "address": "ул. Курмангазы, 107",
+    "id": 91
   },
   {
     "logo": "https://app.joo.kz/media/icons/754bb5fd-3cfe-44fe-a248-20b79d797d8e.png",
@@ -2113,7 +2204,8 @@
       "kk": "КИПУДН",
       "en": "KIPUDN"
     },
-    "address": "ул. Толе би, 32"
+    "address": "ул. Толе би, 32",
+    "id": 92
   },
   {
     "logo": "https://app.joo.kz/media/icons/6af1ecd4-bb7d-4986-a0c4-ea0f64f3a8b8.png",
@@ -2136,7 +2228,8 @@
       "kk": "ТИГУ",
       "en": "TIGU"
     },
-    "address": "г. Тараз, ул. Желтоксан, д. №69Б"
+    "address": "г. Тараз, ул. Желтоксан, д. №69Б",
+    "id": 93
   },
   {
     "logo": "https://app.joo.kz/media/images/b46a21c3-e719-4749-adb0-0d8ce4eb604f.jpeg",
@@ -2159,7 +2252,8 @@
       "kk": "SDU",
       "en": "SDU"
     },
-    "address": "г. Каскелен, ул. Абылай хана, 1/1"
+    "address": "г. Каскелен, ул. Абылай хана, 1/1",
+    "id": 94
   },
   {
     "logo": "https://app.joo.kz/media/icons/eab53893-7e6f-4d32-85aa-471e995567b5.png",
@@ -2182,7 +2276,8 @@
       "kk": "АИГИ",
       "en": "AEGI"
     },
-    "address": "г. Атырау, ул. Худина, 5а"
+    "address": "г. Атырау, ул. Худина, 5а",
+    "id": 95
   },
   {
     "logo": "https://app.joo.kz/media/icons/96c7e1cb-3fe3-4b2b-bd16-434b489def6a.jpg",
@@ -2205,7 +2300,8 @@
       "kk": "ШУ",
       "en": "ShU"
     },
-    "address": "Каратауский район, улица Жібек жолы, 131"
+    "address": "Каратауский район, улица Жібек жолы, 131",
+    "id": 96
   },
   {
     "logo": "https://app.joo.kz/media/icons/7a9f2808-9092-46b7-b481-07d7f9601cf4.png",
@@ -2228,7 +2324,8 @@
       "kk": "С. Бәйішев атындағы АУ",
       "en": "AU named after S. Baishev"
     },
-    "address": "г. Актобе, ул. Бр. Жубановых, 302а"
+    "address": "г. Актобе, ул. Бр. Жубановых, 302а",
+    "id": 97
   },
   {
     "logo": "https://app.joo.kz/media/icons/17f97268-fd80-4c84-a71d-4a1a938ba6a1.png",
@@ -2251,7 +2348,8 @@
       "kk": "ҚБТУ",
       "en": "KBTU"
     },
-    "address": "ул. Толе би 59"
+    "address": "ул. Толе би 59",
+    "id": 98
   },
   {
     "logo": "https://app.joo.kz/media/icons/0a687c20-72b2-4cf5-8bfb-3ef4b9c4182d.jpg",
@@ -2274,7 +2372,8 @@
       "kk": "БҚАТУ",
       "en": "WKATU"
     },
-    "address": "г. Уральск, ул. Жангир хана 51"
+    "address": "г. Уральск, ул. Жангир хана 51",
+    "id": 99
   },
   {
     "logo": "https://app.joo.kz/media/icons/2fea6f18-96f4-4cd8-b660-5c3c3a03a42d.png",
@@ -2297,7 +2396,8 @@
       "kk": "Нұр-Мүбарак",
       "en": "Nur-Mubarak"
     },
-    "address": "пр. Аль-фараби 73"
+    "address": "пр. Аль-фараби 73",
+    "id": 100
   },
   {
     "logo": "https://app.joo.kz/media/icons/bfd6ea02-56f8-4ed9-892c-060e833f8309.jpeg",
@@ -2320,7 +2420,8 @@
       "kk": "Margulan University",
       "en": "Margulan University"
     },
-    "address": "г. Павлодар, улица Мира, д. 60"
+    "address": "г. Павлодар, улица Мира, д. 60",
+    "id": 101
   },
   {
     "logo": "https://app.joo.kz/media/icons/77f979e0-33fa-4c72-86e6-b6f8e51554b9.png",
@@ -2343,7 +2444,8 @@
       "kk": "Astana IT",
       "en": "Astana IT"
     },
-    "address": "ул. Мәңгілік ел, C1"
+    "address": "ул. Мәңгілік ел, C1",
+    "id": 102
   },
   {
     "logo": "https://app.joo.kz/media/icons/eff05726-6420-4d10-b94c-4c0b5e6f75b4.png",
@@ -2366,7 +2468,8 @@
       "kk": "МУТиГ",
       "en": "IUTH"
     },
-    "address": "г. Туркестан, улица Рабиги Султан Бегим 14 “Б”"
+    "address": "г. Туркестан, улица Рабиги Султан Бегим 14 “Б”",
+    "id": 103
   },
   {
     "logo": "https://app.joo.kz/media/icons/a12c7bb5-d0cc-437e-9bf0-e987512726ca.jpg",
@@ -2389,7 +2492,8 @@
       "kk": "OAIU",
       "en": "OAIU"
     },
-    "address": "улица Байтурсынова, 80  ул. Мадели Кожа, 137"
+    "address": "улица Байтурсынова, 80  ул. Мадели Кожа, 137",
+    "id": 104
   },
   {
     "logo": "https://app.joo.kz/media/icons/2acaa70e-8ea9-4529-99d2-b0581d6a65aa.jpg",
@@ -2412,7 +2516,8 @@
       "kk": "APEMS",
       "en": "APEMS"
     },
-    "address": "г. Астана, Бизнес-центр Экспо, пр. Мангилик Ел, B 2.2"
+    "address": "г. Астана, Бизнес-центр Экспо, пр. Мангилик Ел, B 2.2",
+    "id": 105
   },
   {
     "logo": "https://app.joo.kz/media/icons/b9115653-4882-497d-8806-6602ed8c920a.png",
@@ -2435,7 +2540,8 @@
       "kk": "Bolashak",
       "en": "Bolashak"
     },
-    "address": "г. Кызылорда, Ғ.Муратбаев көшесі 72"
+    "address": "г. Кызылорда, Ғ.Муратбаев көшесі 72",
+    "id": 106
   },
   {
     "logo": "https://app.joo.kz/media/images/4bea0791-df88-4e00-8ee0-0e1b6db140a7.jpeg",
@@ -2458,7 +2564,8 @@
       "kk": "Гидро университеті",
       "en": "Hydro University"
     },
-    "address": "ул.  К. Сатпаева, 28, Тараз, 080000, Казахстан"
+    "address": "ул.  К. Сатпаева, 28, Тараз, 080000, Казахстан",
+    "id": 107
   },
   {
     "logo": "https://optim.tildacdn.com/tild3135-6163-4238-a562-626261626434/-/resize/182x/-/format/webp/image.png.webp",
@@ -2481,7 +2588,8 @@
       "kk": "РХТУ им. Д.И. Менделеева",
       "en": "RUCT named after D. I. Mendeleev"
     },
-    "address": "050040, Реcпублика Казахстан, г. Тараз, проспект Толе Би 62В"
+    "address": "050040, Реcпублика Казахстан, г. Тараз, проспект Толе Би 62В",
+    "id": 108
   },
   {
     "logo": "https://app.joo.kz/media/images/487bffda-b3b4-4608-893c-6932d9e66d0d.jpeg",
@@ -2504,7 +2612,8 @@
       "kk": "NU",
       "en": "NU"
     },
-    "address": "г. Астана, пр.Кабанбай батыра, 53"
+    "address": "г. Астана, пр.Кабанбай батыра, 53",
+    "id": 109
   },
   {
     "logo": "https://app.joo.kz/media/icons/eb1c2165-8ba9-4bec-816a-0815e6bc7298.png",
@@ -2527,7 +2636,8 @@
       "kk": "KIMEP",
       "en": "KIMEP"
     },
-    "address": "пр. Абая 2"
+    "address": "пр. Абая 2",
+    "id": 110
   },
   {
     "logo": "https://voshod.mai.ru/bitrix/templates/mai_branch/img/logo/logo-2x.png",
@@ -2550,7 +2660,8 @@
       "kk": "Восход МАИ",
       "en": "Voskhod MAI"
     },
-    "address": "468320, г. Байконур, ул. Гагарина, д. 5"
+    "address": "468320, г. Байконур, ул. Гагарина, д. 5",
+    "id": 111
   },
   {
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Cardiff_University_%28logo%29.svg/2131px-Cardiff_University_%28logo%29.svg.png",
@@ -2573,7 +2684,8 @@
       "kk": "Cardiff University Kazakhstan",
       "en": "Cardiff University Kazakhstan"
     },
-    "address": "Астана"
+    "address": "Астана",
+    "id": 112
   },
   {
     "logo": "https://app.joo.kz/media/icons/1c3c0c20-b132-4c61-ac43-bdebac910eda.png",
@@ -2596,7 +2708,8 @@
       "kk": "Coventry University",
       "en": "Coventry University"
     },
-    "address": "Казахстан, Астана, шоссе Коргалжын, 13А."
+    "address": "Казахстан, Астана, шоссе Коргалжын, 13А.",
+    "id": 113
   },
   {
     "logo": "https://app.joo.kz/media/icons/bae306f0-ee00-49d9-ad11-bb61513f692e.jpg",
@@ -2619,7 +2732,8 @@
       "kk": "Губкин университеті",
       "en": "Gubkin University"
     },
-    "address": "060027, г. Атырау, ул. Мусы Баймуханова 45А"
+    "address": "060027, г. Атырау, ул. Мусы Баймуханова 45А",
+    "id": 114
   },
   {
     "logo": "https://app.joo.kz/media/icons/6152e245-2868-4b1c-b1f2-64dbd4d66fa5.png",
@@ -2642,7 +2756,8 @@
       "kk": "МИФИ",
       "en": "MEPhI"
     },
-    "address": "050040, Республика Казахстан, г. Алматы, проспект аль-Фараби, 71 корпус 12."
+    "address": "050040, Республика Казахстан, г. Алматы, проспект аль-Фараби, 71 корпус 12.",
+    "id": 115
   },
   {
     "logo": "https://app.joo.kz/media/icons/0a60b360-f977-406c-8743-05150d1231ee.jpg",
@@ -2665,7 +2780,8 @@
       "kk": "Woosong University",
       "en": "Woosong University"
     },
-    "address": "39 Building, 160 Block, Zhana Kala Turkistan City, Kazakhstan"
+    "address": "39 Building, 160 Block, Zhana Kala Turkistan City, Kazakhstan",
+    "id": 116
   },
   {
     "logo": "https://app.joo.kz/media/icons/09153070-1ab0-4d36-a19d-7b0e3de8cd75.jpeg",
@@ -2688,7 +2804,8 @@
       "kk": "DMU Kazakhstan",
       "en": "DMU Kazakhstan"
     },
-    "address": "Almaty City, Medeu District, 120/48, premises 4, Al-Farabi Ave., 050044, Almaty, Republic of Kazakhstan"
+    "address": "Almaty City, Medeu District, 120/48, premises 4, Al-Farabi Ave., 050044, Almaty, Republic of Kazakhstan",
+    "id": 117
   },
   {
     "logo": "https://app.joo.kz/media/icons/d0fd0c82-6ecd-4989-aa19-2658cf2df4c1.jpeg",
@@ -2711,6 +2828,7 @@
       "kk": "Қазақстандық ММУ филиалы",
       "en": "Kazakhstan Branch of MSU"
     },
-    "address": "Республика Казахстан 010010 г. Астана ул. Кажымукана, 11"
+    "address": "Республика Казахстан 010010 г. Астана ул. Кажымукана, 11",
+    "id": 118
   }
 ]

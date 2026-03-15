@@ -3,7 +3,7 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
-import { ALL_TESTS } from "@/app/test/constants";
+import { ALL_TESTS } from "@/lib/constants";
 import { TestCard } from "@/app/test/components/TestCard";
 
 const TestsPage = () => {

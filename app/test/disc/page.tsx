@@ -13,12 +13,12 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useDiscStore } from "../../../lib/store/discStore";
+import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
 import DISC_DATA from "./disk_questions.json";
-import { useTestsStore } from "../../../lib/store/testsStore";
-import { useLocale } from "next-intl";
-import { LikertWordQuestionCard } from "@/app/test/components/QuestionCard";
+import { useLocale, useTranslations } from "next-intl";
+import { LikertWordQuestionCard } from "@/app/test/components/RadioQuestionCard";
 import { OptionsHeader } from "@/app/test/components/OptionsHeader";
+import { OptionQuestionCard } from "@/app/test/components/OptionQuestionCard";
 import { Header } from "@/app/components/layout/Header";
 import { api } from "@/lib/api/api";
 import type {
@@ -41,24 +41,16 @@ const PAIR_STEPS = [
   PAIRS.slice(16, 24),
 ];
 
-const cardStyle = {
-  p: 2,
-  borderRadius: 2,
-  border: "1px solid",
-  borderColor: "divider",
-};
-
 const DiscPage = () => {
+  const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
-  const { setResult } = useDiscStore();
-  const { setCompleted } = useTestsStore();
+  const { setSession, setResult } = useQuizSessionStore();
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [pairValues, setPairValues] = useState<Record<string, number>>({});
   const [singleValues, setSingleValues] = useState<Record<string, number>>({});
-  const [scenarioValues, setScenarioValues] = useState<Record<string, string>>({});
-  const [surveyValues, setSurveyValues] = useState<Record<string, string>>({});
+  const [scenarioValues, setScenarioValues] = useState<Record<string, number>>({});
 
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
@@ -68,10 +60,9 @@ const DiscPage = () => {
 
     const initSession = async () => {
       try {
-        const { data: tests } = await api.get<QuizTest[]>(
-          "/api/v1/quizzes/tests/",
-          { params: { type: "disc" } }
-        );
+        const { data: tests } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", {
+          params: { type: "disc" },
+        });
 
         const slug = tests[0]?.slug;
         if (!slug) return;
@@ -91,6 +82,7 @@ const DiscPage = () => {
 
         if (!cancelled && allBackendIds.length === expectedCount) {
           setSessionId(session.id);
+          setSession("disc", session.id);
           setBackendQuestionIds(allBackendIds);
         }
       } catch {
@@ -106,9 +98,6 @@ const DiscPage = () => {
   }, []);
 
   const handlePairChange = (questionId: string, value: number) => {
-    const question = PAIRS.find((q: { id: string }) => q.id === questionId) as any;
-    if (!question) return;
-
     setPairValues((prev) => ({ ...prev, [questionId]: value }));
   };
 
@@ -137,7 +126,7 @@ const DiscPage = () => {
       (id: string) => singleValues[id] != null
     );
     const allAnsweredScenarios = SCENARIO_ITEMS.every(
-      (q: { id: string }) => scenarioValues[q.id]
+      (q: { id: string }) => scenarioValues[q.id] != null
     );
     if (!allAnsweredPairs || !allAnsweredSingles || !allAnsweredScenarios)
       return;
@@ -177,14 +166,10 @@ const DiscPage = () => {
                 scale_value = singleValues[item.id];
               } else {
                 const raw = scenarioValues[item.id];
-                const scenario = SCENARIO_ITEMS.find(
-                  (q: any) => q.id === item.id
-                );
-                const firstId = scenario?.options?.[0]?.id;
-                if (!raw || !scenario) {
+                if (raw == null) {
                   scale_value = undefined;
                 } else {
-                  scale_value = raw === firstId ? 1 : 5;
+                  scale_value = raw === 1 ? 1 : 5;
                 }
               }
 
@@ -210,19 +195,9 @@ const DiscPage = () => {
           });
 
           backendResult = data;
+          setResult("disc", backendResult);
         }
       } finally {
-        setResult({
-          finishedAt: Date.now(),
-          payload: {
-            pairValues,
-            singleValues,
-            scenarioValues,
-            sessionId,
-            backendResult,
-          },
-        });
-        setCompleted("disc");
         router.push(`/test`);
         setSubmitting(false);
       }
@@ -234,52 +209,49 @@ const DiscPage = () => {
   return (
     <>
       <Header />
-      <Box component="main" sx={{ pt: { xs: 15, md: 12 }, minHeight: "80vh" }}>
-        <Container maxWidth="lg">
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="caption" color="text.secondary">
-              Шаг {step + 1} из 5
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <Box sx={styles.header}>
+            <Typography component="h2" variant="h2" sx={styles.title}>
+              {t("disc_title")}
             </Typography>
-            <Box sx={{ mt: 1, display: "flex", gap: 0.75 }}>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Box
-                  key={i}
-                  sx={{
-                    flex: 1,
-                    height: 6,
-                    borderRadius: 999,
-                    bgcolor: i <= step ? "primary.main" : "grey.300",
-                    opacity: i <= step ? 1 : 0.6,
-                  }}
-                />
-              ))}
+            <Typography variant="body1" color="text.secondary">
+              {t("disc_subtitle")}
+            </Typography>
+            <Box sx={styles.stepsMeta}>
+              <Typography variant="caption" color="text.secondary">
+                {t("step_x_of_y", { step: step + 1, total: 5 } as any)}
+              </Typography>
+              <Box sx={styles.stepsBar}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Box
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={i}
+                    sx={{
+                      ...styles.stepSegment,
+                      bgcolor: i <= step ? "primary.main" : "grey.300",
+                      opacity: i <= step ? 1 : 0.6,
+                    }}
+                  />
+                ))}
+              </Box>
             </Box>
           </Box>
-          
 
           {step <= 2 && (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box sx={styles.section}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                В каждой паре отметьте, какое слово лучше описывает вас.
+                {t("disc_pairs_title")}
               </Typography>
               
               {PAIR_STEPS[step].map((q: any) => (
-                <Box
-                  key={q.id}
-                  sx={{
-                    display: "grid",
-                    gridTemplateColumns: { xs: "1fr", md: "1fr auto 1fr" },
-                    alignItems: "center",
-                    gap: { xs: 1.5, md: 2 },
-                    p: 2,
-                  }}
-                >
-                  <Typography sx={{ fontWeight: 500, textAlign: { xs: "center", md: "right" } }}>
+                <Box key={q.id} sx={styles.pairRow}>
+                  <Typography sx={styles.pairLabelLeft}>
                     {(q.left?.text as any)[locale] ?? ""}
                   </Typography>
                   <RadioGroup
                     row
-                    sx={{ justifyContent: "center", gap: { xs: 0.5, md: 1 } }}
+                    sx={styles.pairRadioGroup}
                     value={pairValues[q.id]?.toString() ?? ""}
                     onChange={(e) => handlePairChange(q.id, Number(e.target.value))}
                   >
@@ -289,11 +261,11 @@ const DiscPage = () => {
                         value={v.toString()}
                         control={<Radio size="small" />}
                         label=""
-                        sx={{ m: 0 }}
+                        sx={styles.pairRadioLabel}
                       />
                     ))}
                   </RadioGroup>
-                  <Typography sx={{ fontWeight: 500, textAlign: { xs: "center", md: "left" } }}>
+                  <Typography sx={styles.pairLabelRight}>
                     {(q.right?.text as any)[locale]}
                   </Typography>
                 </Box>
@@ -302,11 +274,19 @@ const DiscPage = () => {
           )}
 
           {step === 3 && (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box sx={styles.section}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                Оцените, насколько каждое слово похоже на вас.
+                {t("disc_single_title")}
               </Typography>
-              <OptionsHeader options={["Совсем не про меня", "Скорее не про меня", "Нейтрально", "Скорее про меня", "Полностью про меня"]} />
+              <OptionsHeader
+                options={[
+                  t("disc_single_scale_1", { defaultValue: "Not like me at all" } as any),
+                  t("disc_single_scale_2", { defaultValue: "Rather not like me" } as any),
+                  t("disc_single_scale_3", { defaultValue: "Neutral" } as any),
+                  t("disc_single_scale_4", { defaultValue: "Rather like me" } as any),
+                  t("disc_single_scale_5", { defaultValue: "Very much like me" } as any),
+                ]}
+              />
               {SINGLE_WORD_ITEMS.map((wordId: string) => (
                 <LikertWordQuestionCard
                   key={wordId}
@@ -328,50 +308,55 @@ const DiscPage = () => {
 
           {step === 4 && (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {SCENARIO_ITEMS.map((q: any) => (
-                <Box key={q.id} sx={cardStyle}>
-                  <Typography sx={{ mb: 1, fontWeight: 500 }}>
-                    {q.question?.ru ?? ""}
-                  </Typography>
-                  <RadioGroup
-                    value={scenarioValues[q.id] ?? ""}
-                    onChange={(e) =>
-                      setScenarioValues((prev) => ({ ...prev, [q.id]: e.target.value }))
+              {SCENARIO_ITEMS.map((q: any, index: number) => {
+                const questionText =
+                  q.question?.[locale as keyof typeof q.question] ??
+                  q.question?.ru ??
+                  q.question?.en ??
+                  "";
+                const optionLabels =
+                  q.options?.map(
+                    (opt: any) =>
+                      opt.label?.[locale as keyof typeof opt.label] ??
+                      opt.label?.ru ??
+                      opt.label?.en ??
+                      ""
+                  ) ?? [];
+
+                return (
+                  <OptionQuestionCard
+                    key={q.id}
+                    questionNumber={index + 1}
+                    questionText={questionText}
+                    options={optionLabels}
+                    value={scenarioValues[q.id] ?? null}
+                    onChange={(val) =>
+                      setScenarioValues((prev) => ({ ...prev, [q.id]: val }))
                     }
-                  >
-                    {q.options?.map((opt: any) => (
-                      <FormControlLabel
-                        key={opt.id}
-                        value={opt.id}
-                        control={<Radio size="small" />}
-                        label={opt.label?.ru ?? ""}
-                      />
-                    ))}
-                  </RadioGroup>
-                </Box>
-              ))}
+                  />
+                );
+              })}
             </Box>
           )}
 
-
-          <Box sx={{ mt: 3, display: "flex", justifyContent: "space-between", gap: 2 }}>
+          <Box sx={styles.navigation}>
             <Button
               variant="outlined"
               startIcon={<ArrowBackOutlinedIcon />}
               onClick={() => setStep((prev) => prev - 1)}
               disabled={step === 0}
-              sx={{ borderRadius: 2, px: 3 }}
+              sx={styles.navButton}
             >
-              Назад
+              {t("holland_back")}
             </Button>
             <Button
               variant="contained"
               endIcon={step === 5 ? null : <ArrowForwardOutlinedIcon />}
               onClick={handleNext}
               disabled={!canGoNext() || submitting}
-              sx={{ borderRadius: 2, px: 3 }}
+              sx={styles.navButton}
             >
-              {step === 5 ? "Завершить" : "Далее"}
+              {step === 5 ? t("holland_finish") : t("holland_next")}
             </Button>
           </Box>
         </Container>
@@ -381,4 +366,70 @@ const DiscPage = () => {
 };
 
 export default DiscPage;
+
+const styles = {
+  root: {
+    pt: { xs: 15, md: 12 },
+    minHeight: "80vh",
+  },
+  header: {
+    mb: 3,
+    textAlign: "center" as const,
+  },
+  title: {
+    mb: 1,
+    fontSize: "1.25rem",
+    fontWeight: 700,
+  },
+  stepsMeta: {
+    mt: 2,
+  },
+  stepsBar: {
+    mt: 1,
+    display: "flex",
+    gap: 0.75,
+  },
+  stepSegment: {
+    flex: 1,
+    height: 6,
+    borderRadius: 999,
+  },
+  section: {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: 2,
+  },
+  pairRow: {
+    display: "grid",
+    gridTemplateColumns: { xs: "1fr", md: "1fr auto 1fr" },
+    alignItems: "center",
+    gap: { xs: 1.5, md: 2 },
+    p: 2,
+  },
+  pairLabelLeft: {
+    fontWeight: 500,
+    textAlign: { xs: "center", md: "right" } as const,
+  },
+  pairLabelRight: {
+    fontWeight: 500,
+    textAlign: { xs: "center", md: "left" } as const,
+  },
+  pairRadioGroup: {
+    justifyContent: "center",
+    gap: { xs: 0.5, md: 1 },
+  },
+  pairRadioLabel: {
+    m: 0,
+  },
+  navigation: {
+    mt: 3,
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 2,
+  },
+  navButton: {
+    borderRadius: 2,
+    px: 3,
+  },
+};
 

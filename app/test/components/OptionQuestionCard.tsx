@@ -2,7 +2,6 @@
 
 import {
   Box,
-  Button,
   Card,
   CardContent,
   FormControl,
@@ -12,40 +11,27 @@ import {
   Typography,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import { useLocale, useTranslations } from "next-intl";
-export interface QuestionCardProps {
-  question: {
-    id: string;
-    text: { ru: string; kk: string; en: string } | string;
-    category?: "R" | "I" | "A" | "S" | "E" | "C";
-    weight?: number;
-  };
+
+export interface OptionQuestionCardProps {
+  /** 1-based question index to show before the text */
+  questionNumber?: number;
+  /** Полный текст вопроса (уже локализованный) */
+  questionText: string;
+  /** Варианты ответа, упорядоченный список сверху вниз */
+  options: string[];
+  /** Текущее значение шкалы: 1..options.length, либо null, если ничего не выбрано */
   value: number | null;
+  /** Вызывается при выборе варианта (1..options.length) */
   onChange: (value: number) => void;
-  questionNumber: number;
-  totalQuestions: number;
 }
 
-const LIKERT_VALUES = [1, 2, 3, 4, 5] as const;
-
-const HOLLAND_LIKERT_KEYS: Record<(typeof LIKERT_VALUES)[number], string> = {
-  1: "holland_likert_1",
-  2: "holland_likert_2",
-  3: "holland_likert_3",
-  4: "holland_likert_4",
-  5: "holland_likert_5",
-};
-
-export const QuestionCard = ({
-  question,
+export const OptionQuestionCard = ({
+  questionNumber,
+  questionText,
+  options,
   value,
   onChange,
-  questionNumber,
-  totalQuestions,
-}: QuestionCardProps) => {
-  const t = useTranslations();
-  const locale = useLocale();
-
+}: OptionQuestionCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
@@ -56,7 +42,7 @@ export const QuestionCard = ({
       <Card sx={styles.card}>
         <CardContent sx={styles.content}>
           <Typography variant="h3" sx={styles.questionText}>
-            {questionNumber}. {(question.text as any)[locale]}
+            {questionNumber != null ? `${questionNumber}. ${questionText}` : questionText}
           </Typography>
           <FormControl component="fieldset" sx={styles.radioGroup}>
             <RadioGroup
@@ -64,7 +50,9 @@ export const QuestionCard = ({
               onChange={(e) => onChange(Number(e.target.value))}
               sx={styles.radioGroupInner}
             >
-              {LIKERT_VALUES.map((optionValue) => (
+              {options.map((label, index) => {
+                const optionValue = index + 1;
+                return (
                 <FormControlLabel
                   key={optionValue}
                   value={optionValue.toString()}
@@ -72,7 +60,7 @@ export const QuestionCard = ({
                   label={
                     <Box sx={styles.labelBox}>
                       <Typography variant="body2" fontWeight={value === optionValue ? 600 : 400}>
-                        {t(HOLLAND_LIKERT_KEYS[optionValue])}
+                        {label}
                       </Typography>
                     </Box>
                   }
@@ -81,7 +69,7 @@ export const QuestionCard = ({
                     value === optionValue && styles.radioLabelSelected,
                   ]}
                 />
-              ))}
+              );})}
             </RadioGroup>
           </FormControl>
         </CardContent>
@@ -133,7 +121,7 @@ const styles = {
     },
   },
   radioLabelSelected: {
-    bgcolor: "primary.light",
+    bgcolor: "#d6e3fb",
     borderColor: "primary.main",
     "& .MuiFormControlLabel-label": {
       color: "text.primary.dark",

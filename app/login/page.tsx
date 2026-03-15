@@ -11,10 +11,12 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
+
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { Header } from "../components/layout/Header";
+import { PasswordField } from "../components/layout/PasswordField";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
@@ -63,7 +65,7 @@ const LoginPage = () => {
             <Box component="form" noValidate onSubmit={handleSubmit}>
               <Stack spacing={4}>
                 <TextField
-                  label="E‑mail"
+                  label={t("login_email_label")}
                   type="email"
                   name="email"
                   autoComplete="email"
@@ -72,9 +74,8 @@ const LoginPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <TextField
-                  label="Пароль"
-                  type="password"
+                <PasswordField
+                  label={t("login_password_label")}
                   name="password"
                   autoComplete="current-password"
                   required
@@ -95,7 +96,7 @@ const LoginPage = () => {
 
               <Box sx={styles.actionsRow}>
                 <Typography variant="body2" color="text.secondary">
-                  Нет аккаунта?
+                  {t("login_no_account")}
                 </Typography>
                 <Button
                   component={Link}
@@ -103,7 +104,7 @@ const LoginPage = () => {
                   size="small"
                   variant="text"
                 >
-                  Зарегистрироваться
+                  {t("login_register")}
                 </Button>
               </Box>
             </Box>

@@ -112,20 +112,20 @@ export const useQuizTestTypes = (): UseQueryResult<
 // Quizzes: quick/<test_type> (JSON-based tests)
 // --------------------------------------------------
 
-export const useQuickQuiz = (
-  testType: QuizTestType | null
-): UseQueryResult<QuickQuizPayload, unknown> => {
-  return useQuery({
-    queryKey: ["quizzes", "quick", "test", testType],
-    queryFn: async () => {
-      const { data } = await api.get<QuickQuizPayload>(
-        `/api/v1/quizzes/quick/${testType}/`
-      );
-      return data;
-    },
-    enabled: !!testType,
-  });
-};
+// export const useQuickQuiz = (
+//   testType: QuizTestType | null
+// ): UseQueryResult<QuickQuizPayload, unknown> => {
+//   return useQuery({
+//     queryKey: ["quizzes", "quick", "test", testType],
+//     queryFn: async () => {
+//       const { data } = await api.get<QuickQuizPayload>(
+//         `/api/v1/quizzes/quick/${testType}/`
+//       );
+//       return data;
+//     },
+//     enabled: !!testType,
+//   });
+// };
 
 export const useQuickQuizResult = (
   testType: QuizTestType | null

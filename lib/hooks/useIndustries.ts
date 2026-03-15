@@ -96,7 +96,7 @@ export const useIndustry = (
     queryKey: ["careers", "industries", id],
     queryFn: async () => {
       const { data } = await api.get<Industry>(
-        `/api/v1/careers/industries/4/`
+        `/api/v1/careers/industries/${id}/`
       );
       return data;
     },

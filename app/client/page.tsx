@@ -1,19 +1,21 @@
 "use client";
 
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Box, CardContent, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 
 const DashboardPage = () => {
+  const t = useTranslations();
   return (
-    <AppLayout title="Dashboard">
+    <AppLayout title={t("sidebar_dashboard")}>
       <Box>
         <Box sx={styles.welcomeCard}>
           <CardContent sx={{ p: 0 }}>
             <Typography variant="h4" sx={{ mb: 1, fontWeight: 700 }}>
-              Welcome back!
+              {t("dashboard_welcome")}
             </Typography>
             <Typography variant="body1" sx={{ opacity: 0.95 }}>
-              Here's your career journey overview.
+              {t("dashboard_subtitle")}
             </Typography>
           </CardContent>
         </Box>

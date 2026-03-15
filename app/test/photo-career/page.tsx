@@ -1,13 +1,12 @@
 "use client";
 
-import { Box, Button, Container } from "@mui/material";
+import { Box, Button, CircularProgress, Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { usePhotoQuizStore } from "@/lib/store/photoQuizStore";
+import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
 import PHOTO_DATA from "./photo_questions.json";
-import { PhotoPair, type PhotoQuestion } from "./components/PhotoPair";
-import { useTestsStore } from "@/lib/store/testsStore";
+import { PhotoPair, type PhotoQuestion } from "../components/PhotoPair";
 import { Header } from "@/app/components/layout/Header";
 import { api } from "@/lib/api/api";
 import type {
@@ -23,8 +22,7 @@ import type {
 const PhotoCareerQuizPage = () => {
   const t = useTranslations();
   const router = useRouter();
-  const { setResult } = usePhotoQuizStore();
-  const { setCompleted } = useTestsStore();
+  const { setSession, setResult } = useQuizSessionStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestions, setBackendQuestions] = useState<
@@ -66,10 +64,11 @@ const PhotoCareerQuizPage = () => {
 
         if (!cancelled && questions.length > 0) {
           setSessionId(session.id);
+          setSession("photo-career", session.id);
           setBackendQuestions(questions);
         }
       } catch {
-        // если бэкенд недоступен — продолжаем только локально
+        // backend unavailable – continue in local-only mode
       }
     };
 
@@ -86,71 +85,48 @@ const PhotoCareerQuizPage = () => {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      let bulkPayload: BulkAnswerQuizPayload | null = null;
 
-      try {
-        if (sessionId && backendQuestions.length > 0 && PHOTO_QUESTIONS.length > 0) {
-          const maxCount = Math.min(
-            backendQuestions.length,
-            PHOTO_QUESTIONS.length
+      if (sessionId && backendQuestions.length > 0 && PHOTO_QUESTIONS.length > 0) {
+        const maxCount = Math.min(backendQuestions.length, PHOTO_QUESTIONS.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = [];
+
+        for (let i = 0; i < maxCount; i++) {
+          const q = PHOTO_QUESTIONS[i];
+          const selected = answers[q.id];
+          if (!selected) continue;
+
+          const backendQuestion = backendQuestions[i];
+          const backendAnswers = backendQuestion.answers ?? [];
+          const backendAnswer =
+            selected === "optionA" ? backendAnswers[0] : backendAnswers[1];
+          if (!backendAnswer) continue;
+
+          answersPayload.push({
+            question_id: backendQuestion.id,
+            answer_code: backendAnswer.code,
+          });
+        }
+
+        if (answersPayload.length > 0) {
+          await api.post<unknown, BulkAnswerQuizPayload>(
+            "/api/v1/quizzes/sessions/bulk-answer/",
+            { session_id: sessionId, answers: answersPayload }
           );
 
-          const answersPayload: BulkAnswerQuizPayload["answers"] = [];
+          const { data } = await api.post<
+            QuizResult,
+            FinishQuizSessionVariables
+          >("/api/v1/quizzes/sessions/finish/", {
+            session_id: sessionId,
+          });
 
-          for (let i = 0; i < maxCount; i++) {
-            const q = PHOTO_QUESTIONS[i];
-            const selected = answers[q.id];
-            if (!selected) continue;
-
-            const backendQuestion = backendQuestions[i];
-            const backendAnswers = backendQuestion.answers ?? [];
-            const backendAnswer =
-              selected === "optionA" ? backendAnswers[0] : backendAnswers[1];
-            if (!backendAnswer) continue;
-
-            const code = backendAnswer.code;
-
-            answersPayload.push({
-              question_id: backendQuestion.id,
-              answer_code: code,
-            });
-          }
-
-          if (answersPayload.length > 0) {
-            bulkPayload = {
-              session_id: sessionId,
-              answers: answersPayload,
-            };
-
-            await api.post<unknown, BulkAnswerQuizPayload>(
-              "/api/v1/quizzes/sessions/bulk-answer/",
-              bulkPayload
-            );
-
-            const { data } = await api.post<
-              QuizResult,
-              FinishQuizSessionVariables
-            >("/api/v1/quizzes/sessions/finish/", {
-              session_id: sessionId,
-            });
-
-            backendResult = data;
-          }
+          backendResult = data;
+          setResult("photo-career", backendResult);
         }
-      } finally {
-        setResult({
-          finishedAt: Date.now(),
-          payload: {
-            answers,
-            sessionId,
-            bulkPayload,
-            backendResult,
-          },
-        });
-        setCompleted("photo-career");
-        router.push("/test");
-        setIsSubmitting(false);
       }
+
+      router.push("/test");
+      setIsSubmitting(false);
     };
 
     void finish();
@@ -184,7 +160,7 @@ const PhotoCareerQuizPage = () => {
                 disabled={isSubmitting}
                 sx={styles.submitButton}
               >
-                {isSubmitting ? "Отправка..." : t("holland_finish")}
+                {isSubmitting ? <CircularProgress size={20} /> : t("holland_finish")}
               </Button>
             </Box>
           )}

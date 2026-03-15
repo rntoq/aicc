@@ -1,102 +1,248 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Container,
-  LinearProgress,
-  Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { Box, Button, Container, Divider } from "@mui/material";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
-import QUESTIONS_DATA from "./bigfive_questions.json";
-import { QuestionRow, type BigFiveQuestion } from "./components/QuestionRow";
-import { useTestsStore } from "@/lib/store/testsStore";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { Header } from "@/app/components/layout/Header";
+import { StepsHeader } from "../components/StepsHeader";
+import { OptionsHeader } from "../components/OptionsHeader";
+import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { api } from "@/lib/api/api";
+import QUESTIONS_JSON from "./bigfive_questions.json";
+import type {
+  BigFiveSessionFinishResponse,
+  BulkAnswerQuizPayload,
+  QuizSession,
+  QuizTest,
+} from "@/lib/types";
 
-const questions = QUESTIONS_DATA as unknown as BigFiveQuestion[];
+const STEPS_COUNT = 8;
+const QUESTIONS_PER_STEP = 12; // 8 × 12 = 96
 
-const BigFivePage = () => {
+const BIGFIVE_OPTIONS = [
+  { ru: "Неточно", kk: "Дәл емес", en: "Inaccurate" },
+  { ru: "Скорее неточно", kk: "Дәлірек емес", en: "Somewhat inaccurate" },
+  { ru: "Нейтрально", kk: "Бейтарап", en: "Neutral" },
+  { ru: "Скорее точно", kk: "Дәлірек", en: "Somewhat accurate" },
+  { ru: "Точно", kk: "Дәл", en: "Accurate" },
+];
+
+const BigFiveTestPage = () => {
   const t = useTranslations();
+  const locale = useLocale();
   const router = useRouter();
+  const { setSession, setResult } = useQuizSessionStore();
+
+  const [sessionId, setSessionId] = useState<number | null>(null);
+  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
+  const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number>>({});
-  const { setCompleted } = useTestsStore();
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    // можно добавить сохранение в localStorage при желании
+    let cancelled = false;
+
+    const initSession = async () => {
+      try {
+        const { data: tests } = await api.get<QuizTest[]>(
+          "/api/v1/quizzes/tests/",
+          { params: { type: "big_five" } }
+        );
+        const slug = tests[0]?.slug;
+        if (!slug) return;
+
+        const { data: session } = await api.post<QuizSession, { test_slug: string }>(
+          "/api/v1/quizzes/sessions/start/",
+          { test_slug: slug }
+        );
+
+        const { data: testDetail } = await api.get<{ questions: { id: number }[] }>(
+          `/api/v1/quizzes/tests/${slug}/`
+        );
+
+        if (!cancelled) {
+          setSessionId(session.id);
+          setSession("bigfive", session.id);
+          setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
+        }
+      } catch {
+        // backend unavailable – continue in local-only mode
+      }
+    };
+
+    void initSession();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const total = questions.length;
-  const answeredCount = questions.filter((q) => answers[q.id] != null).length;
-  const progress = total > 0 ? (answeredCount / total) * 100 : 0;
-  const allAnswered = answeredCount === total && total > 0;
+  const stepStart = (step - 1) * QUESTIONS_PER_STEP;
+  const stepQuestions = QUESTIONS_JSON.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
+  const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
 
-  const handleFinish = () => {
-    if (!allAnswered) return;
-    setCompleted("big-five");
-    router.push("/test");
+  const localeKey = locale as "ru" | "kk" | "en";
+
+  const scaleLabels: [string, string, string, string, string] = [
+    BIGFIVE_OPTIONS[0][localeKey] ?? BIGFIVE_OPTIONS[0].ru,
+    BIGFIVE_OPTIONS[1][localeKey] ?? BIGFIVE_OPTIONS[1].ru,
+    BIGFIVE_OPTIONS[2][localeKey] ?? BIGFIVE_OPTIONS[2].ru,
+    BIGFIVE_OPTIONS[3][localeKey] ?? BIGFIVE_OPTIONS[3].ru,
+    BIGFIVE_OPTIONS[4][localeKey] ?? BIGFIVE_OPTIONS[4].ru,
+  ];
+
+  const handleAnswer = (questionId: string, value: number) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: value }));
+  };
+
+  const handleNext = () => {
+    if (step < STEPS_COUNT) {
+      setStep((s) => s + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handlePrev = () => {
+    if (step > 1) {
+      setStep((s) => s - 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleSubmit = async () => {
+    const totalAnswered = Object.keys(answers).length;
+    if (totalAnswered < QUESTIONS_JSON.length) return;
+    setSubmitting(true);
+
+    try {
+      let backendResult: BigFiveSessionFinishResponse | null = null;
+
+      if (sessionId && backendQuestionIds.length > 0) {
+        const count = Math.min(backendQuestionIds.length, QUESTIONS_JSON.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.slice(0, count).map(
+          (q, index) => ({
+            question_id: backendQuestionIds[index],
+            scale_value: answers[q.id],
+          })
+        );
+
+        await api.post<unknown, BulkAnswerQuizPayload>(
+          "/api/v1/quizzes/sessions/bulk-answer/",
+          { session_id: sessionId, answers: answersPayload }
+        );
+
+        const { data } = await api.post<BigFiveSessionFinishResponse, { session_id: number }>(
+          "/api/v1/quizzes/sessions/finish/",
+          { session_id: sessionId }
+        );
+        backendResult = data;
+        setResult("bigfive", backendResult);
+      }
+
+      router.push("/test");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <Box component="main" sx={{ py: { xs: 3, md: 4 }, minHeight: "80vh" }}>
-      <Container maxWidth="md">
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-            {t("tests_big-five_name")}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-            {t("test_subtitle")}
-          </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Box sx={{ flex: 1 }}>
-              <LinearProgress
-                variant="determinate"
-                value={progress}
-                sx={{ height: 6, borderRadius: 999 }}
-              />
-            </Box>
-            <Typography variant="caption" color="text.secondary">
-              {answeredCount}/{total}
-            </Typography>
+    <>
+      <Header />
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <StepsHeader
+            step={step}
+            total={STEPS_COUNT}
+            title={t("bigfive_title")}
+            subtitle={t("bigfive_subtitle")}
+            stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT })}
+          />
+
+          <OptionsHeader options={scaleLabels} />
+          <Divider sx={{ mb: 1 }} />
+
+          <Box sx={styles.questionsList}>
+            {stepQuestions.map((q) => {
+              const text = q.text as { ru: string; kk: string; en: string };
+              return (
+                <LikertWordQuestionCard
+                  key={q.id}
+                  title={text}
+                  value={answers[q.id] ?? null}
+                  onChange={(v) => handleAnswer(q.id, v)}
+                  leftLabel={{ ru: "Неточно", kk: "Дәл емес", en: "Inaccurate" }}
+                  rightLabel={{ ru: "Точно", kk: "Дәл", en: "Accurate" }}
+                  options={BIGFIVE_OPTIONS}
+                />
+              );
+            })}
           </Box>
-        </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-          {questions.map((q, index) => (
-            <QuestionRow
-              key={q.id}
-              question={q}
-              index={index}
-              total={total}
-              value={answers[q.id] ?? null}
-              onChange={(val) =>
-                setAnswers((prev) => ({ ...prev, [q.id]: val }))
-              }
-            />
-          ))}
-        </Box>
+          <Divider sx={{ mt: 1, mb: 3 }} />
 
-        <Box
-          sx={{
-            mt: 3,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="contained"
-            size="large"
-            onClick={handleFinish}
-            disabled={!allAnswered}
-            sx={{ borderRadius: 2, px: 4 }}
-          >
-            {allAnswered ? t("holland_finish") : t("holland_answerAll")}
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+          <Box sx={styles.navigation}>
+            <Button
+              variant="outlined"
+              startIcon={<ArrowBackOutlinedIcon />}
+              onClick={handlePrev}
+              disabled={step === 1}
+              sx={styles.navButton}
+            >
+              {t("bigfive_prev")}
+            </Button>
+
+            {step < STEPS_COUNT ? (
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                disabled={!allStepAnswered}
+                sx={styles.navButton}
+              >
+                {t("bigfive_next")}
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                onClick={handleSubmit}
+                disabled={!allStepAnswered || submitting}
+                sx={styles.navButton}
+              >
+                {submitting ? "..." : t("bigfive_submit")}
+              </Button>
+            )}
+          </Box>
+        </Container>
+      </Box>
+    </>
   );
 };
 
-export default BigFivePage;
+export default BigFiveTestPage;
 
+const styles = {
+  root: {
+    pt: { xs: 15, md: 12 },
+    minHeight: "80vh",
+  },
+  questionsList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 1,
+    mt: 2,
+    mb: 2,
+  },
+  navigation: {
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 2,
+    mt: 4,
+    mb: 6,
+  },
+  navButton: {
+    borderRadius: 2,
+    px: 3,
+  },
+};

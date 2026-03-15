@@ -1,21 +1,14 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useHollandStore } from "@/lib/store/hollandStore";
+import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
 import QUESTIONS_JSON from "./holland_questions.json";
-import { QuestionCard } from "./components/QuestionCard";
-import { ProgressBar } from "./components/ProgressBar";
-import { useTestsStore } from "@/lib/store/testsStore";
+import { ProgressBar } from "../components/ProgressBar";
+import { OptionQuestionCard } from "../components/OptionQuestionCard";
 import { Header } from "@/app/components/layout/Header";
 import { api } from "@/lib/api/api";
 import type {
@@ -29,10 +22,9 @@ import type {
 
 const HollandTestPage = () => {
   const t = useTranslations();
+  const locale = useLocale();
   const router = useRouter();
-  const { setResult } = useHollandStore();
-  const { setCompleted } = useTestsStore();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setSession, setResult } = useQuizSessionStore();
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
 
@@ -41,7 +33,6 @@ const HollandTestPage = () => {
 
     const initSession = async () => {
       try {
-        // 1) Получаем Holland-тест и его slug
         const { data: tests } = await api.get<QuizTest[]>(
           "/api/v1/quizzes/tests/",
           { params: { type: "holland" } }
@@ -49,25 +40,24 @@ const HollandTestPage = () => {
         const slug = tests[0]?.slug;
         if (!slug) return;
 
-        // 2) Стартуем сессию
         const { data: session } = await api.post<
           QuizSession,
           StartQuizSessionVariables
         >("/api/v1/quizzes/sessions/start/", { test_slug: slug });
 
-        // 3) Получаем вопросы с бэкенда, чтобы знать их numeric id
         const { data: testDetail } = await api.get<{
           questions: { id: number }[];
         }>(`/api/v1/quizzes/tests/${slug}/`);
 
         if (!cancelled) {
           setSessionId(session.id);
+          setSession("holland", session.id);
           setBackendQuestionIds(
             (testDetail.questions ?? []).map((q) => q.id)
           );
         }
       } catch {
-        // Если бэкенд недоступен — просто работаем в локальном режиме.
+        // backend unavailable – continue in local-only mode
       }
     };
 
@@ -83,12 +73,24 @@ const HollandTestPage = () => {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const currentQuestion = QUESTIONS_JSON[currentQuestionIndex] as any;
   const currentAnswer = answers[currentQuestion.id] || null;
+  const answeredCount = Object.keys(answers).length;
   const progress = totalQuestions
-    ? Math.round((Object.keys(answers).length / totalQuestions) * 100)
+    ? Math.round((answeredCount / totalQuestions) * 100)
     : 0;
 
+  const localeKey = locale as "ru" | "kk" | "en";
+  const questionText =
+    typeof currentQuestion.text === "string"
+      ? currentQuestion.text
+      : currentQuestion.text?.[localeKey] ??
+        currentQuestion.text?.ru ??
+        currentQuestion.text?.en ??
+        "";
+  const likertOptions = [1, 2, 3, 4, 5].map((v) =>
+    t(`holland_likert_${v}` as any)
+  );
+
   const handleAnswerChange = (value: number) => {
-    // Сохраняем ответ
     const updatedAnswers = {
       ...answers,
       [currentQuestion.id]: value,
@@ -120,55 +122,33 @@ const HollandTestPage = () => {
   const handleSubmit = async (finalAnswers?: typeof answers) => {
     const usedAnswers = finalAnswers ?? answers;
     if (Object.keys(usedAnswers).length !== totalQuestions) return;
-    setIsSubmitting(true);
-    try {
-      let backendResult: HollandSessionFinishResponse | null = null;
-      let bulkPayload: BulkAnswerQuizPayload | null = null;
+    let backendResult: HollandSessionFinishResponse | null = null;
 
-      if (
-        sessionId &&
-        backendQuestionIds.length === totalQuestions
-      ) {
-        const answersPayload: BulkAnswerQuizPayload["answers"] =
-          QUESTIONS_JSON.map((q: any, index: number) => ({
-            question_id: backendQuestionIds[index],
-            scale_value: usedAnswers[q.id],
-          }));
+    if (sessionId && backendQuestionIds.length === totalQuestions) {
+      const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.map(
+        (q: any, index: number) => ({
+          question_id: backendQuestionIds[index],
+          scale_value: usedAnswers[q.id],
+        })
+      );
 
-        bulkPayload = {
-          session_id: sessionId,
-          answers: answersPayload,
-        };
+      await api.post<unknown, BulkAnswerQuizPayload>(
+        "/api/v1/quizzes/sessions/bulk-answer/",
+        { session_id: sessionId, answers: answersPayload }
+      );
 
-        await api.post<unknown, BulkAnswerQuizPayload>(
-          "/api/v1/quizzes/sessions/bulk-answer/",
-          bulkPayload
-        );
-
-        const { data } = await api.post<
-          HollandSessionFinishResponse,
-          FinishQuizSessionVariables
-        >("/api/v1/quizzes/sessions/finish/", {
-          session_id: sessionId,
-        });
-
-        backendResult = data;
-      }
-
-      setResult({
-        finishedAt: Date.now(),
-        payload: {
-          answers: usedAnswers,
-          sessionId,
-          bulkPayload,
-          backendResult,
-        },
+      const { data } = await api.post<
+        HollandSessionFinishResponse,
+        FinishQuizSessionVariables
+      >("/api/v1/quizzes/sessions/finish/", {
+        session_id: sessionId,
       });
-      useTestsStore.getState().setCompleted("holland");
-      router.push("/test");
-    } finally {
-      setIsSubmitting(false);
+
+      backendResult = data;
+      setResult("holland", backendResult);
     }
+
+    router.push("/test");
   };
 
   return (
@@ -187,16 +167,16 @@ const HollandTestPage = () => {
 
         <ProgressBar
           progress={progress}
-          current={Object.keys(answers).length}
+          current={answeredCount}
           total={totalQuestions}
         />
 
-        <QuestionCard
-          question={currentQuestion}
+        <OptionQuestionCard
+          questionNumber={currentQuestionIndex + 1}
+          questionText={questionText}
+          options={likertOptions}
           value={currentAnswer}
           onChange={handleAnswerChange}
-          questionNumber={currentQuestionIndex + 1}
-          totalQuestions={totalQuestions}
         />
 
         <Box sx={styles.navigation}>

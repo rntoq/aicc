@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Paper,
   Stack,
@@ -14,6 +15,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { Header } from "../components/layout/Header";
+import { PasswordField } from "../components/layout/PasswordField";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
@@ -24,8 +26,6 @@ const RegisterPage = () => {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
-    city: "",
-    age: "",
     email: "",
     password: "",
     passwordConfirm: "",
@@ -44,15 +44,15 @@ const RegisterPage = () => {
     if (loading) return;
 
     if (!form.email || !form.password || !form.passwordConfirm) {
-      setLocalError("Заполните e‑mail и пароль.");
+      setLocalError(t("register_error_required"));
       return;
     }
     if (form.password.length < 8) {
-      setLocalError("Пароль должен содержать не менее 8 символов.");
+      setLocalError(t("register_error_length"));
       return;
     }
     if (form.password !== form.passwordConfirm) {
-      setLocalError("Пароли не совпадают.");
+      setLocalError(t("register_error_match"));
       return;
     }
 
@@ -92,11 +92,9 @@ const RegisterPage = () => {
 
             <Box component="form" noValidate onSubmit={handleSubmit}>
               <Stack spacing={2.5}>
-                <Box
-                  sx={styles.row}
-                >
+                <Box sx={styles.row}>
                   <TextField
-                    label="Имя"
+                    label={t("register_first_name_label")}
                     name="firstName"
                     required
                     fullWidth
@@ -105,7 +103,7 @@ const RegisterPage = () => {
                     autoComplete="given-name"
                   />
                   <TextField
-                    label="Фамилия"
+                    label={t("register_last_name_label")}
                     name="lastName"
                     required
                     fullWidth
@@ -114,30 +112,8 @@ const RegisterPage = () => {
                     autoComplete="family-name"
                   />
                 </Box>
-                <Box
-                  sx={styles.row}
-                >
-                  <TextField
-                    label="Город"
-                    name="city"
-                    required
-                    fullWidth
-                    value={form.city}
-                    onChange={handleChange}
-                    autoComplete="address-level2"
-                  />
-                  <TextField
-                    label="Возраст"
-                    name="age"
-                    required
-                    fullWidth
-                    value={form.age}
-                    onChange={handleChange}
-                    autoComplete="address-level1"
-                  />
-                </Box>
                 <TextField
-                  label="E‑mail"
+                  label={t("register_email_label")}
                   type="email"
                   name="email"
                   required
@@ -146,20 +122,18 @@ const RegisterPage = () => {
                   onChange={handleChange}
                   autoComplete="email"
                 />
-                <TextField
-                  label="Пароль"
-                  type="password"
+                <PasswordField
+                  label={t("register_password_label")}
                   name="password"
                   required
                   fullWidth
                   value={form.password}
                   onChange={handleChange}
                   autoComplete="new-password"
-                  helperText="Минимум 8 символов, рекомендовано буквы разного регистра и цифры."
+                  helperText={t("register_password_helper")}
                 />
-                <TextField
-                  label="Подтверждение пароля"
-                  type="password"
+                <PasswordField
+                  label={t("register_password_confirm_label")}
                   name="passwordConfirm"
                   required
                   fullWidth
@@ -174,7 +148,7 @@ const RegisterPage = () => {
                   fullWidth
                   disabled={loading}
                 >
-                  {loading ? "Создание аккаунта..." : "Зарегистрироваться"}
+                  {loading ? <CircularProgress size={20} /> : t("register_submit")}
                 </Button>
               </Stack>
 
@@ -182,7 +156,7 @@ const RegisterPage = () => {
                 sx={styles.actionsRow}
               >
                 <Typography variant="body2" color="text.secondary">
-                  Уже есть аккаунт?
+                  {t("register_have_account")}
                 </Typography>
                 <Button
                   component={Link}
@@ -190,7 +164,7 @@ const RegisterPage = () => {
                   size="small"
                   variant="text"
                 >
-                  Войти
+                  {t("register_login")}
                 </Button>
               </Box>
             </Box>

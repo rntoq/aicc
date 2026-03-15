@@ -1,10 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NextIntlClientProvider } from "next-intl";
-import { ToastContainer } from "react-toastify";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { NextIntlClientProvider, useTranslations } from "next-intl";
+import { ToastContainer, toast } from "react-toastify";
 import { muiTheme } from "@/ui/theme/muiTheme";
 import { LocaleProvider, useLocale, type Locale } from "@/app/context/LocaleContext";
 import type { User } from "@/lib/types";
@@ -27,6 +32,48 @@ function IntlProvider({ children }: { children: React.ReactNode }) {
     >
       {children}
     </NextIntlClientProvider>
+  );
+}
+
+/**
+ * QueryClient живёт внутри IntlProvider, чтобы toast-сообщения об ошибках
+ * отображались на языке пользователя. Ref гарантирует, что функция t
+ * всегда актуальна даже после смены локали.
+ */
+function QueryProvider({ children }: { children: React.ReactNode }) {
+  const t = useTranslations();
+  const tRef = useRef(t);
+  useEffect(() => {
+    tRef.current = t;
+  }, [t]);
+
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        queryCache: new QueryCache({
+          onError: (error) => {
+            // eslint-disable-next-line no-console
+            console.error(error);
+            toast.error(tRef.current("error_generic"));
+          },
+        }),
+        mutationCache: new MutationCache({
+          onError: (error) => {
+            // eslint-disable-next-line no-console
+            console.error(error);
+            toast.error(tRef.current("error_action"));
+          },
+        }),
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000,
+          },
+        },
+      })
+  );
+
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }
 
@@ -57,29 +104,18 @@ export const Providers = ({
   initialLocale?: Locale;
   initialUser: User | null;
 }) => {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000,
-          },
-        },
-      })
-  );
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={muiTheme}>
-        <LocaleProvider initialLocale={initialLocale}>
-          <IntlProvider>
+    <ThemeProvider theme={muiTheme}>
+      <LocaleProvider initialLocale={initialLocale}>
+        <IntlProvider>
+          <QueryProvider>
             <AuthBootstrap initialUser={initialUser}>
               {children}
             </AuthBootstrap>
             <ToastContainer position="top-right" />
-          </IntlProvider>
-        </LocaleProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+          </QueryProvider>
+        </IntlProvider>
+      </LocaleProvider>
+    </ThemeProvider>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, LinearProgress, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export interface ProgressBarProps {
   progress: number; // 0-100
@@ -9,11 +10,12 @@ export interface ProgressBarProps {
 }
 
 export const ProgressBar = ({ progress, current, total }: ProgressBarProps) => {
+  const t = useTranslations();
   return (
     <Box sx={styles.container}>
       <Box sx={styles.header}>
         <Typography variant="body2" color="text.secondary">
-          Прогресс: {current} / {total}
+          {t("progress")}: {current} / {total}
         </Typography>
         <Typography variant="body2" fontWeight={600} color="primary.main">
           {progress}%

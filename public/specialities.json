@@ -1,1075 +1,4066 @@
 [
-    {
-      "code": "00000",
-      "name": {
-        "ru": "Data Science Major",
-        "kk": "Data Science Мамандығы",
-        "en": "Data Science Major"
-      }
-    },
-    {
-      "code": "00000000",
-      "name": {
-        "ru": "Artificial Intelligence Major",
-        "kk": "Жасанды интеллект мамандығы",
-        "en": "Artificial Intelligence Major"
-      }
-    },
-    {
-      "code": "09.03.01",
-      "name": {
-        "ru": "Информатика и вычислительная техника",
-        "kk": "Информатика және есептеу техникасы",
-        "en": "Computer Science and Engineering"
-      }
-    },
-    {
-      "code": "14.03.02",
-      "name": {
-        "ru": "Ядерная физика и технологии",
-        "kk": "Ядролық физика және технологиялар",
-        "en": "Nuclear Physics and Technologies"
-      }
-    },
-    {
-      "code": "B001",
-      "name": {
-        "ru": "Педагогика и психология",
-        "kk": "Педагогика және психология",
-        "en": "Pedagogy and Psychology"
-      }
-    },
-    {
-      "code": "B002",
-      "name": {
-        "ru": "Дошкольное обучение и воспитание",
-        "kk": "Мектепке дейінгі оқыту және тәрбиелеу",
-        "en": "Preschool Education and Upbringing"
-      }
-    },
-    {
-      "code": "B003",
-      "name": {
-        "ru": "Педагогика и методика начального обучения",
-        "kk": "Бастауыш оқытудың педагогикасы және әдістемесі",
-        "en": "Primary Education Pedagogy and Methods"
-      }
-    },
-    {
-      "code": "B004",
-      "name": {
-        "ru": "Подготовка учителей начальной военной подготовки",
-        "kk": "Бастауыш әскери дайындық мұғалімдерін даярлау",
-        "en": "Training of Basic Military Training Teachers"
-      }
-    },
-    {
-      "code": "B005",
-      "name": {
-        "ru": "Подготовка учителей физической культуры",
-        "kk": "Дене шынықтыру мұғалімдерін даярлау",
-        "en": "Physical Education Teacher Training"
-      }
-    },
-    {
-      "code": "B006",
-      "name": {
-        "ru": "Подготовка учителей музыки",
-        "kk": "Музыка мұғалімдерін даярлау",
-        "en": "Music Teacher Training"
-      }
-    },
-    {
-      "code": "B007",
-      "name": {
-        "ru": "Подготовка учителей художественного труда и черчения",
-        "kk": "Көркем еңбек және сызу мұғалімдерін даярлау",
-        "en": "Art and Drawing Teacher Training"
-      }
-    },
-    {
-      "code": "B008",
-      "name": {
-        "ru": "Подготовка учителей основы права и экономики",
-        "kk": "Құқық және экономика негіздері мұғалімдерін даярлау",
-        "en": "Law and Economics Basics Teacher Training"
-      }
-    },
-    {
-      "code": "B009",
-      "name": {
-        "ru": "Подготовка учителей математики",
-        "kk": "Математика мұғалімдерін даярлау",
-        "en": "Mathematics Teacher Training"
-      }
-    },
-    {
-      "code": "B010",
-      "name": {
-        "ru": "Подготовка учителей физики",
-        "kk": "Физика мұғалімдерін даярлау",
-        "en": "Physics Teacher Training"
-      }
-    },
-    {
-      "code": "B011",
-      "name": {
-        "ru": "Подготовка учителей информатики",
-        "kk": "Информатика мұғалімдерін даярлау",
-        "en": "Computer Science Teacher Training"
-      }
-    },
-    {
-      "code": "B012",
-      "name": {
-        "ru": "Подготовка учителей химии",
-        "kk": "Химия мұғалімдерін даярлау",
-        "en": "Chemistry Teacher Training"
-      }
-    },
-    {
-      "code": "B013",
-      "name": {
-        "ru": "Подготовка учителей биологии",
-        "kk": "Биология мұғалімдерін даярлау",
-        "en": "Biology Teacher Training"
-      }
-    },
-    {
-      "code": "B014",
-      "name": {
-        "ru": "Подготовка учителей географии",
-        "kk": "География мұғалімдерін даярлау",
-        "en": "Geography Teacher Training"
-      }
-    },
-    {
-      "code": "B015",
-      "name": {
-        "ru": "Подготовка учителей по гуманитарным предметам",
-        "kk": "Гуманитарлық пәндер мұғалімдерін даярлау",
-        "en": "Humanities Teacher Training"
-      }
-    },
-    {
-      "code": "B016",
-      "name": {
-        "ru": "Подготовка учителей казахского языка и литературы",
-        "kk": "Қазақ тілі және әдебиеті мұғалімдерін даярлау",
-        "en": "Kazakh Language and Literature Teacher Training"
-      }
-    },
-    {
-      "code": "B017",
-      "name": {
-        "ru": "Подготовка учителей русского языка и литературы",
-        "kk": "Орыс тілі және әдебиеті мұғалімдерін даярлау",
-        "en": "Russian Language and Literature Teacher Training"
-      }
-    },
-    {
-      "code": "B018",
-      "name": {
-        "ru": "Подготовка учителей иностранного языка",
-        "kk": "Шетел тілі мұғалімдерін даярлау",
-        "en": "Foreign Language Teacher Training"
-      }
-    },
-    {
-      "code": "B019",
-      "name": {
-        "ru": "Подготовка социальных педагогов",
-        "kk": "Әлеуметтік педагогтарды даярлау",
-        "en": "Social Pedagogue Training"
-      }
-    },
-    {
-      "code": "B020",
-      "name": {
-        "ru": "Специальная педагогика",
-        "kk": "Арнайы педагогика",
-        "en": "Special Pedagogy"
-      }
-    },
-    {
-      "code": "B021",
-      "name": {
-        "ru": "Исполнительское искусство",
-        "kk": "Орындаушылық өнер",
-        "en": "Performing Arts"
-      }
-    },
-    {
-      "code": "B022",
-      "name": {
-        "ru": "Музыковедение",
-        "kk": "Музыкатану",
-        "en": "Musicology"
-      }
-    },
-    {
-      "code": "B023",
-      "name": {
-        "ru": "Режиссура, арт-менеджмент",
-        "kk": "Режиссура, арт-менеджмент",
-        "en": "Directing, Art Management"
-      }
-    },
-    {
-      "code": "B025",
-      "name": {
-        "ru": "Дирижирование",
-        "kk": "Дирижерлік",
-        "en": "Conducting"
-      }
-    },
-    {
-      "code": "B026",
-      "name": {
-        "ru": "Композиция",
-        "kk": "Композиция",
-        "en": "Composition"
-      }
-    },
-    {
-      "code": "B027",
-      "name": {
-        "ru": "Театральное искусство",
-        "kk": "Театр өнері",
-        "en": "Theater Arts"
-      }
-    },
-    {
-      "code": "B028",
-      "name": {
-        "ru": "Хореография",
-        "kk": "Хореография",
-        "en": "Choreography"
-      }
-    },
-    {
-      "code": "B029",
-      "name": {
-        "ru": "Аудиовизуальные средства и медиа производство",
-        "kk": "Аудиовизуалды құралдар және медиа өндіріс",
-        "en": "Audiovisual Media and Production"
-      }
-    },
-    {
-      "code": "B030",
-      "name": {
-        "ru": "Изобразительное искусство",
-        "kk": "Бейнелеу өнері",
-        "en": "Visual Arts"
-      }
-    },
-    {
-      "code": "B031",
-      "name": {
-        "ru": "Мода, дизайн",
-        "kk": "Сән, дизайн",
-        "en": "Fashion, Design"
-      }
-    },
-    {
-      "code": "B032",
-      "name": {
-        "ru": "Философия и этика",
-        "kk": "Философия және этика",
-        "en": "Philosophy and Ethics"
-      }
-    },
-    {
-      "code": "B033",
-      "name": {
-        "ru": "Религия и теология",
-        "kk": "Дін және теология",
-        "en": "Religion and Theology"
-      }
-    },
-    {
-      "code": "B034",
-      "name": {
-        "ru": "История",
-        "kk": "Тарих",
-        "en": "History"
-      }
-    },
-    {
-      "code": "B035",
-      "name": {
-        "ru": "Тюркология",
-        "kk": "Түркітану",
-        "en": "Turkology"
-      }
-    },
-    {
-      "code": "B036",
-      "name": {
-        "ru": "Переводческое дело",
-        "kk": "Аударма ісі",
-        "en": "Translation and Interpretation"
-      }
-    },
-    {
-      "code": "B037",
-      "name": {
-        "ru": "Филология",
-        "kk": "Филология",
-        "en": "Philology"
-      }
-    },
-    {
-      "code": "B038",
-      "name": {
-        "ru": "Социология",
-        "kk": "Әлеуметтану",
-        "en": "Sociology"
-      }
-    },
-    {
-      "code": "B039",
-      "name": {
-        "ru": "Культурология",
-        "kk": "Мәдениеттану",
-        "en": "Cultural Studies"
-      }
-    },
-    {
-      "code": "B040",
-      "name": {
-        "ru": "Политология",
-        "kk": "Саясаттану",
-        "en": "Political Science"
-      }
-    },
-    {
-      "code": "B041",
-      "name": {
-        "ru": "Психология",
-        "kk": "Психология",
-        "en": "Psychology"
-      }
-    },
-    {
-      "code": "B042",
-      "name": {
-        "ru": "Журналистика и репортерское дело",
-        "kk": "Журналистика және репортерлік іс",
-        "en": "Journalism and Reporting"
-      }
-    },
-    {
-      "code": "B043",
-      "name": {
-        "ru": "Библиотечное дело, обработка информации и архивное дело",
-        "kk": "Кітапханалық іс, ақпаратты өңдеу және мұрағат ісі",
-        "en": "Library Science, Information Processing and Archives"
-      }
-    },
-    {
-      "code": "B044",
-      "name": {
-        "ru": "Менеджмент и управление",
-        "kk": "Менеджмент және басқару",
-        "en": "Management and Administration"
-      }
-    },
-    {
-      "code": "B045",
-      "name": {
-        "ru": "Аудит и налогообложение",
-        "kk": "Аудит және салық салу",
-        "en": "Audit and Taxation"
-      }
-    },
-    {
-      "code": "B046",
-      "name": {
-        "ru": "Финансы, экономика, банковское и страховое дело",
-        "kk": "Қаржы, экономика, банк және сақтандыру ісі",
-        "en": "Finance, Economics, Banking and Insurance"
-      }
-    },
-    {
-      "code": "B047",
-      "name": {
-        "ru": "Маркетинг и реклама",
-        "kk": "Маркетинг және жарнама",
-        "en": "Marketing and Advertising"
-      }
-    },
-    {
-      "code": "B048",
-      "name": {
-        "ru": "Трудовые навыки",
-        "kk": "Еңбек дағдылары",
-        "en": "Labor Skills"
-      }
-    },
-    {
-      "code": "B049",
-      "name": {
-        "ru": "Право",
-        "kk": "Құқық",
-        "en": "Law"
-      }
-    },
-    {
-      "code": "B050",
-      "name": {
-        "ru": "Биологические и смежные науки",
-        "kk": "Биологиялық және сабақтас ғылымдар",
-        "en": "Biological and Related Sciences"
-      }
-    },
-    {
-      "code": "B051",
-      "name": {
-        "ru": "Окружающая среда",
-        "kk": "Қоршаған орта",
-        "en": "Environment"
-      }
-    },
-    {
-      "code": "B052",
-      "name": {
-        "ru": "Наука о земле",
-        "kk": "Жер туралы ғылым",
-        "en": "Earth Science"
-      }
-    },
-    {
-      "code": "B053",
-      "name": {
-        "ru": "Химия",
-        "kk": "Химия",
-        "en": "Chemistry"
-      }
-    },
-    {
-      "code": "B054",
-      "name": {
-        "ru": "Физика",
-        "kk": "Физика",
-        "en": "Physics"
-      }
-    },
-    {
-      "code": "B055",
-      "name": {
-        "ru": "Математика и статистика",
-        "kk": "Математика және статистика",
-        "en": "Mathematics and Statistics"
-      }
-    },
-    {
-      "code": "B056",
-      "name": {
-        "ru": "Механика",
-        "kk": "Механика",
-        "en": "Mechanics"
-      }
-    },
-    {
-      "code": "B057",
-      "name": {
-        "ru": "Информационные технологии",
-        "kk": "Ақпараттық технологиялар",
-        "en": "Information Technology"
-      }
-    },
-    {
-      "code": "B058",
-      "name": {
-        "ru": "Информационная безопасность",
-        "kk": "Ақпараттық қауіпсіздік",
-        "en": "Information Security"
-      }
-    },
-    {
-      "code": "B059",
-      "name": {
-        "ru": "Коммуникации и коммуникационные технологии",
-        "kk": "Коммуникациялар және коммуникациялық технологиялар",
-        "en": "Communications and Communication Technologies"
-      }
-    },
-    {
-      "code": "B060",
-      "name": {
-        "ru": "Химическая инженерия и процессы",
-        "kk": "Химиялық инженерия және процестер",
-        "en": "Chemical Engineering and Processes"
-      }
-    },
-    {
-      "code": "B061",
-      "name": {
-        "ru": "Материаловедение и технологии",
-        "kk": "Материалтану және технологиялар",
-        "en": "Materials Science and Technology"
-      }
-    },
-    {
-      "code": "B062",
-      "name": {
-        "ru": "Электротехника и энергетика",
-        "kk": "Электротехника және энергетика",
-        "en": "Electrical Engineering and Power Engineering"
-      }
-    },
-    {
-      "code": "B063",
-      "name": {
-        "ru": "Электротехника и автоматизация",
-        "kk": "Электротехника және автоматтандыру",
-        "en": "Electrical Engineering and Automation"
-      }
-    },
-    {
-      "code": "B064",
-      "name": {
-        "ru": "Механика и металлообработка",
-        "kk": "Механика және металл өңдеу",
-        "en": "Mechanics and Metalworking"
-      }
-    },
-    {
-      "code": "B065",
-      "name": {
-        "ru": "Транспортная техника и технологии",
-        "kk": "Көлік техникасы және технологиялар",
-        "en": "Transport Equipment and Technologies"
-      }
-    },
-    {
-      "code": "B066",
-      "name": {
-        "ru": "Морской транспорт и технологии",
-        "kk": "Теңіз көлігі және технологиялар",
-        "en": "Marine Transport and Technologies"
-      }
-    },
-    {
-      "code": "B067",
-      "name": {
-        "ru": "Воздушный транспорт и технологии",
-        "kk": "Әуе көлігі және технологиялар",
-        "en": "Air Transport and Technologies"
-      }
-    },
-    {
-      "code": "B068",
-      "name": {
-        "ru": "Производство продуктов питания",
-        "kk": "Тамақ өнімдерін өндіру",
-        "en": "Food Production"
-      }
-    },
-    {
-      "code": "B069",
-      "name": {
-        "ru": "Производство материалов (стекло, бумага, пластик, дерево)",
-        "kk": "Материалдар өндірісі (шыны, қағаз, пластик, ағаш)",
-        "en": "Materials Production (glass, paper, plastic, wood)"
-      }
-    },
-    {
-      "code": "B070",
-      "name": {
-        "ru": "Текстиль: одежда, обувь и кожаные изделия",
-        "kk": "Тоқыма: киім, аяқ киім және былғары бұйымдар",
-        "en": "Textiles: clothing, footwear and leather goods"
-      }
-    },
-    {
-      "code": "B071",
-      "name": {
-        "ru": "Горное дело и добыча полезных ископаемых",
-        "kk": "Тау-кен ісі және пайдалы қазбаларды өндіру",
-        "en": "Mining and Mineral Extraction"
-      }
-    },
-    {
-      "code": "B072",
-      "name": {
-        "ru": "Технология фармацевтического производства",
-        "kk": "Фармацевтикалық өндіріс технологиясы",
-        "en": "Pharmaceutical Production Technology"
-      }
-    },
-    {
-      "code": "B073",
-      "name": {
-        "ru": "Архитектура",
-        "kk": "Сәулет",
-        "en": "Architecture"
-      }
-    },
-    {
-      "code": "B074",
-      "name": {
-        "ru": "Градостроительство, строительные работы и гражданское строительство",
-        "kk": "Қала құрылысы, құрылыс жұмыстары және азаматтық құрылыс",
-        "en": "Urban Planning, Construction Works and Civil Engineering"
-      }
-    },
-    {
-      "code": "B075",
-      "name": {
-        "ru": "Кадастр и землеустройство",
-        "kk": "Кадастр және жер құрылысы",
-        "en": "Cadastre and Land Management"
-      }
-    },
-    {
-      "code": "B076",
-      "name": {
-        "ru": "Стандартизация, сертификация и метрология (по отраслям)",
-        "kk": "Стандарттау, сертификаттау және метрология (салалар бойынша)",
-        "en": "Standardization, Certification and Metrology (by industry)"
-      }
-    },
-    {
-      "code": "B077",
-      "name": {
-        "ru": "Растениеводство",
-        "kk": "Өсімдік шаруашылығы",
-        "en": "Crop Production"
-      }
-    },
-    {
-      "code": "B078",
-      "name": {
-        "ru": "Животноводство",
-        "kk": "Мал шаруашылығы",
-        "en": "Animal Husbandry"
-      }
-    },
-    {
-      "code": "B079",
-      "name": {
-        "ru": "Лесное хозяйство",
-        "kk": "Орман шаруашылығы",
-        "en": "Forestry"
-      }
-    },
-    {
-      "code": "B080",
-      "name": {
-        "ru": "Рыбное хозяйство",
-        "kk": "Балық шаруашылығы",
-        "en": "Fisheries"
-      }
-    },
-    {
-      "code": "B081",
-      "name": {
-        "ru": "Землеустройство",
-        "kk": "Жер құрылысы",
-        "en": "Land Management"
-      }
-    },
-    {
-      "code": "B082",
-      "name": {
-        "ru": "Водные ресурсы и водопользование",
-        "kk": "Су ресурстары және су пайдалану",
-        "en": "Water Resources and Water Use"
-      }
-    },
-    {
-      "code": "B083",
-      "name": {
-        "ru": "Ветеринария",
-        "kk": "Ветеринария",
-        "en": "Veterinary Medicine"
-      }
-    },
-    {
-      "code": "B084",
-      "name": {
-        "ru": "Сестринское дело",
-        "kk": "Мейірбике ісі",
-        "en": "Nursing"
-      }
-    },
-    {
-      "code": "B085",
-      "name": {
-        "ru": "Фармация",
-        "kk": "Фармация",
-        "en": "Pharmacy"
-      }
-    },
-    {
-      "code": "B089",
-      "name": {
-        "ru": "Общественное здравоохранение",
-        "kk": "Қоғамдық денсаулық сақтау",
-        "en": "Public Health"
-      }
-    },
-    {
-      "code": "B090",
-      "name": {
-        "ru": "Социальная работа",
-        "kk": "Әлеуметтік жұмыс",
-        "en": "Social Work"
-      }
-    },
-    {
-      "code": "B091",
-      "name": {
-        "ru": "Туризм",
-        "kk": "Туризм",
-        "en": "Tourism"
-      }
-    },
-    {
-      "code": "B092",
-      "name": {
-        "ru": "Досуг",
-        "kk": "Бос уақыт",
-        "en": "Leisure"
-      }
-    },
-    {
-      "code": "B093",
-      "name": {
-        "ru": "Ресторанное дело и гостиничный бизнес",
-        "kk": "Мейрамхана ісі және қонақ үй бизнесі",
-        "en": "Restaurant and Hotel Business"
-      }
-    },
-    {
-      "code": "B094",
-      "name": {
-        "ru": "Санитарно-профилактические мероприятия",
-        "kk": "Санитариялық-профилактикалық іс-шаралар",
-        "en": "Sanitary and Preventive Measures"
-      }
-    },
-    {
-      "code": "B095",
-      "name": {
-        "ru": "Транспортные услуги",
-        "kk": "Көлік қызметтері",
-        "en": "Transport Services"
-      }
-    },
-    {
-      "code": "B096",
-      "name": {
-        "ru": "Правоохранительная деятельность",
-        "kk": "Құқық қорғау қызметі",
-        "en": "Law Enforcement"
-      }
-    },
-    {
-      "code": "B097",
-      "name": {
-        "ru": "Пожарная безопасность",
-        "kk": "Өрт қауіпсіздігі",
-        "en": "Fire Safety"
-      }
-    },
-    {
-      "code": "B098",
-      "name": {
-        "ru": "Спорт",
-        "kk": "Спорт",
-        "en": "Sports"
-      }
-    },
-    {
-      "code": "B120",
-      "name": {
-        "ru": "Подготовка педагогов профессионального обучения (по профилю)",
-        "kk": "Кәсіптік оқыту педагогтарын даярлау (бейін бойынша)",
-        "en": "Vocational Education Teacher Training (by profile)"
-      }
-    },
-    {
-      "code": "B126",
-      "name": {
-        "ru": "Транспортное строительство",
-        "kk": "Көлік құрылысы",
-        "en": "Transport Construction"
-      }
-    },
-    {
-      "code": "B134",
-      "name": {
-        "ru": "Археология и этнология",
-        "kk": "Археология және этнология",
-        "en": "Archaeology and Ethnology"
-      }
-    },
-    {
-      "code": "B135",
-      "name": {
-        "ru": "Востоковедение",
-        "kk": "Шығыстану",
-        "en": "Oriental Studies"
-      }
-    },
-    {
-      "code": "B140",
-      "name": {
-        "ru": "Международные отношения и дипломатия",
-        "kk": "Халықаралық қатынастар және дипломатия",
-        "en": "International Relations and Diplomacy"
-      }
-    },
-    {
-      "code": "B141",
-      "name": {
-        "ru": "Международные экономические отношения",
-        "kk": "Халықаралық экономикалық қатынастар",
-        "en": "International Economic Relations"
-      }
-    },
-    {
-      "code": "B145",
-      "name": {
-        "ru": "Государственный аудит",
-        "kk": "Мемлекеттік аудит",
-        "en": "State Audit"
-      }
-    },
-    {
-      "code": "B157",
-      "name": {
-        "ru": "Математическое и компьютерное моделирование",
-        "kk": "Математикалық және компьютерлік модельдеу",
-        "en": "Mathematical and Computer Modeling"
-      }
-    },
-    {
-      "code": "B158",
-      "name": {
-        "ru": "Криптология",
-        "kk": "Криптология",
-        "en": "Cryptology"
-      }
-    },
-    {
-      "code": "B161",
-      "name": {
-        "ru": "Инжиниринг материалов",
-        "kk": "Материалдар инжинирингі",
-        "en": "Materials Engineering"
-      }
-    },
-    {
-      "code": "B162",
-      "name": {
-        "ru": "Теплоэнергетика",
-        "kk": "Жылу энергетикасы",
-        "en": "Thermal Power Engineering"
-      }
-    },
-    {
-      "code": "B165",
-      "name": {
-        "ru": "Магистральные сети и инфраструктура",
-        "kk": "Магистральды желілер және инфрақұрылым",
-        "en": "Main Networks and Infrastructure"
-      }
-    },
-    {
-      "code": "B166",
-      "name": {
-        "ru": "Транспортные сооружения",
-        "kk": "Көлік құрылыстары",
-        "en": "Transport Structures"
-      }
-    },
-    {
-      "code": "B167",
-      "name": {
-        "ru": "Летная эксплуатация летательных аппаратов и двигателей",
-        "kk": "Ұшу аппараттары мен қозғалтқыштарды ұшу пайдалануы",
-        "en": "Flight Operation of Aircraft and Engines"
-      }
-    },
-    {
-      "code": "B171",
-      "name": {
-        "ru": "Металлургия",
-        "kk": "Металлургия",
-        "en": "Metallurgy"
-      }
-    },
-    {
-      "code": "B173",
-      "name": {
-        "ru": "Гидромелиорация",
-        "kk": "Гидромелиорация",
-        "en": "Hydro Reclamation"
-      }
-    },
-    {
-      "code": "B175",
-      "name": {
-        "ru": "Водоснабжение и водоотведение",
-        "kk": "Сумен жабдықтау және су бұру",
-        "en": "Water Supply and Sewerage"
-      }
-    },
-    {
-      "code": "B176",
-      "name": {
-        "ru": "Гидротехническое строительство и управление водными ресурсами",
-        "kk": "Гидротехникалық құрылыс және су ресурстарын басқару",
-        "en": "Hydraulic Engineering and Water Resources Management"
-      }
-    },
-    {
-      "code": "B183",
-      "name": {
-        "ru": "Агроинженерия",
-        "kk": "Агроинженерия",
-        "en": "Agricultural Engineering"
-      }
-    },
-    {
-      "code": "B234",
-      "name": {
-        "ru": "Музейное дело и охрана памятников",
-        "kk": "Мұражай ісі және ескерткіштерді қорғау",
-        "en": "Museum Studies and Monument Protection"
-      }
-    },
-    {
-      "code": "B265",
-      "name": {
-        "ru": "Железнодорожный транспорт и технологии",
-        "kk": "Теміржол көлігі және технологиялар",
-        "en": "Railway Transport and Technologies"
-      }
-    },
-    {
-      "code": "B271",
-      "name": {
-        "ru": "Нефтегазовое дело",
-        "kk": "Мұнай-газ ісі",
-        "en": "Oil and Gas Engineering"
-      }
-    },
-    {
-      "code": "BM086",
-      "name": {
-        "ru": "Медицина",
-        "kk": "Медицина",
-        "en": "Medicine"
-      }
-    },
-    {
-      "code": "BM087",
-      "name": {
-        "ru": "Стоматология",
-        "kk": "Стоматология",
-        "en": "Dentistry"
-      }
-    },
-    {
-      "code": "BM088",
-      "name": {
-        "ru": "Педиатрия",
-        "kk": "Педиатрия",
-        "en": "Pediatrics"
-      }
-    },
-    {
-      "code": "BM089",
-      "name": {
-        "ru": "Медико-профилактическое дело",
-        "kk": "Медициналық-профилактикалық іс",
-        "en": "Preventive Medicine"
-      }
-    },
-    {
-      "code": "RU 01.03.01",
-      "name": {
-        "ru": "Математика",
-        "kk": "Математика",
-        "en": "Mathematics"
-      }
-    },
-    {
-      "code": "RU 01.03.02",
-      "name": {
-        "ru": "Прикладная математика и информатика",
-        "kk": "Қолданбалы математика және информатика",
-        "en": "Applied Mathematics and Informatics"
-      }
-    },
-    {
-      "code": "RU 01.03.04",
-      "name": {
-        "ru": "Прикладная математика",
-        "kk": "Қолданбалы математика",
-        "en": "Applied Mathematics"
-      }
-    },
-    {
-      "code": "RU 05.03.06",
-      "name": {
-        "ru": "Экология и природопользование",
-        "kk": "Экология және табиғатты пайдалану",
-        "en": "Ecology and Nature Management"
-      }
-    },
-    {
-      "code": "RU 24.05.03",
-      "name": {
-        "ru": "Испытание летательных аппаратов",
-        "kk": "Ұшу аппараттарын сынау",
-        "en": "Aircraft Testing"
-      }
-    },
-    {
-      "code": "RU 38.03.02",
-      "name": {
-        "ru": "Менеджмент",
-        "kk": "Менеджмент",
-        "en": "Management"
-      }
-    },
-    {
-      "code": "RU 45.03.01",
-      "name": {
-        "ru": "Филология",
-        "kk": "Филология",
-        "en": "Philology"
-      }
-    },
-    {
-      "code": "RU",
-      "name": {
-        "ru": "Экономика",
-        "kk": "Экономика",
-        "en": "Economics"
-      }
-    },
-    {
-      "code": "ГУБКИН",
-      "name": {
-        "ru": "Нефтегазовое дело",
-        "kk": "Мұнай-газ ісі",
-        "en": "Oil and Gas Engineering"
-      }
-    },
-    {
-      "code": "В172",
-      "name": {
-        "ru": "Обработка материалов давлением",
-        "kk": "Материалдарды қысыммен өңдеу",
-        "en": "Material Processing by Pressure"
-      }
-    }
-  ]
-  
+  {
+    "code": "00000",
+    "name": {
+      "ru": "Data Science Major",
+      "kk": "Data Science мамандығы",
+      "en": "Data Science Major"
+    },
+    "Universities": [
+      "Woosong University"
+    ],
+    "id": 1
+  },
+  {
+    "code": "00000000",
+    "name": {
+      "ru": "Artificial Intelligence Major",
+      "kk": "Жасанды интеллект мамандығы",
+      "en": "Artificial Intelligence Major"
+    },
+    "Universities": [
+      "Woosong University"
+    ],
+    "id": 2
+  },
+  {
+    "code": "09.03.01",
+    "name": {
+      "ru": "Информатика и вычислительная техника",
+      "kk": "Информатика және есептеу техникасы",
+      "en": "Computer Science and Engineering"
+    },
+    "Universities": [
+      "MEPhI"
+    ],
+    "id": 3
+  },
+  {
+    "code": "14.03.02",
+    "name": {
+      "ru": "Ядерная физика и технологии",
+      "kk": "Ядролық физика және технологиялар",
+      "en": "Nuclear Physics and Technologies"
+    },
+    "Universities": [
+      "MEPhI"
+    ],
+    "id": 4
+  },
+  {
+    "code": "B001",
+    "name": {
+      "ru": "Педагогика и психология",
+      "kk": "Педагогика және психология",
+      "en": "Pedagogy and Psychology"
+    },
+    "Universities": [
+      "NKU",
+      "KMU",
+      "KGUTE",
+      "ADU",
+      "Zhubanov University",
+      "ZU",
+      "Bolashaq",
+      "EKU",
+      "KazNWPU",
+      "AU named after S. Baishev",
+      "Abai University",
+      "WKU",
+      "EAGI",
+      "Altynsarin University",
+      "KSTU",
+      "Korkyt Ata KU",
+      "Margulan University",
+      "ABU",
+      "Bolashak",
+      "KIU",
+      "SKSPU",
+      "KSU named after Sh. Ualikhanov",
+      "ShU",
+      "SKU",
+      "Syrdariya, Tashenev",
+      "MKTU",
+      "KIPUDN",
+      "KazNC",
+      "KarU",
+      "Shakarim University",
+      "ENU",
+      "WKITU",
+      "TIGU",
+      "KRU named after A. Baitursynov",
+      "TRU",
+      "AHEU",
+      "SDU",
+      "AIU"
+    ],
+    "id": 5
+  },
+  {
+    "code": "B002",
+    "name": {
+      "ru": "Дошкольное обучение и воспитание",
+      "kk": "Мектепке дейінгі оқыту және тәрбиелеу",
+      "en": "Preschool Education and Upbringing"
+    },
+    "Universities": [
+      "KazNWPU",
+      "KMU",
+      "Zhubanov University",
+      "ADU",
+      "Margulan University",
+      "Abai University",
+      "WKU",
+      "Altynsarin University",
+      "AU named after S. Baishev",
+      "KSU named after Sh. Ualikhanov",
+      "ZU",
+      "Bolashak",
+      "SKSPU",
+      "Bolashaq",
+      "Syrdariya, Tashenev",
+      "KIPUDN",
+      "EKU",
+      "ZhezU",
+      "KarU",
+      "Korkyt Ata KU",
+      "MKTU",
+      "Shakarim University",
+      "SKU",
+      "ENU",
+      "EAGI",
+      "WKITU",
+      "TIGU",
+      "KRU named after A. Baitursynov",
+      "NKU",
+      "TRU",
+      "ABU",
+      "KSTU",
+      "AIU"
+    ],
+    "id": 6
+  },
+  {
+    "code": "B003",
+    "name": {
+      "ru": "Педагогика и методика начального обучения",
+      "kk": "Бастауыш оқытудың педагогикасы және әдістемесі",
+      "en": "Pedagogy and Methods of Primary Education"
+    },
+    "Universities": [
+      "Margulan University",
+      "AU named after S. Baishev",
+      "KGUTE",
+      "ADU",
+      "KazNWPU",
+      "Abai University",
+      "ZU",
+      "EKU",
+      "WKU",
+      "KMU",
+      "NKU",
+      "ABU",
+      "KarU",
+      "KAFU",
+      "Altynsarin University",
+      "EAGI",
+      "Korkyt Ata KU",
+      "Zhubanov University",
+      "Bolashak",
+      "SKU",
+      "SKSPU",
+      "MKTU",
+      "ShU",
+      "Syrdariya, Tashenev",
+      "Bolashaq",
+      "KIPUDN",
+      "ZhezU",
+      "KSU named after Sh. Ualikhanov",
+      "Shakarim University",
+      "KSTU",
+      "WKITU",
+      "TIGU",
+      "KRU named after A. Baitursynov",
+      "TRU",
+      "AHEU",
+      "SDU",
+      "AIU",
+      "OAIU"
+    ],
+    "id": 7
+  },
+  {
+    "code": "B003 (KZ-040)",
+    "name": {
+      "ru": "Педагогика и методика начального обучения (KZ-040)",
+      "kk": "Бастауыш оқытудың педагогикасы және әдістемесі (KZ-040)",
+      "en": "Pedagogy and Methods of Primary Education (KZ-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 8
+  },
+  {
+    "code": "B004",
+    "name": {
+      "ru": "Подготовка учителей начальной военной подготовки",
+      "kk": "Бастауыш әскери дайындық мұғалімдерін даярлау",
+      "en": "Training of Teachers of Initial Military Training"
+    },
+    "Universities": [
+      "ABU",
+      "KMU",
+      "SKSPU",
+      "Abai University",
+      "ADU",
+      "EKU",
+      "ZU",
+      "WKU",
+      "KarU",
+      "Korkyt Ata KU",
+      "MKTU",
+      "TIGU",
+      "SKU",
+      "KRU named after A. Baitursynov",
+      "TRU",
+      "WKATU",
+      "Margulan University"
+    ],
+    "id": 9
+  },
+  {
+    "code": "B005",
+    "name": {
+      "ru": "Подготовка учителей физической культуры",
+      "kk": "Дене шынықтыру мұғалімдерін даярлау",
+      "en": "Training of Physical Education Teachers"
+    },
+    "Universities": [
+      "ABU",
+      "Syrdariya, Tashenev",
+      "KSTU",
+      "KAFU",
+      "KMU",
+      "SKSPU",
+      "KIPUDN",
+      "TIGU",
+      "Bolashak",
+      "ShU",
+      "Margulan University",
+      "KGUTE",
+      "Zhubanov University",
+      "Abai University",
+      "Altynsarin University",
+      "ADU",
+      "EKU",
+      "ENU",
+      "AU named after S. Baishev",
+      "ZhezU",
+      "ZU",
+      "WKU",
+      "KazAST",
+      "KarU",
+      "Korkyt Ata KU",
+      "KSU named after Sh. Ualikhanov",
+      "MKTU",
+      "NKU",
+      "SKU",
+      "Shakarim University",
+      "WKITU",
+      "TRU",
+      "KazNWPU",
+      "KRU named after A. Baitursynov",
+      "KEUK",
+      "AHEU",
+      "WKATU",
+      "IUTH",
+      "APEMS"
+    ],
+    "id": 10
+  },
+  {
+    "code": "B006",
+    "name": {
+      "ru": "Подготовка учителей музыки",
+      "kk": "Музыка мұғалімдерін даярлау",
+      "en": "Training of Music Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "Syrdariya, Tashenev",
+      "SKSPU",
+      "KIPUDN",
+      "ShU",
+      "Margulan University",
+      "Zhubanov University",
+      "KazNC",
+      "Abai University",
+      "Altynsarin University",
+      "ADU",
+      "EKU",
+      "ZU",
+      "WKU",
+      "KazNUI",
+      "Korkyt Ata KU",
+      "MKTU",
+      "NKU",
+      "SKU",
+      "KRU named after A. Baitursynov",
+      "Shakarim University",
+      "TRU",
+      "WKITU",
+      "AIU"
+    ],
+    "id": 11
+  },
+  {
+    "code": "B007",
+    "name": {
+      "ru": "Подготовка учителей художественного труда и черчения",
+      "kk": "Көркем еңбек және сызу мұғалімдерін даярлау",
+      "en": "Training of Art and Drawing Teachers"
+    },
+    "Universities": [
+      "KMU",
+      "Zhubanov University",
+      "Margulan University",
+      "KazNWPU",
+      "ZU",
+      "Abai University",
+      "KSU named after Sh. Ualikhanov",
+      "SKU",
+      "SKSPU",
+      "Syrdariya, Tashenev",
+      "Korkyt Ata KU",
+      "TIGU",
+      "ShU",
+      "KSTU",
+      "Bolashak",
+      "Altynsarin University",
+      "ADU",
+      "EKU",
+      "ZhezU",
+      "WKU",
+      "KarU",
+      "MKTU",
+      "Shakarim University",
+      "KRU named after A. Baitursynov",
+      "TRU",
+      "WKATU",
+      "AIU"
+    ],
+    "id": 12
+  },
+  {
+    "code": "B008",
+    "name": {
+      "ru": "Подготовка учителей основы права и экономики",
+      "kk": "Құқық және экономика негіздері мұғалімдерін даярлау",
+      "en": "Training of Teachers of Law and Economics Basics"
+    },
+    "Universities": [
+      "SKSPU",
+      "WKITU",
+      "Margulan University",
+      "Abai University",
+      "KarU"
+    ],
+    "id": 13
+  },
+  {
+    "code": "B009",
+    "name": {
+      "ru": "Подготовка учителей математики",
+      "kk": "Математика мұғалімдерін даярлау",
+      "en": "Training of Mathematics Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "Zhubanov University",
+      "ADU",
+      "KGUTE",
+      "ZU",
+      "EKU",
+      "SDU",
+      "ENU",
+      "NKU",
+      "KarU",
+      "WKU",
+      "Abai University",
+      "Margulan University",
+      "KSU named after Sh. Ualikhanov",
+      "SKSPU",
+      "Korkyt Ata KU",
+      "MKTU",
+      "SKU",
+      "ShU",
+      "Syrdariya, Tashenev",
+      "KIPUDN",
+      "Altynsarin University",
+      "ZhezU",
+      "KRU named after A. Baitursynov",
+      "Shakarim University",
+      "TRU",
+      "TIGU",
+      "AIU"
+    ],
+    "id": 14
+  },
+  {
+    "code": "B010",
+    "name": {
+      "ru": "Подготовка учителей физики",
+      "kk": "Физика мұғалімдерін даярлау",
+      "en": "Training of Physics Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "ZU",
+      "Zhubanov University",
+      "Margulan University",
+      "WKU",
+      "NKU",
+      "KGUTE",
+      "Altynsarin University",
+      "EKU",
+      "KSU named after Sh. Ualikhanov",
+      "SKSPU",
+      "Abai University",
+      "Korkyt Ata KU",
+      "MKTU",
+      "Syrdariya, Tashenev",
+      "KSTU",
+      "SDU",
+      "ADU",
+      "ENU",
+      "ZhezU",
+      "KarU",
+      "KRU named after A. Baitursynov",
+      "SKU",
+      "Shakarim University",
+      "TRU",
+      "ShU",
+      "AIU"
+    ],
+    "id": 15
+  },
+  {
+    "code": "B011",
+    "name": {
+      "ru": "Подготовка учителей информатики",
+      "kk": "Информатика мұғалімдерін даярлау",
+      "en": "Training of Computer Science Teachers"
+    },
+    "Universities": [
+      "Altynsarin University",
+      "ADU",
+      "Zhubanov University",
+      "NKU",
+      "ENU",
+      "KGUTE",
+      "KazNWPU",
+      "Abai University",
+      "WKU",
+      "KSU named after Sh. Ualikhanov",
+      "EKU",
+      "ShU",
+      "SKSPU",
+      "Bolashak",
+      "ZU",
+      "SKU",
+      "Syrdariya, Tashenev",
+      "KMU",
+      "KIPUDN",
+      "Margulan University",
+      "ZhezU",
+      "Korkyt Ata KU",
+      "KRU named after A. Baitursynov",
+      "MKTU",
+      "Shakarim University",
+      "KarU",
+      "WKITU",
+      "TRU",
+      "SDU",
+      "AIU"
+    ],
+    "id": 16
+  },
+  {
+    "code": "B012",
+    "name": {
+      "ru": "Подготовка учителей химии",
+      "kk": "Химия мұғалімдерін даярлау",
+      "en": "Training of Chemistry Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "KarU",
+      "ZU",
+      "ADU",
+      "WKU",
+      "NKU",
+      "EKU",
+      "Altynsarin University",
+      "Abai University",
+      "Korkyt Ata KU",
+      "SKSPU",
+      "Zhubanov University",
+      "MKTU",
+      "Syrdariya, Tashenev",
+      "KSU named after Sh. Ualikhanov",
+      "ShU",
+      "KIPUDN",
+      "SDU",
+      "Margulan University",
+      "ABU",
+      "Shakarim University",
+      "SKU",
+      "KGUTE",
+      "KRU named after A. Baitursynov",
+      "TRU",
+      "AIU"
+    ],
+    "id": 17
+  },
+  {
+    "code": "B013",
+    "name": {
+      "ru": "Подготовка учителей биологии",
+      "kk": "Биология мұғалімдерін даярлау",
+      "en": "Training of Biology Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "WKU",
+      "KSU named after Sh. Ualikhanov",
+      "EKU",
+      "KarU",
+      "ADU",
+      "KGUTE",
+      "ZU",
+      "Zhubanov University",
+      "NKU",
+      "Abai University",
+      "Altynsarin University",
+      "Margulan University",
+      "Korkyt Ata KU",
+      "ShU",
+      "SKSPU",
+      "ZhezU",
+      "SKU",
+      "Syrdariya, Tashenev",
+      "MKTU",
+      "KIPUDN",
+      "KRU named after A. Baitursynov",
+      "Shakarim University",
+      "TRU",
+      "AIU"
+    ],
+    "id": 18
+  },
+  {
+    "code": "B014",
+    "name": {
+      "ru": "Подготовка учителей географии",
+      "kk": "География мұғалімдерін даярлау",
+      "en": "Training of Geography Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "ZU",
+      "KarU",
+      "NKU",
+      "ADU",
+      "WKU",
+      "Altynsarin University",
+      "Zhubanov University",
+      "EKU",
+      "SKU",
+      "KSU named after Sh. Ualikhanov",
+      "KGUTE",
+      "Abai University",
+      "ABU",
+      "SKSPU",
+      "ShU",
+      "Syrdariya, Tashenev",
+      "TIGU",
+      "Margulan University",
+      "KSTU",
+      "KIPUDN",
+      "ENU",
+      "Korkyt Ata KU",
+      "MKTU",
+      "Shakarim University",
+      "KRU named after A. Baitursynov",
+      "TRU",
+      "AIU"
+    ],
+    "id": 19
+  },
+  {
+    "code": "B015",
+    "name": {
+      "ru": "Подготовка учителей по гуманитарным предметам",
+      "kk": "Гуманитарлық пәндер бойынша мұғалімдерді даярлау",
+      "en": "Training of Humanities Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "Margulan University",
+      "ZU",
+      "ADU",
+      "KSU named after Sh. Ualikhanov",
+      "WKU",
+      "KMU",
+      "ABU",
+      "EAGI",
+      "NKU",
+      "Altynsarin University",
+      "Zhubanov University",
+      "SKU",
+      "Abai University",
+      "EKU",
+      "MKTU",
+      "Syrdariya, Tashenev",
+      "ShU",
+      "SKSPU",
+      "KarU",
+      "KSTU",
+      "KIPUDN",
+      "KGUTE",
+      "Korkyt Ata KU",
+      "KRU named after A. Baitursynov",
+      "Shakarim University",
+      "WKITU",
+      "TIGU",
+      "TRU",
+      "SDU",
+      "AIU"
+    ],
+    "id": 20
+  },
+  {
+    "code": "B016",
+    "name": {
+      "ru": "Подготовка учителей казахского языка и литературы",
+      "kk": "Қазақ тілі және әдебиеті мұғалімдерін даярлау",
+      "en": "Training of Kazakh Language and Literature Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "NKU",
+      "ZU",
+      "WKU",
+      "Abai University",
+      "Zhubanov University",
+      "Bolashaq",
+      "KGUTE",
+      "EAGI",
+      "Margulan University",
+      "KSU named after Sh. Ualikhanov",
+      "Altynsarin University",
+      "KarU",
+      "MKTU",
+      "AU named after S. Baishev",
+      "ADU",
+      "Korkyt Ata KU",
+      "ZhezU",
+      "EKU",
+      "ABU",
+      "ENU",
+      "SDU",
+      "SKU",
+      "KSTU",
+      "Syrdariya, Tashenev",
+      "KAFU",
+      "SKSPU",
+      "WKITU",
+      "KIPUDN",
+      "Shakarim University",
+      "KRU named after A. Baitursynov",
+      "TRU",
+      "TIGU",
+      "ShU",
+      "AIU"
+    ],
+    "id": 21
+  },
+  {
+    "code": "B017",
+    "name": {
+      "ru": "Подготовка учителей русского языка и литературы",
+      "kk": "Орыс тілі және әдебиеті мұғалімдерін даярлау",
+      "en": "Training of Russian Language and Literature Teachers"
+    },
+    "Universities": [
+      "KazNWPU",
+      "Margulan University",
+      "Abai University",
+      "NKU",
+      "SKSPU",
+      "MKTU",
+      "Altynsarin University",
+      "ENU",
+      "Zhubanov University",
+      "EKU",
+      "ZU",
+      "WKU",
+      "KarU",
+      "Korkyt Ata KU",
+      "KSU named after Sh. Ualikhanov",
+      "Shakarim University",
+      "SKU",
+      "KGUTE",
+      "ABU",
+      "Syrdariya, Tashenev",
+      "KAFU",
+      "KIPUDN",
+      "ADU",
+      "ZhezU",
+      "KRU named after A. Baitursynov",
+      "TRU",
+      "WKITU",
+      "SDU",
+      "ShU",
+      "AU named after S. Baishev",
+      "AIU"
+    ],
+    "id": 22
+  },
+  {
+    "code": "B018",
+    "name": {
+      "ru": "Подготовка учителей иностранного языка",
+      "kk": "Шет тілі мұғалімдерін даярлау",
+      "en": "Training of Foreign Language Teachers"
+    },
+    "Universities": [
+      "KMU",
+      "Margulan University",
+      "SDU",
+      "NKU",
+      "WKU",
+      "ZU",
+      "KSU named after Sh. Ualikhanov",
+      "KazUIRWL",
+      "ENU",
+      "KazNWPU",
+      "KGUTE",
+      "Zhubanov University",
+      "EAGI",
+      "ABU",
+      "Abai University",
+      "KIU",
+      "Altynsarin University",
+      "Bolashaq",
+      "AU named after S. Baishev",
+      "KAFU",
+      "ShU",
+      "SKSPU",
+      "Syrdariya, Tashenev",
+      "TRU",
+      "EKU",
+      "ZhezU",
+      "SKU",
+      "MKTU",
+      "ADU",
+      "KarU",
+      "KIPUDN",
+      "Nur-Mubarak",
+      "Korkyt Ata KU",
+      "WKITU",
+      "TIGU",
+      "KIMEP",
+      "Shakarim University",
+      "KRU named after A. Baitursynov",
+      "AIU"
+    ],
+    "id": 23
+  },
+  {
+    "code": "B018 (KZ-FR-007)",
+    "name": {
+      "ru": "Подготовка учителей иностранного языка (KZ-FR-007)",
+      "kk": "Шет тілі мұғалімдерін даярлау (KZ-FR-007)",
+      "en": "Training of Foreign Language Teachers (KZ-FR-007)"
+    },
+    "Universities": [
+      "Abai University"
+    ],
+    "id": 24
+  },
+  {
+    "code": "B018(KZ-CHN-185)",
+    "name": {
+      "ru": "Подготовка учителей иностранного языка (KZ-CHN-185)",
+      "kk": "Шет тілі мұғалімдерін даярлау (KZ-CHN-185)",
+      "en": "Training of Foreign Language Teachers (KZ-CHN-185)"
+    },
+    "Universities": [
+      "BLCU"
+    ],
+    "id": 25
+  },
+  {
+    "code": "B019",
+    "name": {
+      "ru": "Подготовка социальных педагогов",
+      "kk": "Әлеуметтік педагогтарды даярлау",
+      "en": "Training of Social Pedagogues"
+    },
+    "Universities": [
+      "KazNWPU",
+      "KMU",
+      "SKSPU",
+      "Abai University",
+      "EKU",
+      "ENU",
+      "WKU",
+      "KarU",
+      "KSU named after Sh. Ualikhanov",
+      "NKU",
+      "TRU",
+      "SDU",
+      "Margulan University"
+    ],
+    "id": 26
+  },
+  {
+    "code": "B020",
+    "name": {
+      "ru": "Специальная педагогика",
+      "kk": "Арнайы педагогика",
+      "en": "Special Pedagogy"
+    },
+    "Universities": [
+      "KazNWPU",
+      "SKSPU",
+      "KIPUDN",
+      "Margulan University",
+      "Zhubanov University",
+      "Abai University",
+      "ADU",
+      "EKU",
+      "ZU",
+      "KarU",
+      "NKU",
+      "SKU",
+      "KGUTE",
+      "KRU named after A. Baitursynov",
+      "TRU"
+    ],
+    "id": 27
+  },
+  {
+    "code": "B020 (KZ-US)",
+    "name": {
+      "ru": "Специальная педагогика (KZ-US)",
+      "kk": "Арнайы педагогика (KZ-US)",
+      "en": "Special Pedagogy (KZ-US)"
+    },
+    "Universities": [
+      "University of Arizona"
+    ],
+    "id": 28
+  },
+  {
+    "code": "B020 (KZ-US-040)",
+    "name": {
+      "ru": "Специальная педагогика (KZ-040)",
+      "kk": "Арнайы педагогика (KZ-040)",
+      "en": "Special Pedagogy (KZ-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 29
+  },
+  {
+    "code": "B021",
+    "name": {
+      "ru": "Исполнительское искусство",
+      "kk": "Орындаушылық өнер",
+      "en": "Performing Arts"
+    },
+    "Universities": [
+      "KazNC",
+      "ADU",
+      "WKU",
+      "KazNUI",
+      "MKTU",
+      "Abai University",
+      "KazNAA",
+      "Korkyt Ata KU",
+      "PSU"
+    ],
+    "id": 30
+  },
+  {
+    "code": "B022",
+    "name": {
+      "ru": "Музыковедение",
+      "kk": "Музыкатану",
+      "en": "Musicology"
+    },
+    "Universities": [
+      "KazNUI",
+      "KazNC"
+    ],
+    "id": 31
+  },
+  {
+    "code": "B023",
+    "name": {
+      "ru": "Режиссура, арт-менеджмент",
+      "kk": "Режиссура, арт-менеджмент",
+      "en": "Directing, Art Management"
+    },
+    "Universities": [
+      "KazNC",
+      "KazNUI",
+      "KazNAA",
+      "AlmaU",
+      "Turan",
+      "Turan-Astana"
+    ],
+    "id": 32
+  },
+  {
+    "code": "B025",
+    "name": {
+      "ru": "Дирижирование",
+      "kk": "Дирижерлік",
+      "en": "Conducting"
+    },
+    "Universities": [
+      "KazNC",
+      "KazNUI"
+    ],
+    "id": 33
+  },
+  {
+    "code": "B026",
+    "name": {
+      "ru": "Композиция",
+      "kk": "Композиция",
+      "en": "Composition"
+    },
+    "Universities": [
+      "KazNC",
+      "KazNUI"
+    ],
+    "id": 34
+  },
+  {
+    "code": "B027",
+    "name": {
+      "ru": "Театральное искусство",
+      "kk": "Театр өнері",
+      "en": "Theater Arts"
+    },
+    "Universities": [
+      "WKU",
+      "KazNAA",
+      "KazNUI",
+      "MKTU",
+      "SKU",
+      "Turan",
+      "PSU"
+    ],
+    "id": 35
+  },
+  {
+    "code": "B028",
+    "name": {
+      "ru": "Хореография",
+      "kk": "Хореография",
+      "en": "Choreography"
+    },
+    "Universities": [
+      "Zhubanov University",
+      "Abai University",
+      "WKU",
+      "KazNAA",
+      "KazNWPU",
+      "Korkyt Ata KU",
+      "MKTU",
+      "TRU",
+      "SKU"
+    ],
+    "id": 36
+  },
+  {
+    "code": "B029",
+    "name": {
+      "ru": "Аудиовизуальные средства и медиа производство",
+      "kk": "Аудиовизуалды құралдар және медиа өндіріс",
+      "en": "Audiovisual Media and Media Production"
+    },
+    "Universities": [
+      "Abai University",
+      "ENU",
+      "KazNAA",
+      "KazNUI",
+      "KazNU",
+      "Turan"
+    ],
+    "id": 37
+  },
+  {
+    "code": "B030",
+    "name": {
+      "ru": "Изобразительное искусство",
+      "kk": "Бейнелеу өнері",
+      "en": "Fine Arts"
+    },
+    "Universities": [
+      "Abai University",
+      "KazNAA",
+      "KazNUI",
+      "SKU",
+      "KarU"
+    ],
+    "id": 38
+  },
+  {
+    "code": "B031",
+    "name": {
+      "ru": "Мода, дизайн",
+      "kk": "Сән, дизайн",
+      "en": "Fashion, Design"
+    },
+    "Universities": [
+      "Turan-Astana",
+      "KazUTB",
+      "Zhubanov University",
+      "Abai University",
+      "ADU",
+      "ENU",
+      "KarU",
+      "ZU",
+      "KIU",
+      "WKU",
+      "KMU",
+      "RII",
+      "SKU",
+      "NKU",
+      "Satbayev University",
+      "ATU",
+      "ETU",
+      "CASPIAN UNIVERSITY",
+      "AU named after S. Baishev",
+      "TRU",
+      "Korkyt Ata KU",
+      "Syrdariya, Tashenev",
+      "KSU named after Sh. Ualikhanov",
+      "PSU",
+      "MKTU",
+      "KIPUDN",
+      "Bolashak",
+      "KazNC",
+      "KazNAA",
+      "KazNUI",
+      "KazGASA",
+      "KazNU",
+      "Shakarim University",
+      "AHEU",
+      "SKSPU",
+      "AIU"
+    ],
+    "id": 39
+  },
+  {
+    "code": "B032",
+    "name": {
+      "ru": "Философия и этика",
+      "kk": "Философия және этика",
+      "en": "Philosophy and Ethics"
+    },
+    "Universities": [
+      "Abai University",
+      "KazNU",
+      "ENU",
+      "KarU",
+      "SKU",
+      "MKTU"
+    ],
+    "id": 40
+  },
+  {
+    "code": "B033",
+    "name": {
+      "ru": "Религия и теология",
+      "kk": "Дін және теология",
+      "en": "Religion and Theology"
+    },
+    "Universities": [
+      "Nur-Mubarak",
+      "Abai University",
+      "ENU",
+      "KazNU",
+      "KarU",
+      "MKTU",
+      "ADU",
+      "EKU",
+      "KSU named after Sh. Ualikhanov",
+      "SKU"
+    ],
+    "id": 41
+  },
+  {
+    "code": "B034",
+    "name": {
+      "ru": "История",
+      "kk": "Тарих",
+      "en": "History"
+    },
+    "Universities": [
+      "Abai University",
+      "ENU",
+      "KazNWPU",
+      "KazNU",
+      "KarU",
+      "MKTU",
+      "PSU",
+      "Zhubanov University",
+      "TRU",
+      "ABU",
+      "SKU",
+      "ADU",
+      "WKU",
+      "KSU named after Sh. Ualikhanov",
+      "KRU named after A. Baitursynov",
+      "NKU",
+      "AIU",
+      "NU"
+    ],
+    "id": 42
+  },
+  {
+    "code": "B035",
+    "name": {
+      "ru": "Тюркология",
+      "kk": "Түркітану",
+      "en": "Turkology"
+    },
+    "Universities": [
+      "ENU",
+      "KazUIRWL",
+      "KazNU",
+      "MKTU"
+    ],
+    "id": 43
+  },
+  {
+    "code": "B036",
+    "name": {
+      "ru": "Переводческое дело",
+      "kk": "Аударма ісі",
+      "en": "Translation and Interpreting"
+    },
+    "Universities": [
+      "NKU",
+      "MNU",
+      "SDU",
+      "Zhubanov University",
+      "KRU named after A. Baitursynov",
+      "ADU",
+      "AU named after S. Baishev",
+      "KazUIRWL",
+      "SKU",
+      "EKU",
+      "ENU",
+      "Turan",
+      "KarU",
+      "Turan-Astana",
+      "KSU named after Sh. Ualikhanov",
+      "KAFU",
+      "KazNU",
+      "EAGI",
+      "TRU",
+      "CASPIAN UNIVERSITY",
+      "ZU",
+      "KSTU",
+      "Abai University",
+      "MKTU",
+      "InEU",
+      "KMU",
+      "SKSPU",
+      "KazNWPU",
+      "Korkyt Ata KU",
+      "WKITU",
+      "KIMEP",
+      "Shakarim University",
+      "PSU",
+      "Nur-Mubarak",
+      "AIU",
+      "KAU"
+    ],
+    "id": 44
+  },
+  {
+    "code": "B036(KZ-CHN-185)",
+    "name": {
+      "ru": "Переводческое дело (KZ-CHN-185)",
+      "kk": "Аударма ісі (KZ-CHN-185)",
+      "en": "Translation and Interpreting (KZ-CHN-185)"
+    },
+    "Universities": [
+      "BLCU"
+    ],
+    "id": 45
+  },
+  {
+    "code": "B037",
+    "name": {
+      "ru": "Филология",
+      "kk": "Филология",
+      "en": "Philology"
+    },
+    "Universities": [
+      "Abai University",
+      "ENU",
+      "KazNU",
+      "KazNWPU",
+      "PSU",
+      "WKU",
+      "TRU",
+      "SDU",
+      "ZU",
+      "Korkyt Ata KU",
+      "KRU named after A. Baitursynov",
+      "MKTU",
+      "KarU",
+      "SKU",
+      "ABU",
+      "InEU",
+      "Shakarim University",
+      "KGUTE",
+      "Zhubanov University",
+      "ADU",
+      "KSU named after Sh. Ualikhanov",
+      "Turan-Astana",
+      "SKSPU"
+    ],
+    "id": 46
+  },
+  {
+    "code": "B038",
+    "name": {
+      "ru": "Социология",
+      "kk": "Әлеуметтану",
+      "en": "Sociology"
+    },
+    "Universities": [
+      "KazNWPU",
+      "KazNU",
+      "WKU",
+      "ENU",
+      "KarU",
+      "ShU",
+      "Abai University",
+      "Narxoz",
+      "NU"
+    ],
+    "id": 47
+  },
+  {
+    "code": "B039",
+    "name": {
+      "ru": "Культурология",
+      "kk": "Мәдениеттану",
+      "en": "Cultural Studies"
+    },
+    "Universities": [
+      "Abai University",
+      "ENU",
+      "KazNU",
+      "PSU"
+    ],
+    "id": 48
+  },
+  {
+    "code": "B040",
+    "name": {
+      "ru": "Политология",
+      "kk": "Саясаттану",
+      "en": "Political Science"
+    },
+    "Universities": [
+      "KIMEP",
+      "KazNU",
+      "ENU",
+      "KazATiSO",
+      "KarU",
+      "SKU",
+      "WKU",
+      "EKU",
+      "Turan",
+      "Abai University",
+      "PSU",
+      "Narxoz",
+      "NU"
+    ],
+    "id": 49
+  },
+  {
+    "code": "B041",
+    "name": {
+      "ru": "Психология",
+      "kk": "Психология",
+      "en": "Psychology"
+    },
+    "Universities": [
+      "ENU",
+      "Abai University",
+      "ADU",
+      "KazNWPU",
+      "EKU",
+      "ABU",
+      "CASPIAN UNIVERSITY",
+      "Q University",
+      "Turan",
+      "KAFU",
+      "InEU",
+      "KarU",
+      "KIU",
+      "Zhubanov University",
+      "Turan-Astana",
+      "KazNU",
+      "PSU",
+      "TRU",
+      "UIB",
+      "MNU",
+      "KRU named after A. Baitursynov",
+      "KazATiSO",
+      "Narxoz",
+      "SKU",
+      "Shakarim University",
+      "WKITU",
+      "WKU",
+      "KSU named after Sh. Ualikhanov",
+      "MKTU",
+      "AlmaU",
+      "KEUK",
+      "KUPS",
+      "SDU",
+      "AIU"
+    ],
+    "id": 50
+  },
+  {
+    "code": "B042",
+    "name": {
+      "ru": "Журналистика и репортерское дело",
+      "kk": "Журналистика және репортерлік іс",
+      "en": "Journalism and Reporting"
+    },
+    "Universities": [
+      "IITU",
+      "NKU",
+      "KIMEP",
+      "ENU",
+      "EKU",
+      "KazNU",
+      "ADU",
+      "SDU",
+      "KRU named after A. Baitursynov",
+      "Turan",
+      "KazUIRWL",
+      "PSU",
+      "ZU",
+      "KarU",
+      "UIB",
+      "TRU",
+      "MKTU",
+      "Astana IT",
+      "KAFU",
+      "AlmaU",
+      "Korkyt Ata KU",
+      "SKU",
+      "Q University",
+      "InEU",
+      "MNU",
+      "KAU"
+    ],
+    "id": 51
+  },
+  {
+    "code": "B043",
+    "name": {
+      "ru": "Библиотечное дело, обработка информации и архивное дело",
+      "kk": "Кітапхана ісі, ақпаратты өңдеу және мұрағат ісі",
+      "en": "Library Science, Information Processing and Archival Science"
+    },
+    "Universities": [
+      "Bolashak",
+      "WKU",
+      "KazNWPU",
+      "KazNU",
+      "SKU",
+      "WKITU",
+      "Syrdariya, Tashenev",
+      "KRU named after A. Baitursynov",
+      "PSU",
+      "KAFU"
+    ],
+    "id": 52
+  },
+  {
+    "code": "B044",
+    "name": {
+      "ru": "Менеджмент и управление",
+      "kk": "Менеджмент және басқару",
+      "en": "Management and Administration"
+    },
+    "Universities": [
+      "IITU",
+      "UIB",
+      "KBTU",
+      "KGU",
+      "MNU",
+      "Narxoz",
+      "KIMEP",
+      "AlmaU",
+      "WKU",
+      "NKU",
+      "SDU",
+      "AU named after S. Baishev",
+      "KarU",
+      "KRU named after A. Baitursynov",
+      "AHEU",
+      "Zhubanov University",
+      "ZU",
+      "Q University",
+      "AEGI",
+      "WKITU",
+      "WKATU",
+      "KIEU",
+      "KazUIRWL",
+      "ABU",
+      "ZhezU",
+      "EITI",
+      "Turan",
+      "ADU",
+      "EKTU",
+      "ENU",
+      "PSU",
+      "ATU",
+      "KazATU",
+      "ETU",
+      "KazNU",
+      "CASPIAN UNIVERSITY",
+      "EKU",
+      "KTU",
+      "Bolashak",
+      "Turan-Astana",
+      "KazIITU",
+      "KazATiSO",
+      "KazNAU",
+      "KEUK",
+      "SKU",
+      "KGUTE",
+      "ShU",
+      "TRU",
+      "KUPS",
+      "Korkyt Ata KU",
+      "TIGU",
+      "HTA",
+      "KIU",
+      "KAFU",
+      "MKTU",
+      "KSTU",
+      "InEU",
+      "KMU",
+      "KazUTB",
+      "KIPUDN",
+      "Abai University",
+      "Satbayev University",
+      "Shakarim University",
+      "METU",
+      "KIU",
+      "KazADI",
+      "Syrdariya, Tashenev",
+      "Kunaev University",
+      "Astana IT",
+      "ALT",
+      "KSU named after Sh. Ualikhanov",
+      "RII",
+      "AIU",
+      "Esil",
+      "OAIU",
+      "KAU"
+    ],
+    "id": 53
+  },
+  {
+    "code": "B044 (KZ-DE-003)",
+    "name": {
+      "ru": "Менеджмент и управление (KZ-DE-003)",
+      "kk": "Менеджмент және басқару (KZ-DE-003)",
+      "en": "Management and Administration (KZ-DE-003)"
+    },
+    "Universities": [
+      "KINI"
+    ],
+    "id": 54
+  },
+  {
+    "code": "B044 (KZ-FR-007)",
+    "name": {
+      "ru": "Менеджмент и управление (KZ-FR-007)",
+      "kk": "Менеджмент және басқару (KZ-FR-007)",
+      "en": "Management and Administration (KZ-FR-007)"
+    },
+    "Universities": [
+      "Abai University"
+    ],
+    "id": 55
+  },
+  {
+    "code": "B044(KZ-IRL-021)",
+    "name": {
+      "ru": "Менеджмент и управление (KZ-IRL-021)",
+      "kk": "Менеджмент және басқару (KZ-IRL-021)",
+      "en": "Management and Administration (KZ-IRL-021)"
+    },
+    "Universities": [
+      "Queen's University Belfast"
+    ],
+    "id": 56
+  },
+  {
+    "code": "B045",
+    "name": {
+      "ru": "Аудит и налогообложение",
+      "kk": "Аудит және салық салу",
+      "en": "Audit and Taxation"
+    },
+    "Universities": [
+      "MNU",
+      "KIMEP",
+      "ENU",
+      "Narxoz",
+      "SDU",
+      "KazATU",
+      "KSU named after Sh. Ualikhanov",
+      "KRU named after A. Baitursynov",
+      "KazNU",
+      "NKU",
+      "AlmaU",
+      "UIB",
+      "Zhubanov University",
+      "KMU",
+      "EKTU",
+      "KarU",
+      "KTU",
+      "PSU",
+      "Turan",
+      "KGUTE",
+      "KSTU",
+      "KEUK",
+      "WKATU",
+      "Korkyt Ata KU",
+      "ETU",
+      "WKU",
+      "AHEU",
+      "Turan-Astana",
+      "WKITU",
+      "KAFU",
+      "InEU",
+      "Shakarim University",
+      "KazATiSO",
+      "AU named after S. Baishev",
+      "Abai University",
+      "ADU",
+      "KazNAU",
+      "CASPIAN UNIVERSITY",
+      "Q University",
+      "KUPS",
+      "HTA",
+      "TRU",
+      "ATU",
+      "Syrdariya, Tashenev",
+      "KazUTB",
+      "KazIITU",
+      "ABU",
+      "KazADI",
+      "TIGU",
+      "KIU",
+      "SKU",
+      "KIEU",
+      "KIPUDN",
+      "KIU",
+      "Bolashak",
+      "KBTU",
+      "EKU",
+      "ShU",
+      "MKTU",
+      "AEGI",
+      "Esil",
+      "OAIU",
+      "KAU"
+    ],
+    "id": 57
+  },
+  {
+    "code": "B046",
+    "name": {
+      "ru": "Финансы, экономика, банковское и страховое дело",
+      "kk": "Қаржы, экономика, банк және сақтандыру ісі",
+      "en": "Finance, Economics, Banking and Insurance"
+    },
+    "Universities": [
+      "MNU",
+      "KIMEP",
+      "KBTU",
+      "ENU",
+      "KazATU",
+      "Narxoz",
+      "Turan",
+      "UIB",
+      "SDU",
+      "METU",
+      "AEGI",
+      "KGU",
+      "Bolashaq",
+      "NKU",
+      "CASPIAN UNIVERSITY",
+      "ATU",
+      "EKTU",
+      "KRU named after A. Baitursynov",
+      "KAFU",
+      "KarU",
+      "KMU",
+      "KSU named after Sh. Ualikhanov",
+      "KazATiSO",
+      "Turan-Astana",
+      "ABU",
+      "HTA",
+      "KIU",
+      "WKATU",
+      "IITU",
+      "AlmaU",
+      "KazNU",
+      "Korkyt Ata KU",
+      "AU named after S. Baishev",
+      "KEUK",
+      "WKU",
+      "EAGI",
+      "Zhubanov University",
+      "ShU",
+      "InEU",
+      "TRU",
+      "ZU",
+      "KazIITU",
+      "ETU",
+      "AHEU",
+      "MKTU",
+      "KSTU",
+      "Q University",
+      "WKITU",
+      "KUPS",
+      "ADU",
+      "Abai University",
+      "Bolashak",
+      "KazNAU",
+      "EKU",
+      "PSU",
+      "KIEU",
+      "Syrdariya, Tashenev",
+      "KIPUDN",
+      "KGUTE",
+      "ZhezU",
+      "KazUIRWL",
+      "KTU",
+      "Shakarim University",
+      "SKU",
+      "KazUTB",
+      "Kunaev University",
+      "Satbayev University",
+      "EITI",
+      "TIGU",
+      "AIU",
+      "Esil",
+      "OAIU",
+      "KAU"
+    ],
+    "id": 58
+  },
+  {
+    "code": "B046 (KZ-FR-007)",
+    "name": {
+      "ru": "Финансы, экономика, банковское и страховое дело (KZ-FR-007)",
+      "kk": "Қаржы, экономика, банк және сақтандыру ісі (KZ-FR-007)",
+      "en": "Finance, Economics, Banking and Insurance (KZ-FR-007)"
+    },
+    "Universities": [
+      "Abai University"
+    ],
+    "id": 59
+  },
+  {
+    "code": "B046 (KZ-IRL-021",
+    "name": {
+      "ru": "Финансы, экономика, банковское и страховое дело (KZ-IRL-021)",
+      "kk": "Қаржы, экономика, банк және сақтандыру ісі (KZ-IRL-021)",
+      "en": "Finance, Economics, Banking and Insurance (KZ-IRL-021)"
+    },
+    "Universities": [
+      "Queen's University Belfast"
+    ],
+    "id": 60
+  },
+  {
+    "code": "B047",
+    "name": {
+      "ru": "Маркетинг и реклама",
+      "kk": "Маркетинг және жарнама",
+      "en": "Marketing and Advertising"
+    },
+    "Universities": [
+      "UIB",
+      "Narxoz",
+      "KGU",
+      "KIMEP",
+      "AlmaU",
+      "KEUK",
+      "SDU",
+      "CASPIAN UNIVERSITY",
+      "Turan",
+      "KazNU",
+      "KarU",
+      "SKU",
+      "KazATU",
+      "KazATiSO",
+      "KazNAU",
+      "EKTU",
+      "AHEU",
+      "KRU named after A. Baitursynov",
+      "HTA",
+      "Abai University",
+      "WKU",
+      "PSU",
+      "KBTU",
+      "KGUTE",
+      "ADU",
+      "ALT",
+      "KUPS",
+      "MNU",
+      "KIPUDN",
+      "AIU",
+      "Esil",
+      "KAU"
+    ],
+    "id": 61
+  },
+  {
+    "code": "B047 (KZ-FR-007)",
+    "name": {
+      "ru": "Маркетинг и реклама (KZ-FR-007)",
+      "kk": "Маркетинг және жарнама (KZ-FR-007)",
+      "en": "Marketing and Advertising (KZ-FR-007)"
+    },
+    "Universities": [
+      "Abai University"
+    ],
+    "id": 62
+  },
+  {
+    "code": "B048",
+    "name": {
+      "ru": "Трудовые навыки",
+      "kk": "Еңбек дағдылары",
+      "en": "Labor Skills"
+    },
+    "Universities": [
+      "Narxoz"
+    ],
+    "id": 63
+  },
+  {
+    "code": "B049",
+    "name": {
+      "ru": "Право",
+      "kk": "Құқық",
+      "en": "Law"
+    },
+    "Universities": [
+      "MNU",
+      "KazNU",
+      "KIMEP",
+      "KarU",
+      "KazUIRWL",
+      "ENU",
+      "AlmaU",
+      "CASPIAN UNIVERSITY",
+      "ADU",
+      "EAGI",
+      "NKU",
+      "KAFU",
+      "Zhubanov University",
+      "Narxoz",
+      "KEUK",
+      "KSU named after Sh. Ualikhanov",
+      "KazATiSO",
+      "KRU named after A. Baitursynov",
+      "ZhezU",
+      "SKU",
+      "Abai University",
+      "Bolashaq",
+      "ABU",
+      "ETU",
+      "PSU",
+      "EKU",
+      "KMU",
+      "KIU",
+      "Turan",
+      "Korkyt Ata KU",
+      "Turan-Astana",
+      "TIGU",
+      "SDU",
+      "TRU",
+      "InEU",
+      "ZU",
+      "KSTU",
+      "Bolashak",
+      "KazIITU",
+      "ShU",
+      "Syrdariya, Tashenev",
+      "KUPS",
+      "KIPUDN",
+      "AEGI",
+      "AU named after S. Baishev",
+      "MKTU",
+      "Shakarim University",
+      "UIB",
+      "KGUTE",
+      "WKU",
+      "KazNAU",
+      "Q University",
+      "WKITU",
+      "AIU",
+      "Esil",
+      "OAIU",
+      "KAU"
+    ],
+    "id": 64
+  },
+  {
+    "code": "B050",
+    "name": {
+      "ru": "Биологические и смежные науки",
+      "kk": "Биологиялық және туыс ғылымдар",
+      "en": "Biological and Related Sciences"
+    },
+    "Universities": [
+      "PSU",
+      "KRU named after A. Baitursynov",
+      "KRMU",
+      "EKU",
+      "KarU",
+      "Zhubanov University",
+      "KazNU",
+      "ENU",
+      "Abai University",
+      "SKU",
+      "MKTU",
+      "KazNWPU",
+      "TRU",
+      "TIGU",
+      "Syrdariya, Tashenev",
+      "AIU",
+      "SKSPU",
+      "ATU",
+      "METU",
+      "Shakarim University",
+      "KTU",
+      "KSU named after Sh. Ualikhanov",
+      "Satbayev University",
+      "KazNAU",
+      "KazATU",
+      "KazUTB",
+      "ABU",
+      "NKU",
+      "NU"
+    ],
+    "id": 65
+  },
+  {
+    "code": "B051",
+    "name": {
+      "ru": "Окружающая среда",
+      "kk": "Қоршаған орта",
+      "en": "Environment"
+    },
+    "Universities": [
+      "ADU",
+      "Narxoz",
+      "KRU named after A. Baitursynov",
+      "PSU",
+      "WKATU",
+      "KazIITU",
+      "Zhubanov University",
+      "KazATU",
+      "EKU",
+      "ATU",
+      "ENU",
+      "AU named after S. Baishev",
+      "WKU",
+      "KarU",
+      "KEUK",
+      "KazNU",
+      "KGUTE",
+      "Korkyt Ata KU",
+      "KMU",
+      "NKU",
+      "KazUTB",
+      "MKTU",
+      "Satbayev University",
+      "Abai University",
+      "Bolashak",
+      "TRU",
+      "ZU",
+      "KSU named after Sh. Ualikhanov",
+      "KazNAU",
+      "Shakarim University",
+      "SKU",
+      "KSTU",
+      "AIU",
+      "Hydro University"
+    ],
+    "id": 66
+  },
+  {
+    "code": "B052",
+    "name": {
+      "ru": "Наука о земле",
+      "kk": "Жер туралы ғылым",
+      "en": "Earth Science"
+    },
+    "Universities": [
+      "Abai University",
+      "ENU",
+      "KazNU",
+      "KarU",
+      "WKU",
+      "PSU",
+      "EKU",
+      "NKU",
+      "Zhubanov University",
+      "Satbayev University",
+      "TRU",
+      "SKU",
+      "AIU"
+    ],
+    "id": 67
+  },
+  {
+    "code": "B053",
+    "name": {
+      "ru": "Химия",
+      "kk": "Химия",
+      "en": "Chemistry"
+    },
+    "Universities": [
+      "KazNU",
+      "KarU",
+      "KazNWPU",
+      "ENU",
+      "Abai University",
+      "WKU",
+      "KRU named after A. Baitursynov",
+      "PSU",
+      "Zhubanov University",
+      "Shakarim University",
+      "EKU",
+      "SKU",
+      "TRU",
+      "NKU",
+      "ADU",
+      "TIGU",
+      "NU"
+    ],
+    "id": 68
+  },
+  {
+    "code": "B053 (RU-533)",
+    "name": {
+      "ru": "Химия (RU-533)",
+      "kk": "Химия (RU-533)",
+      "en": "Chemistry (RU-533)"
+    },
+    "Universities": [
+      "RUCT named after D. I. Mendeleev"
+    ],
+    "id": 69
+  },
+  {
+    "code": "B054",
+    "name": {
+      "ru": "Физика",
+      "kk": "Физика",
+      "en": "Physics"
+    },
+    "Universities": [
+      "ENU",
+      "KazNU",
+      "KarU",
+      "Abai University",
+      "EKU",
+      "EKTU",
+      "KSU named after Sh. Ualikhanov",
+      "MKTU",
+      "PSU",
+      "Zhubanov University",
+      "Shakarim University",
+      "SKU",
+      "TRU",
+      "NKU",
+      "ADU",
+      "KazNWPU",
+      "KRU named after A. Baitursynov",
+      "TIGU",
+      "NU"
+    ],
+    "id": 70
+  },
+  {
+    "code": "B055",
+    "name": {
+      "ru": "Математика и статистика",
+      "kk": "Математика және статистика",
+      "en": "Mathematics and Statistics"
+    },
+    "Universities": [
+      "SDU",
+      "KazNU",
+      "KarU",
+      "AHEU",
+      "Abai University",
+      "ENU",
+      "Narxoz",
+      "MKTU",
+      "PSU",
+      "Zhubanov University",
+      "EKU",
+      "SKU",
+      "TRU",
+      "ADU",
+      "KRU named after A. Baitursynov",
+      "TIGU",
+      "Esil",
+      "NU"
+    ],
+    "id": 71
+  },
+  {
+    "code": "B056",
+    "name": {
+      "ru": "Механика",
+      "kk": "Механика",
+      "en": "Mechanics"
+    },
+    "Universities": [
+      "ENU",
+      "KazNU",
+      "KarU",
+      "PSU"
+    ],
+    "id": 72
+  },
+  {
+    "code": "B057",
+    "name": {
+      "ru": "Информационные технологии",
+      "kk": "Ақпараттық технологиялар",
+      "en": "Information Technology"
+    },
+    "Universities": [
+      "IITU",
+      "KBTU",
+      "SDU",
+      "NKU",
+      "EKTU",
+      "AlmaU",
+      "KGU",
+      "Narxoz",
+      "KazIITU",
+      "ATU",
+      "AUES",
+      "ADU",
+      "ENU",
+      "MKTU",
+      "KazUTB",
+      "KGUTE",
+      "KEUK",
+      "KMU",
+      "PSU",
+      "KazATU",
+      "Satbayev University",
+      "Zhubanov University",
+      "UIB",
+      "Turan",
+      "AHEU",
+      "Turan-Astana",
+      "EITI",
+      "KSU named after Sh. Ualikhanov",
+      "AU named after S. Baishev",
+      "WKU",
+      "ZU",
+      "KSTU",
+      "WKATU",
+      "KRU named after A. Baitursynov",
+      "KAFU",
+      "KTU",
+      "KarU",
+      "KazNWPU",
+      "Korkyt Ata KU",
+      "ABU",
+      "KazNU",
+      "Abai University",
+      "SKU",
+      "KazADI",
+      "HTA",
+      "Atyrau UOG",
+      "KIU",
+      "EKU",
+      "TRU",
+      "RII",
+      "InEU",
+      "KazNAU",
+      "KUPS",
+      "KIEU",
+      "Syrdariya, Tashenev",
+      "ETU",
+      "KIPUDN",
+      "TIGU",
+      "ShU",
+      "KIMEP",
+      "Shakarim University",
+      "KIU",
+      "KazATiSO",
+      "METU",
+      "CASPIAN UNIVERSITY",
+      "Q University",
+      "Astana IT",
+      "ALT",
+      "WKITU",
+      "AEGI",
+      "AIU",
+      "Esil",
+      "KAU",
+      "NU"
+    ],
+    "id": 73
+  },
+  {
+    "code": "B057 (KZ-DE-003)",
+    "name": {
+      "ru": "Информационные технологии B057 (KZ-DE-003)",
+      "kk": "Ақпараттық технологиялар B057 (KZ-DE-003)",
+      "en": "Information Technology B057 (KZ-DE-003)"
+    },
+    "Universities": [
+      "KINI"
+    ],
+    "id": 74
+  },
+  {
+    "code": "B057 (KZ-UK-005)",
+    "name": {
+      "ru": "Информационные технологии (KZ-UK)",
+      "kk": "Ақпараттық технологиялар (KZ-UK)",
+      "en": "Information Technology (KZ-UK)"
+    },
+    "Universities": [
+      "Heriot-Watt University"
+    ],
+    "id": 75
+  },
+  {
+    "code": "B057(KZ-HKG-029)",
+    "name": {
+      "ru": "Информационные технологии (KZ-HKG-029)",
+      "kk": "Ақпараттық технологиялар (KZ-HKG-029)",
+      "en": "Information Technology (KZ-HKG-029)"
+    },
+    "Universities": [
+      "CityU HK Branch"
+    ],
+    "id": 76
+  },
+  {
+    "code": "B058",
+    "name": {
+      "ru": "Информационная безопасность",
+      "kk": "Ақпараттық қауіпсіздік",
+      "en": "Information Security"
+    },
+    "Universities": [
+      "IITU",
+      "KazNU",
+      "Satbayev University",
+      "KTU",
+      "AUES",
+      "ENU",
+      "Korkyt Ata KU",
+      "Astana IT",
+      "Atyrau UOG",
+      "ALT",
+      "Narxoz",
+      "KarU"
+    ],
+    "id": 77
+  },
+  {
+    "code": "B059",
+    "name": {
+      "ru": "Коммуникации и коммуникационные технологии",
+      "kk": "Коммуникациялар және коммуникациялық технологиялар",
+      "en": "Communications and Communication Technologies"
+    },
+    "Universities": [
+      "AUES",
+      "ENU",
+      "IITU",
+      "AEGI",
+      "KazATU",
+      "NKU",
+      "KazIITU",
+      "EKTU",
+      "KazNU",
+      "Turan",
+      "KarU",
+      "KTU",
+      "PSU",
+      "Satbayev University",
+      "KUPS",
+      "SKU",
+      "METU",
+      "TRU",
+      "KIPUDN",
+      "ALT",
+      "Astana IT",
+      "KazGASA"
+    ],
+    "id": 78
+  },
+  {
+    "code": "B060",
+    "name": {
+      "ru": "Химическая инженерия и процессы",
+      "kk": "Химиялық инженерия және процестер",
+      "en": "Chemical Engineering and Processes"
+    },
+    "Universities": [
+      "PSU",
+      "Atyrau UOG",
+      "WKATU",
+      "Zhubanov University",
+      "KarU",
+      "KazNU",
+      "KGUTE",
+      "KTU",
+      "KBTU",
+      "ATU",
+      "KazUTB",
+      "Satbayev University",
+      "InEU",
+      "KIPUDN",
+      "TRU",
+      "KIU",
+      "SKU",
+      "AEGI",
+      "NU"
+    ],
+    "id": 79
+  },
+  {
+    "code": "B060 (RU-533)",
+    "name": {
+      "ru": "Химческая инженерия и процессы (RU-533)",
+      "kk": "Химиялық инженерия және процестер (RU-533)",
+      "en": "Chemical Engineering and Processes (RU-533)"
+    },
+    "Universities": [
+      "RUCT named after D. I. Mendeleev"
+    ],
+    "id": 80
+  },
+  {
+    "code": "B061",
+    "name": {
+      "ru": "Материаловедение и технологии",
+      "kk": "Материалтану және технологиялар",
+      "en": "Materials Science and Technologies"
+    },
+    "Universities": [
+      "KTU",
+      "KazNU",
+      "Satbayev University",
+      "TRU",
+      "KIU",
+      "SKU",
+      "KBTU"
+    ],
+    "id": 81
+  },
+  {
+    "code": "B061(KZ-HKG-029)",
+    "name": {
+      "ru": "Материаловедение и технологии (KZ-HKG-029)",
+      "kk": "Материалтану және технологиялар (KZ-HKG-029)",
+      "en": "Materials Science and Technologies (KZ-HKG-029)"
+    },
+    "Universities": [
+      "CityU HK Branch"
+    ],
+    "id": 82
+  },
+  {
+    "code": "B062",
+    "name": {
+      "ru": "Электротехника и энергетика",
+      "kk": "Электротехника және энергетика",
+      "en": "Electrical Engineering and Power Engineering"
+    },
+    "Universities": [
+      "ZhezU",
+      "Atyrau UOG",
+      "AUES",
+      "EKTU",
+      "NKU",
+      "InEU",
+      "EITI",
+      "KSTU",
+      "PSU",
+      "WKATU",
+      "KRU named after A. Baitursynov",
+      "KazNAU",
+      "KazATU",
+      "KTU",
+      "KUPS",
+      "KGUTE",
+      "ABU",
+      "ETU",
+      "SKU",
+      "RII",
+      "TRU",
+      "Korkyt Ata KU",
+      "KazNU",
+      "KIU",
+      "Satbayev University",
+      "MKTU",
+      "Zhubanov University",
+      "KIEU",
+      "ENU",
+      "ALT",
+      "KazIITU",
+      "KIPUDN",
+      "KGU",
+      "METU",
+      "WKITU",
+      "Bolashak",
+      "AEGI",
+      "Hydro University"
+    ],
+    "id": 83
+  },
+  {
+    "code": "B062 (KZ-DE-003",
+    "name": "Электр техникасы және электроэнергетика (KZ-DE-003)",
+    "Universities": [
+      "KINI"
+    ],
+    "id": 84
+  },
+  {
+    "code": "B062 (KZ-UK-005)",
+    "name": {
+      "ru": "Электротехника и энергетика (KZ-UK)",
+      "kk": "Электротехника және энергетика (KZ-UK)",
+      "en": "Electrical Engineering and Power Engineering (KZ-UK)"
+    },
+    "Universities": [
+      "Heriot-Watt University"
+    ],
+    "id": 85
+  },
+  {
+    "code": "B063",
+    "name": {
+      "ru": "Электротехника и автоматизация",
+      "kk": "Электротехника және автоматтандыру",
+      "en": "Electrical Engineering and Automation"
+    },
+    "Universities": [
+      "KBTU",
+      "Atyrau UOG",
+      "EITI",
+      "KazIITU",
+      "Satbayev University",
+      "EKTU",
+      "KIEU",
+      "AEGI",
+      "KTU",
+      "ENU",
+      "TRU",
+      "PSU",
+      "AUES",
+      "ATU",
+      "KazNU",
+      "AU named after S. Baishev",
+      "KUPS",
+      "MKTU",
+      "SKU",
+      "RII",
+      "KIU",
+      "KazNAU",
+      "ZhezU",
+      "ALT",
+      "KazUTB",
+      "Shakarim University",
+      "KazATU",
+      "KGUTE",
+      "Zhubanov University",
+      "Korkyt Ata KU",
+      "NKU",
+      "WKITU",
+      "KarU",
+      "Astana IT",
+      "NU"
+    ],
+    "id": 86
+  },
+  {
+    "code": "B064",
+    "name": {
+      "ru": "Механика и металлообработка",
+      "kk": "Механика және металл өңдеу",
+      "en": "Mechanics and Metalworking"
+    },
+    "Universities": [
+      "Atyrau UOG",
+      "EITI",
+      "Satbayev University",
+      "InEU",
+      "TRU",
+      "WKATU",
+      "KazATU",
+      "EKTU",
+      "ATU",
+      "KTU",
+      "KRU named after A. Baitursynov",
+      "METU",
+      "KazNAU",
+      "PSU",
+      "Korkyt Ata KU",
+      "SKU",
+      "ZhezU",
+      "RII",
+      "KIEU",
+      "ETU",
+      "KUPS",
+      "KGUTE",
+      "KarU",
+      "KSU named after Sh. Ualikhanov",
+      "NKU",
+      "Shakarim University",
+      "AUES",
+      "KIU",
+      "KazUTB",
+      "ALT",
+      "MKTU",
+      "WKITU",
+      "Hydro University"
+    ],
+    "id": 87
+  },
+  {
+    "code": "B065",
+    "name": {
+      "ru": "Транспортная техника и технологии",
+      "kk": "Көлік техникасы және технологиялар",
+      "en": "Transport Equipment and Technologies"
+    },
+    "Universities": [
+      "RII",
+      "PSU",
+      "KarU",
+      "EITI",
+      "ALT",
+      "ENU",
+      "Zhubanov University",
+      "KRU named after A. Baitursynov",
+      "EKTU",
+      "KazATU",
+      "KTU",
+      "KUPS",
+      "KIEU",
+      "KSTU",
+      "Satbayev University",
+      "NKU",
+      "TRU",
+      "Atyrau UOG",
+      "KSU named after Sh. Ualikhanov",
+      "ZhezU",
+      "KazNAU",
+      "WKATU",
+      "KIU",
+      "KazADI",
+      "SKU",
+      "KazIITU",
+      "KGUTE",
+      "Korkyt Ata KU",
+      "ETU",
+      "WKITU",
+      "AUES",
+      "Hydro University"
+    ],
+    "id": 88
+  },
+  {
+    "code": "B066",
+    "name": {
+      "ru": "Морской транспорт и технологии",
+      "kk": "Теңіз көлігі және технологиялар",
+      "en": "Maritime Transport and Technologies"
+    },
+    "Universities": [
+      "KBTU",
+      "KGUTE"
+    ],
+    "id": 89
+  },
+  {
+    "code": "B067",
+    "name": {
+      "ru": "Воздушный транспорт и технологии",
+      "kk": "Әуе көлігі және технологиялар",
+      "en": "Air Transport and Technologies"
+    },
+    "Universities": [
+      "CAA",
+      "ENU",
+      "KazNU",
+      "AUES",
+      "Satbayev University"
+    ],
+    "id": 90
+  },
+  {
+    "code": "B068",
+    "name": {
+      "ru": "Производство продуктов питания",
+      "kk": "Азық-түлік өнімдерін өндіру",
+      "en": "Food Production"
+    },
+    "Universities": [
+      "KEUK",
+      "KRU named after A. Baitursynov",
+      "ATU",
+      "KazATU",
+      "InEU",
+      "KazNAU",
+      "SKU",
+      "KazUTB",
+      "METU",
+      "NKU",
+      "WKATU",
+      "PSU",
+      "TRU",
+      "Shakarim University",
+      "KIEU",
+      "EKU",
+      "Zhubanov University",
+      "KSU named after Sh. Ualikhanov",
+      "KazNU",
+      "Korkyt Ata KU"
+    ],
+    "id": 91
+  },
+  {
+    "code": "B069",
+    "name": {
+      "ru": "Производство материалов (стекло, бумага, пластик, дерево)",
+      "kk": "Материалдар өндірісі (әйнек, қағаз, пластик, ағаш)",
+      "en": "Materials Production (glass, paper, plastic, wood)"
+    },
+    "Universities": [
+      "KazGASA",
+      "Satbayev University",
+      "Zhubanov University",
+      "KIU",
+      "SKU"
+    ],
+    "id": 92
+  },
+  {
+    "code": "B070",
+    "name": {
+      "ru": "Текстиль: одежда, обувь и кожаные изделия",
+      "kk": "Текстиль: киім, аяқ киім және былғары бұйымдар",
+      "en": "Textiles: clothing, footwear and leather goods"
+    },
+    "Universities": [
+      "ATU",
+      "KazUTB",
+      "RII",
+      "SKU",
+      "TRU",
+      "Zhubanov University",
+      "AHEU"
+    ],
+    "id": 93
+  },
+  {
+    "code": "B071",
+    "name": {
+      "ru": "Горное дело и добыча полезных ископаемых",
+      "kk": "Тау-кен ісі және пайдалы қазбаларды өндіру",
+      "en": "Mining and Mineral Extraction"
+    },
+    "Universities": [
+      "Atyrau UOG",
+      "KBTU",
+      "AU named after S. Baishev",
+      "Satbayev University",
+      "KGUTE",
+      "Zhubanov University",
+      "PSU",
+      "KTU",
+      "CASPIAN UNIVERSITY",
+      "Korkyt Ata KU",
+      "SKU",
+      "TRU",
+      "InEU",
+      "EITI",
+      "EKTU",
+      "ZhezU",
+      "KSU named after Sh. Ualikhanov",
+      "KazUTB",
+      "RII",
+      "KIU",
+      "WKATU",
+      "NU",
+      "Hydro University"
+    ],
+    "id": 94
+  },
+  {
+    "code": "B071 (KZ-UK-005)",
+    "name": {
+      "ru": "Горное дело и добыча полезных ископаемых (KZ-UK)",
+      "kk": "Тау-кен ісі және пайдалы қазбаларды өндіру (KZ-UK)",
+      "en": "Mining and Mineral Extraction (KZ-UK)"
+    },
+    "Universities": [
+      "Heriot-Watt University"
+    ],
+    "id": 95
+  },
+  {
+    "code": "B072",
+    "name": {
+      "ru": "Технология фармацевтического производства",
+      "kk": "Фармацевтикалық өндіріс технологиясы",
+      "en": "Pharmaceutical Production Technology"
+    },
+    "Universities": [
+      "KIU",
+      "KazNMU",
+      "KazNU",
+      "KarU",
+      "SKU",
+      "SKMA",
+      "Satbayev University",
+      "KRMU"
+    ],
+    "id": 96
+  },
+  {
+    "code": "B073",
+    "name": {
+      "ru": "Архитектура",
+      "kk": "Сәулет",
+      "en": "Architecture"
+    },
+    "Universities": [
+      "ENU",
+      "EKTU",
+      "KazATU",
+      "Satbayev University",
+      "PSU",
+      "KTU",
+      "CASPIAN UNIVERSITY",
+      "TRU",
+      "SKU",
+      "KazGASA",
+      "KIPUDN",
+      "ALT",
+      "WKITU",
+      "Hydro University"
+    ],
+    "id": 97
+  },
+  {
+    "code": "B074",
+    "name": {
+      "ru": "Градостроительство, строительные работы и гражданское строительство",
+      "kk": "Қала құрылысы, құрылыс жұмыстары және азаматтық құрылыс",
+      "en": "Urban Planning, Construction Works and Civil Engineering"
+    },
+    "Universities": [
+      "ENU",
+      "PSU",
+      "EITI",
+      "AEGI",
+      "NKU",
+      "WKATU",
+      "Atyrau UOG",
+      "SKU",
+      "KUPS",
+      "KTU",
+      "RII",
+      "Zhubanov University",
+      "EKTU",
+      "KGUTE",
+      "AU named after S. Baishev",
+      "Satbayev University",
+      "KSU named after Sh. Ualikhanov",
+      "TRU",
+      "Korkyt Ata KU",
+      "Bolashak",
+      "ZhezU",
+      "CASPIAN UNIVERSITY",
+      "KazIITU",
+      "KIPUDN",
+      "KazATU",
+      "KazGASA",
+      "KazNU",
+      "KIU",
+      "KazADI",
+      "Shakarim University",
+      "ALT",
+      "WKITU",
+      "Hydro University"
+    ],
+    "id": 98
+  },
+  {
+    "code": "B074(KZ-HKG-029)",
+    "name": {
+      "ru": "Градостроительство, строительные работы и гражданское строительство (KZ-HKG-029)",
+      "kk": "Қала құрылысы, құрылыс жұмыстары және азаматтық құрылыс (KZ-HKG-029)",
+      "en": "Urban Planning, Construction Works and Civil Engineering (KZ-HKG-029)"
+    },
+    "Universities": [
+      "CityU HK Branch"
+    ],
+    "id": 99
+  },
+  {
+    "code": "B075",
+    "name": {
+      "ru": "Кадастр и землеустройство",
+      "kk": "Кадастр және жерге орналастыру",
+      "en": "Cadastre and Land Management"
+    },
+    "Universities": [
+      "WKATU",
+      "KazNU",
+      "KazIITU",
+      "KazATU",
+      "Satbayev University",
+      "TRU",
+      "KazNAU",
+      "Korkyt Ata KU",
+      "SKU",
+      "KTU",
+      "EKTU",
+      "KGUTE",
+      "KazGASA",
+      "ALT",
+      "WKITU",
+      "Hydro University"
+    ],
+    "id": 100
+  },
+  {
+    "code": "B076",
+    "name": "Стандартизация,  сертификация и метрология (по отраслям)",
+    "Universities": [
+      "WKATU",
+      "KTU",
+      "ENU",
+      "ADU",
+      "KEUK",
+      "PSU",
+      "ATU",
+      "KazIITU",
+      "KazATU",
+      "KazNU",
+      "KazUTB",
+      "AEGI",
+      "METU",
+      "TRU",
+      "SKU",
+      "TIGU",
+      "KazNAU",
+      "KRU named after A. Baitursynov",
+      "KIEU",
+      "KUPS",
+      "KGUTE",
+      "Shakarim University",
+      "Satbayev University",
+      "NKU",
+      "ZU",
+      "KSTU",
+      "EKTU",
+      "KIU",
+      "WKITU"
+    ],
+    "id": 101
+  },
+  {
+    "code": "B077",
+    "name": {
+      "ru": "Растениеводство",
+      "kk": "Өсімдік шаруашылығы",
+      "en": "Crop Production"
+    },
+    "Universities": [
+      "KSU named after Sh. Ualikhanov",
+      "NKU",
+      "TRU",
+      "WKATU",
+      "KazATU",
+      "KazNAU",
+      "SKU",
+      "TIGU",
+      "METU",
+      "ZU",
+      "Korkyt Ata KU",
+      "KRU named after A. Baitursynov",
+      "PSU",
+      "Shakarim University",
+      "KIEU",
+      "Hydro University"
+    ],
+    "id": 102
+  },
+  {
+    "code": "B077 (KZ-US-040)",
+    "name": {
+      "ru": "Растениеводство (KZ-US-040)",
+      "kk": "Өсімдік шаруашылығы (KZ-US-040)",
+      "en": "Crop Production (KZ-US-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 103
+  },
+  {
+    "code": "B078",
+    "name": {
+      "ru": "Животноводство",
+      "kk": "Мал шаруашылығы",
+      "en": "Animal Husbandry"
+    },
+    "Universities": [
+      "NKU",
+      "KRU named after A. Baitursynov",
+      "KazATU",
+      "PSU",
+      "KazNAU",
+      "SKU",
+      "KSU named after Sh. Ualikhanov",
+      "WKATU",
+      "Shakarim University",
+      "ATU"
+    ],
+    "id": 104
+  },
+  {
+    "code": "B079",
+    "name": {
+      "ru": "Лесное хозяйство",
+      "kk": "Орман шаруашылығы",
+      "en": "Forestry"
+    },
+    "Universities": [
+      "WKATU",
+      "KazNAU",
+      "KazATU",
+      "EKU",
+      "PSU",
+      "NKU",
+      "EKTU",
+      "KSU named after Sh. Ualikhanov",
+      "Shakarim University"
+    ],
+    "id": 105
+  },
+  {
+    "code": "B080",
+    "name": {
+      "ru": "Рыбное хозяйство",
+      "kk": "Балық шаруашылығы",
+      "en": "Fisheries"
+    },
+    "Universities": [
+      "KazATU",
+      "WKATU",
+      "KazNAU",
+      "KazNU",
+      "ADU"
+    ],
+    "id": 106
+  },
+  {
+    "code": "B082",
+    "name": {
+      "ru": "Водные ресурсы и водопользования",
+      "kk": "Су ресурстары және су пайдалану",
+      "en": "Water Resources and Water Use"
+    },
+    "Universities": [
+      "EKTU",
+      "KazNAU",
+      "Korkyt Ata KU",
+      "SKU",
+      "TRU",
+      "Satbayev University",
+      "Hydro University"
+    ],
+    "id": 107
+  },
+  {
+    "code": "B082 (KZ-UZ-024)",
+    "name": {
+      "ru": "Водные ресурсы и водопользования",
+      "kk": "Су ресурстары және су пайдалану",
+      "en": "Water Resources and Water Use"
+    },
+    "Universities": [
+      "Branch of TIIAME"
+    ],
+    "id": 108
+  },
+  {
+    "code": "B083",
+    "name": {
+      "ru": "Ветеринария",
+      "kk": "Ветеринария",
+      "en": "Veterinary Medicine"
+    },
+    "Universities": [
+      "KazNAU",
+      "WKATU",
+      "KazATU",
+      "KRU named after A. Baitursynov",
+      "Shakarim University",
+      "SKU",
+      "InEU",
+      "AU named after S. Baishev",
+      "TIGU",
+      "PSU",
+      "WKITU"
+    ],
+    "id": 109
+  },
+  {
+    "code": "B084",
+    "name": {
+      "ru": "Сестринское дело",
+      "kk": "Мейіргер ісі",
+      "en": "Nursing"
+    },
+    "Universities": [
+      "KRMU",
+      "AMU",
+      "SMU",
+      "WKMMU",
+      "KazNMU",
+      "KRMU",
+      "KazNU",
+      "SKMA",
+      "NU"
+    ],
+    "id": 110
+  },
+  {
+    "code": "B085",
+    "name": {
+      "ru": "Фармация",
+      "kk": "Фармация",
+      "en": "Pharmacy"
+    },
+    "Universities": [
+      "KazNMU",
+      "KRMU",
+      "WKMMU",
+      "SMU",
+      "SKMA",
+      "KazNU",
+      "KRMU",
+      "AMU",
+      "NKU",
+      "Bolashaq"
+    ],
+    "id": 111
+  },
+  {
+    "code": "B089",
+    "name": {
+      "ru": "Общественное здравоохранение",
+      "kk": "Қоғамдық денсаулық сақтау",
+      "en": "Public Health"
+    },
+    "Universities": [
+      "KRMU",
+      "SMU",
+      "WKMMU",
+      "AMU",
+      "KazNMU",
+      "KRMU",
+      "KazNU",
+      "SKMA",
+      "KSU named after Sh. Ualikhanov"
+    ],
+    "id": 112
+  },
+  {
+    "code": "B090",
+    "name": {
+      "ru": "Социальная работа",
+      "kk": "Әлеуметтік жұмыс",
+      "en": "Social Work"
+    },
+    "Universities": [
+      "KEUK",
+      "KMU",
+      "ENU",
+      "Narxoz",
+      "KazNWPU",
+      "KazNU",
+      "KarU",
+      "PSU",
+      "SKU",
+      "Korkyt Ata KU",
+      "Bolashak",
+      "Esil"
+    ],
+    "id": 113
+  },
+  {
+    "code": "B091",
+    "name": {
+      "ru": "Туризм",
+      "kk": "Туризм",
+      "en": "Tourism"
+    },
+    "Universities": [
+      "UIB",
+      "KazNU",
+      "KazAST",
+      "ATU",
+      "ENU",
+      "KIU",
+      "KazUIRWL",
+      "Narxoz",
+      "PSU",
+      "KAFU",
+      "MNU",
+      "KGUTE",
+      "KazNWPU",
+      "ZU",
+      "TRU",
+      "Zhubanov University",
+      "Turan",
+      "KarU",
+      "Turan-Astana",
+      "EKU",
+      "WKU",
+      "KEUK",
+      "KSU named after Sh. Ualikhanov",
+      "MKTU",
+      "KMU",
+      "KSTU",
+      "METU",
+      "ETU",
+      "KazUTB",
+      "SKU",
+      "KazATiSO",
+      "WKITU",
+      "ADU",
+      "KRU named after A. Baitursynov",
+      "AlmaU",
+      "KUPS",
+      "IUTH",
+      "Esil",
+      "KAU"
+    ],
+    "id": 114
+  },
+  {
+    "code": "B092",
+    "name": {
+      "ru": "Досуг",
+      "kk": "Бос уақыт",
+      "en": "Leisure"
+    },
+    "Universities": [
+      "Bolashak",
+      "WKU",
+      "KMU",
+      "KazNWPU",
+      "TRU",
+      "NKU",
+      "SKU",
+      "KarU",
+      "WKITU",
+      "KazATiSO",
+      "Zhubanov University",
+      "KRU named after A. Baitursynov",
+      "IUTH"
+    ],
+    "id": 115
+  },
+  {
+    "code": "B093",
+    "name": {
+      "ru": "Ресторанное дело и гостиничный бизнес",
+      "kk": "Мейрамхана ісі және қонақ үй бизнесі",
+      "en": "Restaurant Business and Hotel Management"
+    },
+    "Universities": [
+      "AlmaU",
+      "KazUTB",
+      "Narxoz",
+      "Turan",
+      "ATU",
+      "KEUK",
+      "TRU",
+      "ENU",
+      "KazUIRWL",
+      "KazAST",
+      "KazNU",
+      "SKU",
+      "KarU",
+      "KazATiSO",
+      "KAFU",
+      "UIB",
+      "KGUTE",
+      "KRU named after A. Baitursynov",
+      "MKTU",
+      "PSU",
+      "ETU",
+      "Turan-Astana",
+      "IUTH"
+    ],
+    "id": 116
+  },
+  {
+    "code": "B093 (KZ-FR-007)",
+    "name": {
+      "ru": "Ресторанное дело и гостиничный бизнес (KZ-FR-007)",
+      "kk": "Мейрамхана ісі және қонақ үй бизнесі (KZ-FR-007)",
+      "en": "Restaurant Business and Hotel Management (KZ-FR-007)"
+    },
+    "Universities": [
+      "Abai University"
+    ],
+    "id": 117
+  },
+  {
+    "code": "B094",
+    "name": {
+      "ru": "Санитарно-профилактические мероприятия",
+      "kk": "Санитарлық-профилактикалық шаралар",
+      "en": "Sanitary and Preventive Measures"
+    },
+    "Universities": [
+      "InEU",
+      "KMU",
+      "KazUTB",
+      "KazIITU",
+      "WKATU",
+      "KGUTE",
+      "Atyrau UOG",
+      "EKU",
+      "EKTU",
+      "ZhezU",
+      "ZU",
+      "KazNAU",
+      "KazNU",
+      "KarU",
+      "KTU",
+      "Korkyt Ata KU",
+      "KSU named after Sh. Ualikhanov",
+      "PSU",
+      "RII",
+      "Shakarim University",
+      "TRU",
+      "SKU",
+      "KIU",
+      "CASPIAN UNIVERSITY",
+      "ALT",
+      "Satbayev University",
+      "WKITU",
+      "AUES"
+    ],
+    "id": 118
+  },
+  {
+    "code": "B095",
+    "name": {
+      "ru": "Транспортные услуги",
+      "kk": "Көлік қызметтері",
+      "en": "Transport Services"
+    },
+    "Universities": [
+      "KIEU",
+      "ZhezU",
+      "KazATU",
+      "EKTU",
+      "EITI",
+      "AU named after S. Baishev",
+      "KarU",
+      "PSU",
+      "KUPS",
+      "KMU",
+      "ENU",
+      "ETU",
+      "SKU",
+      "TRU",
+      "KazNAU",
+      "Q University",
+      "Bolashak",
+      "Korkyt Ata KU",
+      "Satbayev University",
+      "WKATU",
+      "KEUK",
+      "InEU",
+      "CAA",
+      "Zhubanov University",
+      "Atyrau UOG",
+      "ALT",
+      "KazNU",
+      "Shakarim University",
+      "KazATiSO",
+      "UIB",
+      "KGU",
+      "AlmaU",
+      "KTU",
+      "KazADI",
+      "Turan",
+      "KGUTE",
+      "WKITU",
+      "Hydro University"
+    ],
+    "id": 119
+  },
+  {
+    "code": "B095 (KZ-DE-003)",
+    "name": "Транспортные услугу B095 (KZ-DE-003)",
+    "Universities": [
+      "KINI"
+    ],
+    "id": 120
+  },
+  {
+    "code": "B095 (KZ-DE-003)",
+    "name": {
+      "ru": "Транспортные услуги (KZ-DE-003)",
+      "kk": "Көлік қызметтері (KZ-DE-003)",
+      "en": "Transport Services (KZ-DE-003)"
+    },
+    "Universities": [
+      "KINI"
+    ],
+    "id": 121
+  },
+  {
+    "code": "B096",
+    "name": {
+      "ru": "Правоохранительная деятельность",
+      "kk": "Құқық қорғау қызметі",
+      "en": "Law Enforcement"
+    },
+    "Universities": [
+      "KazNU"
+    ],
+    "id": 122
+  },
+  {
+    "code": "B098",
+    "name": {
+      "ru": "Спорт",
+      "kk": "Спорт",
+      "en": "Sports"
+    },
+    "Universities": [
+      "KazAST",
+      "KazNU",
+      "APEMS"
+    ],
+    "id": 123
+  },
+  {
+    "code": "B120",
+    "name": {
+      "ru": "Подготовка педагогов профессионального обучения (по профилю)",
+      "kk": "Кәсіптік оқыту педагогтарын даярлау (бейін бойынша)",
+      "en": "Training of Teachers of Vocational Education (by profile)"
+    },
+    "Universities": [
+      "Zhubanov University",
+      "SKSPU"
+    ],
+    "id": 124
+  },
+  {
+    "code": "B126",
+    "name": {
+      "ru": "Транспортное строительство",
+      "kk": "Көлік құрылысы",
+      "en": "Transport Construction"
+    },
+    "Universities": [
+      "EKTU",
+      "ALT",
+      "Satbayev University",
+      "KTU",
+      "TRU",
+      "KazADI"
+    ],
+    "id": 125
+  },
+  {
+    "code": "B134",
+    "name": {
+      "ru": "Археология и этнология",
+      "kk": "Археология және этнология",
+      "en": "Archaeology and Ethnology"
+    },
+    "Universities": [
+      "ENU",
+      "KazNU",
+      "Korkyt Ata KU",
+      "MKTU",
+      "PSU",
+      "SKU",
+      "KarU"
+    ],
+    "id": 126
+  },
+  {
+    "code": "B135",
+    "name": {
+      "ru": "Востоковедение",
+      "kk": "Шығыстану",
+      "en": "Oriental Studies"
+    },
+    "Universities": [
+      "ENU",
+      "KazUIRWL",
+      "KazNU"
+    ],
+    "id": 127
+  },
+  {
+    "code": "B140",
+    "name": {
+      "ru": "Международные отношения и дипломатия",
+      "kk": "Халықаралық қатынастар және дипломатия",
+      "en": "International Relations and Diplomacy"
+    },
+    "Universities": [
+      "MNU",
+      "KIMEP",
+      "KGU",
+      "KazNU",
+      "ENU",
+      "KazATiSO",
+      "KazUIRWL",
+      "KEUK",
+      "KarU",
+      "KAFU",
+      "UIB",
+      "KMU",
+      "SKU",
+      "WKU",
+      "Turan",
+      "KGUTE",
+      "Abai University",
+      "MKTU",
+      "Narxoz",
+      "AlmaU",
+      "KUPS",
+      "SDU",
+      "AIU",
+      "KAU"
+    ],
+    "id": 128
+  },
+  {
+    "code": "B140 (KZ-FR-007)",
+    "name": {
+      "ru": "Международные отношения и дипломатия (KZ-FR-007)",
+      "kk": "Халықаралық қатынастар және дипломатия (KZ-FR-007)",
+      "en": "International Relations and Diplomacy (KZ-FR-007)"
+    },
+    "Universities": [
+      "Abai University"
+    ],
+    "id": 129
+  },
+  {
+    "code": "B145",
+    "name": {
+      "ru": "Государственный аудит",
+      "kk": "Мемлекеттік аудит",
+      "en": "State Audit"
+    },
+    "Universities": [
+      "ENU"
+    ],
+    "id": 130
+  },
+  {
+    "code": "B157",
+    "name": {
+      "ru": "Математическое и компьютерное моделирование",
+      "kk": "Математикалық және компьютерлік модельдеу",
+      "en": "Mathematical and Computer Modeling"
+    },
+    "Universities": [
+      "IITU"
+    ],
+    "id": 131
+  },
+  {
+    "code": "B158",
+    "name": {
+      "ru": "Криптология",
+      "kk": "Криптология",
+      "en": "Cryptology"
+    },
+    "Universities": [
+      "ENU",
+      "KazNU"
+    ],
+    "id": 132
+  },
+  {
+    "code": "B162",
+    "name": {
+      "ru": "Теплоэнергетика",
+      "kk": "Жылу энергетикасы",
+      "en": "Thermal Power Engineering"
+    },
+    "Universities": [
+      "EITI",
+      "SKU",
+      "KazNAU",
+      "AUES"
+    ],
+    "id": 133
+  },
+  {
+    "code": "B165",
+    "name": {
+      "ru": "Магистральные сети и инфраструктура",
+      "kk": "Магистральдық желілер және инфрақұрылым",
+      "en": "Trunk Networks and Infrastructure"
+    },
+    "Universities": [
+      "ALT",
+      "Satbayev University"
+    ],
+    "id": 134
+  },
+  {
+    "code": "B166",
+    "name": {
+      "ru": "Транспортные сооружения",
+      "kk": "Көлік құрылыстары",
+      "en": "Transport Structures"
+    },
+    "Universities": [
+      "ALT",
+      "Satbayev University"
+    ],
+    "id": 135
+  },
+  {
+    "code": "B167",
+    "name": {
+      "ru": "Летная эксплуатация летательных аппаратов и двигателей",
+      "kk": "Ұшу аппараттары мен қозғалтқыштарды ұшу пайдалану",
+      "en": "Flight Operation of Aircraft and Engines"
+    },
+    "Universities": [
+      "CAA"
+    ],
+    "id": 136
+  },
+  {
+    "code": "B171",
+    "name": {
+      "ru": "Металлургия",
+      "kk": "Металлургия",
+      "en": "Metallurgy"
+    },
+    "Universities": [
+      "SKU",
+      "EITI",
+      "ZhezU",
+      "Satbayev University"
+    ],
+    "id": 137
+  },
+  {
+    "code": "B173",
+    "name": {
+      "ru": "Гидромелиорация",
+      "kk": "Гидромелиорация",
+      "en": "Irrigation and Drainage"
+    },
+    "Universities": [
+      "TRU",
+      "Hydro University"
+    ],
+    "id": 138
+  },
+  {
+    "code": "B175",
+    "name": {
+      "ru": "Водоснабжение и водоотведение",
+      "kk": "Сумен жабдықтау және су бұру",
+      "en": "Water Supply and Sanitation"
+    },
+    "Universities": [
+      "TRU",
+      "Hydro University"
+    ],
+    "id": 139
+  },
+  {
+    "code": "B176",
+    "name": {
+      "ru": "Гидротехническое строительство и управление водными ресурсами",
+      "kk": "Гидротехникалық құрылыс және су ресурстарын басқару",
+      "en": "Hydraulic Engineering and Water Resources Management"
+    },
+    "Universities": [
+      "TRU",
+      "Hydro University"
+    ],
+    "id": 140
+  },
+  {
+    "code": "B183",
+    "name": {
+      "ru": "Агроинженерия",
+      "kk": "Агроинженерия",
+      "en": "Agricultural Engineering"
+    },
+    "Universities": [
+      "KazNAU",
+      "KRU named after A. Baitursynov",
+      "KazATU",
+      "Korkyt Ata KU",
+      "KSU named after Sh. Ualikhanov",
+      "SKU",
+      "KIEU",
+      "WKATU"
+    ],
+    "id": 141
+  },
+  {
+    "code": "B234",
+    "name": {
+      "ru": "Музейное дело и охрана памятников",
+      "kk": "Музей ісі және ескерткіштерді қорғау",
+      "en": "Museum Studies and Monument Protection"
+    },
+    "Universities": [
+      "KazNU"
+    ],
+    "id": 142
+  },
+  {
+    "code": "B265",
+    "name": {
+      "ru": "Железнодорожный транспорт и технологии",
+      "kk": "Темір жол көлігі және технологиялар",
+      "en": "Railway Transport and Technologies"
+    },
+    "Universities": [
+      "ALT"
+    ],
+    "id": 143
+  },
+  {
+    "code": "B271",
+    "name": {
+      "ru": "Нефтегазовое дело",
+      "kk": "Мұнай-газ ісі",
+      "en": "Oil and Gas Engineering"
+    },
+    "Universities": [
+      "AU named after S. Baishev",
+      "WKATU",
+      "SKU",
+      "KazUTB",
+      "Satbayev University",
+      "PSU",
+      "CASPIAN UNIVERSITY",
+      "WKITU",
+      "AEGI",
+      "NU"
+    ],
+    "id": 144
+  },
+  {
+    "code": "BM086",
+    "name": {
+      "ru": "Медицина",
+      "kk": "Медицина",
+      "en": "Medicine"
+    },
+    "Universities": [
+      "WKMMU",
+      "AMU",
+      "KazNMU",
+      "KRMU",
+      "KRMU",
+      "SMU",
+      "MKTU",
+      "NKU",
+      "KSU named after Sh. Ualikhanov",
+      "SKMA",
+      "KazNU",
+      "NU"
+    ],
+    "id": 145
+  },
+  {
+    "code": "BM087",
+    "name": {
+      "ru": "Стоматология",
+      "kk": "Стоматология",
+      "en": "Dentistry"
+    },
+    "Universities": [
+      "AMU",
+      "WKMMU",
+      "KazNMU",
+      "KRMU",
+      "SMU",
+      "KRMU",
+      "MKTU",
+      "SKMA",
+      "KazNU"
+    ],
+    "id": 146
+  },
+  {
+    "code": "BM088",
+    "name": {
+      "ru": "Педиатрия",
+      "kk": "Педиатрия",
+      "en": "Pediatrics"
+    },
+    "Universities": [
+      "KazNMU",
+      "AMU",
+      "WKMMU",
+      "KRMU",
+      "SMU",
+      "SKMA"
+    ],
+    "id": 147
+  },
+  {
+    "code": "BM089",
+    "name": {
+      "ru": "Медико-профилактическое дело",
+      "kk": "Медициналық-профилактикалық іс",
+      "en": "Preventive Medicine"
+    },
+    "Universities": [
+      "AMU",
+      "KazNMU",
+      "KRMU",
+      "SMU",
+      "SKMA"
+    ],
+    "id": 148
+  },
+  {
+    "code": "COV",
+    "name": "BA International Relations",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 149
+  },
+  {
+    "code": "COV",
+    "name": "BSc Financial Economics",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 150
+  },
+  {
+    "code": "COV",
+    "name": "BSc Business and Finance",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 151
+  },
+  {
+    "code": "COV",
+    "name": "BSc Banking and Finance",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 152
+  },
+  {
+    "code": "COV",
+    "name": "BSc Information Technology Management",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 153
+  },
+  {
+    "code": "COV",
+    "name": "BSc Computer Science with AI",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 154
+  },
+  {
+    "code": "COV",
+    "name": "BSc Computer Science",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 155
+  },
+  {
+    "code": "COV",
+    "name": "BSc International Business Management",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 156
+  },
+  {
+    "code": "COV",
+    "name": "BBA Business Administration",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 157
+  },
+  {
+    "code": "COV",
+    "name": "BA Business and Marketing",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 158
+  },
+  {
+    "code": "COV",
+    "name": "BA‏ Advertising and Digital Marketing",
+    "Universities": [
+      "Coventry University"
+    ],
+    "id": 159
+  },
+  {
+    "code": "CU",
+    "name": "Business Management (BSc) including Foundation Year",
+    "Universities": [
+      "Cardiff University Kazakhstan"
+    ],
+    "id": 160
+  },
+  {
+    "code": "CU",
+    "name": "Exploration Geology (BSc) including Foundation Year",
+    "Universities": [
+      "Cardiff University Kazakhstan"
+    ],
+    "id": 161
+  },
+  {
+    "code": "CU",
+    "name": "Civil Engineering (BEng) including Foundation Year",
+    "Universities": [
+      "Cardiff University Kazakhstan"
+    ],
+    "id": 162
+  },
+  {
+    "code": "CU",
+    "name": "Computer Science (BSc) including Foundation Year",
+    "Universities": [
+      "Cardiff University Kazakhstan"
+    ],
+    "id": 163
+  },
+  {
+    "code": "RU",
+    "name": {
+      "ru": "Экономика",
+      "kk": "Экономика",
+      "en": "Economics"
+    },
+    "Universities": [
+      "Kazakhstan Branch of MSU"
+    ],
+    "id": 164
+  },
+  {
+    "code": "RU 01.03.01",
+    "name": {
+      "ru": "Математика",
+      "kk": "Математика",
+      "en": "Mathematics"
+    },
+    "Universities": [
+      "Kazakhstan Branch of MSU"
+    ],
+    "id": 165
+  },
+  {
+    "code": "RU 01.03.02",
+    "name": {
+      "ru": "Прикладная математика и информатика",
+      "kk": "Қолданбалы математика және информатика",
+      "en": "Applied Mathematics and Computer Science"
+    },
+    "Universities": [
+      "Kazakhstan Branch of MSU"
+    ],
+    "id": 166
+  },
+  {
+    "code": "RU 01.03.04",
+    "name": {
+      "ru": "Прикладная математика",
+      "kk": "Қолданбалы математика",
+      "en": "Applied Mathematics"
+    },
+    "Universities": [
+      "Voskhod MAI"
+    ],
+    "id": 167
+  },
+  {
+    "code": "RU 05.03.06",
+    "name": {
+      "ru": "Экология и природопользование",
+      "kk": "Экология және табиғатты пайдалану",
+      "en": "Ecology and Nature Management"
+    },
+    "Universities": [
+      "Kazakhstan Branch of MSU"
+    ],
+    "id": 168
+  },
+  {
+    "code": "RU 24.05.03",
+    "name": {
+      "ru": "Испытание летательных аппаратов",
+      "kk": "Ұшу аппараттарын сынау",
+      "en": "Aircraft Testing"
+    },
+    "Universities": [
+      "Voskhod MAI"
+    ],
+    "id": 169
+  },
+  {
+    "code": "RU 38.03.02",
+    "name": {
+      "ru": "Менеджмент",
+      "kk": "Менеджмент",
+      "en": "Management"
+    },
+    "Universities": [
+      "Voskhod MAI"
+    ],
+    "id": 170
+  },
+  {
+    "code": "RU 45.03.01",
+    "name": {
+      "ru": "Филология",
+      "kk": "Филология",
+      "en": "Philology"
+    },
+    "Universities": [
+      "Kazakhstan Branch of MSU"
+    ],
+    "id": 171
+  },
+  {
+    "code": "В001 (KZ-US)",
+    "name": {
+      "ru": "Педагогика и психология (KZ-US)",
+      "kk": "Педагогика және психология (KZ-US)",
+      "en": "Pedagogy and Psychology (KZ-US)"
+    },
+    "Universities": [
+      "University of Arizona"
+    ],
+    "id": 172
+  },
+  {
+    "code": "В001 (KZ-US-040)",
+    "name": {
+      "ru": "Педагогика и психология (KZ-040)",
+      "kk": "Педагогика және психология (KZ-040)",
+      "en": "Pedagogy and Psychology (KZ-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 173
+  },
+  {
+    "code": "В003 (KZ-US)",
+    "name": {
+      "ru": "Педагогика и методика начального обучения (KZ-US)",
+      "kk": "Бастауыш оқытудың педагогикасы және әдістемесі (KZ-US)",
+      "en": "Pedagogy and Methods of Primary Education (KZ-US)"
+    },
+    "Universities": [
+      "University of Arizona"
+    ],
+    "id": 174
+  },
+  {
+    "code": "В046 (KZ-040)",
+    "name": {
+      "ru": "Финансы, экономика, банковское и страховое дело (KZ-040)",
+      "kk": "Қаржы, экономика, банк және сақтандыру ісі (KZ-040)",
+      "en": "Finance, Economics, Banking and Insurance (KZ-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 175
+  },
+  {
+    "code": "В050 (KZ-US)",
+    "name": {
+      "ru": "Биологические и смежные науки (KZ-US)",
+      "kk": "Биологиялық және туыс ғылымдар (KZ-US)",
+      "en": "Biological and Related Sciences (KZ-US)"
+    },
+    "Universities": [
+      "University of Arizona"
+    ],
+    "id": 176
+  },
+  {
+    "code": "В050 (KZ-US-040)",
+    "name": {
+      "ru": "Биологические и смежные науки (KZ-040)",
+      "kk": "Биологиялық және туыс ғылымдар (KZ-040)",
+      "en": "Biological and Related Sciences (KZ-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 177
+  },
+  {
+    "code": "В053 (KZ-040)",
+    "name": {
+      "ru": "Химия (KZ-040)",
+      "kk": "Химия (KZ-040)",
+      "en": "Chemistry (KZ-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 178
+  },
+  {
+    "code": "В054 (KZ-040)",
+    "name": {
+      "ru": "Физика (KZ-040)",
+      "kk": "Физика (KZ-040)",
+      "en": "Physics (KZ-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 179
+  },
+  {
+    "code": "В057 (KZ-US)",
+    "name": {
+      "ru": "Информационные технологии (KZ-US)",
+      "kk": "Ақпараттық технологиялар (KZ-US)",
+      "en": "Information Technology (KZ-US)"
+    },
+    "Universities": [
+      "University of Arizona"
+    ],
+    "id": 180
+  },
+  {
+    "code": "В057 (KZ-US-040)",
+    "name": {
+      "ru": "Информационные технологии (KZ-US-040)",
+      "kk": "Ақпараттық технологиялар (KZ-US-040)",
+      "en": "Information Technology (KZ-US-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 181
+  },
+  {
+    "code": "В059 (KZ-US-040)",
+    "name": {
+      "ru": "Коммуникации и коммуникационные технологии (KZ-US-040)",
+      "kk": "Коммуникациялар және коммуникациялық технологиялар (KZ-US-040)",
+      "en": "Communications and Communication Technologies (KZ-US-040)"
+    },
+    "Universities": [
+      "NKU"
+    ],
+    "id": 182
+  },
+  {
+    "code": "ГУБКИН",
+    "name": {
+      "ru": "Нефтегазовое дело",
+      "kk": "Мұнай-газ ісі",
+      "en": "Oil and Gas Engineering"
+    },
+    "Universities": [
+      "Gubkin University"
+    ],
+    "id": 183
+  }
+]

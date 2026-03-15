@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { cookies } from "next/headers";
 import { BASE_URL } from "@/lib/constants";
+import { getCookie } from "@/lib/cookies/cookieServer";
 
 const axiosServer: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -8,8 +8,7 @@ const axiosServer: AxiosInstance = axios.create({
 });
 
 async function getServerToken(): Promise<string | null> {
-  const cookieStore = await cookies();
-  return cookieStore.get("access")?.value ?? null;
+  return getCookie("access");
 }
 
 type ServerResult<T> = { body: T | null; error: unknown };

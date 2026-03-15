@@ -3,8 +3,8 @@
 import { Box, Typography } from "@mui/material";
 
 export interface OptionsHeaderProps {
-  /** Пять подписей для шкалы (слева направо). Уже локализованные строки. */
-  options: [string, string, string, string, string];
+  /** Подписи для шкалы (слева направо). Уже локализованные строки (обычно 3 или 5). */
+  options: string[];
 }
 
 export const OptionsHeader = ({ options }: OptionsHeaderProps) => {
@@ -13,11 +13,9 @@ export const OptionsHeader = ({ options }: OptionsHeaderProps) => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        maxWidth: "1000px",
-        backgroundColor: "grey.300",
+        width: "100%",
         alignItems: "center",
         gap: 2,
-        px: 2,
         py: 1,
         mx: "auto",
       }}

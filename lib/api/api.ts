@@ -6,6 +6,7 @@ import axios, {
 } from "axios";
 import { getCookie, setCookie, removeCookie } from "@/lib/cookies/cookieClient";
 import { BASE_URL } from "@/lib/constants";
+import type { User } from "@/lib/types";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -94,6 +95,27 @@ axiosInstance.interceptors.response.use(
 
         setCookie("access", newToken);
         setCookie("refresh", refreshToken);
+
+        // Обновляем authStore: если user был null (bootstrap с истёкшим токеном),
+        // подтягиваем пользователя и восстанавливаем isAuthenticated.
+        // Динамический импорт разрывает циклическую зависимость api → authStore → authServices → api
+        import("@/lib/store/authStore").then(async ({ useAuthStore }) => {
+          const store = useAuthStore.getState();
+          if (!store.user) {
+            try {
+              const { data: userData } = await axios.get<User>(
+                `${BASE_URL}/api/v1/auth/me/`,
+                { headers: { Authorization: `Bearer ${newToken}` } }
+              );
+              store.setFromResponse({ access: newToken, refresh: refreshToken, user: userData });
+            } catch {
+              // Не критично — токен обновлён, следующий запрос пройдёт
+            }
+          } else {
+            // user уже есть — просто обновляем токен в store
+            store.setFromResponse({ access: newToken, refresh: refreshToken, user: store.user });
+          }
+        });
 
         processQueue(null, newToken);
 

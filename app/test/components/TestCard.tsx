@@ -3,13 +3,12 @@
 import { Box, Button, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import type { TestItem } from "@/app/test/constants";
+import type { TestItem } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import { useTestsStore } from "@/lib/store/testsStore";
-import type { ReactNode } from "react";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { type ReactNode, useEffect, useState } from "react";
 import LockResetIcon from "@mui/icons-material/LockReset";
-import { api } from "@/lib/api/api";
 import type { QuizTestType } from "@/lib/types";
 
 const CARD_ACCENTS = [
@@ -38,28 +37,22 @@ const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
   return { bg: "rgba(59, 59, 59, 0.15)", color: "#3B3B3B" };
 };
 
-const mapTestIdToQuickType = (id: TestItem["id"]): QuizTestType | null => {
-  switch (id) {
-    case "holland":
-      return "holland";
-    case "photo-career":
-      return "photo";
-    case "disc":
-      return "disc";
-    case "career-aptitude":
-      return "career_aptitude";
-    case "big-five":
-      return "big_five";
-    default:
-      return null;
-  }
+/** Maps test.id → the key used in quizSessionStore */
+const testIdToSessionKey = (id: TestItem["id"]): string => {
+  if (id === "big-five") return "bigfive";
+  return id; // "holland", "disc", "photo-career", "career-aptitude", …
 };
 
 export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, index: number, variant: String, disabled?: boolean }) => {
   const t = useTranslations();
   const router = useRouter();
-  const { isCompleted, setOpenResultModalId } = useTestsStore();
-  const completed = isCompleted(test.id);
+  const { setOpenResultModalId } = useTestsStore();
+  const isCompleted = useQuizSessionStore((s) => s.isCompleted);
+
+  // Defer localStorage-backed check to client to avoid SSR/CSR hydration mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const completed = mounted && isCompleted(testIdToSessionKey(test.id));
   const nameKey = `tests_${test.id}_name` as keyof typeof t;
   const featuresKey = `tests_${test.id}_features` as keyof typeof t;
   const categoryKey = `tests_${test.id}_category` as keyof typeof t;
@@ -80,46 +73,33 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
       const accentIndex = index % CARD_ACCENTS.length;
       const accent = CARD_ACCENTS[accentIndex];
 
-      const handleStart = () => {
-        const quickType = mapTestIdToQuickType(test.id);
-        if (quickType) {
-          // Fire-and-forget запрос к /api/v1/quizzes/quick/${testType}/
-          void api.get(`/api/v1/quizzes/quick/${quickType}/`).catch(() => {
-            // Ошибку намеренно игнорируем на стороне UI:
-            // локальная логика тестов продолжает работать.
-          });
-        }
+      const ROUTES: Partial<Record<string, string>> = {
+        "holland": "/test/holland",
+        "photo-career": "/test/photo-career",
+        "disc": "/test/disc",
+        "career-aptitude": "/test/career-aptitude",
+        "big-five": "/test/bigfive",
+      };
 
-        if (test.id === "holland") {
-          router.push("/test/holland");
-        } else if (test.id === "photo-career") {
-          router.push("/test/photo-career");
-        } else if (test.id === "disc") {
-          router.push("/test/disc");
-        } else if (test.id === "career-aptitude") {
-          router.push("/test/career-aptitude");
-        } else if (test.id === "big-five") {
-          router.push("/test/bigfive");
-        } else {
-          // For other tests: demo behavior
-          useTestsStore.getState().setCompleted(test.id);
-          setOpenResultModalId(test.id);
+      const RESULT_MODAL_IDS: Partial<Record<string, string>> = {
+        "holland": "holland",
+        "disc": "disc",
+        "photo-career": "photo-career",
+        "big-five": "bigfive",
+        "career-aptitude": "career-aptitude",
+      };
+
+      const handleStart = () => {
+        const route = ROUTES[test.id];
+        if (route) {
+          router.push(route);
         }
       };
     
       const handleShowResult = () => {
-        if (test.id === "holland") {
-          setOpenResultModalId("holland");
-        } else if (test.id === "disc") {
-          setOpenResultModalId("disc");
-        } else if (test.id === "photo-career") {
-          setOpenResultModalId("photo-career");
-        } else if (test.id === "career-aptitude") {
-          router.push("/test/career-aptitude/result");
-        } else if (test.id === "big-five") {
-          router.push("/test/bigfive/result");
-        } else {
-          setOpenResultModalId(test.id);
+        const modalId = RESULT_MODAL_IDS[test.id];
+        if (modalId) {
+          setOpenResultModalId(modalId);
         }
       };
   return (
@@ -143,7 +123,7 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
                       }}
                     >
                       <Box sx={styles.itemBgIcon} aria-hidden>
-                          {test.icon}
+                        {test.icon && <test.icon />}
                       </Box>
                       <Box sx={styles.itemContent}>
                         {variant === "recommended" && <Box
