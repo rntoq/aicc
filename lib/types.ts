@@ -139,8 +139,14 @@ export type PublicProfession = {
   name: LocalizedText;
   /** Industry id used for grouping/filtering (e.g. `it_technology`) */
   industry: string;
-  /** Specialty codes (e.g. `B049`) */
-  specialities: string[];
+  /**
+   * Specialty references.
+   *
+   * Старый формат: массив кодов (e.g. `"B049"`).
+   * Новый формат: массив объектов `{ code: string; id: number }`, где `id` — ссылка на speciality.
+   * Поддерживаем оба варианта для совместимости.
+   */
+  specialities: Array<string | { code: string; id: number }>;
   demand_level: ProfessionDemandLevel;
   salary_kzt: SalaryKzt;
   description?: LocalizedText;
