@@ -1,0 +1,1460 @@
+{
+  "test": {
+    "id": "test_008",
+    "code": "mbti-16-personalities",
+    "title": {
+      "ru": "Myers-Briggs Type Indicator (TypeFinder)",
+      "kk": "Myers-Briggs Type Indicator (TypeFinder)",
+      "en": "Myers-Briggs Type Indicator (TypeFinder)"
+    },
+    "version": 1
+  },
+  "questions_total": 129,
+  "question_types": {
+    "pair": 24,
+    "single": 105
+  },
+  "scales": {
+    "pair": {
+      "min": 1,
+      "max": 5,
+      "meaning": {
+        "1": {
+          "ru": "Far left",
+          "kk": "Far left",
+          "en": "Far left"
+        },
+        "2": {
+          "ru": "Moderate left",
+          "kk": "Moderate left",
+          "en": "Moderate left"
+        },
+        "3": {
+          "ru": "Neutral",
+          "kk": "Neutral",
+          "en": "Neutral"
+        },
+        "4": {
+          "ru": "Moderate right",
+          "kk": "Moderate right",
+          "en": "Moderate right"
+        },
+        "5": {
+          "ru": "Far right",
+          "kk": "Far right",
+          "en": "Far right"
+        }
+      }
+    },
+    "single": {
+      "min": 1,
+      "max": 5,
+      "labels": {
+        "1": {
+          "ru": "Inaccurate",
+          "kk": "Inaccurate",
+          "en": "Inaccurate"
+        },
+        "2": {
+          "ru": "Mostly Inaccurate",
+          "kk": "Mostly Inaccurate",
+          "en": "Mostly Inaccurate"
+        },
+        "3": {
+          "ru": "Neutral",
+          "kk": "Neutral",
+          "en": "Neutral"
+        },
+        "4": {
+          "ru": "Mostly Accurate",
+          "kk": "Mostly Accurate",
+          "en": "Mostly Accurate"
+        },
+        "5": {
+          "ru": "Accurate",
+          "kk": "Accurate",
+          "en": "Accurate"
+        }
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": "mbti_q001",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I am often disorganized",
+          "kk": "I am often disorganized",
+          "en": "I am often disorganized"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I keep myself organized",
+          "kk": "I keep myself organized",
+          "en": "I keep myself organized"
+        }
+      }
+    },
+    {
+      "id": "mbti_q002",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I make decisions with my head",
+          "kk": "I make decisions with my head",
+          "en": "I make decisions with my head"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I make decisions with my heart",
+          "kk": "I make decisions with my heart",
+          "en": "I make decisions with my heart"
+        }
+      }
+    },
+    {
+      "id": "mbti_q003",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I like to try to innovate",
+          "kk": "I like to try to innovate",
+          "en": "I like to try to innovate"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I like to use trusted methods",
+          "kk": "I like to use trusted methods",
+          "en": "I like to use trusted methods"
+        }
+      }
+    },
+    {
+      "id": "mbti_q004",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I keep my thoughts to myself",
+          "kk": "I keep my thoughts to myself",
+          "en": "I keep my thoughts to myself"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I speak up",
+          "kk": "I speak up",
+          "en": "I speak up"
+        }
+      }
+    },
+    {
+      "id": "mbti_q005",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I seek attention from others",
+          "kk": "I seek attention from others",
+          "en": "I seek attention from others"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I avoid attention from others",
+          "kk": "I avoid attention from others",
+          "en": "I avoid attention from others"
+        }
+      }
+    },
+    {
+      "id": "mbti_q006",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I look for ways to help others",
+          "kk": "I look for ways to help others",
+          "en": "I look for ways to help others"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I look for ways to achieve my own goals",
+          "kk": "I look for ways to achieve my own goals",
+          "en": "I look for ways to achieve my own goals"
+        }
+      }
+    },
+    {
+      "id": "mbti_q007",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I start conversations",
+          "kk": "I start conversations",
+          "en": "I start conversations"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I let others start conversations",
+          "kk": "I let others start conversations",
+          "en": "I let others start conversations"
+        }
+      }
+    },
+    {
+      "id": "mbti_q008",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I like ideas that are easy to understand",
+          "kk": "I like ideas that are easy to understand",
+          "en": "I like ideas that are easy to understand"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I like ideas that are complex",
+          "kk": "I like ideas that are complex",
+          "en": "I like ideas that are complex"
+        }
+      }
+    },
+    {
+      "id": "mbti_q009",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I feel the pain of other people",
+          "kk": "I feel the pain of other people",
+          "en": "I feel the pain of other people"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I am not easily affected by sad stories",
+          "kk": "I am not easily affected by sad stories",
+          "en": "I am not easily affected by sad stories"
+        }
+      }
+    },
+    {
+      "id": "mbti_q010",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I value my social status",
+          "kk": "I value my social status",
+          "en": "I value my social status"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I value my privacy",
+          "kk": "I value my privacy",
+          "en": "I value my privacy"
+        }
+      }
+    },
+    {
+      "id": "mbti_q011",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I put my needs first",
+          "kk": "I put my needs first",
+          "en": "I put my needs first"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I put others’ needs ahead of my own",
+          "kk": "I put others’ needs ahead of my own",
+          "en": "I put others’ needs ahead of my own"
+        }
+      }
+    },
+    {
+      "id": "mbti_q012",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I follow a plan",
+          "kk": "I follow a plan",
+          "en": "I follow a plan"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I act on impulse",
+          "kk": "I act on impulse",
+          "en": "I act on impulse"
+        }
+      }
+    },
+    {
+      "id": "mbti_q013",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I am always prepared",
+          "kk": "I am always prepared",
+          "en": "I am always prepared"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I am often unprepared",
+          "kk": "I am often unprepared",
+          "en": "I am often unprepared"
+        }
+      }
+    },
+    {
+      "id": "mbti_q014",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I make sure everyone is taken care of",
+          "kk": "I make sure everyone is taken care of",
+          "en": "I make sure everyone is taken care of"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I look out for myself",
+          "kk": "I look out for myself",
+          "en": "I look out for myself"
+        }
+      }
+    },
+    {
+      "id": "mbti_q015",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I work first, play later",
+          "kk": "I work first, play later",
+          "en": "I work first, play later"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I play first, work later",
+          "kk": "I play first, work later",
+          "en": "I play first, work later"
+        }
+      }
+    },
+    {
+      "id": "mbti_q016",
+      "type": "single",
+      "text": {
+        "ru": "I have a lot of energy",
+        "kk": "I have a lot of energy",
+        "en": "I have a lot of energy"
+      }
+    },
+    {
+      "id": "mbti_q017",
+      "type": "single",
+      "text": {
+        "ru": "I have a vivid imagination",
+        "kk": "I have a vivid imagination",
+        "en": "I have a vivid imagination"
+      }
+    },
+    {
+      "id": "mbti_q018",
+      "type": "single",
+      "text": {
+        "ru": "I prefer to follow a schedule",
+        "kk": "I prefer to follow a schedule",
+        "en": "I prefer to follow a schedule"
+      }
+    },
+    {
+      "id": "mbti_q019",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy trying to understand complicated ideas",
+        "kk": "I enjoy trying to understand complicated ideas",
+        "en": "I enjoy trying to understand complicated ideas"
+      }
+    },
+    {
+      "id": "mbti_q020",
+      "type": "single",
+      "text": {
+        "ru": "I think about the needs of others",
+        "kk": "I think about the needs of others",
+        "en": "I think about the needs of others"
+      }
+    },
+    {
+      "id": "mbti_q021",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy being the center of attention",
+        "kk": "I enjoy being the center of attention",
+        "en": "I enjoy being the center of attention"
+      }
+    },
+    {
+      "id": "mbti_q022",
+      "type": "single",
+      "text": {
+        "ru": "I make sure my work is finished on time",
+        "kk": "I make sure my work is finished on time",
+        "en": "I make sure my work is finished on time"
+      }
+    },
+    {
+      "id": "mbti_q023",
+      "type": "single",
+      "text": {
+        "ru": "I sympathize with the homeless",
+        "kk": "I sympathize with the homeless",
+        "en": "I sympathize with the homeless"
+      }
+    },
+    {
+      "id": "mbti_q024",
+      "type": "single",
+      "text": {
+        "ru": "I think about why people do the things they do",
+        "kk": "I think about why people do the things they do",
+        "en": "I think about why people do the things they do"
+      }
+    },
+    {
+      "id": "mbti_q025",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy chatting with new acquaintances",
+        "kk": "I enjoy chatting with new acquaintances",
+        "en": "I enjoy chatting with new acquaintances"
+      }
+    },
+    {
+      "id": "mbti_q026",
+      "type": "single",
+      "text": {
+        "ru": "I keep my belongings in their proper place",
+        "kk": "I keep my belongings in their proper place",
+        "en": "I keep my belongings in their proper place"
+      }
+    },
+    {
+      "id": "mbti_q027",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy being there for people when they are feeling sad",
+        "kk": "I enjoy being there for people when they are feeling sad",
+        "en": "I enjoy being there for people when they are feeling sad"
+      }
+    },
+    {
+      "id": "mbti_q028",
+      "type": "single",
+      "text": {
+        "ru": "I would rather go with the flow than have a set schedule",
+        "kk": "I would rather go with the flow than have a set schedule",
+        "en": "I would rather go with the flow than have a set schedule"
+      }
+    },
+    {
+      "id": "mbti_q029",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy philosophical discussions",
+        "kk": "I enjoy philosophical discussions",
+        "en": "I enjoy philosophical discussions"
+      }
+    },
+    {
+      "id": "mbti_q030",
+      "type": "single",
+      "text": {
+        "ru": "I would enjoy attending a large party in my honor",
+        "kk": "I would enjoy attending a large party in my honor",
+        "en": "I would enjoy attending a large party in my honor"
+      }
+    },
+    {
+      "id": "mbti_q031",
+      "type": "single",
+      "text": {
+        "ru": "I am very attentive to deadlines",
+        "kk": "I am very attentive to deadlines",
+        "en": "I am very attentive to deadlines"
+      }
+    },
+    {
+      "id": "mbti_q032",
+      "type": "single",
+      "text": {
+        "ru": "I am helpful to the people around me",
+        "kk": "I am helpful to the people around me",
+        "en": "I am helpful to the people around me"
+      }
+    },
+    {
+      "id": "mbti_q033",
+      "type": "single",
+      "text": {
+        "ru": "It is important to me to understand the bigger picture",
+        "kk": "It is important to me to understand the bigger picture",
+        "en": "It is important to me to understand the bigger picture"
+      }
+    },
+    {
+      "id": "mbti_q034",
+      "type": "single",
+      "text": {
+        "ru": "It is easy for me to talk to strangers",
+        "kk": "It is easy for me to talk to strangers",
+        "en": "It is easy for me to talk to strangers"
+      }
+    },
+    {
+      "id": "mbti_q035",
+      "type": "single",
+      "text": {
+        "ru": "I believe in the importance of art",
+        "kk": "I believe in the importance of art",
+        "en": "I believe in the importance of art"
+      }
+    },
+    {
+      "id": "mbti_q036",
+      "type": "single",
+      "text": {
+        "ru": "I work hard to please others",
+        "kk": "I work hard to please others",
+        "en": "I work hard to please others"
+      }
+    },
+    {
+      "id": "mbti_q037",
+      "type": "single",
+      "text": {
+        "ru": "I like to help others with their personal problems",
+        "kk": "I like to help others with their personal problems",
+        "en": "I like to help others with their personal problems"
+      }
+    },
+    {
+      "id": "mbti_q038",
+      "type": "single",
+      "text": {
+        "ru": "I like thinking about the mysteries of the universe",
+        "kk": "I like thinking about the mysteries of the universe",
+        "en": "I like thinking about the mysteries of the universe"
+      }
+    },
+    {
+      "id": "mbti_q039",
+      "type": "single",
+      "text": {
+        "ru": "I make plans and stick to them",
+        "kk": "I make plans and stick to them",
+        "en": "I make plans and stick to them"
+      }
+    },
+    {
+      "id": "mbti_q040",
+      "type": "single",
+      "text": {
+        "ru": "I spend time trying to understand myself",
+        "kk": "I spend time trying to understand myself",
+        "en": "I spend time trying to understand myself"
+      }
+    },
+    {
+      "id": "mbti_q041",
+      "type": "single",
+      "text": {
+        "ru": "I get a thrill out of meeting new people",
+        "kk": "I get a thrill out of meeting new people",
+        "en": "I get a thrill out of meeting new people"
+      }
+    },
+    {
+      "id": "mbti_q042",
+      "type": "single",
+      "text": {
+        "ru": "I am sensitive to the feelings of others",
+        "kk": "I am sensitive to the feelings of others",
+        "en": "I am sensitive to the feelings of others"
+      }
+    },
+    {
+      "id": "mbti_q043",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy learning about scientific theories",
+        "kk": "I enjoy learning about scientific theories",
+        "en": "I enjoy learning about scientific theories"
+      }
+    },
+    {
+      "id": "mbti_q044",
+      "type": "single",
+      "text": {
+        "ru": "I start tasks in advance, so that I have plenty of time to finish",
+        "kk": "I start tasks in advance, so that I have plenty of time to finish",
+        "en": "I start tasks in advance, so that I have plenty of time to finish"
+      }
+    },
+    {
+      "id": "mbti_q045",
+      "type": "single",
+      "text": {
+        "ru": "I love to make new friends",
+        "kk": "I love to make new friends",
+        "en": "I love to make new friends"
+      }
+    },
+    {
+      "id": "mbti_q046",
+      "type": "single",
+      "text": {
+        "ru": "I like to have a detailed plan before starting a task",
+        "kk": "I like to have a detailed plan before starting a task",
+        "en": "I like to have a detailed plan before starting a task"
+      }
+    },
+    {
+      "id": "mbti_q047",
+      "type": "single",
+      "text": {
+        "ru": "People tell me I am too quiet",
+        "kk": "People tell me I am too quiet",
+        "en": "People tell me I am too quiet"
+      }
+    },
+    {
+      "id": "mbti_q048",
+      "type": "single",
+      "text": {
+        "ru": "I am concerned about others",
+        "kk": "I am concerned about others",
+        "en": "I am concerned about others"
+      }
+    },
+    {
+      "id": "mbti_q049",
+      "type": "single",
+      "text": {
+        "ru": "I would prefer to come up with an original solution to a problem",
+        "kk": "I would prefer to come up with an original solution to a problem",
+        "en": "I would prefer to come up with an original solution to a problem"
+      }
+    },
+    {
+      "id": "mbti_q050",
+      "type": "single",
+      "text": {
+        "ru": "Being around lots of people energizes me",
+        "kk": "Being around lots of people energizes me",
+        "en": "Being around lots of people energizes me"
+      }
+    },
+    {
+      "id": "mbti_q051",
+      "type": "single",
+      "text": {
+        "ru": "I have trouble sticking to a routine",
+        "kk": "I have trouble sticking to a routine",
+        "en": "I have trouble sticking to a routine"
+      }
+    },
+    {
+      "id": "mbti_q052",
+      "type": "single",
+      "text": {
+        "ru": "It is important to me to be of service to others",
+        "kk": "It is important to me to be of service to others",
+        "en": "It is important to me to be of service to others"
+      }
+    },
+    {
+      "id": "mbti_q053",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy examining myself and my life",
+        "kk": "I enjoy examining myself and my life",
+        "en": "I enjoy examining myself and my life"
+      }
+    },
+    {
+      "id": "mbti_q054",
+      "type": "single",
+      "text": {
+        "ru": "I find it challenging to make new friends",
+        "kk": "I find it challenging to make new friends",
+        "en": "I find it challenging to make new friends"
+      }
+    },
+    {
+      "id": "mbti_q055",
+      "type": "single",
+      "text": {
+        "ru": "I am a private person",
+        "kk": "I am a private person",
+        "en": "I am a private person"
+      }
+    },
+    {
+      "id": "mbti_q056",
+      "type": "single",
+      "text": {
+        "ru": "I let others know that I care about their feelings",
+        "kk": "I let others know that I care about their feelings",
+        "en": "I let others know that I care about their feelings"
+      }
+    },
+    {
+      "id": "mbti_q057",
+      "type": "single",
+      "text": {
+        "ru": "I am full of new ideas",
+        "kk": "I am full of new ideas",
+        "en": "I am full of new ideas"
+      }
+    },
+    {
+      "id": "mbti_q058",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I spend my time pursuing my goals",
+          "kk": "I spend my time pursuing my goals",
+          "en": "I spend my time pursuing my goals"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I spend my time enjoying life",
+          "kk": "I spend my time enjoying life",
+          "en": "I spend my time enjoying life"
+        }
+      }
+    },
+    {
+      "id": "mbti_q059",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I focus on real life",
+          "kk": "I focus on real life",
+          "en": "I focus on real life"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I use my imagination",
+          "kk": "I use my imagination",
+          "en": "I use my imagination"
+        }
+      }
+    },
+    {
+      "id": "mbti_q060",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I trust traditional values",
+          "kk": "I trust traditional values",
+          "en": "I trust traditional values"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I question traditional values",
+          "kk": "I question traditional values",
+          "en": "I question traditional values"
+        }
+      }
+    },
+    {
+      "id": "mbti_q061",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I enjoy activities that are familiar",
+          "kk": "I enjoy activities that are familiar",
+          "en": "I enjoy activities that are familiar"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I enjoy experiencing new things",
+          "kk": "I enjoy experiencing new things",
+          "en": "I enjoy experiencing new things"
+        }
+      }
+    },
+    {
+      "id": "mbti_q062",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I am more interested in what is possible",
+          "kk": "I am more interested in what is possible",
+          "en": "I am more interested in what is possible"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I am more interested in what is real",
+          "kk": "I am more interested in what is real",
+          "en": "I am more interested in what is real"
+        }
+      }
+    },
+    {
+      "id": "mbti_q063",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I like to cooperate",
+          "kk": "I like to cooperate",
+          "en": "I like to cooperate"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I like to compete",
+          "kk": "I like to compete",
+          "en": "I like to compete"
+        }
+      }
+    },
+    {
+      "id": "mbti_q064",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I prefer to follow a clear procedure",
+          "kk": "I prefer to follow a clear procedure",
+          "en": "I prefer to follow a clear procedure"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I prefer to improvise",
+          "kk": "I prefer to improvise",
+          "en": "I prefer to improvise"
+        }
+      }
+    },
+    {
+      "id": "mbti_q065",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I prefer to work in an active, bustling office",
+          "kk": "I prefer to work in an active, bustling office",
+          "en": "I prefer to work in an active, bustling office"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I prefer to work in a calm, quiet office",
+          "kk": "I prefer to work in a calm, quiet office",
+          "en": "I prefer to work in a calm, quiet office"
+        }
+      }
+    },
+    {
+      "id": "mbti_q066",
+      "type": "pair",
+      "left": {
+        "text": {
+          "ru": "I do things step-by-step",
+          "kk": "I do things step-by-step",
+          "en": "I do things step-by-step"
+        }
+      },
+      "right": {
+        "text": {
+          "ru": "I jump in and figure things out as I go",
+          "kk": "I jump in and figure things out as I go",
+          "en": "I jump in and figure things out as I go"
+        }
+      }
+    },
+    {
+      "id": "mbti_q067",
+      "type": "single",
+      "text": {
+        "ru": "I like to finish all my chores before I do something fun",
+        "kk": "I like to finish all my chores before I do something fun",
+        "en": "I like to finish all my chores before I do something fun"
+      }
+    },
+    {
+      "id": "mbti_q068",
+      "type": "single",
+      "text": {
+        "ru": "I question why things are the way they are",
+        "kk": "I question why things are the way they are",
+        "en": "I question why things are the way they are"
+      }
+    },
+    {
+      "id": "mbti_q069",
+      "type": "single",
+      "text": {
+        "ru": "I carry out my plans",
+        "kk": "I carry out my plans",
+        "en": "I carry out my plans"
+      }
+    },
+    {
+      "id": "mbti_q070",
+      "type": "single",
+      "text": {
+        "ru": "It is important to me to make decisions without being swayed by emotions",
+        "kk": "It is important to me to make decisions without being swayed by emotions",
+        "en": "It is important to me to make decisions without being swayed by emotions"
+      }
+    },
+    {
+      "id": "mbti_q071",
+      "type": "single",
+      "text": {
+        "ru": "I lose my belongings",
+        "kk": "I lose my belongings",
+        "en": "I lose my belongings"
+      }
+    },
+    {
+      "id": "mbti_q072",
+      "type": "single",
+      "text": {
+        "ru": "It is important to me to follow traditions",
+        "kk": "It is important to me to follow traditions",
+        "en": "It is important to me to follow traditions"
+      }
+    },
+    {
+      "id": "mbti_q073",
+      "type": "single",
+      "text": {
+        "ru": "I let other people know what I think",
+        "kk": "I let other people know what I think",
+        "en": "I let other people know what I think"
+      }
+    },
+    {
+      "id": "mbti_q074",
+      "type": "single",
+      "text": {
+        "ru": "I try to avoid conflict",
+        "kk": "I try to avoid conflict",
+        "en": "I try to avoid conflict"
+      }
+    },
+    {
+      "id": "mbti_q075",
+      "type": "single",
+      "text": {
+        "ru": "I have trouble controlling my impulses",
+        "kk": "I have trouble controlling my impulses",
+        "en": "I have trouble controlling my impulses"
+      }
+    },
+    {
+      "id": "mbti_q076",
+      "type": "single",
+      "text": {
+        "ru": "I love life",
+        "kk": "I love life",
+        "en": "I love life"
+      }
+    },
+    {
+      "id": "mbti_q077",
+      "type": "single",
+      "text": {
+        "ru": "I am ambitious",
+        "kk": "I am ambitious",
+        "en": "I am ambitious"
+      }
+    },
+    {
+      "id": "mbti_q078",
+      "type": "single",
+      "text": {
+        "ru": "I would like to play a musical instrument",
+        "kk": "I would like to play a musical instrument",
+        "en": "I would like to play a musical instrument"
+      }
+    },
+    {
+      "id": "mbti_q079",
+      "type": "single",
+      "text": {
+        "ru": "I like to be needed by other people",
+        "kk": "I like to be needed by other people",
+        "en": "I like to be needed by other people"
+      }
+    },
+    {
+      "id": "mbti_q080",
+      "type": "single",
+      "text": {
+        "ru": "I avoid being alone",
+        "kk": "I avoid being alone",
+        "en": "I avoid being alone"
+      }
+    },
+    {
+      "id": "mbti_q081",
+      "type": "single",
+      "text": {
+        "ru": "I forgive easily",
+        "kk": "I forgive easily",
+        "en": "I forgive easily"
+      }
+    },
+    {
+      "id": "mbti_q082",
+      "type": "single",
+      "text": {
+        "ru": "I like trying out new hobbies",
+        "kk": "I like trying out new hobbies",
+        "en": "I like trying out new hobbies"
+      }
+    },
+    {
+      "id": "mbti_q083",
+      "type": "single",
+      "text": {
+        "ru": "I like to stay active",
+        "kk": "I like to stay active",
+        "en": "I like to stay active"
+      }
+    },
+    {
+      "id": "mbti_q084",
+      "type": "single",
+      "text": {
+        "ru": "It is best to be totally objective when making a decision",
+        "kk": "It is best to be totally objective when making a decision",
+        "en": "It is best to be totally objective when making a decision"
+      }
+    },
+    {
+      "id": "mbti_q085",
+      "type": "single",
+      "text": {
+        "ru": "I have a rich fantasy life",
+        "kk": "I have a rich fantasy life",
+        "en": "I have a rich fantasy life"
+      }
+    },
+    {
+      "id": "mbti_q086",
+      "type": "single",
+      "text": {
+        "ru": "I have little to say",
+        "kk": "I have little to say",
+        "en": "I have little to say"
+      }
+    },
+    {
+      "id": "mbti_q087",
+      "type": "single",
+      "text": {
+        "ru": "I like to do things as they were done in the past",
+        "kk": "I like to do things as they were done in the past",
+        "en": "I like to do things as they were done in the past"
+      }
+    },
+    {
+      "id": "mbti_q088",
+      "type": "single",
+      "text": {
+        "ru": "I avoid arguing, even when I disagree",
+        "kk": "I avoid arguing, even when I disagree",
+        "en": "I avoid arguing, even when I disagree"
+      }
+    },
+    {
+      "id": "mbti_q089",
+      "type": "single",
+      "text": {
+        "ru": "I have a lot of fun",
+        "kk": "I have a lot of fun",
+        "en": "I have a lot of fun"
+      }
+    },
+    {
+      "id": "mbti_q090",
+      "type": "single",
+      "text": {
+        "ru": "I resist temptations",
+        "kk": "I resist temptations",
+        "en": "I resist temptations"
+      }
+    },
+    {
+      "id": "mbti_q091",
+      "type": "single",
+      "text": {
+        "ru": "I am determined to achieve success in life",
+        "kk": "I am determined to achieve success in life",
+        "en": "I am determined to achieve success in life"
+      }
+    },
+    {
+      "id": "mbti_q092",
+      "type": "single",
+      "text": {
+        "ru": "I like to spend my free time alone",
+        "kk": "I like to spend my free time alone",
+        "en": "I like to spend my free time alone"
+      }
+    },
+    {
+      "id": "mbti_q093",
+      "type": "single",
+      "text": {
+        "ru": "I believe people should be punished for their mistakes",
+        "kk": "I believe people should be punished for their mistakes",
+        "en": "I believe people should be punished for their mistakes"
+      }
+    },
+    {
+      "id": "mbti_q094",
+      "type": "single",
+      "text": {
+        "ru": "I spend time seeking out new experiences",
+        "kk": "I spend time seeking out new experiences",
+        "en": "I spend time seeking out new experiences"
+      }
+    },
+    {
+      "id": "mbti_q095",
+      "type": "single",
+      "text": {
+        "ru": "I am on the go",
+        "kk": "I am on the go",
+        "en": "I am on the go"
+      }
+    },
+    {
+      "id": "mbti_q096",
+      "type": "single",
+      "text": {
+        "ru": "I wish other people would be more logical",
+        "kk": "I wish other people would be more logical",
+        "en": "I wish other people would be more logical"
+      }
+    },
+    {
+      "id": "mbti_q097",
+      "type": "single",
+      "text": {
+        "ru": "I like to tidy up",
+        "kk": "I like to tidy up",
+        "en": "I like to tidy up"
+      }
+    },
+    {
+      "id": "mbti_q098",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy imagining the future",
+        "kk": "I enjoy imagining the future",
+        "en": "I enjoy imagining the future"
+      }
+    },
+    {
+      "id": "mbti_q099",
+      "type": "single",
+      "text": {
+        "ru": "I find it difficult to express my opinions",
+        "kk": "I find it difficult to express my opinions",
+        "en": "I find it difficult to express my opinions"
+      }
+    },
+    {
+      "id": "mbti_q100",
+      "type": "single",
+      "text": {
+        "ru": "I try not to draw attention to myself",
+        "kk": "I try not to draw attention to myself",
+        "en": "I try not to draw attention to myself"
+      }
+    },
+    {
+      "id": "mbti_q101",
+      "type": "single",
+      "text": {
+        "ru": "I dislike being in competition with others",
+        "kk": "I dislike being in competition with others",
+        "en": "I dislike being in competition with others"
+      }
+    },
+    {
+      "id": "mbti_q102",
+      "type": "single",
+      "text": {
+        "ru": "I question the wisdom of my elders",
+        "kk": "I question the wisdom of my elders",
+        "en": "I question the wisdom of my elders"
+      }
+    },
+    {
+      "id": "mbti_q103",
+      "type": "single",
+      "text": {
+        "ru": "I finish assignments before they are due",
+        "kk": "I finish assignments before they are due",
+        "en": "I finish assignments before they are due"
+      }
+    },
+    {
+      "id": "mbti_q104",
+      "type": "single",
+      "text": {
+        "ru": "I am concerned for the welfare of elderly people",
+        "kk": "I am concerned for the welfare of elderly people",
+        "en": "I am concerned for the welfare of elderly people"
+      }
+    },
+    {
+      "id": "mbti_q105",
+      "type": "single",
+      "text": {
+        "ru": "I follow my impulses",
+        "kk": "I follow my impulses",
+        "en": "I follow my impulses"
+      }
+    },
+    {
+      "id": "mbti_q106",
+      "type": "single",
+      "text": {
+        "ru": "I feel very happy",
+        "kk": "I feel very happy",
+        "en": "I feel very happy"
+      }
+    },
+    {
+      "id": "mbti_q107",
+      "type": "single",
+      "text": {
+        "ru": "I need support from other people",
+        "kk": "I need support from other people",
+        "en": "I need support from other people"
+      }
+    },
+    {
+      "id": "mbti_q108",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy going to museums",
+        "kk": "I enjoy going to museums",
+        "en": "I enjoy going to museums"
+      }
+    },
+    {
+      "id": "mbti_q109",
+      "type": "single",
+      "text": {
+        "ru": "I avoid noisy crowds",
+        "kk": "I avoid noisy crowds",
+        "en": "I avoid noisy crowds"
+      }
+    },
+    {
+      "id": "mbti_q110",
+      "type": "single",
+      "text": {
+        "ru": "I forgive others’ mistakes, even when they harm me personally",
+        "kk": "I forgive others’ mistakes, even when they harm me personally",
+        "en": "I forgive others’ mistakes, even when they harm me personally"
+      }
+    },
+    {
+      "id": "mbti_q111",
+      "type": "single",
+      "text": {
+        "ru": "I like to do things differently, even if I am not sure it will work",
+        "kk": "I like to do things differently, even if I am not sure it will work",
+        "en": "I like to do things differently, even if I am not sure it will work"
+      }
+    },
+    {
+      "id": "mbti_q112",
+      "type": "single",
+      "text": {
+        "ru": "I am not bothered by disorder",
+        "kk": "I am not bothered by disorder",
+        "en": "I am not bothered by disorder"
+      }
+    },
+    {
+      "id": "mbti_q113",
+      "type": "single",
+      "text": {
+        "ru": "I do not like to sit still for long",
+        "kk": "I do not like to sit still for long",
+        "en": "I do not like to sit still for long"
+      }
+    },
+    {
+      "id": "mbti_q114",
+      "type": "single",
+      "text": {
+        "ru": "I make important decisions based on my gut feelings",
+        "kk": "I make important decisions based on my gut feelings",
+        "en": "I make important decisions based on my gut feelings"
+      }
+    },
+    {
+      "id": "mbti_q115",
+      "type": "single",
+      "text": {
+        "ru": "I enjoy having a daily routine",
+        "kk": "I enjoy having a daily routine",
+        "en": "I enjoy having a daily routine"
+      }
+    },
+    {
+      "id": "mbti_q116",
+      "type": "single",
+      "text": {
+        "ru": "I hold back my opinions",
+        "kk": "I hold back my opinions",
+        "en": "I hold back my opinions"
+      }
+    },
+    {
+      "id": "mbti_q117",
+      "type": "single",
+      "text": {
+        "ru": "I feel uncomfortable when I disagree with someone",
+        "kk": "I feel uncomfortable when I disagree with someone",
+        "en": "I feel uncomfortable when I disagree with someone"
+      }
+    },
+    {
+      "id": "mbti_q118",
+      "type": "single",
+      "text": {
+        "ru": "I make an effort to be popular",
+        "kk": "I make an effort to be popular",
+        "en": "I make an effort to be popular"
+      }
+    },
+    {
+      "id": "mbti_q119",
+      "type": "single",
+      "text": {
+        "ru": "I am easily distracted",
+        "kk": "I am easily distracted",
+        "en": "I am easily distracted"
+      }
+    },
+    {
+      "id": "mbti_q120",
+      "type": "single",
+      "text": {
+        "ru": "I have a zest for life",
+        "kk": "I have a zest for life",
+        "en": "I have a zest for life"
+      }
+    },
+    {
+      "id": "mbti_q121",
+      "type": "single",
+      "text": {
+        "ru": "I give to people who are less fortunate than I",
+        "kk": "I give to people who are less fortunate than I",
+        "en": "I give to people who are less fortunate than I"
+      }
+    },
+    {
+      "id": "mbti_q122",
+      "type": "single",
+      "text": {
+        "ru": "I wonder why I am the way I am",
+        "kk": "I wonder why I am the way I am",
+        "en": "I wonder why I am the way I am"
+      }
+    },
+    {
+      "id": "mbti_q123",
+      "type": "single",
+      "text": {
+        "ru": "It’s important to me that other people like me",
+        "kk": "It’s important to me that other people like me",
+        "en": "It’s important to me that other people like me"
+      }
+    },
+    {
+      "id": "mbti_q124",
+      "type": "single",
+      "text": {
+        "ru": "I appreciate the beauty of nature",
+        "kk": "I appreciate the beauty of nature",
+        "en": "I appreciate the beauty of nature"
+      }
+    },
+    {
+      "id": "mbti_q125",
+      "type": "single",
+      "text": {
+        "ru": "I prefer quiet surroundings",
+        "kk": "I prefer quiet surroundings",
+        "en": "I prefer quiet surroundings"
+      }
+    },
+    {
+      "id": "mbti_q126",
+      "type": "single",
+      "text": {
+        "ru": "I find it difficult to get down to work",
+        "kk": "I find it difficult to get down to work",
+        "en": "I find it difficult to get down to work"
+      }
+    },
+    {
+      "id": "mbti_q127",
+      "type": "single",
+      "text": {
+        "ru": "I can't stand when someone doesn't like me",
+        "kk": "I can't stand when someone doesn't like me",
+        "en": "I can't stand when someone doesn't like me"
+      }
+    },
+    {
+      "id": "mbti_q128",
+      "type": "single",
+      "text": {
+        "ru": "I like poetry",
+        "kk": "I like poetry",
+        "en": "I like poetry"
+      }
+    },
+    {
+      "id": "mbti_q129",
+      "type": "single",
+      "text": {
+        "ru": "Emotional people make me uncomfortable",
+        "kk": "Emotional people make me uncomfortable",
+        "en": "Emotional people make me uncomfortable"
+      }
+    }
+  ]
+}

@@ -1,0 +1,677 @@
+{
+  "test": {
+    "id": "test_009",
+    "code": "emotional-intelligence-eq",
+    "title": {
+      "ru": "Emotional Intelligence Assessment",
+      "kk": "Emotional Intelligence Assessment",
+      "en": "Emotional Intelligence Assessment"
+    },
+    "version": 1
+  },
+  "questions_total": 63,
+  "question_type": "scale",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "labels": {
+      "1": {
+        "ru": "Inaccurate",
+        "kk": "Inaccurate",
+        "en": "Inaccurate"
+      },
+      "2": {
+        "ru": "Mostly Inaccurate",
+        "kk": "Mostly Inaccurate",
+        "en": "Mostly Inaccurate"
+      },
+      "3": {
+        "ru": "Neutral",
+        "kk": "Neutral",
+        "en": "Neutral"
+      },
+      "4": {
+        "ru": "Mostly Accurate",
+        "kk": "Mostly Accurate",
+        "en": "Mostly Accurate"
+      },
+      "5": {
+        "ru": "Accurate",
+        "kk": "Accurate",
+        "en": "Accurate"
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "text": {
+        "ru": "I am very good at identifying the emotions I am feeling",
+        "kk": "I am very good at identifying the emotions I am feeling",
+        "en": "I am very good at identifying the emotions I am feeling"
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 2,
+      "text": {
+        "ru": "I sometimes find it hard to figure out how people around me are feeling.",
+        "kk": "I sometimes find it hard to figure out how people around me are feeling.",
+        "en": "I sometimes find it hard to figure out how people around me are feeling."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 3,
+      "text": {
+        "ru": "I have control over my emotions.",
+        "kk": "I have control over my emotions.",
+        "en": "I have control over my emotions."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 4,
+      "text": {
+        "ru": "I regularly donate to charities that help people in need.",
+        "kk": "I regularly donate to charities that help people in need.",
+        "en": "I regularly donate to charities that help people in need."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 5,
+      "text": {
+        "ru": "I really enjoy socializing.",
+        "kk": "I really enjoy socializing.",
+        "en": "I really enjoy socializing."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 6,
+      "text": {
+        "ru": "I get things done, regardless of how I am feeling.",
+        "kk": "I get things done, regardless of how I am feeling.",
+        "en": "I get things done, regardless of how I am feeling."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 7,
+      "text": {
+        "ru": "I am highly aware of how I am feeling (my moods, emotions, etc.)",
+        "kk": "I am highly aware of how I am feeling (my moods, emotions, etc.)",
+        "en": "I am highly aware of how I am feeling (my moods, emotions, etc.)"
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 8,
+      "text": {
+        "ru": "I am very good at reading body language.",
+        "kk": "I am very good at reading body language.",
+        "en": "I am very good at reading body language."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 9,
+      "text": {
+        "ru": "My emotions are under control.",
+        "kk": "My emotions are under control.",
+        "en": "My emotions are under control."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 10,
+      "text": {
+        "ru": "I am very affected by advertisements about animal cruelty.",
+        "kk": "I am very affected by advertisements about animal cruelty.",
+        "en": "I am very affected by advertisements about animal cruelty."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 11,
+      "text": {
+        "ru": "I am confident in social situations.",
+        "kk": "I am confident in social situations.",
+        "en": "I am confident in social situations."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 12,
+      "text": {
+        "ru": "I don't burden other people with my emotions.",
+        "kk": "I don't burden other people with my emotions.",
+        "en": "I don't burden other people with my emotions."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 13,
+      "text": {
+        "ru": "I use very specific words to talk about how I am feeling.",
+        "kk": "I use very specific words to talk about how I am feeling.",
+        "en": "I use very specific words to talk about how I am feeling."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 14,
+      "text": {
+        "ru": "I have an acute sense of how people around me are feeling.",
+        "kk": "I have an acute sense of how people around me are feeling.",
+        "en": "I have an acute sense of how people around me are feeling."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 15,
+      "text": {
+        "ru": "I often get caught up in the heat of the moment.",
+        "kk": "I often get caught up in the heat of the moment.",
+        "en": "I often get caught up in the heat of the moment."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 16,
+      "text": {
+        "ru": "I am easily upset by the pain of other people.",
+        "kk": "I am easily upset by the pain of other people.",
+        "en": "I am easily upset by the pain of other people."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 17,
+      "text": {
+        "ru": "I consider myself to be charming.",
+        "kk": "I consider myself to be charming.",
+        "en": "I consider myself to be charming."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 18,
+      "text": {
+        "ru": "Other people tell me that I am hard to read.",
+        "kk": "Other people tell me that I am hard to read.",
+        "en": "Other people tell me that I am hard to read."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 19,
+      "text": {
+        "ru": "I recognize emotions the moment I feel them.",
+        "kk": "I recognize emotions the moment I feel them.",
+        "en": "I recognize emotions the moment I feel them."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 20,
+      "text": {
+        "ru": "I am very good at reading nonverbal cues.",
+        "kk": "I am very good at reading nonverbal cues.",
+        "en": "I am very good at reading nonverbal cues."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 21,
+      "text": {
+        "ru": "I move on very quickly from negative emotions and bad moods.",
+        "kk": "I move on very quickly from negative emotions and bad moods.",
+        "en": "I move on very quickly from negative emotions and bad moods."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 22,
+      "text": {
+        "ru": "I often feel compelled to act when I see someone suffering.",
+        "kk": "I often feel compelled to act when I see someone suffering.",
+        "en": "I often feel compelled to act when I see someone suffering."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 23,
+      "text": {
+        "ru": "I am very good at getting people to laugh.",
+        "kk": "I am very good at getting people to laugh.",
+        "en": "I am very good at getting people to laugh."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 24,
+      "text": {
+        "ru": "I pay little attention to my emotions when there is a job to be done.",
+        "kk": "I pay little attention to my emotions when there is a job to be done.",
+        "en": "I pay little attention to my emotions when there is a job to be done."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 25,
+      "text": {
+        "ru": "I find it hard to put how I am feeling into words.",
+        "kk": "I find it hard to put how I am feeling into words.",
+        "en": "I find it hard to put how I am feeling into words."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 26,
+      "text": {
+        "ru": "I can often tell how people feel just by looking at them.",
+        "kk": "I can often tell how people feel just by looking at them.",
+        "en": "I can often tell how people feel just by looking at them."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 27,
+      "text": {
+        "ru": "Once something upsets me, I find it hard to calm myself back down.",
+        "kk": "Once something upsets me, I find it hard to calm myself back down.",
+        "en": "Once something upsets me, I find it hard to calm myself back down."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 28,
+      "text": {
+        "ru": "I am a very empathetic person.",
+        "kk": "I am a very empathetic person.",
+        "en": "I am a very empathetic person."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 29,
+      "text": {
+        "ru": "I have very good social skills.",
+        "kk": "I have very good social skills.",
+        "en": "I have very good social skills."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 30,
+      "text": {
+        "ru": "My moods rarely affect my decisions.",
+        "kk": "My moods rarely affect my decisions.",
+        "en": "My moods rarely affect my decisions."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 31,
+      "text": {
+        "ru": "I describe my emotional experiences vividly.",
+        "kk": "I describe my emotional experiences vividly.",
+        "en": "I describe my emotional experiences vividly."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 32,
+      "text": {
+        "ru": "I understand a lot just from other people's facial expressions.",
+        "kk": "I understand a lot just from other people's facial expressions.",
+        "en": "I understand a lot just from other people's facial expressions."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 33,
+      "text": {
+        "ru": "I am sometimes overwhelmed by my emotions.",
+        "kk": "I am sometimes overwhelmed by my emotions.",
+        "en": "I am sometimes overwhelmed by my emotions."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 34,
+      "text": {
+        "ru": "I constantly think about how much I care about the people in my life.",
+        "kk": "I constantly think about how much I care about the people in my life.",
+        "en": "I constantly think about how much I care about the people in my life."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 35,
+      "text": {
+        "ru": "I am a very persuasive person.",
+        "kk": "I am a very persuasive person.",
+        "en": "I am a very persuasive person."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 36,
+      "text": {
+        "ru": "I make decisions based on logic, not emotions.",
+        "kk": "I make decisions based on logic, not emotions.",
+        "en": "I make decisions based on logic, not emotions."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 37,
+      "text": {
+        "ru": "I have a rich emotional vocabulary.",
+        "kk": "I have a rich emotional vocabulary.",
+        "en": "I have a rich emotional vocabulary."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 38,
+      "text": {
+        "ru": "I can tell if someone is upset without them having to say anything.",
+        "kk": "I can tell if someone is upset without them having to say anything.",
+        "en": "I can tell if someone is upset without them having to say anything."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 39,
+      "text": {
+        "ru": "I often can't go about my day because of the emotions I am feeling.",
+        "kk": "I often can't go about my day because of the emotions I am feeling.",
+        "en": "I often can't go about my day because of the emotions I am feeling."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 40,
+      "text": {
+        "ru": "I am very concerned about poverty and injustice in the world.",
+        "kk": "I am very concerned about poverty and injustice in the world.",
+        "en": "I am very concerned about poverty and injustice in the world."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 41,
+      "text": {
+        "ru": "I don't really like networking.",
+        "kk": "I don't really like networking.",
+        "en": "I don't really like networking."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 42,
+      "text": {
+        "ru": "I find it difficult to deal with people who get emotional about things.",
+        "kk": "I find it difficult to deal with people who get emotional about things.",
+        "en": "I find it difficult to deal with people who get emotional about things."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 43,
+      "text": {
+        "ru": "I am consistently aware of what kind of mood I'm in.",
+        "kk": "I am consistently aware of what kind of mood I'm in.",
+        "en": "I am consistently aware of what kind of mood I'm in."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 44,
+      "text": {
+        "ru": "I am good at understanding how people feel, even when they don't say so out loud.",
+        "kk": "I am good at understanding how people feel, even when they don't say so out loud.",
+        "en": "I am good at understanding how people feel, even when they don't say so out loud."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 45,
+      "text": {
+        "ru": "I find it easy to cheer myself up when I am feeling sad or unmotivated.",
+        "kk": "I find it easy to cheer myself up when I am feeling sad or unmotivated.",
+        "en": "I find it easy to cheer myself up when I am feeling sad or unmotivated."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 46,
+      "text": {
+        "ru": "I consider myself extremely lucky to have the life I do.",
+        "kk": "I consider myself extremely lucky to have the life I do.",
+        "en": "I consider myself extremely lucky to have the life I do."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 47,
+      "text": {
+        "ru": "I try not to draw attention to myself.",
+        "kk": "I try not to draw attention to myself.",
+        "en": "I try not to draw attention to myself."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 48,
+      "text": {
+        "ru": "I don't let myself get carried away with my feelings.",
+        "kk": "I don't let myself get carried away with my feelings.",
+        "en": "I don't let myself get carried away with my feelings."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 49,
+      "text": {
+        "ru": "I am good at keeping track of how I'm feeling throughout the day.",
+        "kk": "I am good at keeping track of how I'm feeling throughout the day.",
+        "en": "I am good at keeping track of how I'm feeling throughout the day."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 50,
+      "text": {
+        "ru": "I sometimes find other people hard to read.",
+        "kk": "I sometimes find other people hard to read.",
+        "en": "I sometimes find other people hard to read."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 51,
+      "text": {
+        "ru": "I control my emotions; my emotions don't control me.",
+        "kk": "I control my emotions; my emotions don't control me.",
+        "en": "I control my emotions; my emotions don't control me."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 52,
+      "text": {
+        "ru": "I do not feel responsible for rescuing people from their own problems.",
+        "kk": "I do not feel responsible for rescuing people from their own problems.",
+        "en": "I do not feel responsible for rescuing people from their own problems."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 53,
+      "text": {
+        "ru": "I bring fun and excitement to social gatherings.",
+        "kk": "I bring fun and excitement to social gatherings.",
+        "en": "I bring fun and excitement to social gatherings."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 54,
+      "text": {
+        "ru": "I don't share a lot with other people.",
+        "kk": "I don't share a lot with other people.",
+        "en": "I don't share a lot with other people."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 55,
+      "text": {
+        "ru": "Talking about how I am feeling usually improves my mood.",
+        "kk": "Talking about how I am feeling usually improves my mood.",
+        "en": "Talking about how I am feeling usually improves my mood."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 56,
+      "text": {
+        "ru": "I am often surprised by other people’s reactions to things.",
+        "kk": "I am often surprised by other people’s reactions to things.",
+        "en": "I am often surprised by other people’s reactions to things."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 57,
+      "text": {
+        "ru": "I often raise my voice to show other people that I am serious.",
+        "kk": "I often raise my voice to show other people that I am serious.",
+        "en": "I often raise my voice to show other people that I am serious."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 58,
+      "text": {
+        "ru": "I rarely get angry.",
+        "kk": "I rarely get angry.",
+        "en": "I rarely get angry."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 59,
+      "text": {
+        "ru": "I am not moved by other people’s tragic stories.",
+        "kk": "I am not moved by other people’s tragic stories.",
+        "en": "I am not moved by other people’s tragic stories."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 60,
+      "text": {
+        "ru": "I can be very forceful when I feel strongly about something.",
+        "kk": "I can be very forceful when I feel strongly about something.",
+        "en": "I can be very forceful when I feel strongly about something."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 61,
+      "text": {
+        "ru": "I really enjoy getting to know people better.",
+        "kk": "I really enjoy getting to know people better.",
+        "en": "I really enjoy getting to know people better."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 62,
+      "text": {
+        "ru": "I don't really like talking about the way I feel.",
+        "kk": "I don't really like talking about the way I feel.",
+        "en": "I don't really like talking about the way I feel."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    },
+    {
+      "id": 63,
+      "text": {
+        "ru": "It’s important to me to show other people that I am strong and powerful.",
+        "kk": "It’s important to me to show other people that I am strong and powerful.",
+        "en": "It’s important to me to show other people that I am strong and powerful."
+      },
+      "dimension": null,
+      "reverse_scored": false
+    }
+  ]
+}

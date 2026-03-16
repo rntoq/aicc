@@ -73,9 +73,18 @@ const SpecialityUniversitiesPage = () => {
       })
       .filter(Boolean) as PublicUniversity[];
 
-    if (!query) return ordered;
+    // `speciality.Universities` может содержать дубликаты строк, которые мапятся
+    // на один и тот же университет → дубли по `id` ломают React keys.
+    const seenIds = new Set<number>();
+    const uniqueOrdered = ordered.filter((u) => {
+      if (seenIds.has(u.id)) return false;
+      seenIds.add(u.id);
+      return true;
+    });
 
-    return ordered.filter((u) => {
+    if (!query) return uniqueOrdered;
+
+    return uniqueOrdered.filter((u) => {
       const name = u.name?.[locale as keyof PublicUniversity["name"]] ?? "";
       return u.code.toLowerCase().includes(query) || name.toLowerCase().includes(query);
     });
@@ -114,7 +123,7 @@ const SpecialityUniversitiesPage = () => {
           <Grid container spacing={2.5}>
             {filtered.map((u) => (
               <Grid
-                key={`${u.id}-${u.code}`}
+                key={`${u.id}`}
                 size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 3 }}
               >
                 <UniversityCard university={u} />
