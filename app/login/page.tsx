@@ -11,6 +11,7 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
+import { toast } from "react-toastify";
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -37,8 +38,17 @@ const LoginPage = () => {
     try {
       await login({ email, password });
       router.push(redirect);
-    } catch {
-      // ошибка уже записана в authStore.error
+    } catch (err: unknown) {
+      // Пытаемся вытащить detail из ответа бэкенда (например, неподтверждённый email)
+      const anyErr = err as any;
+      const detail: string | undefined = anyErr?.response?.data?.detail;
+      if (detail) {
+        toast.error(detail);
+      } else if (typeof anyErr?.message === "string") {
+        toast.error(anyErr.message);
+      } else if (error) {
+        toast.error(error);
+      }
     }
   };
 
@@ -51,16 +61,6 @@ const LoginPage = () => {
             <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
               <Image src={BANNER_PLACEHOLDER_IMAGE} alt="logo" width={100} height={48} />
             </Box>
-
-            {error && (
-              <Typography
-                variant="body2"
-                color="error"
-                sx={{ mb: 2 }}
-              >
-                {error}
-              </Typography>
-            )}
 
             <Box component="form" noValidate onSubmit={handleSubmit}>
               <Stack spacing={4}>

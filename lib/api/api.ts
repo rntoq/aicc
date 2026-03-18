@@ -55,8 +55,17 @@ axiosInstance.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as CustomAxiosRequestConfig;
 
+    const status = error.response?.status;
+    const url = originalRequest.url || "";
+
+    // Для /auth/login/ и /auth/register/ не пытаемся делать refresh и не редиректим —
+    // даём ошибке дойти до вызова (например, чтобы показать toast на /login).
+    const isAuthEndpoint =
+      url.includes("/api/v1/auth/login/") || url.includes("/api/v1/auth/register/");
+
     if (
-      error.response?.status === 401 &&
+      status === 401 &&
+      !isAuthEndpoint &&
       !originalRequest._retry
     ) {
       if (isRefreshing) {

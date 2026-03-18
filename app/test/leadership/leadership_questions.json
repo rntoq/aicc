@@ -1,0 +1,274 @@
+{
+  "test": {
+    "id": "test_011",
+    "code": "leadership-style-boss",
+    "title": {
+      "ru": "Leadership Style Assessment (What Type of Boss Are You?)",
+      "kk": "Leadership Style Assessment (What Type of Boss Are You?)",
+      "en": "Leadership Style Assessment (What Type of Boss Are You?)"
+    },
+    "version": 1
+  },
+  "questions_total": 36,
+  "question_types": { "pair": 24, "frequency": 12 },
+  "dimensions": ["openness", "conscientiousness", "agreeableness"],
+  "scales": {
+    "frequency": {
+      "min": 1,
+      "max": 5,
+      "labels": {
+        "1": { "ru": "Never", "kk": "Never", "en": "Never" },
+        "2": { "ru": "Rarely", "kk": "Rarely", "en": "Rarely" },
+        "3": { "ru": "Sometimes", "kk": "Sometimes", "en": "Sometimes" },
+        "4": { "ru": "Usually", "kk": "Usually", "en": "Usually" },
+        "5": { "ru": "Always", "kk": "Always", "en": "Always" }
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": "leadership_q001",
+      "number": 1,
+      "type": "pair",
+      "option_a": {
+        "ru": "I like to discuss complex ideas with my team",
+        "kk": "I like to discuss complex ideas with my team",
+        "en": "I like to discuss complex ideas with my team"
+      },
+      "option_b": {
+        "ru": "I like to discuss details with my team",
+        "kk": "I like to discuss details with my team",
+        "en": "I like to discuss details with my team"
+      },
+      "dimension": "openness",
+      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+    },
+    {
+      "id": "leadership_q002",
+      "number": 2,
+      "type": "pair",
+      "option_a": { "ru": "I follow established procedures", "kk": "I follow established procedures", "en": "I follow established procedures" },
+      "option_b": { "ru": "I try new ways of doing things", "kk": "I try new ways of doing things", "en": "I try new ways of doing things" },
+      "dimension": "openness",
+      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+    },
+    {
+      "id": "leadership_q003",
+      "number": 3,
+      "type": "pair",
+      "option_a": { "ru": "I like to use trusted methods", "kk": "I like to use trusted methods", "en": "I like to use trusted methods" },
+      "option_b": { "ru": "I like to try to innovate", "kk": "I like to try to innovate", "en": "I like to try to innovate" },
+      "dimension": "openness",
+      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+    },
+    {
+      "id": "leadership_q004",
+      "number": 4,
+      "type": "pair",
+      "option_a": { "ru": "I like learning practical skills", "kk": "I like learning practical skills", "en": "I like learning practical skills" },
+      "option_b": { "ru": "I like learning about ideas and theories", "kk": "I like learning about ideas and theories", "en": "I like learning about ideas and theories" },
+      "dimension": "openness",
+      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+    },
+
+    {
+      "id": "leadership_q005",
+      "number": 5,
+      "type": "pair",
+      "option_a": { "ru": "I like a workplace that’s full of surprises", "kk": "I like a workplace that’s full of surprises", "en": "I like a workplace that’s full of surprises" },
+      "option_b": { "ru": "I like a workplace where things go according to plan", "kk": "I like a workplace where things go according to plan", "en": "I like a workplace where things go according to plan" },
+      "dimension": "conscientiousness",
+      "scoring": { "a": { "conscientiousness": -1 }, "b": { "conscientiousness": 1 } }
+    },
+    {
+      "id": "leadership_q006",
+      "number": 6,
+      "type": "pair",
+      "option_a": { "ru": "I prefer to work according to a schedule", "kk": "I prefer to work according to a schedule", "en": "I prefer to work according to a schedule" },
+      "option_b": { "ru": "I prefer to work on whatever needs to be done", "kk": "I prefer to work on whatever needs to be done", "en": "I prefer to work on whatever needs to be done" },
+      "dimension": "conscientiousness",
+      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+    },
+    {
+      "id": "leadership_q007",
+      "number": 7,
+      "type": "pair",
+      "option_a": { "ru": "I am good at working steadily according to the plan", "kk": "I am good at working steadily according to the plan", "en": "I am good at working steadily according to the plan" },
+      "option_b": { "ru": "I am good at adapting to last-minute changes", "kk": "I am good at adapting to last-minute changes", "en": "I am good at adapting to last-minute changes" },
+      "dimension": "conscientiousness",
+      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+    },
+    {
+      "id": "leadership_q008",
+      "number": 8,
+      "type": "pair",
+      "option_a": { "ru": "I like to be notified of projects well in advance", "kk": "I like to be notified of projects well in advance", "en": "I like to be notified of projects well in advance" },
+      "option_b": { "ru": "I like to adapt quickly to changing demands", "kk": "I like to adapt quickly to changing demands", "en": "I like to adapt quickly to changing demands" },
+      "dimension": "conscientiousness",
+      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+    },
+
+    {
+      "id": "leadership_q009",
+      "number": 9,
+      "type": "pair",
+      "option_a": { "ru": "I choose the most rational option", "kk": "I choose the most rational option", "en": "I choose the most rational option" },
+      "option_b": { "ru": "I choose the kindest option", "kk": "I choose the kindest option", "en": "I choose the kindest option" },
+      "dimension": "agreeableness",
+      "scoring": { "a": { "agreeableness": -1 }, "b": { "agreeableness": 1 } }
+    },
+    {
+      "id": "leadership_q010",
+      "number": 10,
+      "type": "pair",
+      "option_a": { "ru": "I like to cooperate", "kk": "I like to cooperate", "en": "I like to cooperate" },
+      "option_b": { "ru": "I like to compete", "kk": "I like to compete", "en": "I like to compete" },
+      "dimension": "agreeableness",
+      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+    },
+    {
+      "id": "leadership_q011",
+      "number": 11,
+      "type": "pair",
+      "option_a": { "ru": "I trust others", "kk": "I trust others", "en": "I trust others" },
+      "option_b": { "ru": "I am skeptical of others", "kk": "I am skeptical of others", "en": "I am skeptical of others" },
+      "dimension": "agreeableness",
+      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+    },
+    {
+      "id": "leadership_q012",
+      "number": 12,
+      "type": "pair",
+      "option_a": { "ru": "I try to get ahead at work", "kk": "I try to get ahead at work", "en": "I try to get ahead at work" },
+      "option_b": { "ru": "I try to please others at work", "kk": "I try to please others at work", "en": "I try to please others at work" },
+      "dimension": "agreeableness",
+      "scoring": { "a": { "agreeableness": -1 }, "b": { "agreeableness": 1 } }
+    },
+
+    { "id": "leadership_q013", "number": 13, "type": "frequency", "statement": { "ru": "I would rather try something new than do things the same old way", "kk": "I would rather try something new than do things the same old way", "en": "I would rather try something new than do things the same old way" }, "dimension": "openness", "reverse_scored": false },
+    { "id": "leadership_q014", "number": 14, "type": "frequency", "statement": { "ru": "I like to do things differently, even if I am not sure it will work", "kk": "I like to do things differently, even if I am not sure it will work", "en": "I like to do things differently, even if I am not sure it will work" }, "dimension": "openness", "reverse_scored": false },
+    { "id": "leadership_q015", "number": 15, "type": "frequency", "statement": { "ru": "My hobbies and interests are somewhat unusual", "kk": "My hobbies and interests are somewhat unusual", "en": "My hobbies and interests are somewhat unusual" }, "dimension": "openness", "reverse_scored": false },
+    { "id": "leadership_q016", "number": 16, "type": "frequency", "statement": { "ru": "I have a rich fantasy life", "kk": "I have a rich fantasy life", "en": "I have a rich fantasy life" }, "dimension": "openness", "reverse_scored": false },
+
+    { "id": "leadership_q017", "number": 17, "type": "frequency", "statement": { "ru": "I would rather go with the flow than have a set schedule", "kk": "I would rather go with the flow than have a set schedule", "en": "I would rather go with the flow than have a set schedule" }, "dimension": "conscientiousness", "reverse_scored": true },
+    { "id": "leadership_q018", "number": 18, "type": "frequency", "statement": { "ru": "I have trouble sticking to a routine", "kk": "I have trouble sticking to a routine", "en": "I have trouble sticking to a routine" }, "dimension": "conscientiousness", "reverse_scored": true },
+    { "id": "leadership_q019", "number": 19, "type": "frequency", "statement": { "ru": "I like to finish all my tasks for the day before I do something fun", "kk": "I like to finish all my tasks for the day before I do something fun", "en": "I like to finish all my tasks for the day before I do something fun" }, "dimension": "conscientiousness", "reverse_scored": false },
+    { "id": "leadership_q020", "number": 20, "type": "frequency", "statement": { "ru": "I like to start projects well in advance, so that I have plenty of time to finish", "kk": "I like to start projects well in advance, so that I have plenty of time to finish", "en": "I like to start projects well in advance, so that I have plenty of time to finish" }, "dimension": "conscientiousness", "reverse_scored": false },
+
+    { "id": "leadership_q021", "number": 21, "type": "frequency", "statement": { "ru": "I am sensitive to feedback at work", "kk": "I am sensitive to feedback at work", "en": "I am sensitive to feedback at work" }, "dimension": "agreeableness", "reverse_scored": false },
+    { "id": "leadership_q022", "number": 22, "type": "frequency", "statement": { "ru": "I enjoy being there for my team members when they're upset", "kk": "I enjoy being there for my team members when they're upset", "en": "I enjoy being there for my team members when they're upset" }, "dimension": "agreeableness", "reverse_scored": false },
+    { "id": "leadership_q023", "number": 23, "type": "frequency", "statement": { "ru": "I like to help my team members with their personal problems", "kk": "I like to help my team members with their personal problems", "en": "I like to help my team members with their personal problems" }, "dimension": "agreeableness", "reverse_scored": false },
+    { "id": "leadership_q024", "number": 24, "type": "frequency", "statement": { "ru": "I go out of my way to make my team members feel at ease", "kk": "I go out of my way to make my team members feel at ease", "en": "I go out of my way to make my team members feel at ease" }, "dimension": "agreeableness", "reverse_scored": false },
+
+    {
+      "id": "leadership_q025",
+      "number": 25,
+      "type": "pair",
+      "option_a": { "ru": "I trust tried and true methods", "kk": "I trust tried and true methods", "en": "I trust tried and true methods" },
+      "option_b": { "ru": "I question tried and true methods", "kk": "I question tried and true methods", "en": "I question tried and true methods" },
+      "dimension": "openness",
+      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+    },
+    {
+      "id": "leadership_q026",
+      "number": 26,
+      "type": "pair",
+      "option_a": { "ru": "I focus on real life", "kk": "I focus on real life", "en": "I focus on real life" },
+      "option_b": { "ru": "I use my imagination", "kk": "I use my imagination", "en": "I use my imagination" },
+      "dimension": "openness",
+      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+    },
+    {
+      "id": "leadership_q027",
+      "number": 27,
+      "type": "pair",
+      "option_a": { "ru": "I like to practice familiar skills", "kk": "I like to practice familiar skills", "en": "I like to practice familiar skills" },
+      "option_b": { "ru": "I like to constantly learn new things", "kk": "I like to constantly learn new things", "en": "I like to constantly learn new things" },
+      "dimension": "openness",
+      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+    },
+    {
+      "id": "leadership_q028",
+      "number": 28,
+      "type": "pair",
+      "option_a": { "ru": "I notice small details", "kk": "I notice small details", "en": "I notice small details" },
+      "option_b": { "ru": "I see the big picture", "kk": "I see the big picture", "en": "I see the big picture" },
+      "dimension": "openness",
+      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+    },
+
+    {
+      "id": "leadership_q029",
+      "number": 29,
+      "type": "pair",
+      "option_a": { "ru": "I prefer working toward long-term goals", "kk": "I prefer working toward long-term goals", "en": "I prefer working toward long-term goals" },
+      "option_b": { "ru": "I prefer to work on tasks that must be done immediately", "kk": "I prefer to work on tasks that must be done immediately", "en": "I prefer to work on tasks that must be done immediately" },
+      "dimension": "conscientiousness",
+      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+    },
+    {
+      "id": "leadership_q030",
+      "number": 30,
+      "type": "pair",
+      "option_a": { "ru": "I like to complete tasks well in advance of deadlines", "kk": "I like to complete tasks well in advance of deadlines", "en": "I like to complete tasks well in advance of deadlines" },
+      "option_b": { "ru": "I enjoy working under pressure", "kk": "I enjoy working under pressure", "en": "I enjoy working under pressure" },
+      "dimension": "conscientiousness",
+      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+    },
+    {
+      "id": "leadership_q031",
+      "number": 31,
+      "type": "pair",
+      "option_a": { "ru": "I persist in my goals", "kk": "I persist in my goals", "en": "I persist in my goals" },
+      "option_b": { "ru": "I adapt to my environment", "kk": "I adapt to my environment", "en": "I adapt to my environment" },
+      "dimension": "conscientiousness",
+      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+    },
+    {
+      "id": "leadership_q032",
+      "number": 32,
+      "type": "pair",
+      "option_a": { "ru": "I thrive in chaotic work environments", "kk": "I thrive in chaotic work environments", "en": "I thrive in chaotic work environments" },
+      "option_b": { "ru": "I thrive within a clear structure", "kk": "I thrive within a clear structure", "en": "I thrive within a clear structure" },
+      "dimension": "conscientiousness",
+      "scoring": { "a": { "conscientiousness": -1 }, "b": { "conscientiousness": 1 } }
+    },
+
+    {
+      "id": "leadership_q033",
+      "number": 33,
+      "type": "pair",
+      "option_a": { "ru": "I'm good at negotiating personal issues", "kk": "I'm good at negotiating personal issues", "en": "I'm good at negotiating personal issues" },
+      "option_b": { "ru": "I'm good at navigating logical systems", "kk": "I'm good at navigating logical systems", "en": "I'm good at navigating logical systems" },
+      "dimension": "agreeableness",
+      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+    },
+    {
+      "id": "leadership_q034",
+      "number": 34,
+      "type": "pair",
+      "option_a": { "ru": "I like solving logical problems", "kk": "I like solving logical problems", "en": "I like solving logical problems" },
+      "option_b": { "ru": "I like solving relational problems", "kk": "I like solving relational problems", "en": "I like solving relational problems" },
+      "dimension": "agreeableness",
+      "scoring": { "a": { "agreeableness": -1 }, "b": { "agreeableness": 1 } }
+    },
+    {
+      "id": "leadership_q035",
+      "number": 35,
+      "type": "pair",
+      "option_a": { "ru": "I like building relationships at work", "kk": "I like building relationships at work", "en": "I like building relationships at work" },
+      "option_b": { "ru": "I like demonstrating my competence at work", "kk": "I like demonstrating my competence at work", "en": "I like demonstrating my competence at work" },
+      "dimension": "agreeableness",
+      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+    },
+    {
+      "id": "leadership_q036",
+      "number": 36,
+      "type": "pair",
+      "option_a": { "ru": "I like to be friends with my coworkers", "kk": "I like to be friends with my coworkers", "en": "I like to be friends with my coworkers" },
+      "option_b": { "ru": "I prefer to be businesslike in my work relationships", "kk": "I prefer to be businesslike in my work relationships", "en": "I prefer to be businesslike in my work relationships" },
+      "dimension": "agreeableness",
+      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+    }
+  ]
+}
