@@ -184,7 +184,7 @@ export const RECOMMENDED_TEST_IDS: string[] = [
   "holland",
   "photo-career",
   "disc",
-  "career-aptitude",
+  "typefinder-16",
   "big-five",
 ];
 
@@ -235,6 +235,13 @@ export const ALL_TESTS: TestItem[] = [
     icon: EmojiEmotionsOutlinedIcon,
     duration: 8,
     questions: 55,
+  },
+  {
+    id: "leadership",
+    name: "Leadership Style Assessment",
+    icon: PersonOutlineOutlinedIcon,
+    duration: 8,
+    questions: 36,
   },
   {
     id: "enneagram",

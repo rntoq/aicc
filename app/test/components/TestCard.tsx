@@ -79,6 +79,7 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
         "disc": "/test/disc",
         "career-aptitude": "/test/career-aptitude",
         "big-five": "/test/bigfive",
+        "leadership": "/test/leadership",
       };
 
       const RESULT_MODAL_IDS: Partial<Record<string, string>> = {
