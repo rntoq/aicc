@@ -4,44 +4,29 @@ import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
-import { OptionsHeader } from "../components/OptionsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
 import { api } from "@/lib/api/api";
 import QUESTIONS_JSON from "./career_questions.json";
 import type {
   BulkAnswerQuizPayload,
+  FinishQuizSessionVariables,
   QuizSession,
   QuizTest,
+  StartQuizSessionVariables,
 } from "@/lib/types";
 
-// ─── Question groups ──────────────────────────────────────────────────────────
-
-const RIASEC_ORDER = ["R", "I", "A", "S", "E", "C"] as const;
-type RIASECCategory = (typeof RIASEC_ORDER)[number];
-
-const TOTAL_STEPS = 8;
-
-const PART1_QUESTIONS = QUESTIONS_JSON.filter((q) => q.part === 1);
-const PART2_QUESTIONS = QUESTIONS_JSON.filter((q) => q.part === 2);
-
-const PART1_BY_CATEGORY: Record<RIASECCategory, typeof PART1_QUESTIONS> = {
-  R: PART1_QUESTIONS.filter((q) => q.category === "R"),
-  I: PART1_QUESTIONS.filter((q) => q.category === "I"),
-  A: PART1_QUESTIONS.filter((q) => q.category === "A"),
-  S: PART1_QUESTIONS.filter((q) => q.category === "S"),
-  E: PART1_QUESTIONS.filter((q) => q.category === "E"),
-  C: PART1_QUESTIONS.filter((q) => q.category === "C"),
-};
-
-// ─── Scale definitions ────────────────────────────────────────────────────────
+const QUESTIONS_PER_STEP = 10;
+const TOTAL_STEPS = Math.ceil(QUESTIONS_JSON.length / QUESTIONS_PER_STEP);
 
 const INTEREST_OPTIONS = [
   { ru: "Не нравится", kk: "Ұнамайды", en: "Dislike" },
+  { ru: "Скорее не нравится", kk: "Көбіне Ұнамайды", en: "Somewhat dislike" },
   { ru: "Нейтрально", kk: "Бейтарап", en: "Neutral" },
+  { ru: "Скорее нравится", kk: "Көбіне ұнайды", en: "Somewhat like" },
   { ru: "Нравится", kk: "Ұнайды", en: "Like" },
 ];
 
@@ -52,17 +37,6 @@ const PERSONALITY_OPTIONS = [
   { ru: "Скорее точно", kk: "Дәлірек", en: "Somewhat accurate" },
   { ru: "Точно", kk: "Дәл", en: "Accurate" },
 ];
-
-const CATEGORY_META: Record<RIASECCategory, { ru: string; kk: string; en: string; icon: string }> = {
-  R: { ru: "Строительство", kk: "Құрылыс", en: "Building", icon: "🏗️" },
-  I: { ru: "Аналитика", kk: "Аналитика", en: "Thinking", icon: "🔬" },
-  A: { ru: "Творчество", kk: "Шығармашылық", en: "Creating", icon: "🎨" },
-  S: { ru: "Помощь", kk: "Көмек", en: "Helping", icon: "🤝" },
-  E: { ru: "Предпринимательство", kk: "Кәсіпкерлік", en: "Persuading", icon: "💼" },
-  C: { ru: "Организация", kk: "Ұйымдастыру", en: "Organizing", icon: "📊" },
-};
-
-// ─── Component ────────────────────────────────────────────────────────────────
 
 const CareerAptitudeTestPage = () => {
   const t = useTranslations();
@@ -76,7 +50,6 @@ const CareerAptitudeTestPage = () => {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
 
-  // ─── Backend session init ────────────────────────────────────────────────
   useEffect(() => {
     let cancelled = false;
 
@@ -88,7 +61,7 @@ const CareerAptitudeTestPage = () => {
         const slug = tests[0]?.slug;
         if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, { test_slug: string }>(
+        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
           "/api/v1/quizzes/sessions/start/",
           { test_slug: slug }
         );
@@ -109,41 +82,12 @@ const CareerAptitudeTestPage = () => {
 
     void initSession();
     return () => { cancelled = true; };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [setSession]);
 
-  // ─── Derive current step questions ──────────────────────────────────────
-  const isPart1 = step <= 6;
-  const categoryForStep = isPart1 ? RIASEC_ORDER[step - 1] : null;
-
-  const stepQuestions = useMemo(() => {
-    if (isPart1 && categoryForStep) return PART1_BY_CATEGORY[categoryForStep];
-    if (step === 7) return PART2_QUESTIONS.slice(0, 10);
-    return PART2_QUESTIONS.slice(10);
-  }, [step, isPart1, categoryForStep]);
-
+  const stepStart = (step - 1) * QUESTIONS_PER_STEP;
+  const stepQuestions = QUESTIONS_JSON.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
   const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
 
-  // ─── Scale options and labels for current step ───────────────────────────
-  const currentOptions = isPart1 ? INTEREST_OPTIONS : PERSONALITY_OPTIONS;
-  const scaleLabels = currentOptions.map((o) => o[locale] ?? o.ru);
-
-  const leftLabel = isPart1
-    ? { ru: "Не нравится", kk: "Ұнамайды", en: "Dislike" }
-    : { ru: "Неточно", kk: "Дәл емес", en: "Inaccurate" };
-  const rightLabel = isPart1
-    ? { ru: "Нравится", kk: "Ұнайды", en: "Like" }
-    : { ru: "Точно", kk: "Дәл", en: "Accurate" };
-
-  // ─── Step subtitle: category name for Part 1, generic for Part 2 ────────
-  const stepSubtitle = (() => {
-    if (isPart1 && categoryForStep) {
-      const meta = CATEGORY_META[categoryForStep];
-      return `${meta.icon} ${meta[locale] ?? meta.ru}`;
-    }
-    return t("career_part2_subtitle");
-  })();
-
-  // ─── Handlers ─────────────────────────────────────────────────────────────
   const handleAnswer = (questionId: string, value: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
   };
@@ -162,53 +106,61 @@ const CareerAptitudeTestPage = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!allStepAnswered) return;
+  const handleSubmit = () => {
+    if (!allStepAnswered || submitting) return;
     setSubmitting(true);
 
-    try {
-      if (sessionId && backendQuestionIds.length > 0) {
-        const ordered = [...PART1_QUESTIONS, ...PART2_QUESTIONS];
-        const count = Math.min(backendQuestionIds.length, ordered.length);
-        const answersPayload: BulkAnswerQuizPayload["answers"] = ordered
-          .slice(0, count)
-          .map((q, idx) => ({
-            question_id: backendQuestionIds[idx],
-            scale_value: answers[q.id],
-          }));
+    const finish = async () => {
+      let backendResult: unknown = null;
 
-        await api.post<unknown, BulkAnswerQuizPayload>(
-          "/api/v1/quizzes/sessions/bulk-answer/",
-          { session_id: sessionId, answers: answersPayload }
-        );
+      try {
+        if (sessionId && backendQuestionIds.length > 0) {
+          const count = Math.min(backendQuestionIds.length, QUESTIONS_JSON.length);
+          const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON
+            .slice(0, count)
+            .map((q, idx) => ({
+              question_id: backendQuestionIds[idx],
+              scale_value: answers[q.id],
+            }));
 
-        const { data } = await api.post<unknown, { session_id: number }>(
-          "/api/v1/quizzes/sessions/finish/",
-          { session_id: sessionId }
-        );
-        setResult("career-aptitude", data);
-      } else {
-        setResult("career-aptitude", buildLocalResult());
+          await api.post<unknown, BulkAnswerQuizPayload>(
+            "/api/v1/quizzes/sessions/bulk-answer/",
+            { session_id: sessionId, answers: answersPayload }
+          );
+
+          const { data } = await api.post<unknown, FinishQuizSessionVariables>(
+            "/api/v1/quizzes/sessions/finish/",
+            { session_id: sessionId }
+          );
+          backendResult = data;
+        }
+      } catch {
+        backendResult = null;
+      } finally {
+        setResult("career-aptitude", backendResult ?? buildLocalResult());
+        router.push("/test");
+        setSubmitting(false);
       }
+    };
 
-      router.push("/test");
-    } finally {
-      setSubmitting(false);
-    }
+    void finish();
   };
 
-  // ─── Local scoring fallback ───────────────────────────────────────────────
   const buildLocalResult = () => {
+    const RIASEC_ORDER = ["R", "I", "A", "S", "E", "C"] as const;
+    const part1 = QUESTIONS_JSON.filter((q) => q.part === 1);
+    const part2 = QUESTIONS_JSON.filter((q) => q.part === 2);
+
     const interestScores: Record<string, number> = {};
     for (const cat of RIASEC_ORDER) {
-      const qs = PART1_BY_CATEGORY[cat];
+      const qs = part1.filter((q) => q.category === cat);
       const raw = qs.reduce((sum, q) => sum + (answers[q.id] ?? 2), 0);
       interestScores[cat] = Math.round(((raw - qs.length) / (qs.length * 2)) * 100);
     }
 
     const personalityScores: Record<string, number> = {};
     for (const dim of ["A", "C", "E", "N", "O"]) {
-      const qs = PART2_QUESTIONS.filter((q) => q.dimension === dim);
+      const qs = part2.filter((q) => q.category === dim);
       const raw = qs.reduce((sum, q) => {
         const v = answers[q.id] ?? 3;
         return sum + (q.reverse_scored ? 6 - v : v);
@@ -216,7 +168,7 @@ const CareerAptitudeTestPage = () => {
       personalityScores[dim] = Math.round(((raw - qs.length) / (qs.length * 4)) * 100);
     }
 
-    const sorted = RIASEC_ORDER.slice().sort((a, b) => interestScores[b] - interestScores[a]);
+    const sorted = [...RIASEC_ORDER].sort((a, b) => interestScores[b] - interestScores[a]);
     return {
       test_type: "career_aptitude",
       interest_scores: interestScores,
@@ -227,7 +179,6 @@ const CareerAptitudeTestPage = () => {
     };
   };
 
-  // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <>
       <Header />
@@ -237,16 +188,22 @@ const CareerAptitudeTestPage = () => {
             step={step}
             total={TOTAL_STEPS}
             title={t("career_title")}
-            subtitle={stepSubtitle}
             stepLabel={t("step_x_of_y", { step, total: TOTAL_STEPS })}
           />
 
-          <OptionsHeader options={scaleLabels} />
-          <Divider sx={{ mb: 1 }} />
+          <Divider sx={{ mb: 2 }} />
 
           <Box sx={styles.questionsList}>
             {stepQuestions.map((q) => {
               const text = q.text as { ru: string; kk: string; en: string };
+              const isPart1 = q.part === 1;
+              const options = isPart1 ? INTEREST_OPTIONS : PERSONALITY_OPTIONS;
+              const leftLabel = isPart1
+                ? { ru: "Не нравится", kk: "Ұнамайды", en: "Dislike" }
+                : { ru: "Неточно", kk: "Дәл емес", en: "Inaccurate" };
+              const rightLabel = isPart1
+                ? { ru: "Нравится", kk: "Ұнайды", en: "Like" }
+                : { ru: "Точно", kk: "Дәл", en: "Accurate" };
               return (
                 <LikertWordQuestionCard
                   key={q.id}
@@ -255,7 +212,7 @@ const CareerAptitudeTestPage = () => {
                   onChange={(v) => handleAnswer(q.id, v)}
                   leftLabel={leftLabel}
                   rightLabel={rightLabel}
-                  options={currentOptions}
+                  options={options}
                 />
               );
             })}
@@ -310,7 +267,7 @@ const styles = {
   questionsList: {
     display: "flex",
     flexDirection: "column" as const,
-    gap: 1,
+    gap: 2,
     mt: 2,
     mb: 2,
   },

@@ -24,10 +24,16 @@ import { HollandResultDialog } from "./holland/hollandResultDialog";
 import { PhotoResultDialog } from "./photo-career/photoResultDialog";
 import { BigFiveResultDialog } from "./bigfive/bigfiveResultDialog";
 import { CareerResultDialog } from "./career-aptitude/careerResultDialog";
+import DiscResultDialog from "./disc/discResultDialog";
+import { EqResultDialog } from "./eq/eqResultDialog";
+import LeadershipResultDialog from "./leadership/leadershipResultDialog";
+import EnneagramResultDialog from "./enneagram/enneagramResultDialog";
+import TypeFinderResultDialog from "./typefinder-16/typefinderResultDialog";
+import StrengthsResultDialog from "./strengths/strengthsResultDialog";
 import { useTestsStore } from "@/lib/store/testsStore";
 import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
 import { api } from "@/lib/api/api";
-import type { BigFiveSessionFinishResponse, HollandSessionFinishResponse } from "@/lib/types";
+import type { BigFiveSessionFinishResponse, HollandSessionFinishResponse, QuizResult } from "@/lib/types";
 import type { CareerAptitudeResult } from "./career-aptitude/careerResultDialog";
 
 const MAX_CUSTOM_SELECT = 4;
@@ -99,6 +105,13 @@ const TestPage = () => {
 
   const hollandResult = getSession("holland")?.result as HollandSessionFinishResponse | null | undefined;
   const bigfiveResult = getSession("bigfive")?.result as BigFiveSessionFinishResponse | null | undefined;
+  const discResult = getSession("disc")?.result as QuizResult | null | undefined;
+  const eqResult = getSession("eq")?.result as QuizResult | null | undefined;
+  const leadershipResult = getSession("leadership")?.result as QuizResult | null | undefined;
+  const enneagramResult = getSession("enneagram")?.result as QuizResult | null | undefined;
+  const typefinderResult = getSession("typefinder-16")?.result as QuizResult | null | undefined;
+  const strengthsResult = getSession("strengths")?.result as QuizResult | null | undefined;
+  const photoResult = getSession("photo-career")?.result as QuizResult | null | undefined;
   const careerResult = getSession("career-aptitude")?.result as CareerAptitudeResult | null | undefined;
 
   // Подгружаем категории/типы тестов с бэкенда (prefetch)
@@ -278,6 +291,14 @@ const TestPage = () => {
         <PhotoResultDialog
           open={openResultModalId === "photo-career"}
           onClose={() => setOpenResultModalId(null)}
+          result={photoResult ?? null}
+          loading={fetchingResult && openResultModalId === "photo-career"}
+        />
+        <DiscResultDialog
+          open={openResultModalId === "disc"}
+          onClose={() => setOpenResultModalId(null)}
+          result={discResult ?? null}
+          loading={fetchingResult && openResultModalId === "disc"}
         />
         <BigFiveResultDialog
           open={openResultModalId === "bigfive"}
@@ -290,6 +311,36 @@ const TestPage = () => {
           onClose={() => setOpenResultModalId(null)}
           result={careerResult ?? null}
           loading={fetchingResult && openResultModalId === "career-aptitude"}
+        />
+        <EqResultDialog
+          open={openResultModalId === "eq"}
+          onClose={() => setOpenResultModalId(null)}
+          result={eqResult ?? null}
+          loading={fetchingResult && openResultModalId === "eq"}
+        />
+        <LeadershipResultDialog
+          open={openResultModalId === "leadership"}
+          onClose={() => setOpenResultModalId(null)}
+          result={leadershipResult ?? null}
+          loading={fetchingResult && openResultModalId === "leadership"}
+        />
+        <EnneagramResultDialog
+          open={openResultModalId === "enneagram"}
+          onClose={() => setOpenResultModalId(null)}
+          result={enneagramResult ?? null}
+          loading={fetchingResult && openResultModalId === "enneagram"}
+        />
+        <TypeFinderResultDialog
+          open={openResultModalId === "typefinder-16"}
+          onClose={() => setOpenResultModalId(null)}
+          result={typefinderResult ?? null}
+          loading={fetchingResult && openResultModalId === "typefinder-16"}
+        />
+        <StrengthsResultDialog
+          open={openResultModalId === "strengths"}
+          onClose={() => setOpenResultModalId(null)}
+          result={strengthsResult ?? null}
+          loading={fetchingResult && openResultModalId === "strengths"}
         />
         <Footer />
       </Box>

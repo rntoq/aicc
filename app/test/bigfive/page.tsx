@@ -15,12 +15,14 @@ import QUESTIONS_JSON from "./bigfive_questions.json";
 import type {
   BigFiveSessionFinishResponse,
   BulkAnswerQuizPayload,
+  FinishQuizSessionVariables,
   QuizSession,
   QuizTest,
+  StartQuizSessionVariables,
 } from "@/lib/types";
 
-const STEPS_COUNT = 8;
-const QUESTIONS_PER_STEP = 12; // 8 × 12 = 96
+const QUESTIONS_PER_STEP = 12;
+const STEPS_COUNT = Math.ceil(QUESTIONS_JSON.length / QUESTIONS_PER_STEP); // 74 → 7 steps
 
 const BIGFIVE_OPTIONS = [
   { ru: "Неточно", kk: "Дәл емес", en: "Inaccurate" },
@@ -54,7 +56,7 @@ const BigFiveTestPage = () => {
         const slug = tests[0]?.slug;
         if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, { test_slug: string }>(
+        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
           "/api/v1/quizzes/sessions/start/",
           { test_slug: slug }
         );
@@ -78,7 +80,7 @@ const BigFiveTestPage = () => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [setSession]);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = QUESTIONS_JSON.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -112,40 +114,47 @@ const BigFiveTestPage = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const totalAnswered = Object.keys(answers).length;
     if (totalAnswered < QUESTIONS_JSON.length) return;
     setSubmitting(true);
 
-    try {
+    const finish = async () => {
       let backendResult: BigFiveSessionFinishResponse | null = null;
 
-      if (sessionId && backendQuestionIds.length > 0) {
-        const count = Math.min(backendQuestionIds.length, QUESTIONS_JSON.length);
-        const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.slice(0, count).map(
-          (q, index) => ({
-            question_id: backendQuestionIds[index],
-            scale_value: answers[q.id],
-          })
-        );
+      try {
+        if (sessionId && backendQuestionIds.length > 0) {
+          const count = Math.min(backendQuestionIds.length, QUESTIONS_JSON.length);
+          const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.slice(0, count).map(
+            (q, index) => ({
+              question_id: backendQuestionIds[index],
+              scale_value: answers[q.id],
+            })
+          );
 
-        await api.post<unknown, BulkAnswerQuizPayload>(
-          "/api/v1/quizzes/sessions/bulk-answer/",
-          { session_id: sessionId, answers: answersPayload }
-        );
+          await api.post<unknown, BulkAnswerQuizPayload>(
+            "/api/v1/quizzes/sessions/bulk-answer/",
+            { session_id: sessionId, answers: answersPayload }
+          );
 
-        const { data } = await api.post<BigFiveSessionFinishResponse, { session_id: number }>(
-          "/api/v1/quizzes/sessions/finish/",
-          { session_id: sessionId }
-        );
-        backendResult = data;
-        setResult("bigfive", backendResult);
+          const { data } = await api.post<BigFiveSessionFinishResponse, FinishQuizSessionVariables>(
+            "/api/v1/quizzes/sessions/finish/",
+            { session_id: sessionId }
+          );
+          backendResult = data;
+        }
+      } catch {
+        backendResult = null;
+      } finally {
+        if (backendResult) {
+          setResult("bigfive", backendResult);
+        }
+        router.push("/test");
+        setSubmitting(false);
       }
+    };
 
-      router.push("/test");
-    } finally {
-      setSubmitting(false);
-    }
+    void finish();
   };
 
   return (

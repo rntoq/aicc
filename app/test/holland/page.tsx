@@ -15,14 +15,27 @@ import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
   HollandSessionFinishResponse,
+  QuizResult,
   QuizSession,
   QuizTest,
   StartQuizSessionVariables,
 } from "@/lib/types";
 
+type HollandQuestion = {
+  id: string;
+  text: { ru: string; kk: string; en: string } | string;
+  category: string;
+  weight: number;
+};
+
+const QUESTIONS = QUESTIONS_JSON as HollandQuestion[];
+const TOTAL = QUESTIONS.length; // 48
+
+const RIASEC_CATEGORIES = ["R", "I", "A", "S", "E", "C"] as const;
+
 const HollandTestPage = () => {
   const t = useTranslations();
-  const locale = useLocale();
+  const locale = useLocale() as "ru" | "kk" | "en";
   const router = useRouter();
   const { setSession, setResult } = useQuizSessionStore();
   const [sessionId, setSessionId] = useState<number | null>(null);
@@ -40,166 +53,171 @@ const HollandTestPage = () => {
         const slug = tests[0]?.slug;
         if (!slug) return;
 
-        const { data: session } = await api.post<
-          QuizSession,
-          StartQuizSessionVariables
-        >("/api/v1/quizzes/sessions/start/", { test_slug: slug });
+        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
+          "/api/v1/quizzes/sessions/start/",
+          { test_slug: slug }
+        );
 
-        const { data: testDetail } = await api.get<{
-          questions: { id: number }[];
-        }>(`/api/v1/quizzes/tests/${slug}/`);
+        const { data: testDetail } = await api.get<{ questions: { id: number }[] }>(
+          `/api/v1/quizzes/tests/${slug}/`
+        );
 
         if (!cancelled) {
           setSessionId(session.id);
           setSession("holland", session.id);
-          setBackendQuestionIds(
-            (testDetail.questions ?? []).map((q) => q.id)
-          );
+          setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
         }
       } catch {
-        // backend unavailable – continue in local-only mode
+        // backend unavailable – local fallback will be used
       }
     };
 
     void initSession();
+    return () => { cancelled = true; };
+  }, [setSession]);
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const totalQuestions = QUESTIONS_JSON.length;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
-  const currentQuestion = QUESTIONS_JSON[currentQuestionIndex] as any;
-  const currentAnswer = answers[currentQuestion.id] || null;
-  const answeredCount = Object.keys(answers).length;
-  const progress = totalQuestions
-    ? Math.round((answeredCount / totalQuestions) * 100)
-    : 0;
 
-  const localeKey = locale as "ru" | "kk" | "en";
+  const currentQuestion = QUESTIONS[currentQuestionIndex];
+  const currentAnswer = answers[currentQuestion.id] ?? null;
+  const answeredCount = Object.keys(answers).length;
+  const progress = TOTAL ? Math.round((answeredCount / TOTAL) * 100) : 0;
+
   const questionText =
     typeof currentQuestion.text === "string"
       ? currentQuestion.text
-      : currentQuestion.text?.[localeKey] ??
-        currentQuestion.text?.ru ??
-        currentQuestion.text?.en ??
-        "";
+      : currentQuestion.text[locale] ?? currentQuestion.text.ru;
+
   const likertOptions = [1, 2, 3, 4, 5].map((v) =>
-    t(`holland_likert_${v}` as any)
+    t(`holland_likert_${v}` as Parameters<typeof t>[0])
   );
 
-  const handleAnswerChange = (value: number) => {
-    const updatedAnswers = {
-      ...answers,
-      [currentQuestion.id]: value,
-    };
-    setAnswers(updatedAnswers);
-    const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
-    const allAnsweredAfter =
-      Object.keys(updatedAnswers).length === totalQuestions;
+  const buildLocalResult = (usedAnswers: Record<string, number>): QuizResult => {
+    const scores: Record<string, number> = {};
+    for (const cat of RIASEC_CATEGORIES) {
+      const qs = QUESTIONS.filter((q) => q.category === cat);
+      scores[cat] = qs.reduce((sum, q) => sum + (usedAnswers[q.id] ?? 3), 0);
+    }
+    const sorted = [...RIASEC_CATEGORIES].sort((a, b) => scores[b] - scores[a]);
+    const hollandCode = sorted.slice(0, 3).join("");
+    return {
+      id: Date.now(),
+      test_type: "holland",
+      test_title: t("holland_title") as string,
+      scores,
+      holland_code: hollandCode,
+      primary_type: sorted[0],
+      summary: null,
+      created_at: new Date().toISOString(),
+    } as QuizResult;
+  };
 
-    if (isLastQuestion && allAnsweredAfter) {
-      handleSubmit(updatedAnswers);
-    } else if (!isLastQuestion) {
+  const handleSubmit = async (finalAnswers?: Record<string, number>) => {
+    const usedAnswers = finalAnswers ?? answers;
+    if (Object.keys(usedAnswers).length !== TOTAL) return;
+
+    let backendResult: HollandSessionFinishResponse | null = null;
+
+    try {
+      if (sessionId && backendQuestionIds.length > 0) {
+        const count = Math.min(backendQuestionIds.length, QUESTIONS.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.slice(0, count).map(
+          (q, index) => ({
+            question_id: backendQuestionIds[index],
+            scale_value: usedAnswers[q.id],
+          })
+        );
+
+        await api.post<unknown, BulkAnswerQuizPayload>(
+          "/api/v1/quizzes/sessions/bulk-answer/",
+          { session_id: sessionId, answers: answersPayload }
+        );
+
+        const { data } = await api.post<HollandSessionFinishResponse, FinishQuizSessionVariables>(
+          "/api/v1/quizzes/sessions/finish/",
+          { session_id: sessionId }
+        );
+        backendResult = data;
+      }
+    } catch {
+      backendResult = null;
+    } finally {
+      setResult("holland", backendResult ?? buildLocalResult(usedAnswers));
+      router.push("/test");
+    }
+  };
+
+  const handleAnswerChange = (value: number) => {
+    const updatedAnswers = { ...answers, [currentQuestion.id]: value };
+    setAnswers(updatedAnswers);
+    const isLast = currentQuestionIndex === TOTAL - 1;
+    const allDone = Object.keys(updatedAnswers).length === TOTAL;
+
+    if (isLast && allDone) {
+      void handleSubmit(updatedAnswers);
+    } else if (!isLast) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
   const handlePrev = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
+    if (currentQuestionIndex > 0) setCurrentQuestionIndex(currentQuestionIndex - 1);
   };
 
   const handleNext = () => {
-    if (currentQuestionIndex < totalQuestions - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
-  };
-
-  const handleSubmit = async (finalAnswers?: typeof answers) => {
-    const usedAnswers = finalAnswers ?? answers;
-    if (Object.keys(usedAnswers).length !== totalQuestions) return;
-    let backendResult: HollandSessionFinishResponse | null = null;
-
-    if (sessionId && backendQuestionIds.length === totalQuestions) {
-      const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.map(
-        (q: any, index: number) => ({
-          question_id: backendQuestionIds[index],
-          scale_value: usedAnswers[q.id],
-        })
-      );
-
-      await api.post<unknown, BulkAnswerQuizPayload>(
-        "/api/v1/quizzes/sessions/bulk-answer/",
-        { session_id: sessionId, answers: answersPayload }
-      );
-
-      const { data } = await api.post<
-        HollandSessionFinishResponse,
-        FinishQuizSessionVariables
-      >("/api/v1/quizzes/sessions/finish/", {
-        session_id: sessionId,
-      });
-
-      backendResult = data;
-      setResult("holland", backendResult);
-    }
-
-    router.push("/test");
+    if (currentQuestionIndex < TOTAL - 1) setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
   return (
-    <> 
-    <Header />
-    <Box component="main" sx={styles.root}>
-      <Container maxWidth="md">
-        <Box sx={styles.header}>
-          <Typography component="h2" variant="h2" sx={styles.title}>
-            {t("holland_title")}
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            {t("holland_subtitle")}
-          </Typography>
-        </Box>
+    <>
+      <Header />
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <Box sx={styles.header}>
+            <Typography component="h2" variant="h2" sx={styles.title}>
+              {t("holland_title")}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              {t("holland_subtitle")}
+            </Typography>
+          </Box>
 
-        <ProgressBar
-          progress={progress}
-          current={answeredCount}
-          total={totalQuestions}
-        />
+          <ProgressBar
+            progress={progress}
+            current={answeredCount}
+            total={TOTAL}
+          />
 
-        <OptionQuestionCard
-          questionNumber={currentQuestionIndex + 1}
-          questionText={questionText}
-          options={likertOptions}
-          value={currentAnswer}
-          onChange={handleAnswerChange}
-        />
+          <OptionQuestionCard
+            questionNumber={currentQuestionIndex + 1}
+            questionText={questionText}
+            options={likertOptions}
+            value={currentAnswer}
+            onChange={handleAnswerChange}
+          />
 
-        <Box sx={styles.navigation}>
-          <Button
-            variant="outlined"
-            startIcon={<ArrowBackOutlinedIcon />}
-            onClick={handlePrev}
-            disabled={currentQuestionIndex === 0}
-            sx={styles.navButton}
-          >
-            {t("holland_back")}
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleNext}
-            disabled={!currentAnswer}
-            sx={styles.navButton}
-          >
-            {t("holland_next")}
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+          <Box sx={styles.navigation}>
+            <Button
+              variant="outlined"
+              startIcon={<ArrowBackOutlinedIcon />}
+              onClick={handlePrev}
+              disabled={currentQuestionIndex === 0}
+              sx={styles.navButton}
+            >
+              {t("holland_back")}
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleNext}
+              disabled={!currentAnswer}
+              sx={styles.navButton}
+            >
+              {t("holland_next")}
+            </Button>
+          </Box>
+        </Container>
+      </Box>
     </>
   );
 };

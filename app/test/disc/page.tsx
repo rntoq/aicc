@@ -16,9 +16,9 @@ import { useEffect, useState } from "react";
 import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
 import DISC_DATA from "./disk_questions.json";
 import { useLocale, useTranslations } from "next-intl";
-import { LikertWordQuestionCard } from "@/app/test/components/RadioQuestionCard";
-import { OptionsHeader } from "@/app/test/components/OptionsHeader";
-import { OptionQuestionCard } from "@/app/test/components/OptionQuestionCard";
+import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { OptionsHeader } from "../components/OptionsHeader";
+import { OptionQuestionCard } from "../components/OptionQuestionCard";
 import { Header } from "@/app/components/layout/Header";
 import { api } from "@/lib/api/api";
 import type {
@@ -30,10 +30,73 @@ import type {
   StartQuizSessionVariables,
 } from "@/lib/types";
 
-const PAIRS = (DISC_DATA as any).pairs || [];
-const SINGLE_WORD_ITEMS: string[] =
-  ((DISC_DATA as any).singleWords || []).map((w: any) => w.id) || [];
-const SCENARIO_ITEMS: any[] = (DISC_DATA as any).scenarios || [];
+type DiscLetter = "D" | "I" | "S" | "C";
+
+type DiscPair = {
+  id: string;
+  left: { text: { ru: string; kk: string; en: string } };
+  right: { text: { ru: string; kk: string; en: string } };
+};
+type DiscSingleWord = {
+  id: string;
+  text: { ru: string; kk: string; en: string };
+};
+type DiscScenario = {
+  id: string;
+  question: { ru: string; kk: string; en: string };
+  options: { id: string; label: { ru: string; kk: string; en: string } }[];
+};
+type DiscData = {
+  pairs: DiscPair[];
+  singleWords: DiscSingleWord[];
+  scenarios: DiscScenario[];
+};
+
+const DISC = DISC_DATA as unknown as DiscData;
+const PAIRS: DiscPair[] = DISC.pairs ?? [];
+const SINGLE_WORDS: DiscSingleWord[] = DISC.singleWords ?? [];
+const SINGLE_WORD_ITEMS: string[] = SINGLE_WORDS.map((w) => w.id);
+const SCENARIO_ITEMS: DiscScenario[] = DISC.scenarios ?? [];
+
+/** DISC dimension for each pair position — verified against backend answer scales */
+const PAIR_DISC_MAP: Record<string, { left: DiscLetter; right: DiscLetter }> = {
+  disc_q01: { left: "I", right: "C" }, // Открытый / Скептичный
+  disc_q02: { left: "I", right: "C" }, // Жизнерадостный / Методичный
+  disc_q03: { left: "S", right: "D" }, // Сдержанный / Динамичный
+  disc_q04: { left: "S", right: "D" }, // Скромный / Смелый
+  disc_q05: { left: "S", right: "D" }, // Щедрый / Строгий  (was I/C)
+  disc_q06: { left: "I", right: "C" }, // Живой / Систематичный
+  disc_q07: { left: "S", right: "D" }, // Послушный / Прямолинейный
+  disc_q08: { left: "S", right: "D" }, // Скромный / Бросающий вызов
+  disc_q09: { left: "S", right: "D" }, // Помогающий / Решительный
+  disc_q10: { left: "I", right: "C" }, // Воодушевлённый / Точный
+  disc_q11: { left: "C", right: "D" }, // Уступчивый / Предприимчивый (was S/D)
+  disc_q12: { left: "S", right: "D" }, // Мягкий / Прямой
+  disc_q13: { left: "S", right: "D" }, // Уступчивый / Твёрдый
+  disc_q14: { left: "I", right: "C" }, // Игривый / Аналитичный
+  disc_q15: { left: "S", right: "I" }, // Тактичный / Выразительный
+  disc_q16: { left: "S", right: "D" }, // Уравновешенный / Жёсткий
+  disc_q17: { left: "S", right: "C" }, // Принимающий / Фактичный
+  disc_q18: { left: "I", right: "C" }, // Оптимистичный / Перфекционист
+  disc_q19: { left: "S", right: "I" }, // Тихий / Харизматичный
+  disc_q20: { left: "S", right: "D" }, // Услужливый / Напористый
+  disc_q21: { left: "S", right: "C" }, // Доверчивый / Вопрошающий (was I/C)
+  disc_q22: { left: "I", right: "C" }, // Лёгкий на подъём / Точный
+  disc_q23: { left: "C", right: "D" }, // Осторожный / Авантюрный
+  disc_q24: { left: "S", right: "D" }, // Восприимчивый / Решительный
+};
+
+/** DISC dimension for each single-word item */
+const SINGLE_DISC_MAP: Record<string, DiscLetter> = {
+  agreeable: "S",
+  daring: "D",
+  sociable: "I",
+  dominant: "D",
+  patient: "S",
+  soft_spoken: "S",
+  detail_oriented: "C",
+  competitive: "D",
+};
 
 const PAIR_STEPS = [
   PAIRS.slice(0, 8),
@@ -53,7 +116,10 @@ const DiscPage = () => {
   const [scenarioValues, setScenarioValues] = useState<Record<string, number>>({});
 
   const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
+  // Store full question objects to access answer codes for binary pair submission
+  const [backendQuestions, setBackendQuestions] = useState<
+    { id: number; answers: { code: string }[] }[]
+  >([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -73,17 +139,18 @@ const DiscPage = () => {
         >("/api/v1/quizzes/sessions/start/", { test_slug: slug });
 
         const { data: testDetail } = await api.get<{
-          questions: { id: number }[];
+          questions: { id: number; answers: { code: string }[] }[];
         }>(`/api/v1/quizzes/tests/${slug}/`);
 
-        const allBackendIds = (testDetail.questions ?? []).map((q) => q.id);
-        const expectedCount =
-          PAIRS.length + SINGLE_WORD_ITEMS.length + SCENARIO_ITEMS.length;
+        const questions = (testDetail.questions ?? []).map((q) => ({
+          id: q.id,
+          answers: (q.answers ?? []).map((a) => ({ code: a.code })),
+        }));
 
-        if (!cancelled && allBackendIds.length === expectedCount) {
+        if (!cancelled && questions.length > 0) {
           setSessionId(session.id);
           setSession("disc", session.id);
-          setBackendQuestionIds(allBackendIds);
+          setBackendQuestions(questions);
         }
       } catch {
         // Если бэкенд недоступен — продолжаем работать в локальном режиме.
@@ -95,7 +162,7 @@ const DiscPage = () => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [setSession]);
 
   const handlePairChange = (questionId: string, value: number) => {
     setPairValues((prev) => ({ ...prev, [questionId]: value }));
@@ -103,9 +170,9 @@ const DiscPage = () => {
 
   const canGoNext = () => {
     if (step <= 2)
-      return PAIR_STEPS[step].every((q: { id: string }) => pairValues[q.id] != null);
-    if (step === 3) return SINGLE_WORD_ITEMS.every((id: string) => singleValues[id] != null);
-    if (step === 4) return SCENARIO_ITEMS.every((q: { id: string }) => scenarioValues[q.id]);
+      return PAIR_STEPS[step].every((q) => pairValues[q.id] != null);
+    if (step === 3) return SINGLE_WORD_ITEMS.every((id) => singleValues[id] != null);
+    if (step === 4) return SCENARIO_ITEMS.every((q) => scenarioValues[q.id] != null);
     return true;
   };
 
@@ -132,72 +199,154 @@ const DiscPage = () => {
       return;
 
     setSubmitting(true);
+
+    const buildLocalDiscResult = (): QuizResult => {
+      const rawScores: Record<DiscLetter, number> = { D: 0, I: 0, S: 0, C: 0 };
+
+      const scenarioOptionDiscTypes: Record<string, DiscLetter[]> = {
+        speak_up: ["D", "I"],
+        stay_quiet: ["S", "C"],
+        accuracy: ["C"],
+        people: ["S"],
+        take_command: ["D"],
+        let_others: ["S"],
+        motivation: ["I"],
+        performance: ["C"],
+        solo: ["C"],
+        with_people: ["I"],
+        analyze_flaws: ["C"],
+        think_help: ["S"],
+      };
+
+      for (const q of PAIRS) {
+        const rating = pairValues[q.id];
+        if (rating == null) continue;
+        const mapping = PAIR_DISC_MAP[q.id];
+        if (!mapping) continue;
+        if (rating <= 2) {
+          rawScores[mapping.left] += 3 - rating; // 1→2, 2→1
+        } else if (rating >= 4) {
+          rawScores[mapping.right] += rating - 3; // 4→1, 5→2
+        }
+      }
+
+      for (const w of SINGLE_WORDS) {
+        const rating = singleValues[w.id];
+        if (rating == null) continue;
+        const disc = SINGLE_DISC_MAP[w.id];
+        if (disc) rawScores[disc] += rating - 1; // 1..5 → 0..4
+      }
+
+      for (const s of SCENARIO_ITEMS) {
+        const selected = scenarioValues[s.id];
+        if (selected == null) continue;
+        const option = s.options[selected - 1];
+        if (!option) continue;
+        const discTypes = scenarioOptionDiscTypes[option.id] ?? [];
+        const pointsPerType = discTypes.length > 0 ? 2 / discTypes.length : 0;
+        for (const discType of discTypes) {
+          rawScores[discType] += pointsPerType;
+        }
+      }
+
+      const total = Object.values(rawScores).reduce((a, b) => a + b, 0);
+
+      const percentages: Record<DiscLetter, number> = { D: 0, I: 0, S: 0, C: 0 };
+      const letters: DiscLetter[] = ["D", "I", "S", "C"];
+      for (const k of letters) {
+        const raw = rawScores[k];
+        if (total <= 0) percentages[k] = 0;
+        else percentages[k] = Math.round(((raw / total) * 1000)) / 10; // 1 decimal
+      }
+
+      const primary = letters
+        .slice()
+        .sort((a, b) => rawScores[b] - rawScores[a])[0] as DiscLetter;
+
+      const codeTypes = letters
+        .slice()
+        .sort((a, b) => percentages[b] - percentages[a])
+        .filter((k) => percentages[k] >= 20);
+
+      const disc_code = codeTypes.join("");
+
+      const primarySummary =
+        primary === "D"
+          ? locale === "ru"
+            ? "Вы — Drive: на работе вы ориентированы на результат, инициативу и быстрые решения."
+            : locale === "kk"
+              ? "Сіз — Drive: жұмыста нәтиже, бастама және жылдам шешімдерге бағытталғансыз."
+              : "You are Drive: you focus on results, initiative, and quick decisions."
+          : primary === "I"
+            ? locale === "ru"
+              ? "Вы — Influence: вам важны люди, коммуникация и умение вдохновлять."
+              : locale === "kk"
+                ? "Сіз — Influence: адамдармен қарым-қатынас және шабыттандыру маңызды."
+                : "You are Influence: people, communication, and inspiring others matter most."
+            : primary === "S"
+              ? locale === "ru"
+                ? "Вы — Support: вы умеете сохранять стабильность, поддерживать команду и сохранять терпение."
+                : locale === "kk"
+                  ? "Сіз — Support: командаға қолдау көрсетіп, тұрақтылық пен сабырды сақтайсыз."
+                  : "You are Support: you build stability, support the team, and keep patience."
+              : locale === "ru"
+                ? "Вы — Clarity: вам важны точность, качество и корректность решений."
+                : locale === "kk"
+                  ? "Сіз — Clarity: дәлдік, сапа және дұрыс шешімдер сізге маңызды."
+                  : "You are Clarity: accuracy, quality, and correctness guide your decisions.";
+
+      return {
+        id: Date.now(),
+        test_title: t("disc_title") as string,
+        test_type: "disc",
+        scores: { ...percentages },
+        primary_type: primary,
+        disc_code,
+        disc_primary: primary,
+        summary: primarySummary,
+        created_at: new Date().toISOString(),
+      } as QuizResult;
+    };
+
     const finish = async () => {
       let backendResult: QuizResult | null = null;
 
       try {
-        if (sessionId && backendQuestionIds.length > 0) {
-          const localOrder: { kind: "pair" | "single" | "scenario"; id: string }[] =
-            [
-              ...PAIRS.map((q: any) => ({ kind: "pair" as const, id: q.id })),
-              ...SINGLE_WORD_ITEMS.map((id: string) => ({
-                kind: "single" as const,
-                id,
-              })),
-              ...SCENARIO_ITEMS.map((q: any) => ({
-                kind: "scenario" as const,
-                id: q.id,
-              })),
-            ];
-
-          const maxCount = Math.min(
-            backendQuestionIds.length,
-            localOrder.length
-          );
-
-          const answersPayload: BulkAnswerQuizPayload["answers"] =
-            localOrder.slice(0, maxCount).map((item, index) => {
-              const question_id = backendQuestionIds[index];
-              let scale_value: number | undefined;
-
-              if (item.kind === "pair") {
-                scale_value = pairValues[item.id];
-              } else if (item.kind === "single") {
-                scale_value = singleValues[item.id];
-              } else {
-                const raw = scenarioValues[item.id];
-                if (raw == null) {
-                  scale_value = undefined;
-                } else {
-                  scale_value = raw === 1 ? 1 : 5;
-                }
-              }
-
-              return {
-                question_id,
-                scale_value: scale_value ?? 3,
-              };
+        if (sessionId && backendQuestions.length > 0) {
+          // Backend only has pair questions (24) — submit answer_code for each
+          // Scale ≤3 → left answer (index 0), ≥4 → right answer (index 1)
+          const count = Math.min(backendQuestions.length, PAIRS.length);
+          const answersPayload: BulkAnswerQuizPayload["answers"] = PAIRS
+            .slice(0, count)
+            .flatMap((q, i) => {
+              const bq = backendQuestions[i];
+              if (!bq) return [];
+              const pairVal = pairValues[q.id] ?? 3;
+              const answerIdx = pairVal >= 4 ? 1 : 0;
+              const code = bq.answers[answerIdx]?.code;
+              if (!code) return [];
+              return [{ question_id: bq.id, answer_code: code }];
             });
 
-          await api.post<unknown, BulkAnswerQuizPayload>(
-            "/api/v1/quizzes/sessions/bulk-answer/",
-            {
+          if (answersPayload.length > 0) {
+            await api.post<unknown, BulkAnswerQuizPayload>("/api/v1/quizzes/sessions/bulk-answer/", {
               session_id: sessionId,
               answers: answersPayload,
-            }
-          );
+            });
 
-          const { data } = await api.post<
-            QuizResult,
-            FinishQuizSessionVariables
-          >("/api/v1/quizzes/sessions/finish/", {
-            session_id: sessionId,
-          });
+            const { data } = await api.post<QuizResult, FinishQuizSessionVariables>(
+              "/api/v1/quizzes/sessions/finish/",
+              { session_id: sessionId }
+            );
 
-          backendResult = data;
-          setResult("disc", backendResult);
+            backendResult = data;
+          }
         }
+      } catch {
+        backendResult = null;
       } finally {
+        const resultToSave = backendResult ?? buildLocalDiscResult();
+        setResult("disc", resultToSave);
         router.push(`/test`);
         setSubmitting(false);
       }
@@ -220,7 +369,7 @@ const DiscPage = () => {
             </Typography>
             <Box sx={styles.stepsMeta}>
               <Typography variant="caption" color="text.secondary">
-                {t("step_x_of_y", { step: step + 1, total: 5 } as any)}
+                {t("step_x_of_y", { step: step + 1, total: 5 })}
               </Typography>
               <Box sx={styles.stepsBar}>
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -243,11 +392,10 @@ const DiscPage = () => {
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
                 {t("disc_pairs_title")}
               </Typography>
-              
-              {PAIR_STEPS[step].map((q: any) => (
+              {PAIR_STEPS[step].map((q) => (
                 <Box key={q.id} sx={styles.pairRow}>
                   <Typography sx={styles.pairLabelLeft}>
-                    {(q.left?.text as any)[locale] ?? ""}
+                    {q.left.text[locale as keyof typeof q.left.text] ?? q.left.text.ru}
                   </Typography>
                   <RadioGroup
                     row
@@ -266,7 +414,7 @@ const DiscPage = () => {
                     ))}
                   </RadioGroup>
                   <Typography sx={styles.pairLabelRight}>
-                    {(q.right?.text as any)[locale]}
+                    {q.right.text[locale as keyof typeof q.right.text] ?? q.right.text.ru}
                   </Typography>
                 </Box>
               ))}
@@ -280,27 +428,19 @@ const DiscPage = () => {
               </Typography>
               <OptionsHeader
                 options={[
-                  t("disc_single_scale_1", { defaultValue: "Not like me at all" } as any),
-                  t("disc_single_scale_2", { defaultValue: "Rather not like me" } as any),
-                  t("disc_single_scale_3", { defaultValue: "Neutral" } as any),
-                  t("disc_single_scale_4", { defaultValue: "Rather like me" } as any),
-                  t("disc_single_scale_5", { defaultValue: "Very much like me" } as any),
+                  t("disc_single_scale_1"),
+                  t("disc_single_scale_2"),
+                  t("disc_single_scale_3"),
+                  t("disc_single_scale_4"),
+                  t("disc_single_scale_5"),
                 ]}
               />
-              {SINGLE_WORD_ITEMS.map((wordId: string) => (
+              {SINGLE_WORDS.map((w) => (
                 <LikertWordQuestionCard
-                  key={wordId}
-                  title={
-                    ((DISC_DATA as any).singleWords || []).find((w: any) => w.id === wordId)
-                      ?.text ?? { ru: wordId, kk: wordId, en: wordId }
-                  }
-                  value={singleValues[wordId] ?? null}
-                  onChange={(val) =>
-                    setSingleValues((prev) => ({
-                      ...prev,
-                      [wordId]: val,
-                    }))
-                  }
+                  key={w.id}
+                  title={w.text}
+                  value={singleValues[w.id] ?? null}
+                  onChange={(val) => setSingleValues((prev) => ({ ...prev, [w.id]: val }))}
                 />
               ))}
             </Box>
@@ -308,21 +448,12 @@ const DiscPage = () => {
 
           {step === 4 && (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {SCENARIO_ITEMS.map((q: any, index: number) => {
-                const questionText =
-                  q.question?.[locale as keyof typeof q.question] ??
-                  q.question?.ru ??
-                  q.question?.en ??
-                  "";
-                const optionLabels =
-                  q.options?.map(
-                    (opt: any) =>
-                      opt.label?.[locale as keyof typeof opt.label] ??
-                      opt.label?.ru ??
-                      opt.label?.en ??
-                      ""
-                  ) ?? [];
-
+              {SCENARIO_ITEMS.map((q, index) => {
+                const loc = locale as keyof typeof q.question;
+                const questionText = q.question[loc] ?? q.question.ru;
+                const optionLabels = q.options.map(
+                  (opt) => opt.label[loc] ?? opt.label.ru
+                );
                 return (
                   <OptionQuestionCard
                     key={q.id}
@@ -330,9 +461,7 @@ const DiscPage = () => {
                     questionText={questionText}
                     options={optionLabels}
                     value={scenarioValues[q.id] ?? null}
-                    onChange={(val) =>
-                      setScenarioValues((prev) => ({ ...prev, [q.id]: val }))
-                    }
+                    onChange={(val) => setScenarioValues((prev) => ({ ...prev, [q.id]: val }))}
                   />
                 );
               })}

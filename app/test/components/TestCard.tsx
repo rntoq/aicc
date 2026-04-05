@@ -9,7 +9,6 @@ import { useTestsStore } from "@/lib/store/testsStore";
 import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
 import { type ReactNode, useEffect, useState } from "react";
 import LockResetIcon from "@mui/icons-material/LockReset";
-import type { QuizTestType } from "@/lib/types";
 
 const CARD_ACCENTS = [
   { border: "#7f7fd5", bg: "rgba(127, 127, 213, 0.06)", titleColor: "#7f7fd5" },
@@ -40,10 +39,46 @@ const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
 /** Maps test.id → the key used in quizSessionStore */
 const testIdToSessionKey = (id: TestItem["id"]): string => {
   if (id === "big-five") return "bigfive";
-  return id; // "holland", "disc", "photo-career", "career-aptitude", …
+  return id;
 };
 
-export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, index: number, variant: String, disabled?: boolean }) => {
+const ROUTES: Partial<Record<string, string>> = {
+  "holland": "/test/holland",
+  "photo-career": "/test/photo-career",
+  "disc": "/test/disc",
+  "career-aptitude": "/test/career-aptitude",
+  "big-five": "/test/bigfive",
+  "leadership": "/test/leadership",
+  "eq": "/test/eq",
+  "enneagram": "/test/enneagram",
+  "typefinder-16": "/test/typefinder-16",
+  "strengths": "/test/strengths",
+};
+
+const RESULT_MODAL_IDS: Partial<Record<string, string>> = {
+  "holland": "holland",
+  "disc": "disc",
+  "photo-career": "photo-career",
+  "big-five": "bigfive",
+  "career-aptitude": "career-aptitude",
+  "eq": "eq",
+  "leadership": "leadership",
+  "enneagram": "enneagram",
+  "typefinder-16": "typefinder-16",
+  "strengths": "strengths",
+};
+
+export const TestCard = ({
+  test,
+  index,
+  variant,
+  disabled,
+}: {
+  test: TestItem;
+  index: number;
+  variant: string;
+  disabled?: boolean;
+}) => {
   const t = useTranslations();
   const router = useRouter();
   const { setOpenResultModalId } = useTestsStore();
@@ -52,171 +87,107 @@ export const TestCard = ({ test, index, variant, disabled }: { test: TestItem, i
   // Defer localStorage-backed check to client to avoid SSR/CSR hydration mismatch
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
+
   const completed = mounted && isCompleted(testIdToSessionKey(test.id));
-  const nameKey = `tests_${test.id}_name` as keyof typeof t;
-  const featuresKey = `tests_${test.id}_features` as keyof typeof t;
-  const categoryKey = `tests_${test.id}_category` as keyof typeof t;
-  const name = (t(nameKey) as string) || test.name;
-  const featuresRaw = (t(featuresKey) as string) || "";
-  const features = featuresRaw
-    ? featuresRaw
-        .split("\n")
-        .filter(Boolean)
-        .slice(0, 3)
-    : [];
-  const category = (t(categoryKey) as string) || "";
-  const time =
-        test.duration != null ? `${test.duration} мин` : "";
-      const questions = test.questions ?? 0;
-      const badgeLabel = getBadgeLabel(test, t);
-      const badgeStyle = getBadgeStyle(test);
-      const accentIndex = index % CARD_ACCENTS.length;
-      const accent = CARD_ACCENTS[accentIndex];
+  const name = (t(`tests_${test.id}_name` as Parameters<typeof t>[0]) as string) || test.name;
+  const featuresRaw = (t(`tests_${test.id}_features` as Parameters<typeof t>[0]) as string) || "";
+  const features = featuresRaw ? featuresRaw.split("\n").filter(Boolean).slice(0, 3) : [];
+  const category = (t(`tests_${test.id}_category` as Parameters<typeof t>[0]) as string) || "";
+  const time = test.duration != null ? `${test.duration} мин` : "";
+  const questions = test.questions ?? 0;
+  const badgeLabel = getBadgeLabel(test, t);
+  const badgeStyle = getBadgeStyle(test);
+  const accent = CARD_ACCENTS[index % CARD_ACCENTS.length];
 
-      const ROUTES: Partial<Record<string, string>> = {
-        "holland": "/test/holland",
-        "photo-career": "/test/photo-career",
-        "disc": "/test/disc",
-        "career-aptitude": "/test/career-aptitude",
-        "big-five": "/test/bigfive",
-        "leadership": "/test/leadership",
-      };
+  const handleStart = () => {
+    const route = ROUTES[test.id];
+    if (route) router.push(route);
+  };
 
-      const RESULT_MODAL_IDS: Partial<Record<string, string>> = {
-        "holland": "holland",
-        "disc": "disc",
-        "photo-career": "photo-career",
-        "big-five": "bigfive",
-        "career-aptitude": "career-aptitude",
-      };
+  const handleShowResult = () => {
+    const modalId = RESULT_MODAL_IDS[test.id];
+    if (modalId) setOpenResultModalId(modalId);
+  };
 
-      const handleStart = () => {
-        const route = ROUTES[test.id];
-        if (route) {
-          router.push(route);
-        }
-      };
-    
-      const handleShowResult = () => {
-        const modalId = RESULT_MODAL_IDS[test.id];
-        if (modalId) {
-          setOpenResultModalId(modalId);
-        }
-      };
   return (
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-20px" }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-        >
-                    <Box
-                      sx={{
-                        ...styles.item,
-                        borderColor: accent.border,
-                        backgroundColor: accent.bg,
-                        "&:hover": {
-                          transform: "translateY(-6px) scale(1.02)",
-                          boxShadow: "0 20px 50px rgba(127,127,213,0.18)",
-                          borderColor: accent.border,
-                          backgroundImage: `linear-gradient(180deg, #ffffff 0%, ${accent.bg} 100%)`,
-                        },
-                      }}
-                    >
-                      <Box sx={styles.itemBgIcon} aria-hidden>
-                        {test.icon && <test.icon />}
-                      </Box>
-                      <Box sx={styles.itemContent}>
-                        {variant === "recommended" && <Box
-                          sx={{
-                            ...styles.badge,
-                            background: badgeStyle.bg,
-                            color: badgeStyle.color,
-                          }}
-                        >
-                          {badgeLabel}
-                        </Box>}
-                        <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                        {category && (
-                          <Typography sx={styles.category}>
-                            {category}
-                          </Typography>
-                        )}
-                        </Box>
-                        <Typography variant="subtitle1" sx={{ ...styles.itemTitle, color: accent.titleColor }}>
-                          {name}
-                        </Typography>
-                        <Typography sx={styles.meta}>
-                          {time}
-                          {questions ? ` • ${questions} ${t("tests_questions_suffix")}` : ""}
-                        </Typography>
-                        <Box component="ul" sx={styles.featureList}>
-                          {features.map((line, j) => (
-                            <Box key={j} component="li" sx={styles.featureItem}>
-                              <Typography variant="body2" sx={styles.featureText}>
-                                • {line}
-                              </Typography>
-                            </Box>
-                          ))}
-                        </Box>
-                        {completed ? (
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            size="medium"
-                            fullWidth
-                            onClick={handleShowResult}
-                            sx={{ ...styles.cta }}
-                          >
-                            {t("showResult")}
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outlined"
-                            color="primary"
-                            size="medium"
-                            fullWidth
-                            onClick={handleStart}
-                            sx={{ ...styles.cta }}
-                            disabled={disabled}
-                          >
-                            {t("start")}
-                          </Button>
-                        )}
-                      </Box>
-                    </Box>
-                  
-        </motion.div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.5, delay: 0.15 }}
+    >
+      <Box
+        sx={{
+          ...styles.item,
+          borderColor: accent.border,
+          backgroundColor: accent.bg,
+          "&:hover": {
+            transform: "translateY(-6px) scale(1.02)",
+            boxShadow: "0 20px 50px rgba(127,127,213,0.18)",
+            borderColor: accent.border,
+            backgroundImage: `linear-gradient(180deg, #ffffff 0%, ${accent.bg} 100%)`,
+          },
+        }}
+      >
+        <Box sx={styles.itemBgIcon} aria-hidden>
+          {test.icon && <test.icon />}
+        </Box>
+        <Box sx={styles.itemContent}>
+          {variant === "recommended" && (
+            <Box sx={{ ...styles.badge, background: badgeStyle.bg, color: badgeStyle.color }}>
+              {badgeLabel}
+            </Box>
+          )}
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            {category && (
+              <Typography sx={styles.category}>{category}</Typography>
+            )}
+          </Box>
+          <Typography variant="subtitle1" sx={{ ...styles.itemTitle, color: accent.titleColor }}>
+            {name}
+          </Typography>
+          <Typography sx={styles.meta}>
+            {time}
+            {questions ? ` • ${questions} ${t("tests_questions_suffix")}` : ""}
+          </Typography>
+          <Box component="ul" sx={styles.featureList}>
+            {features.map((line, j) => (
+              <Box key={j} component="li" sx={styles.featureItem}>
+                <Typography variant="body2" sx={styles.featureText}>• {line}</Typography>
+              </Box>
+            ))}
+          </Box>
+          {completed ? (
+            <Button
+              variant="contained"
+              color="primary"
+              size="medium"
+              fullWidth
+              onClick={handleShowResult}
+              sx={styles.cta}
+            >
+              {t("showResult")}
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              color="primary"
+              size="medium"
+              fullWidth
+              onClick={handleStart}
+              sx={styles.cta}
+              disabled={disabled}
+            >
+              {t("start")}
+            </Button>
+          )}
+        </Box>
+      </Box>
+    </motion.div>
   );
 };
 
 const styles = {
-  section: {
-    py: { xs: 6, md: 8 },
-    bgcolor: "background.default",
-  },
-  title: {
-    mb: 1,
-    fontWeight: 700,
-    backgroundImage: "linear-gradient(90deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)",
-    backgroundClip: "text",
-    WebkitBackgroundClip: "text",
-    color: "text.primary.dark",
-  },
-  subtitle: {
-    mb: 3,
-    maxWidth: 560,
-    mx: "auto",
-    color: "text.secondary",
-  },
-  wrap: {
-    overflow: "hidden",
-    mx: -2,
-    py: 1,
-  },
-  trackWrap: {
-    overflow: "hidden",
-  },
   item: {
     flexShrink: 0,
     height: 350,

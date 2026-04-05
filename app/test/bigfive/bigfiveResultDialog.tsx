@@ -21,6 +21,10 @@ export type BigFiveResultDialogProps = {
   loading?: boolean;
 };
 
+// Max raw score per dimension (questions × 5). Verified against backend question distribution:
+// O=19q, C=15q, E=14q, A=14q, N=12q
+const DIM_MAX: Record<keyof BigFiveScores, number> = { O: 95, C: 75, E: 70, A: 70, N: 60 };
+
 const DIMENSIONS: { key: keyof BigFiveScores; label: string; color: string }[] = [
   { key: "O", label: "Открытость (O)", color: "#6366f1" },
   { key: "C", label: "Добросовестность (C)", color: "#22c55e" },
@@ -62,16 +66,16 @@ export const BigFiveResultDialog = ({
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm" scroll="paper">
       <DialogTitle sx={{ pb: 1 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
-          {result.test_title}
-        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 1 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.3 }}>
+            {result.test_title}
+          </Typography>
+          <Chip label="OCEAN" color="primary" size="small" sx={{ fontWeight: 800, letterSpacing: 1, flexShrink: 0 }} />
+        </Box>
         {result.primary_type && (
-          <Chip
-            label={result.primary_type}
-            size="small"
-            color="primary"
-            sx={{ mt: 0.75, fontWeight: 600 }}
-          />
+          <Typography variant="body2" sx={{ fontWeight: 700, color: "primary.main", mt: 0.5 }}>
+            {result.primary_type}
+          </Typography>
         )}
       </DialogTitle>
 
@@ -79,7 +83,8 @@ export const BigFiveResultDialog = ({
         {/* OCEAN score bars */}
         <Box sx={{ display: "grid", gap: 2, mb: 3 }}>
           {DIMENSIONS.map(({ key, label, color }) => {
-            const value = scores[key] ?? 0;
+            const raw = scores[key] ?? 0;
+            const pct = Math.round((raw / DIM_MAX[key]) * 100);
             return (
               <Box key={key}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}>
@@ -87,12 +92,12 @@ export const BigFiveResultDialog = ({
                     {label}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
-                    {value}%
+                    {raw} / {DIM_MAX[key]} · {pct}%
                   </Typography>
                 </Box>
                 <LinearProgress
                   variant="determinate"
-                  value={Math.min(value, 100)}
+                  value={pct}
                   sx={{
                     height: 10,
                     borderRadius: 2,
@@ -143,7 +148,7 @@ export const BigFiveResultDialog = ({
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose} variant="outlined">
+        <Button onClick={onClose} variant="contained" sx={{ borderRadius: 2 }}>
           Закрыть
         </Button>
       </DialogActions>

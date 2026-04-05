@@ -108,9 +108,8 @@ export const LikertWordQuestionCard = ({
           value={value?.toString() ?? ""}
           onChange={(e) => onChange(Number(e.target.value))}
         >
-          {scaleOptions.map((opt, index) => {
+          {scaleOptions.map((_, index) => {
             const v = index + 1;
-            const text = pick(opt);
             return (
               <FormControlLabel
                 key={v}

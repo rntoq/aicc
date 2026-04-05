@@ -76,7 +76,7 @@ export const OptionQuestionCard = ({
       </Card>
     </motion.div>
   );
-};;
+};
 
 const styles = {
   card: {
@@ -90,11 +90,6 @@ const styles = {
   },
   content: {
     p: 3,
-  },
-  questionNumber: {
-    display: "block",
-    mb: 1,
-    fontSize: "0.8125rem",
   },
   questionText: {
     fontSize: "1.125rem",
