@@ -5,20 +5,17 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
 import ENNEAGRAM_DATA from "./enneagram_questions.json";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
   LocalizedText,
   QuizResult,
-  QuizSession,
-  QuizTest,
-  StartQuizSessionVariables,
 } from "@/lib/types";
 
 type EnneagramTypeKey =
@@ -96,7 +93,17 @@ export default function EnneagramTestPage() {
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
 
-  const data = ENNEAGRAM_DATA as any;
+  type EnneagramJson = {
+    test?: { title?: LocalizedText };
+    questions?: Array<{
+      id: number;
+      text: LocalizedText;
+      scoring: { type: EnneagramTypeKey; reverse_scored: boolean };
+    }>;
+    scale?: { labels?: Record<string, LocalizedText> };
+  };
+
+  const data = ENNEAGRAM_DATA as unknown as EnneagramJson;
   const QUESTIONS: Array<{
     id: number;
     text: LocalizedText;
@@ -118,30 +125,19 @@ export default function EnneagramTestPage() {
   useEffect(() => {
     let cancelled = false;
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", {
-          params: { type: "enneagram" },
-        });
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: tests } = await quizServices.listTests({ type: "enneagram" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
-          "/api/v1/quizzes/sessions/start/",
-          { test_slug: slug }
-        );
+      const { body: session } = await quizServices.startSession({ test_slug: slug });
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: testDetail } = await api.get<{ questions: { id: number }[] }>(
-          `/api/v1/quizzes/tests/${slug}/`
-        );
-
-        const ids = (testDetail.questions ?? []).map((q) => q.id);
-        if (!cancelled) {
-          setSessionId(session.id);
-          setSession("enneagram", session.id);
-          setBackendQuestionIds(ids);
-        }
-      } catch {
-        // backend unavailable — local fallback will be used
+      const ids = (testDetail.questions ?? []).map((q) => q.id);
+      if (!cancelled) {
+        setSessionId(session.id);
+        setSession("enneagram", session.id);
+        setBackendQuestionIds(ids);
       }
     };
     void initSession();
@@ -186,7 +182,7 @@ export default function EnneagramTestPage() {
       raw[type] += response;
     }
 
-    const scores: Record<EnneagramTypeKey, number> = raw as any;
+    const scores: Record<EnneagramTypeKey, number> = { ...raw };
     const typeKeys = Object.keys(counts) as EnneagramTypeKey[];
     for (const key of typeKeys) {
       const c = counts[key];
@@ -199,7 +195,7 @@ export default function EnneagramTestPage() {
 
     const sorted = typeKeys.sort((a, b) => scores[b] - scores[a]);
     const primary = sorted[0];
-    const primaryNum = parseTypeNumber(primary) as any;
+    const primaryNum = parseTypeNumber(primary);
 
     const possibleWings = wingMap[primary];
     const dominantWing = possibleWings.sort((a, b) => scores[b] - scores[a])[0];
@@ -248,29 +244,21 @@ export default function EnneagramTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      try {
-        if (sessionId && backendQuestionIds.length === QUESTIONS.length) {
-          const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.map((q, idx) => ({
-            question_id: backendQuestionIds[idx],
-            scale_value: answers[q.id] ?? 3,
-          }));
-          await api.post<unknown, BulkAnswerQuizPayload>(
-            "/api/v1/quizzes/sessions/bulk-answer/",
-            { session_id: sessionId, answers: answersPayload }
-          );
-          const { data } = await api.post<QuizResult, FinishQuizSessionVariables>(
-            "/api/v1/quizzes/sessions/finish/",
-            { session_id: sessionId }
-          );
-          backendResult = data;
+      if (sessionId && backendQuestionIds.length === QUESTIONS.length) {
+        const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.map((q, idx) => ({
+          question_id: backendQuestionIds[idx],
+          scale_value: answers[q.id] ?? 3,
+        }));
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        if (!bulkRes.error) {
+          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          backendResult = finishRes.body;
         }
-      } catch {
-        backendResult = null;
-      } finally {
-        setResult("enneagram", backendResult ?? computeResult());
-        router.push("/test");
-        setSubmitting(false);
       }
+
+      setResult("enneagram", backendResult ?? computeResult());
+      router.push("/test");
+      setSubmitting(false);
     };
 
     void finish();
@@ -292,7 +280,7 @@ export default function EnneagramTestPage() {
                   ? "Әр тұжырым сізге қаншалықты сәйкес келеді деп бағалаңыз"
                   : "Rate how well each statement describes you"
             }
-            stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT }) as any}
+            stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT }) as string}
           />
 
           <Divider sx={{ mb: 2 }} />

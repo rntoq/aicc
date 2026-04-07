@@ -5,9 +5,10 @@ import { AppBar, Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, u
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTheme } from "@mui/material/styles";
+import type { Theme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
 import { LanguageDropdown } from "@/app/components/layout/LanguageDropdown";
-import { useAuth } from "@/lib/hooks/useAuth";
+import { useAuth } from "@/lib/store/useAuthStore";
 
 type TopbarProps = {
   title?: string;
@@ -95,7 +96,7 @@ const styles = {
     borderBottom: "1px solid",
     borderColor: "divider",
     bgcolor: "background.paper",
-    zIndex: (theme: any) => theme.zIndex.appBar,
+    zIndex: (theme: Theme) => theme.zIndex.appBar,
   },
   toolbar: {
     minHeight: 56,

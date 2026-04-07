@@ -13,14 +13,14 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import DISC_DATA from "./disk_questions.json";
 import { useLocale, useTranslations } from "next-intl";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
 import { OptionsHeader } from "../components/OptionsHeader";
 import { OptionQuestionCard } from "../components/OptionQuestionCard";
 import { Header } from "@/app/components/layout/Header";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
@@ -125,35 +125,23 @@ const DiscPage = () => {
     let cancelled = false;
 
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", {
-          params: { type: "disc" },
-        });
+      const { body: tests } = await quizServices.listTests({ type: "disc" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: session } = await quizServices.startSession({ test_slug: slug } as StartQuizSessionVariables);
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: session } = await api.post<
-          QuizSession,
-          StartQuizSessionVariables
-        >("/api/v1/quizzes/sessions/start/", { test_slug: slug });
+      const questions = (testDetail.questions ?? []).map((q) => ({
+        id: q.id,
+        answers: (q.answers ?? []).map((a) => ({ code: a.code })),
+      }));
 
-        const { data: testDetail } = await api.get<{
-          questions: { id: number; answers: { code: string }[] }[];
-        }>(`/api/v1/quizzes/tests/${slug}/`);
-
-        const questions = (testDetail.questions ?? []).map((q) => ({
-          id: q.id,
-          answers: (q.answers ?? []).map((a) => ({ code: a.code })),
-        }));
-
-        if (!cancelled && questions.length > 0) {
-          setSessionId(session.id);
-          setSession("disc", session.id);
-          setBackendQuestions(questions);
-        }
-      } catch {
-        // Если бэкенд недоступен — продолжаем работать в локальном режиме.
+      if (!cancelled && questions.length > 0) {
+        setSessionId(session.id);
+        setSession("disc", session.id);
+        setBackendQuestions(questions);
       }
     };
 
@@ -311,45 +299,35 @@ const DiscPage = () => {
     const finish = async () => {
       let backendResult: QuizResult | null = null;
 
-      try {
-        if (sessionId && backendQuestions.length > 0) {
-          // Backend only has pair questions (24) — submit answer_code for each
-          // Scale ≤3 → left answer (index 0), ≥4 → right answer (index 1)
-          const count = Math.min(backendQuestions.length, PAIRS.length);
-          const answersPayload: BulkAnswerQuizPayload["answers"] = PAIRS
-            .slice(0, count)
-            .flatMap((q, i) => {
-              const bq = backendQuestions[i];
-              if (!bq) return [];
-              const pairVal = pairValues[q.id] ?? 3;
-              const answerIdx = pairVal >= 4 ? 1 : 0;
-              const code = bq.answers[answerIdx]?.code;
-              if (!code) return [];
-              return [{ question_id: bq.id, answer_code: code }];
-            });
+      if (sessionId && backendQuestions.length > 0) {
+        // Backend only has pair questions (24) — submit answer_code for each
+        // Scale ≤3 → left answer (index 0), ≥4 → right answer (index 1)
+        const count = Math.min(backendQuestions.length, PAIRS.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = PAIRS
+          .slice(0, count)
+          .flatMap((q, i) => {
+            const bq = backendQuestions[i];
+            if (!bq) return [];
+            const pairVal = pairValues[q.id] ?? 3;
+            const answerIdx = pairVal >= 4 ? 1 : 0;
+            const code = bq.answers[answerIdx]?.code;
+            if (!code) return [];
+            return [{ question_id: bq.id, answer_code: code }];
+          });
 
-          if (answersPayload.length > 0) {
-            await api.post<unknown, BulkAnswerQuizPayload>("/api/v1/quizzes/sessions/bulk-answer/", {
-              session_id: sessionId,
-              answers: answersPayload,
-            });
-
-            const { data } = await api.post<QuizResult, FinishQuizSessionVariables>(
-              "/api/v1/quizzes/sessions/finish/",
-              { session_id: sessionId }
-            );
-
-            backendResult = data;
+        if (answersPayload.length > 0) {
+          const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+          if (!bulkRes.error) {
+            const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+            backendResult = finishRes.body;
           }
         }
-      } catch {
-        backendResult = null;
-      } finally {
-        const resultToSave = backendResult ?? buildLocalDiscResult();
-        setResult("disc", resultToSave);
-        router.push(`/test`);
-        setSubmitting(false);
       }
+
+      const resultToSave = backendResult ?? buildLocalDiscResult();
+      setResult("disc", resultToSave);
+      router.push(`/test`);
+      setSubmitting(false);
     };
 
     void finish();

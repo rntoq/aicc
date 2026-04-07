@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useAuth } from "@/lib/hooks/useAuth";
+import { useAuth } from "@/lib/store/useAuthStore";
 import { Header } from "../components/layout/Header";
 import { PasswordField } from "../components/layout/PasswordField";
 import { useTranslations } from "next-intl";
@@ -40,12 +40,18 @@ const LoginPage = () => {
       router.push(redirect);
     } catch (err: unknown) {
       // Пытаемся вытащить detail из ответа бэкенда (например, неподтверждённый email)
-      const anyErr = err as any;
-      const detail: string | undefined = anyErr?.response?.data?.detail;
+      const maybeAxiosLike = err as {
+        response?: { data?: { detail?: unknown } };
+        message?: unknown;
+      };
+      const detail =
+        typeof maybeAxiosLike?.response?.data?.detail === "string"
+          ? maybeAxiosLike.response.data.detail
+          : undefined;
       if (detail) {
         toast.error(detail);
-      } else if (typeof anyErr?.message === "string") {
-        toast.error(anyErr.message);
+      } else if (typeof maybeAxiosLike?.message === "string") {
+        toast.error(maybeAxiosLike.message);
       } else if (error) {
         toast.error(error);
       }

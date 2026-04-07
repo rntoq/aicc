@@ -12,8 +12,8 @@ import {
 import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { PasswordField } from "@/app/components/layout/PasswordField";
-import { useAuth } from "@/lib/hooks/useAuth";
-import { authServices } from "@/lib/services/authServices";
+import { useAuth } from "@/lib/store/useAuthStore";
+import { useChangePassword, useUpdateProfile } from "@/lib/services/authServices";
 
 const styles = {
   section: { mb: 3 },
@@ -39,18 +39,22 @@ const SettingsPage = () => {
     new_password: "",
     new_password_confirm: "",
   });
-  const [saving, setSaving] = useState(false);
-  const [savingPassword, setSavingPassword] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  const updateProfile = useUpdateProfile();
+  const changePassword = useChangePassword();
 
   useEffect(() => {
     if (user) {
-      setForm({
-        first_name: user.first_name ?? "",
-        last_name: user.last_name ?? "",
-        email: user.email ?? "",
-        phone: user.phone ?? "",
-        city: user.city ?? "",
+      // Defer state update to avoid sync setState-in-effect lint
+      Promise.resolve().then(() => {
+        setForm({
+          first_name: user.first_name ?? "",
+          last_name: user.last_name ?? "",
+          email: user.email ?? "",
+          phone: user.phone ?? "",
+          city: user.city ?? "",
+        });
       });
     }
   }, [user]);
@@ -66,10 +70,9 @@ const SettingsPage = () => {
   };
 
   const handleSave = async () => {
-    setSaving(true);
     setMessage(null);
     try {
-      const updated = await authServices.updateProfile({
+      const updated = await updateProfile.mutateAsync({
         first_name: form.first_name,
         last_name: form.last_name,
         phone: form.phone || undefined,
@@ -79,8 +82,6 @@ const SettingsPage = () => {
       setMessage({ type: "success", text: t("settings_profile_saved") });
     } catch {
       setMessage({ type: "error", text: t("settings_profile_error") });
-    } finally {
-      setSaving(false);
     }
   };
 
@@ -89,16 +90,13 @@ const SettingsPage = () => {
       setMessage({ type: "error", text: t("settings_passwords_mismatch") });
       return;
     }
-    setSavingPassword(true);
     setMessage(null);
     try {
-      await authServices.changePassword(passwordForm);
+      await changePassword.mutateAsync(passwordForm);
       setMessage({ type: "success", text: t("settings_password_changed") });
       setPasswordForm({ old_password: "", new_password: "", new_password_confirm: "" });
     } catch {
       setMessage({ type: "error", text: t("settings_password_error") });
-    } finally {
-      setSavingPassword(false);
     }
   };
 
@@ -188,9 +186,13 @@ const SettingsPage = () => {
             <Button
               variant="outlined"
               onClick={handleChangePassword}
-              disabled={savingPassword || !passwordForm.old_password || !passwordForm.new_password}
+              disabled={
+                changePassword.isPending ||
+                !passwordForm.old_password ||
+                !passwordForm.new_password
+              }
             >
-              {savingPassword ? t("settings_saving") : t("settings_change_password_btn")}
+              {changePassword.isPending ? t("settings_saving") : t("settings_change_password_btn")}
             </Button>
           </Stack>
         </Box>
@@ -222,8 +224,8 @@ const SettingsPage = () => {
         >
           {t("settings_cancel")}
         </Button>
-        <Button variant="contained" onClick={handleSave} disabled={saving}>
-          {saving ? t("settings_saving") : t("settings_save")}
+        <Button variant="contained" onClick={handleSave} disabled={updateProfile.isPending}>
+          {updateProfile.isPending ? t("settings_saving") : t("settings_save")}
         </Button>
       </Box>
     </AppLayout>

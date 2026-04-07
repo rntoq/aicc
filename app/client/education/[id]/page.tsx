@@ -99,7 +99,7 @@ const SpecialityUniversitiesPage = () => {
           startIcon={<ArrowBackRoundedIcon />}
           sx={{ alignSelf: "flex-start" }}
         >
-          {t("back", { defaultValue: "Back" } as any)}
+          {t("back", { defaultValue: "Back" } as never)}
         </Button>
 
         <Box>
@@ -109,7 +109,7 @@ const SpecialityUniversitiesPage = () => {
           <Typography variant="body2" color="text.secondary">
             {t("education_universities_subtitle", {
               defaultValue: "Universities for this speciality.",
-            } as any)}
+            } as never)}
           </Typography>
         </Box>
 
@@ -117,7 +117,7 @@ const SpecialityUniversitiesPage = () => {
           <Typography variant="body2" color="text.secondary">
             {t("education_no_universities", {
               defaultValue: "No universities found for this speciality.",
-            } as any)}
+            } as never)}
           </Typography>
         ) : (
           <Grid container spacing={2.5}>

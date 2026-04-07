@@ -1,76 +1,115 @@
 import { api } from "@/lib/api/api";
+import { useMutation, type UseMutationResult } from "@tanstack/react-query";
 import type {
   AuthResponse,
+  ChangePasswordPayload,
   LoginPayload,
+  PasswordResetConfirmPayload,
+  PasswordResetRequestPayload,
   RegisterPayload,
   RefreshResponse,
+  UpdateMePayload,
   User,
 } from "@/lib/types";
 
+type ServiceResult<T> = { body: T | null; error: unknown | null };
 
+export type { UpdateMePayload };
 
 export const authServices = {
-  async login(payload: LoginPayload): Promise<AuthResponse> {
-    const { data } = await api.post<AuthResponse, LoginPayload>(
-      `/api/v1/auth/login/`,
-      payload
-    );
-    return data;
+  async login(payload: LoginPayload): Promise<ServiceResult<AuthResponse>> {
+    const { body, error } = await api.post<AuthResponse, LoginPayload>(`/api/v1/auth/login/`, payload);
+    return { body: body?.data ?? null, error };
   },
 
-  async register(payload: RegisterPayload): Promise<AuthResponse> {
-    const { data } = await api.post<AuthResponse, RegisterPayload>(
-      `/api/v1/auth/register/`,
-      payload
-    );
-    return data;
+  async register(payload: RegisterPayload): Promise<ServiceResult<AuthResponse>> {
+    const { body, error } = await api.post<AuthResponse, RegisterPayload>(`/api/v1/auth/register/`, payload);
+    return { body: body?.data ?? null, error };
   },
 
-  async refresh(refresh: string): Promise<RefreshResponse> {
-    const { data } = await api.post<RefreshResponse, { refresh: string }>(
-      `/api/v1/auth/refresh/`,
-      { refresh }
-    );
-    return data;
+  async refresh(refresh: string): Promise<ServiceResult<RefreshResponse>> {
+    const { body, error } = await api.post<RefreshResponse, { refresh: string }>(`/api/v1/auth/refresh/`, {
+      refresh,
+    });
+    return { body: body?.data ?? null, error };
   },
 
-  async me(): Promise<User> {
-    const { data } = await api.get<User>(`/api/v1/auth/me/`);
-    return data;
+  async me(): Promise<ServiceResult<User>> {
+    const { body, error } = await api.get<User>(`/api/v1/auth/me/`);
+    return { body: body?.data ?? null, error };
   },
 
-  async logout(refresh: string): Promise<void> {
-    await api.post<unknown, { refresh: string }>(
-      `/api/v1/auth/logout/`,
-      { refresh }
-    );
+  async updateMePut(payload: UpdateMePayload): Promise<ServiceResult<User>> {
+    const { body, error } = await api.put<User, UpdateMePayload>(`/api/v1/auth/me/`, payload);
+    return { body: body?.data ?? null, error };
   },
 
-  async updateProfile(payload: {
-    first_name?: string;
-    last_name?: string;
-    phone?: string;
-    city?: string;
-    date_of_birth?: string;
-    age?: number;
-  }): Promise<User> {
-    const { data } = await api.patch<User, typeof payload>(
-      `/api/v1/auth/me/`,
-      payload
-    );
-    return data;
+  async logout(refresh: string): Promise<ServiceResult<unknown>> {
+    const { body, error } = await api.post<unknown, { refresh: string }>(`/api/v1/auth/logout/`, { refresh });
+    return { body: body?.data ?? null, error };
   },
 
-  async changePassword(payload: {
-    old_password: string;
-    new_password: string;
-    new_password_confirm: string;
-  }): Promise<{ detail: string }> {
-    const { data } = await api.post<{ detail: string }, typeof payload>(
+  async updateProfile(payload: UpdateMePayload): Promise<ServiceResult<User>> {
+    const { body, error } = await api.patch<User, UpdateMePayload>(`/api/v1/auth/me/`, payload);
+    return { body: body?.data ?? null, error };
+  },
+
+  async changePassword(payload: ChangePasswordPayload): Promise<ServiceResult<Record<string, string>>> {
+    const { body, error } = await api.post<Record<string, string>, ChangePasswordPayload>(
       `/api/v1/auth/change-password/`,
       payload
     );
-    return data;
+    return { body: body?.data ?? null, error };
   },
+
+  async requestPasswordReset(payload: PasswordResetRequestPayload): Promise<ServiceResult<Record<string, string>>> {
+    const { body, error } = await api.post<Record<string, string>, PasswordResetRequestPayload>(
+      "/api/v1/auth/password-reset/request/",
+      payload
+    );
+    return { body: body?.data ?? null, error };
+  },
+
+  async confirmPasswordReset(payload: PasswordResetConfirmPayload): Promise<ServiceResult<Record<string, string>>> {
+    const { body, error } = await api.post<Record<string, string>, PasswordResetConfirmPayload>(
+      "/api/v1/auth/password-reset/confirm/",
+      payload
+    );
+    return { body: body?.data ?? null, error };
+  },
+};
+
+// --------------------------------------------------
+// TanStack Query mutations (settings/profile)
+// --------------------------------------------------
+
+export const useUpdateProfile = (): UseMutationResult<
+  User,
+  unknown,
+  Parameters<typeof authServices.updateProfile>[0]
+> => {
+  return useMutation({
+    mutationFn: async (payload) => {
+      const { body, error } = await authServices.updateProfile(payload);
+      if (error) throw error;
+      if (!body) throw new Error("Empty response body");
+      return body;
+    },
+  });
+};
+
+export const useChangePassword = (): UseMutationResult<
+  Record<string, string>,
+  unknown,
+  Parameters<typeof authServices.changePassword>[0]
+> => {
+  return useMutation({
+    mutationFn: async (payload) => {
+      const { body, error } = await authServices.changePassword(payload);
+      if (error) throw error;
+      if (!body) throw new Error("Empty response body");
+      return body;
+    },
+  });
 };
 

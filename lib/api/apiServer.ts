@@ -22,8 +22,8 @@ async function handleRequest<T>(
   try {
     const token = await getServerToken();
     const headers = {
-      ...(config?.headers || {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(config?.headers || {}),
     };
 
     const response = await axiosServer.request<T>({

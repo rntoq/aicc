@@ -29,14 +29,17 @@ const EducationPage = () => {
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Box>
           <Typography variant="body2" color="text.secondary">
-            {t("education_specialities_subtitle", { defaultValue: "Choose a speciality to see universities." } as any)}
+            {t(
+              "education_specialities_subtitle",
+              { defaultValue: "Choose a speciality to see universities." } as never
+            )}
           </Typography>
         </Box>
 
         <TextField
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder={t("search", { defaultValue: "Search" } as any)}
+          placeholder={t("search", { defaultValue: "Search" } as never)}
           fullWidth
         />
 

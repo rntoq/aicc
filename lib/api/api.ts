@@ -1,12 +1,15 @@
 import axios, {
   AxiosError,
   AxiosInstance,
+  AxiosResponse,
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from "axios";
 import { getCookie, setCookie, removeCookie } from "@/lib/cookies/cookieClient";
 import { BASE_URL } from "@/lib/constants";
 import type { User } from "@/lib/types";
+
+export type ApiResult<T> = { body: AxiosResponse<T> | null; error: unknown | null };
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -105,10 +108,10 @@ axiosInstance.interceptors.response.use(
         setCookie("access", newToken);
         setCookie("refresh", refreshToken);
 
-        // Обновляем authStore: если user был null (bootstrap с истёкшим токеном),
+        // Обновляем auth store: если user был null (bootstrap с истёкшим токеном),
         // подтягиваем пользователя и восстанавливаем isAuthenticated.
-        // Динамический импорт разрывает циклическую зависимость api → authStore → authServices → api
-        import("@/lib/store/authStore").then(async ({ useAuthStore }) => {
+        // Динамический импорт разрывает циклическую зависимость api → auth store → authServices → api
+        import("@/lib/store/useAuthStore").then(async ({ useAuthStore }) => {
           const store = useAuthStore.getState();
           if (!store.user) {
             try {
@@ -151,24 +154,33 @@ axiosInstance.interceptors.response.use(
   }
 );
 
+async function safeRequest<T>(config: AxiosRequestConfig): Promise<ApiResult<T>> {
+  try {
+    const res = await axiosInstance.request<T>(config);
+    return { body: res, error: null };
+  } catch (err) {
+    return { body: null, error: err };
+  }
+}
+
 export const api = {
-  get<T>(url: string, config?: AxiosRequestConfig) {
-    return axiosInstance.get<T>(url, config);
+  get<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResult<T>> {
+    return safeRequest<T>({ ...(config ?? {}), method: "GET", url });
   },
 
-  post<T, B = unknown>(url: string, body?: B, config?: AxiosRequestConfig) {
-    return axiosInstance.post<T>(url, body, config);
+  post<T, B = unknown>(url: string, data?: B, config?: AxiosRequestConfig): Promise<ApiResult<T>> {
+    return safeRequest<T>({ ...(config ?? {}), method: "POST", url, data });
   },
 
-  put<T, B = unknown>(url: string, body?: B, config?: AxiosRequestConfig) {
-    return axiosInstance.put<T>(url, body, config);
+  put<T, B = unknown>(url: string, data?: B, config?: AxiosRequestConfig): Promise<ApiResult<T>> {
+    return safeRequest<T>({ ...(config ?? {}), method: "PUT", url, data });
   },
 
-  patch<T, B = unknown>(url: string, body?: B, config?: AxiosRequestConfig) {
-    return axiosInstance.patch<T>(url, body, config);
+  patch<T, B = unknown>(url: string, data?: B, config?: AxiosRequestConfig): Promise<ApiResult<T>> {
+    return safeRequest<T>({ ...(config ?? {}), method: "PATCH", url, data });
   },
 
-  delete<T>(url: string, config?: AxiosRequestConfig) {
-    return axiosInstance.delete<T>(url, config);
+  delete<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResult<T>> {
+    return safeRequest<T>({ ...(config ?? {}), method: "DELETE", url });
   },
 };

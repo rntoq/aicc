@@ -34,6 +34,13 @@ interface AuthState {
 const ACCESS_COOKIE = "access";
 const REFRESH_COOKIE = "refresh";
 
+function messageFromUnknown(err: unknown, fallback: string): string {
+  if (err instanceof Error) return err.message;
+  const detail = (err as { response?: { data?: { detail?: unknown } } })?.response?.data?.detail;
+  if (typeof detail === "string") return detail;
+  return fallback;
+}
+
 function readTokensFromCookies(): { access: string | null; refresh: string | null } {
   if (typeof window === "undefined") {
     return { access: null, refresh: null };
@@ -97,11 +104,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   login: async (payload) => {
     set({ loading: true, error: null });
     try {
-      const resp = await authServices.login(payload);
+      const { body: resp, error } = await authServices.login(payload);
+      if (error || !resp) {
+        const message = messageFromUnknown(error, "Не удалось выполнить вход");
+        set({ error: message });
+        throw error ?? new Error(message);
+      }
       get().setFromResponse(resp);
     } catch (e) {
-      const message =
-        e instanceof Error ? e.message : "Не удалось выполнить вход";
+      const message = messageFromUnknown(e, "Не удалось выполнить вход");
       set({ error: message });
       throw e;
     } finally {
@@ -112,11 +123,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   register: async (payload) => {
     set({ loading: true, error: null });
     try {
-      const resp = await authServices.register(payload);
+      const { body: resp, error } = await authServices.register(payload);
+      if (error || !resp) {
+        const message = messageFromUnknown(error, "Не удалось выполнить регистрацию");
+        set({ error: message });
+        throw error ?? new Error(message);
+      }
       get().setFromResponse(resp);
     } catch (e) {
-      const message =
-        e instanceof Error ? e.message : "Не удалось выполнить регистрацию";
+      const message = messageFromUnknown(e, "Не удалось выполнить регистрацию");
       set({ error: message });
       throw e;
     } finally {
@@ -146,4 +161,16 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 }));
+
+// Small alias to keep naming stable across app
+export const useAuth = useAuthStore;
+
+export const useUserLabel = (): string => {
+  const { user } = useAuthStore();
+  if (!user) return "";
+  if (user.first_name || user.last_name) {
+    return `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim();
+  }
+  return user.email ?? "";
+};
 

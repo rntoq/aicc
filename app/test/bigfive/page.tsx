@@ -5,20 +5,17 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { OptionsHeader } from "../components/OptionsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import QUESTIONS_JSON from "./bigfive_questions.json";
 import type {
   BigFiveSessionFinishResponse,
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
-  QuizSession,
-  QuizTest,
-  StartQuizSessionVariables,
 } from "@/lib/types";
 
 const QUESTIONS_PER_STEP = 12;
@@ -48,30 +45,18 @@ const BigFiveTestPage = () => {
     let cancelled = false;
 
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>(
-          "/api/v1/quizzes/tests/",
-          { params: { type: "big_five" } }
-        );
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: tests } = await quizServices.listTests({ type: "big_five" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
-          "/api/v1/quizzes/sessions/start/",
-          { test_slug: slug }
-        );
+      const { body: session } = await quizServices.startSession({ test_slug: slug });
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: testDetail } = await api.get<{ questions: { id: number }[] }>(
-          `/api/v1/quizzes/tests/${slug}/`
-        );
-
-        if (!cancelled) {
-          setSessionId(session.id);
-          setSession("bigfive", session.id);
-          setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
-        }
-      } catch {
-        // backend unavailable – continue in local-only mode
+      if (!cancelled) {
+        setSessionId(session.id);
+        setSession("bigfive", session.id);
+        setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
       }
     };
 
@@ -122,36 +107,25 @@ const BigFiveTestPage = () => {
     const finish = async () => {
       let backendResult: BigFiveSessionFinishResponse | null = null;
 
-      try {
-        if (sessionId && backendQuestionIds.length > 0) {
-          const count = Math.min(backendQuestionIds.length, QUESTIONS_JSON.length);
-          const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.slice(0, count).map(
-            (q, index) => ({
-              question_id: backendQuestionIds[index],
-              scale_value: answers[q.id],
-            })
-          );
+      if (sessionId && backendQuestionIds.length > 0) {
+        const count = Math.min(backendQuestionIds.length, QUESTIONS_JSON.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.slice(0, count).map((q, index) => ({
+          question_id: backendQuestionIds[index],
+          scale_value: answers[q.id],
+        }));
 
-          await api.post<unknown, BulkAnswerQuizPayload>(
-            "/api/v1/quizzes/sessions/bulk-answer/",
-            { session_id: sessionId, answers: answersPayload }
-          );
-
-          const { data } = await api.post<BigFiveSessionFinishResponse, FinishQuizSessionVariables>(
-            "/api/v1/quizzes/sessions/finish/",
-            { session_id: sessionId }
-          );
-          backendResult = data;
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        if (!bulkRes.error) {
+          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          backendResult = finishRes.body as unknown as BigFiveSessionFinishResponse;
         }
-      } catch {
-        backendResult = null;
-      } finally {
-        if (backendResult) {
-          setResult("bigfive", backendResult);
-        }
-        router.push("/test");
-        setSubmitting(false);
       }
+
+      if (backendResult) {
+        setResult("bigfive", backendResult);
+      }
+      router.push("/test");
+      setSubmitting(false);
     };
 
     void finish();

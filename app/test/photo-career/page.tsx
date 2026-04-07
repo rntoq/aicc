@@ -4,18 +4,15 @@ import { Box, Button, CircularProgress, Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import PHOTO_DATA from "./photo_questions.json";
 import { PhotoPair, type PhotoQuestion } from "../components/PhotoPair";
 import { Header } from "@/app/components/layout/Header";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
   QuizResult,
-  QuizSession,
-  QuizTest,
-  StartQuizSessionVariables,
 } from "@/lib/types";
 
 const PhotoCareerQuizPage = () => {
@@ -37,7 +34,7 @@ const PhotoCareerQuizPage = () => {
     PHOTO_QUESTIONS.length > 0 &&
     Object.keys(answers).length === PHOTO_QUESTIONS.length;
 
-  const buildLocalResult = (): QuizResult => {
+  const buildLocalResult = (id: number): QuizResult => {
     // Use backend scale names so dialog normalizes both formats consistently
     const RIASEC_TO_SCALE: Record<string, string> = {
       R: "Building", I: "Thinking", A: "Creating",
@@ -71,7 +68,7 @@ const PhotoCareerQuizPage = () => {
     const code = sorted.slice(0, 3).join("");
 
     return {
-      id: Date.now(),
+      id,
       test_title: t("photo_resultTitle"),
       test_type: "photo",
       scores,
@@ -87,33 +84,23 @@ const PhotoCareerQuizPage = () => {
     let cancelled = false;
 
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>(
-          "/api/v1/quizzes/tests/",
-          { params: { type: "photo" } }
-        );
+      const { body: tests } = await quizServices.listTests({ type: "photo" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: session } = await quizServices.startSession({ test_slug: slug });
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: session } = await api.post<
-          QuizSession,
-          StartQuizSessionVariables
-        >("/api/v1/quizzes/sessions/start/", { test_slug: slug });
+      const questions = (testDetail.questions ?? []).map((q) => ({
+        id: q.id,
+        answers: (q.answers ?? []).map((a) => ({ code: a.code })),
+      }));
 
-        const { data: testDetail } = await api.get<{
-          questions: { id: number; answers: { code: string }[] }[];
-        }>(`/api/v1/quizzes/tests/${slug}/`);
-
-        const questions = testDetail.questions ?? [];
-
-        if (!cancelled && questions.length > 0) {
-          setSessionId(session.id);
-          setSession("photo-career", session.id);
-          setBackendQuestions(questions);
-        }
-      } catch {
-        // backend unavailable – continue in local-only mode
+      if (!cancelled && questions.length > 0) {
+        setSessionId(session.id);
+        setSession("photo-career", session.id);
+        setBackendQuestions(questions);
       }
     };
 
@@ -131,60 +118,44 @@ const PhotoCareerQuizPage = () => {
     const finish = async () => {
       let backendResult: QuizResult | null = null;
 
-      try {
-        if (
-          sessionId &&
-          backendQuestions.length > 0 &&
-          PHOTO_QUESTIONS.length > 0
-        ) {
-          const maxCount = Math.min(
-            backendQuestions.length,
-            PHOTO_QUESTIONS.length
-          );
-          const answersPayload: BulkAnswerQuizPayload["answers"] = [];
+      if (
+        sessionId &&
+        backendQuestions.length > 0 &&
+        PHOTO_QUESTIONS.length > 0
+      ) {
+        const maxCount = Math.min(backendQuestions.length, PHOTO_QUESTIONS.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = [];
 
-          for (let i = 0; i < maxCount; i++) {
-            const q = PHOTO_QUESTIONS[i];
-            const selected = answers[q.id];
-            if (!selected) continue;
+        for (let i = 0; i < maxCount; i++) {
+          const q = PHOTO_QUESTIONS[i];
+          const selected = answers[q.id];
+          if (!selected) continue;
 
-            const backendQuestion = backendQuestions[i];
-            const backendAnswers = backendQuestion.answers ?? [];
-            const backendAnswer =
-              selected === "optionA" ? backendAnswers[0] : backendAnswers[1];
-            if (!backendAnswer) continue;
+          const backendQuestion = backendQuestions[i];
+          const backendAnswers = backendQuestion.answers ?? [];
+          const backendAnswer =
+            selected === "optionA" ? backendAnswers[0] : backendAnswers[1];
+          if (!backendAnswer) continue;
 
-            answersPayload.push({
-              question_id: backendQuestion.id,
-              answer_code: backendAnswer.code,
-            });
-          }
+          answersPayload.push({
+            question_id: backendQuestion.id,
+            answer_code: backendAnswer.code,
+          });
+        }
 
-          if (answersPayload.length > 0) {
-            await api.post<unknown, BulkAnswerQuizPayload>(
-              "/api/v1/quizzes/sessions/bulk-answer/",
-              { session_id: sessionId, answers: answersPayload }
-            );
-
-            const { data } = await api.post<
-              QuizResult,
-              FinishQuizSessionVariables
-            >("/api/v1/quizzes/sessions/finish/", {
-              session_id: sessionId,
-            });
-
-            backendResult = data;
+        if (answersPayload.length > 0) {
+          const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+          if (!bulkRes.error) {
+            const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+            backendResult = finishRes.body;
           }
         }
-      } catch {
-        // backend unavailable — fallback to local scoring
-        backendResult = null;
-      } finally {
-        const resultToSave = backendResult ?? buildLocalResult();
-        setResult("photo-career", resultToSave);
-        router.push("/test");
-        setIsSubmitting(false);
       }
+
+      const resultToSave = backendResult ?? buildLocalResult(Date.now());
+      setResult("photo-career", resultToSave);
+      router.push("/test");
+      setIsSubmitting(false);
     };
 
     void finish();

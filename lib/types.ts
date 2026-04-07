@@ -6,11 +6,25 @@ export interface User {
   first_name: string;
   last_name: string;
   role: UserRole;
+  /** URL или путь к аватару (GET/PATCH /api/v1/auth/me/) */
+  avatar?: string;
   phone?: string;
   city?: string;
+  /** YYYY-MM-DD */
   date_of_birth?: string;
   age?: number;
 }
+
+/** Тело PUT/PATCH /api/v1/auth/me/ — все поля опциональны */
+export type UpdateMePayload = {
+  first_name?: string;
+  last_name?: string;
+  avatar?: string;
+  date_of_birth?: string;
+  age?: number;
+  phone?: string;
+  city?: string;
+};
 
 export interface LoginPayload {
   email: string;
@@ -40,11 +54,138 @@ export interface RefreshResponse {
   access: string;
 }
 
+/** POST /api/v1/auth/change-password/ */
+export interface ChangePasswordPayload {
+  old_password: string;
+  new_password: string;
+  new_password_confirm: string;
+}
+
+/** POST /api/v1/auth/password-reset/request/ */
+export interface PasswordResetRequestPayload {
+  email: string;
+}
+
+/** POST /api/v1/auth/password-reset/confirm/ */
+export interface PasswordResetConfirmPayload {
+  token: string;
+  new_password: string;
+  new_password_confirm: string;
+}
+
+// ===== Analysis — GET /api/v1/analysis/dashboard/ =====
+
+export interface AnalysisDashboardUser {
+  id: number;
+  full_name: string;
+  email: string;
+  role: UserRole;
+}
+
+export interface AnalysisDashboardSubscription {
+  plan_type: string;
+  plan_name: string;
+  end_date: string | null;
+  is_active: boolean;
+}
+
+export interface AnalysisDashboardPlanLimits {
+  name: string;
+  max_tests: number;
+  can_see_detailed_results: boolean;
+  can_see_universities: boolean;
+  can_use_ai: boolean;
+  price: number;
+}
+
+export interface AnalysisDashboardStats {
+  tests_completed: number;
+  tests_available: number;
+  mandatory_completed: number;
+  mandatory_total: number;
+  optional_completed: number;
+  can_get_recommendations: boolean;
+  holland_primary_code?: string | null;
+  disc_primary_style?: string | null;
+  stats_last_updated: string;
+}
+
+export interface AnalysisDashboardRecentResult {
+  test_title: string;
+  test_type: string;
+  primary_type: string;
+  completed_at: string;
+}
+
+export interface AnalysisDashboardResponse {
+  user: AnalysisDashboardUser;
+  subscription: AnalysisDashboardSubscription;
+  plan_limits: AnalysisDashboardPlanLimits;
+  stats: AnalysisDashboardStats;
+  recent_results: AnalysisDashboardRecentResult[];
+  /** Уточнить, когда API начнёт отдавать элементы */
+  top_recommendations: unknown[];
+}
+
+/** GET /api/v1/analysis/reports/{report_id}/ — AnalysisReport в OpenAPI */
+export interface AnalysisReportDetail {
+  id: number;
+  title: string;
+  report_data: string;
+  summary: string;
+  detailed_text: string;
+  recommended_careers: string;
+  recommended_institutions: string;
+  is_premium: boolean;
+  created_at: string;
+}
+
+/** POST /api/v1/analysis/ai-report/ */
+export type AiReportGeneratePayload =
+  | { session_id: number }
+  | { session_ids: number[] };
+
+export type AiReportGenerateResponse = {
+  report_id: number | string;
+  created_at?: string;
+  overall_summary?: string;
+  strengths?: string[];
+  weaknesses?: string[];
+  test_insights?: string[];
+  career_suggestions?: Array<{
+    name: string;
+    fit_score?: number;
+    reason?: string;
+  }>;
+  university_suggestions?: Array<{
+    name: string;
+    reason?: string;
+  }>;
+  development_plan?: string;
+  [key: string]: unknown;
+};
+
+/** GET /api/v1/analysis/profile/ */
+export type AnalysisProfile = {
+  id: number;
+  user_name: string;
+  holland_scores: string;
+  holland_type: string;
+  mbti_type: string;
+  mbti_scores: string;
+  strengths: string;
+  interests: string;
+  values: string;
+  ai_summary: string;
+  ai_career_suggestions: string;
+  last_updated: string;
+};
+
 // ===== Careers / Industries =====
 
 /**
  * Backend/API Industry type (from `/api/v1/...`).
- * Note: differs from `PublicIndustry` which comes from `public/Industries.json`.
+ * Note: differs from the public JSON dataset in `public/Industries.json`.
  */
 export interface Industry {
   id: number;
@@ -52,6 +193,60 @@ export interface Industry {
   slug?: string;
   description?: string;
 }
+
+export type CareersDemand = "low" | "medium" | "high" | "very_high" | (string & {});
+
+export type CareersListParams = {
+  category?: string;
+  demand?: CareersDemand;
+  education?: string;
+  search?: string;
+  holland?: string;
+  limit?: number;
+};
+
+export type ProfessionListParams = {
+  /** Industry ID or code */
+  industry?: string | number;
+  search?: string;
+  demand?: CareersDemand;
+  limit?: number;
+  page?: number;
+};
+
+export type PaginatedResponse<T> = {
+  count: number;
+  total_pages: number;
+  current_page: number;
+  limit: number;
+  results: T[];
+};
+
+export type CareerCategory = {
+  id?: number;
+  name: string;
+  slug: string;
+};
+
+export type Career = {
+  id?: number;
+  name: string;
+  slug: string;
+  description?: string;
+  category?: string | CareerCategory;
+  industry?: number | string | Industry;
+  demand?: CareersDemand;
+  education?: string;
+  holland?: string;
+};
+
+export type CareerRecommendation = {
+  id?: number;
+  career?: Career;
+  profession?: Profession;
+  score?: number;
+  reason?: string;
+};
 
 // ===== Holland quiz result (finish session) =====
 
@@ -118,19 +313,6 @@ export type LocalizedText = {
   en: string | null;
 };
 
-export type SalaryKzt = {
-  min: number | null;
-  max: number | null;
-  average: number | null;
-};
-
-export type ProfessionDemandLevel =
-  | "low"
-  | "medium"
-  | "high"
-  | "very_high"
-  | (string & {});
-
 /**
  * From `public/professions.json`
  */
@@ -147,8 +329,12 @@ export type PublicProfession = {
    * Поддерживаем оба варианта для совместимости.
    */
   specialities: Array<string | { code: string; id: number }>;
-  demand_level: ProfessionDemandLevel;
-  salary_kzt: SalaryKzt;
+  demand_level: CareersDemand;
+  salary_kzt: {
+    min: number | null;
+    max: number | null;
+    average: number | null;
+  };
   description?: LocalizedText;
 };
 
@@ -187,12 +373,6 @@ export type PublicUniversity = {
 /**
  * From `public/Industries.json`
  */
-export type PublicIndustry = {
-  id: string;
-  name: LocalizedText;
-  professions_count: number;
-};
-
 // ===== Quizzes (tests, categories, sessions) =====
 
 export type QuizTestType =
@@ -234,6 +414,38 @@ export interface QuizTest {
   duration_minutes: number;
   is_free: boolean;
   total_questions: number;
+}
+
+/** Вариант ответа внутри вопроса (GET /quizzes/tests/{slug}/) */
+export interface QuizAnswerOption {
+  id: number;
+  code: string;
+  text: string;
+  scale?: string;
+  points?: number;
+  order?: number;
+}
+
+/** QuestionTypeEnum в OpenAPI, напр. single */
+export type QuizQuestionTypeEnum = "single" | (string & {});
+
+export interface QuizQuestion {
+  id: number;
+  text: string;
+  question_type: QuizQuestionTypeEnum;
+  scale?: string;
+  order?: number;
+  answers: QuizAnswerOption[];
+  scale_info?: string;
+}
+
+/**
+ * GET /api/v1/quizzes/tests/{test_slug}/ — TestDetail в OpenAPI (метаданные + questions).
+ * total_questions в схеме указан как string; на практике может приходить число.
+ */
+export interface QuizTestDetail extends Omit<QuizTest, "total_questions"> {
+  total_questions: number | string;
+  questions: QuizQuestion[];
 }
 
 export interface QuizCategory {

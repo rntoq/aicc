@@ -1,5 +1,5 @@
 
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentType } from "react";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";

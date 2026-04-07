@@ -3,10 +3,10 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 import { Box } from "@mui/material";
 import "./globals.css";
-import StyledComponentsRegistry from "@/lib/registry";
 import { Providers } from "./providers";
 import { isValidLocale } from "@/lib/locale";
-import { initLogin } from "@/lib/initLogin";
+import { apiServer } from "@/lib/api/apiServer";
+import type { RefreshResponse, User } from "@/lib/types";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -19,6 +19,37 @@ export const metadata: Metadata = {
   description:
     "Пройди научно-обоснованные тесты и получи персональный карьерный анализ с помощью AI. Профориентация для школьников и студентов в Казахстане.",
 };
+
+async function initLogin(): Promise<{ initialUser: User | null }> {
+  const { body, error } = await apiServer.get<User>("/api/v1/auth/me/");
+
+  if (!error && body) {
+    return { initialUser: body };
+  }
+
+  // Access token expired or missing — try a silent refresh server-side
+  const cookieStore = await cookies();
+  const refreshToken = cookieStore.get("refresh")?.value;
+  if (!refreshToken) return { initialUser: null };
+
+  try {
+    const { body: refreshBody, error: refreshError } = await apiServer.post<RefreshResponse, { refresh: string }>(
+      "/api/v1/auth/refresh/",
+      { refresh: refreshToken }
+    );
+    if (refreshError || !refreshBody?.access) return { initialUser: null };
+
+    const newAccess = refreshBody.access;
+    const { body: meBody, error: meError } = await apiServer.get<User>("/api/v1/auth/me/", {
+      headers: { Authorization: `Bearer ${newAccess}` },
+    });
+    if (meError || !meBody) return { initialUser: null };
+
+    return { initialUser: meBody };
+  } catch {
+    return { initialUser: null };
+  }
+}
 
 export default async function RootLayout({
   children,
@@ -36,13 +67,11 @@ export default async function RootLayout({
         <meta name="google" content="notranslate" />
       </head>
       <body>
-        <StyledComponentsRegistry>
           <Providers initialLocale={initialLocale} initialUser={initialUser}>
             <Box component="main">
               {children}
             </Box>
           </Providers>
-        </StyledComponentsRegistry>
       </body>
     </html>
   );

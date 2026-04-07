@@ -19,7 +19,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
 import { LanguageDropdown } from "./LanguageDropdown";
-import { useAuth, useUserLabel } from "@/lib/hooks/useAuth";
+import { useAuth, useUserLabel } from "@/lib/store/useAuthStore";
 
 const NAV_ITEMS: { labelKey: string; href: string }[] = [
   { labelKey: "hero_cta2", href: "/#how-it-works" },

@@ -5,19 +5,17 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { OptionQuestionCard } from "../components/OptionQuestionCard";
 import LEADERSHIP_DATA from "./leadership_questions.json";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
+  LocalizedText,
   QuizResult,
-  QuizSession,
-  QuizTest,
-  StartQuizSessionVariables,
 } from "@/lib/types";
 
 type PairKey = "a" | "b";
@@ -87,8 +85,36 @@ export default function LeadershipTestPage() {
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
 
-  const leadershipData = LEADERSHIP_DATA as any;
-  const questions: any[] = leadershipData.questions ?? [];
+  type LeadershipQuestion =
+    | {
+        id: string;
+        type: "pair";
+        number: number;
+        dimension: LeadershipDimensionKey;
+        option_a: LocalizedText;
+        option_b: LocalizedText;
+        scoring?: Partial<
+          Record<PairKey, Partial<Record<LeadershipDimensionKey, number>>>
+        >;
+      }
+    | {
+        id: string;
+        type: "frequency";
+        number: number;
+        dimension: LeadershipDimensionKey;
+        text?: LocalizedText;
+        statement?: LocalizedText;
+        reverse_scored?: boolean;
+      };
+
+  type LeadershipJson = {
+    test?: { title?: LocalizedText };
+    questions?: LeadershipQuestion[];
+    scales?: { frequency?: { labels?: Record<string, LocalizedText> } };
+  };
+
+  const leadershipData = LEADERSHIP_DATA as unknown as LeadershipJson;
+  const questions = leadershipData.questions ?? [];
   const scaleLabels = leadershipData.scales?.frequency?.labels ?? {};
 
   const stepTotal = 3;
@@ -113,30 +139,19 @@ export default function LeadershipTestPage() {
   useEffect(() => {
     let cancelled = false;
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", {
-          params: { type: "leadership" },
-        });
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: tests } = await quizServices.listTests({ type: "leadership" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
-          "/api/v1/quizzes/sessions/start/",
-          { test_slug: slug }
-        );
+      const { body: session } = await quizServices.startSession({ test_slug: slug });
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: testDetail } = await api.get<{ questions: { id: number }[] }>(
-          `/api/v1/quizzes/tests/${slug}/`
-        );
-
-        const ids = (testDetail.questions ?? []).map((q) => q.id);
-        if (!cancelled) {
-          setSessionId(session.id);
-          setSession("leadership", session.id);
-          setBackendQuestionIds(ids);
-        }
-      } catch {
-        // backend unavailable — local fallback will be used
+      const ids = (testDetail.questions ?? []).map((q) => q.id);
+      if (!cancelled) {
+        setSessionId(session.id);
+        setSession("leadership", session.id);
+        setBackendQuestionIds(ids);
       }
     };
     void initSession();
@@ -232,31 +247,21 @@ export default function LeadershipTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      try {
-        if (sessionId && backendQuestionIds.length === questions.length) {
-          // Send answers ordered by local question order matching backend order
-          const orderedQuestions = [...questions].sort((a, b) => a.number - b.number);
-          const answersPayload: BulkAnswerQuizPayload["answers"] = orderedQuestions.map((q, idx) => ({
-            question_id: backendQuestionIds[idx],
-            scale_value: answers[q.id] ?? 3,
-          }));
-          await api.post<unknown, BulkAnswerQuizPayload>(
-            "/api/v1/quizzes/sessions/bulk-answer/",
-            { session_id: sessionId, answers: answersPayload }
-          );
-          const { data } = await api.post<QuizResult, FinishQuizSessionVariables>(
-            "/api/v1/quizzes/sessions/finish/",
-            { session_id: sessionId }
-          );
-          backendResult = data;
+      if (sessionId && backendQuestionIds.length === questions.length) {
+        const orderedQuestions = [...questions].sort((a, b) => a.number - b.number);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = orderedQuestions.map((q, idx) => ({
+          question_id: backendQuestionIds[idx],
+          scale_value: answers[q.id] ?? 3,
+        }));
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        if (!bulkRes.error) {
+          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          backendResult = finishRes.body;
         }
-      } catch {
-        backendResult = null;
-      } finally {
-        setResult("leadership", backendResult ?? computeResult());
-        router.push("/test");
-        setSubmitting(false);
       }
+      setResult("leadership", backendResult ?? computeResult());
+      router.push("/test");
+      setSubmitting(false);
     };
 
     void finish();
@@ -278,13 +283,13 @@ export default function LeadershipTestPage() {
                   ? "Сізге қай көшбасшылық стилі жақын?"
                   : "Pick what fits you best"
             }
-            stepLabel={t("step_x_of_y", { step, total: stepTotal }) as any}
+            stepLabel={t("step_x_of_y", { step, total: stepTotal }) as string}
           />
 
           <Divider sx={{ mb: 2 }} />
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            {stepQuestions.map((q: any) => {
+            {stepQuestions.map((q) => {
               if (q.type === "pair") {
                 const optionA = q.option_a?.[locale] ?? q.option_a?.ru ?? "";
                 const optionB = q.option_b?.[locale] ?? q.option_b?.ru ?? "";

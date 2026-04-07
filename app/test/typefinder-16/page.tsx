@@ -8,17 +8,14 @@ import { useEffect, useMemo, useState } from "react";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
   LocalizedText,
   QuizResult,
-  QuizSession,
-  QuizTest,
-  StartQuizSessionVariables,
 } from "@/lib/types";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import TYPEFINDER_DATA from "./../typefinder/typefinder_question.json";
 
 const QUESTIONS_PER_STEP = 15;
@@ -105,35 +102,24 @@ export default function TypeFinder16Page() {
     let cancelled = false;
 
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", {
-          params: { type: "mbti" },
-        });
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: tests } = await quizServices.listTests({ type: "mbti" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
-          "/api/v1/quizzes/sessions/start/",
-          { test_slug: slug }
-        );
+      const { body: session } = await quizServices.startSession({ test_slug: slug });
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: testDetail } = await api.get<{
-          questions: { id: number; question_type: string; answers: { code: string }[] }[];
-        }>(`/api/v1/quizzes/tests/${slug}/`);
+      const bqs = (testDetail.questions ?? []).map((q) => ({
+        id: q.id,
+        questionType: q.question_type ?? "",
+        answers: (q.answers ?? []).map((a) => ({ code: a.code })),
+      }));
 
-        const bqs = (testDetail.questions ?? []).map((q) => ({
-          id: q.id,
-          questionType: q.question_type,
-          answers: (q.answers ?? []).map((a) => ({ code: a.code })),
-        }));
-
-        if (!cancelled && bqs.length > 0) {
-          setSessionId(session.id);
-          setSession("typefinder-16", session.id);
-          setBackendQuestions(bqs);
-        }
-      } catch {
-        // Backend unavailable — still allow placeholder completion.
+      if (!cancelled && bqs.length > 0) {
+        setSessionId(session.id);
+        setSession("typefinder-16", session.id);
+        setBackendQuestions(bqs);
       }
     };
 
@@ -162,61 +148,52 @@ export default function TypeFinder16Page() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      try {
-        if (sessionId && backendQuestions.length > 0) {
-          const count = Math.min(backendQuestions.length, sortedQuestions.length);
-          const answersPayload: BulkAnswerQuizPayload["answers"] = sortedQuestions
-            .slice(0, count)
-            .flatMap((q, idx) => {
-              const bq = backendQuestions[idx];
-              if (!bq) return [];
-              const userAnswer = answers[q.id] ?? 3;
-              if (bq.questionType === "pair") {
-                // Convert 1-5 scale to binary: ≤3 = left, ≥4 = right
-                return [{ question_id: bq.id, answer_code: userAnswer >= 4 ? "right" : "left" }];
-              }
-              return [{ question_id: bq.id, scale_value: userAnswer }];
-            });
-
-          await api.post<unknown, BulkAnswerQuizPayload>("/api/v1/quizzes/sessions/bulk-answer/", {
-            session_id: sessionId,
-            answers: answersPayload,
+      if (sessionId && backendQuestions.length > 0) {
+        const count = Math.min(backendQuestions.length, sortedQuestions.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = sortedQuestions
+          .slice(0, count)
+          .map((q, idx) => {
+            const bq = backendQuestions[idx];
+            const userAnswer = answers[q.id] ?? 3;
+            if (bq.questionType === "pair") {
+              return {
+                question_id: bq.id,
+                answer_code: userAnswer >= 4 ? "right" : "left",
+              };
+            }
+            return { question_id: bq.id, scale_value: userAnswer };
           });
 
-          const { data } = await api.post<QuizResult, FinishQuizSessionVariables>(
-            "/api/v1/quizzes/sessions/finish/",
-            { session_id: sessionId }
-          );
-
-          backendResult = data;
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        if (!bulkRes.error) {
+          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          backendResult = finishRes.body;
         }
-      } catch {
-        backendResult = null;
-      } finally {
-        const placeholderTitle =
-          locale === "ru"
-            ? data.test?.title?.ru ?? "TypeFinder (16 personalities)"
-            : locale === "kk"
-              ? data.test?.title?.kk ?? "TypeFinder (16 personalities)"
-              : data.test?.title?.en ?? "TypeFinder (16 personalities)";
-
-        const placeholder: QuizResult = {
-          id: Date.now(),
-          test_title: placeholderTitle,
-          test_type: "typefinder-16",
-          summary:
-            locale === "ru"
-              ? "Результат не удалось получить с сервера. Проверьте доступность backend и повторите позже."
-              : locale === "kk"
-                ? "Серверден нәтижені алу мүмкін болмады. Backend қолжетімділігін тексеріп, кейінірек қайталаңыз."
-                : "Could not fetch the result from the server. Please check backend availability and try again later.",
-          created_at: new Date().toISOString(),
-        };
-
-        setResult("typefinder-16", backendResult ?? placeholder);
-        router.push("/test");
-        setSubmitting(false);
       }
+
+      const placeholderTitle =
+        locale === "ru"
+          ? data.test?.title?.ru ?? "TypeFinder (16 personalities)"
+          : locale === "kk"
+            ? data.test?.title?.kk ?? "TypeFinder (16 personalities)"
+            : data.test?.title?.en ?? "TypeFinder (16 personalities)";
+
+      const placeholder: QuizResult = {
+        id: Date.now(),
+        test_title: placeholderTitle,
+        test_type: "typefinder-16",
+        summary:
+          locale === "ru"
+            ? "Результат не удалось получить с сервера. Проверьте доступность backend и повторите позже."
+            : locale === "kk"
+              ? "Серверден нәтижені алу мүмкін болмады. Backend қолжетімділігін тексеріп, кейінірек қайталаңыз."
+              : "Could not fetch the result from the server. Please check backend availability and try again later.",
+        created_at: new Date().toISOString(),
+      };
+
+      setResult("typefinder-16", backendResult ?? placeholder);
+      router.push("/test");
+      setSubmitting(false);
     };
 
     void finish();

@@ -8,18 +8,15 @@ import { useEffect, useMemo, useState } from "react";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
   LocalizedText,
   QuizResult,
-  QuizSession,
-  QuizTest,
-  StartQuizSessionVariables,
 } from "@/lib/types";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
-import STRENGTHS_DATA from "./personal-strength/personal_strength_questions.json";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import STRENGTHS_DATA from "../personal-strength/personal_strength_questions.json";
 
 const STEPS_COUNT = 5;
 const QUESTIONS_PER_STEP = 20;
@@ -78,31 +75,20 @@ export default function StrengthsTestPage() {
     let cancelled = false;
 
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", {
-          params: { type: "strengths" },
-        });
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: tests } = await quizServices.listTests({ type: "strengths" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
-          "/api/v1/quizzes/sessions/start/",
-          { test_slug: slug }
-        );
+      const { body: session } = await quizServices.startSession({ test_slug: slug });
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: testDetail } = await api.get<{ questions: { id: number }[] }>(
-          `/api/v1/quizzes/tests/${slug}/`
-        );
+      const allBackendIds = (testDetail.questions ?? []).map((q) => q.id);
 
-        const allBackendIds = (testDetail.questions ?? []).map((q) => q.id);
-
-        if (!cancelled && allBackendIds.length === expectedCount) {
-          setSessionId(session.id);
-          setSession("strengths", session.id);
-          setBackendQuestionIds(allBackendIds);
-        }
-      } catch {
-        // Backend unavailable — still allow placeholder completion.
+      if (!cancelled && allBackendIds.length === expectedCount) {
+        setSessionId(session.id);
+        setSession("strengths", session.id);
+        setBackendQuestionIds(allBackendIds);
       }
     };
 
@@ -131,50 +117,40 @@ export default function StrengthsTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      try {
-        if (sessionId && backendQuestionIds.length === expectedCount) {
-          const answersPayload: BulkAnswerQuizPayload["answers"] = sortedQuestions.map((q, idx) => ({
-            question_id: backendQuestionIds[idx],
-            scale_value: answers[q.id] ?? 3,
-          }));
+      if (sessionId && backendQuestionIds.length === expectedCount) {
+        const answersPayload: BulkAnswerQuizPayload["answers"] = sortedQuestions.map((q, idx) => ({
+          question_id: backendQuestionIds[idx],
+          scale_value: answers[q.id] ?? 3,
+        }));
 
-          await api.post<unknown, BulkAnswerQuizPayload>("/api/v1/quizzes/sessions/bulk-answer/", {
-            session_id: sessionId,
-            answers: answersPayload,
-          });
-
-          const { data } = await api.post<QuizResult, FinishQuizSessionVariables>(
-            "/api/v1/quizzes/sessions/finish/",
-            { session_id: sessionId }
-          );
-
-          backendResult = data;
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        if (!bulkRes.error) {
+          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          backendResult = finishRes.body;
         }
-      } catch {
-        backendResult = null;
-      } finally {
-        const placeholder: QuizResult = {
-          id: Date.now(),
-          test_title:
-            locale === "ru"
-              ? data.test?.title?.ru ?? "Personal Strengths"
-              : locale === "kk"
-                ? data.test?.title?.kk ?? "Personal Strengths"
-                : data.test?.title?.en ?? "Personal Strengths",
-          test_type: "strengths",
-          summary:
-            locale === "ru"
-              ? "Результат не удалось получить с сервера. Проверьте доступность backend и повторите позже."
-              : locale === "kk"
-                ? "Серверден нәтижені алу мүмкін болмады. Backend қолжетімділігін тексеріп, кейінірек қайталаңыз."
-                : "Could not fetch the result from the server. Please check backend availability and try again later.",
-          created_at: new Date().toISOString(),
-        };
-
-        setResult("strengths", backendResult ?? placeholder);
-        router.push("/test");
-        setSubmitting(false);
       }
+
+      const placeholder: QuizResult = {
+        id: Date.now(),
+        test_title:
+          locale === "ru"
+            ? data.test?.title?.ru ?? "Personal Strengths"
+            : locale === "kk"
+              ? data.test?.title?.kk ?? "Personal Strengths"
+              : data.test?.title?.en ?? "Personal Strengths",
+        test_type: "strengths",
+        summary:
+          locale === "ru"
+            ? "Результат не удалось получить с сервера. Проверьте доступность backend и повторите позже."
+            : locale === "kk"
+              ? "Серверден нәтижені алу мүмкін болмады. Backend қолжетімділігін тексеріп, кейінірек қайталаңыз."
+              : "Could not fetch the result from the server. Please check backend availability and try again later.",
+        created_at: new Date().toISOString(),
+      };
+
+      setResult("strengths", backendResult ?? placeholder);
+      router.push("/test");
+      setSubmitting(false);
     };
 
     void finish();

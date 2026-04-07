@@ -87,7 +87,10 @@ export default function EnneagramResultDialog({
     );
   }
 
-  const scores = result.scores ?? {};
+  const scores =
+    result.scores && typeof result.scores === "object"
+      ? (result.scores as Record<string, unknown>)
+      : {};
   const typeKeys = [
     "type_1",
     "type_2",
@@ -100,7 +103,9 @@ export default function EnneagramResultDialog({
     "type_9",
   ];
 
-  const sorted = [...typeKeys].sort((a, b) => formatPercent((scores as any)[b]) - formatPercent((scores as any)[a]));
+  const sorted = [...typeKeys].sort(
+    (a, b) => formatPercent(scores[b]) - formatPercent(scores[a])
+  );
 
   const primaryCode = result.primary_type ?? "";
   const primaryNum = primaryCode.replace("type_", "");
@@ -136,7 +141,7 @@ export default function EnneagramResultDialog({
       <DialogContent dividers>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {sorted.map((k) => {
-            const v = formatPercent((scores as any)[k]);
+            const v = formatPercent(scores[k]);
             const info = TYPE_INFO[k];
             return (
               <Box key={k}>

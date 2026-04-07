@@ -13,7 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
-import { useAuth } from "@/lib/hooks/useAuth";
+import { useAuth } from "@/lib/store/useAuthStore";
 
 const NAV_ITEMS = [
   { labelKey: "sidebar_dashboard", href: "/client", icon: DashboardOutlinedIcon },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import {
   MutationCache,
@@ -13,7 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { muiTheme } from "@/ui/theme/muiTheme";
 import { LocaleProvider, useLocale, type Locale } from "@/app/context/LocaleContext";
 import type { User } from "@/lib/types";
-import { useAuth } from "@/lib/hooks/useAuth";
+import { useAuth } from "@/lib/store/useAuthStore";
 import ru from "@/messages/ru.json";
 import kk from "@/messages/kk.json";
 import en from "@/messages/en.json";
@@ -42,35 +42,30 @@ function IntlProvider({ children }: { children: React.ReactNode }) {
  */
 function QueryProvider({ children }: { children: React.ReactNode }) {
   const t = useTranslations();
-  const tRef = useRef(t);
-  useEffect(() => {
-    tRef.current = t;
-  }, [t]);
 
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        queryCache: new QueryCache({
-          onError: (error) => {
-            // eslint-disable-next-line no-console
-            console.error(error);
-            toast.error(tRef.current("error_generic"));
-          },
-        }),
-        mutationCache: new MutationCache({
-          onError: (error) => {
-            // eslint-disable-next-line no-console
-            console.error(error);
-            toast.error(tRef.current("error_action"));
-          },
-        }),
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000,
-          },
+  const queryClient = useMemo(() => {
+    return new QueryClient({
+      queryCache: new QueryCache({
+        onError: (error) => {
+          // eslint-disable-next-line no-console
+          console.error(error);
+          toast.error(t("error_generic"));
         },
-      })
-  );
+      }),
+      mutationCache: new MutationCache({
+        onError: (error) => {
+          // eslint-disable-next-line no-console
+          console.error(error);
+          toast.error(t("error_action"));
+        },
+      }),
+      defaultOptions: {
+        queries: {
+          staleTime: 60 * 1000,
+        },
+      },
+    });
+  }, [t]);
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

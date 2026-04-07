@@ -19,7 +19,7 @@ import { Footer } from "@/app/components/landing/Footer";
 import { ALL_TESTS, getRecommendedTests } from "@/lib/constants";
 import { TestCard } from "./components/TestCard";
 import { Header } from "../components/layout/Header";
-import { useQuizCategories, useQuizTestTypes, useQuizTests } from "@/lib/hooks/useQuizzes";
+import { useQuizCategories, useQuizTestTypes, useQuizTests } from "@/lib/services/quizServices";
 import { HollandResultDialog } from "./holland/hollandResultDialog";
 import { PhotoResultDialog } from "./photo-career/photoResultDialog";
 import { BigFiveResultDialog } from "./bigfive/bigfiveResultDialog";
@@ -30,9 +30,9 @@ import LeadershipResultDialog from "./leadership/leadershipResultDialog";
 import EnneagramResultDialog from "./enneagram/enneagramResultDialog";
 import TypeFinderResultDialog from "./typefinder-16/typefinderResultDialog";
 import StrengthsResultDialog from "./strengths/strengthsResultDialog";
-import { useTestsStore } from "@/lib/store/testsStore";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
-import { api } from "@/lib/api/api";
+import { useTestsStore } from "@/lib/store/useQuizStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import { quizServices } from "@/lib/services/quizServices";
 import type { BigFiveSessionFinishResponse, HollandSessionFinishResponse, QuizResult } from "@/lib/types";
 import type { CareerAptitudeResult } from "./career-aptitude/careerResultDialog";
 
@@ -83,20 +83,17 @@ const TestPage = () => {
     if (!entry?.sessionId || entry.result != null) return;
 
     let cancelled = false;
-    setFetchingResult(true);
+    Promise.resolve().then(() => {
+      if (!cancelled) setFetchingResult(true);
+    });
 
-    api
-      .post<unknown, { session_id: number }>(
-        "/api/v1/quizzes/sessions/finish/",
-        { session_id: entry.sessionId }
-      )
-      .then(({ data }) => {
-        if (!cancelled) setResult(openResultModalId, data);
-      })
-      .catch(() => {/* бэкенд недоступен — показываем диалог без результата */})
-      .finally(() => {
-        if (!cancelled) setFetchingResult(false);
-      });
+    void (async () => {
+      const { body, error } = await quizServices.finish({ session_id: entry.sessionId });
+      if (!cancelled && body && !error) {
+        setResult(openResultModalId, body);
+      }
+      if (!cancelled) setFetchingResult(false);
+    })();
 
     return () => {
       cancelled = true;

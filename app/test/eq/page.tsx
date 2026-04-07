@@ -5,20 +5,20 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
+  LocalizedText,
   QuizResult,
-  QuizSession,
-  QuizTest,
-  StartQuizSessionVariables,
 } from "@/lib/types";
 import EQ_DATA from "./eq_question.json";
+
+const EMPTY_LABEL: LocalizedText = { ru: "", kk: "", en: "" };
 
 type EqDimensionKey =
   | "self_awareness"
@@ -132,51 +132,46 @@ export default function EqTestPage() {
   useEffect(() => {
     let cancelled = false;
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", {
-          params: { type: "eq" },
-        });
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: tests } = await quizServices.listTests({ type: "eq" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
-          "/api/v1/quizzes/sessions/start/",
-          { test_slug: slug }
-        );
+      const { body: session } = await quizServices.startSession({ test_slug: slug });
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: testDetail } = await api.get<{ questions: { id: number }[] }>(
-          `/api/v1/quizzes/tests/${slug}/`
-        );
-
-        const ids = (testDetail.questions ?? []).map((q) => q.id);
-        if (!cancelled) {
-          setSessionId(session.id);
-          setSession("eq", session.id);
-          setBackendQuestionIds(ids);
-        }
-      } catch {
-        // backend unavailable — local fallback will be used
+      const ids = (testDetail.questions ?? []).map((q) => q.id);
+      if (!cancelled) {
+        setSessionId(session.id);
+        setSession("eq", session.id);
+        setBackendQuestionIds(ids);
       }
     };
     void initSession();
     return () => { cancelled = true; };
   }, [setSession]);
 
-  const eqData = EQ_DATA as any;
-  const QUESTIONS: Array<{
-    id: number;
-    text: { ru: string; kk: string; en: string };
-    reverse_scored: boolean;
-  }> = eqData.questions ?? [];
+  type EqJson = {
+    test?: { title?: LocalizedText };
+    questions?: Array<{
+      id: number;
+      text: LocalizedText;
+      reverse_scored: boolean;
+    }>;
+    scale?: { labels?: Record<string, LocalizedText> };
+  };
 
-  const scaleLabels = eqData.scale?.labels as any;
-  const scaleOptions = useMemo(
-    () => [1, 2, 3, 4, 5].map((v) => scaleLabels?.[String(v)] as any),
+  const eqData = EQ_DATA as unknown as EqJson;
+  const QUESTIONS = eqData.questions ?? [];
+
+  const scaleLabels = eqData.scale?.labels ?? {};
+  const scaleOptions = useMemo<LocalizedText[]>(
+    () => [1, 2, 3, 4, 5].map((v) => scaleLabels[String(v)] ?? EMPTY_LABEL),
     [scaleLabels]
   );
 
-  const leftLabel = scaleLabels?.["1"];
-  const rightLabel = scaleLabels?.["5"];
+  const leftLabel = scaleLabels["1"] ?? EMPTY_LABEL;
+  const rightLabel = scaleLabels["5"] ?? EMPTY_LABEL;
 
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
@@ -271,29 +266,22 @@ export default function EqTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      try {
-        if (sessionId && backendQuestionIds.length === QUESTIONS.length) {
-          const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.map((q, idx) => ({
-            question_id: backendQuestionIds[idx],
-            scale_value: answers[q.id] ?? 3,
-          }));
-          await api.post<unknown, BulkAnswerQuizPayload>(
-            "/api/v1/quizzes/sessions/bulk-answer/",
-            { session_id: sessionId, answers: answersPayload }
-          );
-          const { data } = await api.post<QuizResult, FinishQuizSessionVariables>(
-            "/api/v1/quizzes/sessions/finish/",
-            { session_id: sessionId }
-          );
-          backendResult = data;
+      if (sessionId && backendQuestionIds.length === QUESTIONS.length) {
+        const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.map((q, idx) => ({
+          question_id: backendQuestionIds[idx],
+          scale_value: answers[q.id] ?? 3,
+        }));
+
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        if (!bulkRes.error) {
+          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          backendResult = finishRes.body;
         }
-      } catch {
-        backendResult = null;
-      } finally {
-        setResult("eq", backendResult ?? computeResult());
-        router.push("/test");
-        setSubmitting(false);
       }
+
+      setResult("eq", backendResult ?? computeResult());
+      router.push("/test");
+      setSubmitting(false);
     };
 
     void finish();
@@ -315,7 +303,7 @@ export default function EqTestPage() {
                   ? "Әрбір тұжырым сізге қаншалықты сәйкес келеді деп бағалаңыз"
                   : "Rate how well each statement describes you"
             }
-            stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT }) as any}
+            stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT }) as string}
           />
 
           <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>

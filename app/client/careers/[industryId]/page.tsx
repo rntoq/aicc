@@ -11,7 +11,7 @@ import { ProfessionCard } from "@/app/components/clientLayout";
 import { INDUSTRIES } from "@/lib/constants";
 import type { PublicProfession } from "@/lib/types";
 import PROFESSIONS_JSON from "@/public/professions.json";
-import { useIndustry } from "@/lib/hooks/useIndustries";
+import { useIndustry } from "@/lib/services/careerServices";
 
 type ProfJson = PublicProfession;
 

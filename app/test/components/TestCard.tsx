@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import type { TestItem } from "@/lib/constants";
 import { useRouter } from "next/navigation";
-import { useTestsStore } from "@/lib/store/testsStore";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
-import { type ReactNode, useEffect, useState } from "react";
+import { useTestsStore } from "@/lib/store/useQuizStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import { type ReactNode, useSyncExternalStore } from "react";
 import LockResetIcon from "@mui/icons-material/LockReset";
 
 const CARD_ACCENTS = [
@@ -82,13 +82,14 @@ export const TestCard = ({
   const t = useTranslations();
   const router = useRouter();
   const { setOpenResultModalId } = useTestsStore();
-  const isCompleted = useQuizSessionStore((s) => s.isCompleted);
+  const sessionKey = testIdToSessionKey(test.id);
 
-  // Defer localStorage-backed check to client to avoid SSR/CSR hydration mismatch
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-
-  const completed = mounted && isCompleted(testIdToSessionKey(test.id));
+  // Safe SSR: server snapshot always false, client reads Zustand store
+  const completed = useSyncExternalStore(
+    useQuizSessionStore.subscribe,
+    () => useQuizSessionStore.getState().isCompleted(sessionKey),
+    () => false
+  );
   const name = (t(`tests_${test.id}_name` as Parameters<typeof t>[0]) as string) || test.name;
   const featuresRaw = (t(`tests_${test.id}_features` as Parameters<typeof t>[0]) as string) || "";
   const features = featuresRaw ? featuresRaw.split("\n").filter(Boolean).slice(0, 3) : [];

@@ -1,11 +1,14 @@
 "use client";
 
-import { Box, CardContent, Typography } from "@mui/material";
+import { Alert, Box, CardContent, CircularProgress, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
+import { useAnalysisDashboard } from "@/lib/services/analyseServices";
 
 const DashboardPage = () => {
   const t = useTranslations();
+  const { data, isLoading, isError } = useAnalysisDashboard();
+
   return (
     <AppLayout title={t("sidebar_dashboard")}>
       <Box>
@@ -19,6 +22,18 @@ const DashboardPage = () => {
             </Typography>
           </CardContent>
         </Box>
+
+        {isLoading ? (
+          <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+            <CircularProgress />
+          </Box>
+        ) : isError ? (
+          <Alert severity="error">{t("common_error") as string}</Alert>
+        ) : (
+          <Box component="pre" sx={styles.pre}>
+            {JSON.stringify(data, null, 2)}
+          </Box>
+        )}
       </Box>
     </AppLayout>
   );
@@ -53,5 +68,14 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     mb: 2,
+  },
+  pre: {
+    mt: 2,
+    p: 2,
+    borderRadius: 2,
+    bgcolor: "grey.100",
+    fontSize: 12,
+    whiteSpace: "pre-wrap",
+    wordBreak: "break-word",
   },
 };

@@ -5,20 +5,17 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useQuizSessionStore } from "@/lib/store/quizSessionStore";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import QUESTIONS_JSON from "./holland_questions.json";
 import { ProgressBar } from "../components/ProgressBar";
 import { OptionQuestionCard } from "../components/OptionQuestionCard";
 import { Header } from "@/app/components/layout/Header";
-import { api } from "@/lib/api/api";
+import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
   HollandSessionFinishResponse,
   QuizResult,
-  QuizSession,
-  QuizTest,
-  StartQuizSessionVariables,
 } from "@/lib/types";
 
 type HollandQuestion = {
@@ -45,30 +42,18 @@ const HollandTestPage = () => {
     let cancelled = false;
 
     const initSession = async () => {
-      try {
-        const { data: tests } = await api.get<QuizTest[]>(
-          "/api/v1/quizzes/tests/",
-          { params: { type: "holland" } }
-        );
-        const slug = tests[0]?.slug;
-        if (!slug) return;
+      const { body: tests } = await quizServices.listTests({ type: "holland" });
+      const slug = tests?.[0]?.slug ?? null;
+      if (!slug) return;
 
-        const { data: session } = await api.post<QuizSession, StartQuizSessionVariables>(
-          "/api/v1/quizzes/sessions/start/",
-          { test_slug: slug }
-        );
+      const { body: session } = await quizServices.startSession({ test_slug: slug });
+      const { body: testDetail } = await quizServices.getTestDetail(slug);
+      if (!session || !testDetail) return;
 
-        const { data: testDetail } = await api.get<{ questions: { id: number }[] }>(
-          `/api/v1/quizzes/tests/${slug}/`
-        );
-
-        if (!cancelled) {
-          setSessionId(session.id);
-          setSession("holland", session.id);
-          setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
-        }
-      } catch {
-        // backend unavailable – local fallback will be used
+      if (!cancelled) {
+        setSessionId(session.id);
+        setSession("holland", session.id);
+        setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
       }
     };
 
@@ -108,9 +93,9 @@ const HollandTestPage = () => {
       scores,
       holland_code: hollandCode,
       primary_type: sorted[0],
-      summary: null,
+      summary: undefined,
       created_at: new Date().toISOString(),
-    } as QuizResult;
+    };
   };
 
   const handleSubmit = async (finalAnswers?: Record<string, number>) => {
@@ -118,34 +103,22 @@ const HollandTestPage = () => {
     if (Object.keys(usedAnswers).length !== TOTAL) return;
 
     let backendResult: HollandSessionFinishResponse | null = null;
+    if (sessionId && backendQuestionIds.length > 0) {
+      const count = Math.min(backendQuestionIds.length, QUESTIONS.length);
+      const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.slice(0, count).map((q, index) => ({
+        question_id: backendQuestionIds[index],
+        scale_value: usedAnswers[q.id],
+      }));
 
-    try {
-      if (sessionId && backendQuestionIds.length > 0) {
-        const count = Math.min(backendQuestionIds.length, QUESTIONS.length);
-        const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.slice(0, count).map(
-          (q, index) => ({
-            question_id: backendQuestionIds[index],
-            scale_value: usedAnswers[q.id],
-          })
-        );
-
-        await api.post<unknown, BulkAnswerQuizPayload>(
-          "/api/v1/quizzes/sessions/bulk-answer/",
-          { session_id: sessionId, answers: answersPayload }
-        );
-
-        const { data } = await api.post<HollandSessionFinishResponse, FinishQuizSessionVariables>(
-          "/api/v1/quizzes/sessions/finish/",
-          { session_id: sessionId }
-        );
-        backendResult = data;
+      const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+      if (!bulkRes.error) {
+        const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+        backendResult = finishRes.body as unknown as HollandSessionFinishResponse;
       }
-    } catch {
-      backendResult = null;
-    } finally {
-      setResult("holland", backendResult ?? buildLocalResult(usedAnswers));
-      router.push("/test");
     }
+
+    setResult("holland", backendResult ?? buildLocalResult(usedAnswers));
+    router.push("/test");
   };
 
   const handleAnswerChange = (value: number) => {
