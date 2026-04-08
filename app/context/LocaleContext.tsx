@@ -1,9 +1,9 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
-import type { Locale } from "@/lib/locale";
+import type { Locale } from "@/utils/locale";
 
-export type { Locale } from "@/lib/locale";
+export type { Locale } from "@/utils/locale";
 
 const KEY = "kariera-pro-locale";
 

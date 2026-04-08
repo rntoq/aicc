@@ -4,11 +4,14 @@ import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
 import QUESTIONS_JSON from "./career_questions.json";
 import type {
@@ -18,7 +21,6 @@ import type {
 } from "@/lib/types";
 
 const QUESTIONS_PER_STEP = 10;
-const TOTAL_STEPS = Math.ceil(QUESTIONS_JSON.length / QUESTIONS_PER_STEP);
 
 const INTEREST_OPTIONS = [
   { ru: "Не нравится", kk: "Ұнамайды", en: "Dislike" },
@@ -42,37 +44,84 @@ const CareerAptitudeTestPage = () => {
   const router = useRouter();
   const { setSession, setResult } = useQuizSessionStore();
 
+  const stepChunks = useMemo(() => {
+    const chunks: (typeof QUESTIONS_JSON)[] = [];
+    let current: (typeof QUESTIONS_JSON) = [];
+    let currentPart: number | null = null;
+
+    for (const q of QUESTIONS_JSON) {
+      if (currentPart == null) {
+        currentPart = q.part;
+        current = [q];
+        continue;
+      }
+
+      if (q.part !== currentPart) {
+        for (let i = 0; i < current.length; i += QUESTIONS_PER_STEP) {
+          chunks.push(current.slice(i, i + QUESTIONS_PER_STEP));
+        }
+        currentPart = q.part;
+        current = [q];
+        continue;
+      }
+
+      current.push(q);
+    }
+
+    if (current.length > 0) {
+      for (let i = 0; i < current.length; i += QUESTIONS_PER_STEP) {
+        chunks.push(current.slice(i, i + QUESTIONS_PER_STEP));
+      }
+    }
+
+    return chunks;
+  }, []);
+
+  const TOTAL_STEPS = stepChunks.length || 1;
+
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+  const showLoading = useDelayedFlag(initializing || submitting);
 
   useEffect(() => {
     let cancelled = false;
 
     const initSession = async () => {
+      setInitializing(true);
       const { body: tests } = await quizServices.listTests({ type: "career_aptitude" });
       const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      if (!slug) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const { body: session } = await quizServices.startSession({ test_slug: slug } as StartQuizSessionVariables);
       const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+      if (!session || !testDetail) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       if (!cancelled) {
         setSessionId(session.id);
         setSession("career-aptitude", session.id);
         setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
       }
+      if (!cancelled) setInitializing(false);
     };
 
     void initSession();
     return () => { cancelled = true; };
   }, [setSession]);
 
-  const stepStart = (step - 1) * QUESTIONS_PER_STEP;
-  const stepQuestions = QUESTIONS_JSON.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
+  const stepQuestions =
+    stepChunks[Math.max(0, Math.min(step - 1, stepChunks.length - 1))] ?? [];
   const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
 
   const handleAnswer = (questionId: string, value: number) => {
@@ -115,6 +164,8 @@ const CareerAptitudeTestPage = () => {
       }
 
       setResult("career-aptitude", backendResult ?? buildLocalResult());
+      if (backendResult) toast.success(t("toast_test_success"));
+      else toast.error(t("toast_test_error"));
       router.push("/test");
       setSubmitting(false);
     };
@@ -157,6 +208,7 @@ const CareerAptitudeTestPage = () => {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="md">

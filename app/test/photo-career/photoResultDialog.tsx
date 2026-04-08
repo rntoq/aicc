@@ -13,7 +13,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { QuizResult } from "@/lib/types";
 
 export interface PhotoResultDialogProps {
@@ -85,6 +85,7 @@ export const PhotoResultDialog = ({
   loading = false,
 }: PhotoResultDialogProps) => {
   const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
   const rawScores = (result?.scores ?? {}) as Record<string, unknown>;
   const scoreRows = toRelativePercents(rawScores);
@@ -100,7 +101,7 @@ export const PhotoResultDialog = ({
   const getLabel = (key: string) =>
     SCALE_LABELS[key]?.[locale] ?? SCALE_LABELS[key]?.ru ?? key;
 
-  const closeLabel = locale === "kk" ? "Жабу" : locale === "en" ? "Close" : "Закрыть";
+  const closeLabel = t("close");
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">
@@ -144,7 +145,7 @@ export const PhotoResultDialog = ({
             {scoreRows.length > 0 && (
               <Box>
                 <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5 }}>
-                  {locale === "kk" ? "Бағыттар бойынша" : locale === "en" ? "By Direction" : "По направлениям"}
+                  {t("photo_by_direction")}
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
                   {scoreRows.map(({ key, pct }, i) => (
@@ -186,7 +187,7 @@ export const PhotoResultDialog = ({
                 <Divider />
                 <Box>
                   <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.75 }}>
-                    {locale === "kk" ? "Қорытынды" : locale === "en" ? "Summary" : "Краткий вывод"}
+                    {t("common_summary")}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
                     {summary}
@@ -201,7 +202,7 @@ export const PhotoResultDialog = ({
                 <Divider />
                 <Box>
                   <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.75 }}>
-                    {locale === "kk" ? "Толық есеп" : locale === "en" ? "Detailed Report" : "Подробный отчёт"}
+                    {t("common_detailedReport")}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
                     {detailed}

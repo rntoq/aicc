@@ -5,10 +5,13 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import ENNEAGRAM_DATA from "./enneagram_questions.json";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
@@ -92,6 +95,7 @@ export default function EnneagramTestPage() {
 
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
+  const [initializing, setInitializing] = useState(true);
 
   type EnneagramJson = {
     test?: { title?: LocalizedText };
@@ -121,17 +125,27 @@ export default function EnneagramTestPage() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
+  const showLoading = useDelayedFlag(initializing || submitting);
 
   useEffect(() => {
     let cancelled = false;
     const initSession = async () => {
+      setInitializing(true);
       const { body: tests } = await quizServices.listTests({ type: "enneagram" });
       const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      if (!slug) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const { body: session } = await quizServices.startSession({ test_slug: slug });
       const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+      if (!session || !testDetail) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const ids = (testDetail.questions ?? []).map((q) => q.id);
       if (!cancelled) {
@@ -139,6 +153,7 @@ export default function EnneagramTestPage() {
         setSession("enneagram", session.id);
         setBackendQuestionIds(ids);
       }
+      if (!cancelled) setInitializing(false);
     };
     void initSession();
     return () => { cancelled = true; };
@@ -205,12 +220,7 @@ export default function EnneagramTestPage() {
     const triadLabel = triadCode === "heart" ? "Heart" : triadCode === "head" ? "Head" : "Body";
     const primary_name = typeNames[primary][locale];
 
-    const summary =
-      locale === "ru"
-        ? "Результат показывает ваш основной эннеатип, а также вероятное крыло и центр интеллекта."
-        : locale === "kk"
-          ? "Нәтиже негізгі эннеатипті, ықтимал крылды және интеллект орталығын көрсетеді."
-          : "Your result shows your main enneagram type, likely wing, and the intelligence center.";
+    const summary = t("enneagram_summary");
 
     return {
       test_title: data.test?.title?.[locale] ?? data.test?.title?.en ?? "Enneagram Personality Test",
@@ -257,6 +267,8 @@ export default function EnneagramTestPage() {
       }
 
       setResult("enneagram", backendResult ?? computeResult());
+      if (backendResult) toast.success(t("toast_test_success"));
+      else toast.error(t("toast_test_error"));
       router.push("/test");
       setSubmitting(false);
     };
@@ -266,6 +278,7 @@ export default function EnneagramTestPage() {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={{ pt: { xs: 15, md: 12 }, minHeight: "80vh" }}>
         <Container maxWidth="md">
@@ -274,11 +287,7 @@ export default function EnneagramTestPage() {
             total={STEPS_COUNT}
             title={t("tests_enneagram_name") as string}
             subtitle={
-              locale === "ru"
-                ? "Оцените, насколько утверждения про вас"
-                : locale === "kk"
-                  ? "Әр тұжырым сізге қаншалықты сәйкес келеді деп бағалаңыз"
-                  : "Rate how well each statement describes you"
+              t("tests_enneagram_subtitle")
             }
             stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT }) as string}
           />
@@ -309,7 +318,7 @@ export default function EnneagramTestPage() {
               disabled={step === 1 || submitting}
               sx={{ borderRadius: 2, px: 3 }}
             >
-              {locale === "ru" ? "Назад" : locale === "kk" ? "Артқа" : "Back"}
+              {t("holland_back")}
             </Button>
 
             {step < STEPS_COUNT ? (
@@ -319,7 +328,7 @@ export default function EnneagramTestPage() {
                 disabled={!allStepAnswered || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {locale === "ru" ? "Далее" : locale === "kk" ? "Келесі" : "Next"}
+                {t("holland_next")}
               </Button>
             ) : (
               <Button
@@ -328,7 +337,7 @@ export default function EnneagramTestPage() {
                 disabled={!allStepAnswered || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {submitting ? "..." : locale === "ru" ? "Завершить" : locale === "kk" ? "Аяқтау" : "Finish"}
+                {submitting ? "..." : t("holland_finish")}
               </Button>
             )}
           </Box>

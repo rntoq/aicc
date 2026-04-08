@@ -12,8 +12,9 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { QuizResult } from "@/lib/types";
+import { formatPercent } from "@/utils/functions";
 
 type DiscLetter = "D" | "I" | "S" | "C";
 
@@ -36,12 +37,6 @@ const TYPE_LABELS: Record<DiscLetter, { ru: string; kk: string; en: string; tagl
   C: { ru: "Соответствие (C)", kk: "Сәйкестік (C)", en: "Clarity (C)", tagline: "Clarity — про точность и качество" },
 };
 
-const formatPercent = (v: unknown): number => {
-  const n = typeof v === "number" ? v : Number(v);
-  if (Number.isNaN(n)) return 0;
-  return Math.max(0, Math.min(100, Math.round(n)));
-};
-
 export default function DiscResultDialog({
   open,
   onClose,
@@ -49,6 +44,7 @@ export default function DiscResultDialog({
   loading = false,
 }: DiscResultDialogProps) {
   const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
   if (loading || !result) {
     return (
@@ -60,7 +56,7 @@ export default function DiscResultDialog({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Закрыть</Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </DialogActions>
       </Dialog>
     );
@@ -130,7 +126,7 @@ export default function DiscResultDialog({
           {result.summary ? (
             <Box sx={{ mt: 2 }}>
               <Typography variant="subtitle1" sx={{ fontWeight: 900, mb: 1 }}>
-                {locale === "en" ? "Interpretation" : locale === "kk" ? "Түсіндірме" : "Интерпретация"}
+                {t("common_interpretation")}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
                 {result.summary}
@@ -142,7 +138,7 @@ export default function DiscResultDialog({
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          {locale === "en" ? "Close" : locale === "kk" ? "Жабу" : "Закрыть"}
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>

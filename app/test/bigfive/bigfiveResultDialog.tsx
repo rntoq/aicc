@@ -12,6 +12,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
+import { useTranslations } from "next-intl";
 import type { BigFiveScores, BigFiveSessionFinishResponse } from "@/lib/types";
 
 export type BigFiveResultDialogProps = {
@@ -39,6 +40,7 @@ export const BigFiveResultDialog = ({
   result,
   loading = false,
 }: BigFiveResultDialogProps) => {
+  const t = useTranslations();
   if (loading || !result) {
     return (
       <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
@@ -55,7 +57,7 @@ export const BigFiveResultDialog = ({
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Закрыть</Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </DialogActions>
       </Dialog>
     );
@@ -149,7 +151,7 @@ export const BigFiveResultDialog = ({
 
       <DialogActions>
         <Button onClick={onClose} variant="contained" sx={{ borderRadius: 2 }}>
-          Закрыть
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>

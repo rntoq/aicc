@@ -12,6 +12,7 @@ import type {
   CareersListParams,
   Industry,
   PaginatedResponse,
+  PaymentSubscribePayload,
   Profession,
   ProfessionListParams,
 } from "@/lib/types";
@@ -39,7 +40,7 @@ export const useIndustries = (): UseQueryResult<Industry[], unknown> => {
       const { body, error } = await api.get<Industry[]>("/api/v1/careers/industries/");
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -53,7 +54,7 @@ export const useIndustry = (
       const { body, error } = await api.get<Industry>(`/api/v1/careers/industries/${id}/`);
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
     enabled: id != null,
   });
@@ -73,7 +74,7 @@ export const useCareers = (
       const { body, error } = await api.get<Career[]>("/api/v1/careers/", { params: qp });
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -87,7 +88,7 @@ export const useCareer = (
       const { body, error } = await api.get<Career>(`/api/v1/careers/${careerSlug}/`);
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
     enabled: !!careerSlug,
   });
@@ -100,7 +101,7 @@ export const useCareerCategories = (): UseQueryResult<CareerCategory[], unknown>
       const { body, error } = await api.get<CareerCategory[]>("/api/v1/careers/categories/");
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -122,7 +123,7 @@ export const useProfessions = (
       );
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -136,7 +137,7 @@ export const useProfession = (
       const { body, error } = await api.get<Profession>(`/api/v1/careers/professions/${id}/`);
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
     enabled: id != null && id !== "",
   });
@@ -153,7 +154,7 @@ export const useCareerRecommendations = (): UseQueryResult<CareerRecommendation[
       const { body, error } = await api.get<CareerRecommendation[]>("/api/v1/careers/recommendations/");
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -174,27 +175,27 @@ export const useGenerateCareerRecommendations = (): UseMutationResult<unknown, u
 export const careerServices = {
   async listCareers(params?: CareersListParams): Promise<ServiceResult<Career[]>> {
     const { body, error } = await api.get<Career[]>("/api/v1/careers/", { params: compactParams(params) });
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async getCareer(careerSlug: string): Promise<ServiceResult<Career>> {
     const { body, error } = await api.get<Career>(`/api/v1/careers/${careerSlug}/`);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async listCategories(): Promise<ServiceResult<CareerCategory[]>> {
     const { body, error } = await api.get<CareerCategory[]>("/api/v1/careers/categories/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async listIndustries(): Promise<ServiceResult<Industry[]>> {
     const { body, error } = await api.get<Industry[]>("/api/v1/careers/industries/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async getIndustry(industryId: number | string): Promise<ServiceResult<Industry>> {
     const { body, error } = await api.get<Industry>(`/api/v1/careers/industries/${industryId}/`);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async listProfessions(params?: ProfessionListParams): Promise<ServiceResult<PaginatedResponse<Profession>>> {
@@ -202,22 +203,22 @@ export const careerServices = {
       "/api/v1/careers/professions/",
       { params: compactParams(params) }
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async getProfession(professionId: number | string): Promise<ServiceResult<Profession>> {
     const { body, error } = await api.get<Profession>(`/api/v1/careers/professions/${professionId}/`);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async recommendations(): Promise<ServiceResult<CareerRecommendation[]>> {
     const { body, error } = await api.get<CareerRecommendation[]>("/api/v1/careers/recommendations/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async generateRecommendations(): Promise<ServiceResult<unknown>> {
     const { body, error } = await api.post("/api/v1/careers/recommendations/generate/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 };
 
@@ -228,24 +229,24 @@ export const careerServices = {
 export const institutionServices = {
   async listInstitutions(): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>("/api/v1/institutions/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async getInstitution(institutionSlug: string): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>(`/api/v1/institutions/${institutionSlug}/`);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async listInstitutionPrograms(institutionSlug: string): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>(
       `/api/v1/institutions/${institutionSlug}/programs/`
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async getProgram(programSlug: string): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>(`/api/v1/institutions/programs/${programSlug}/`);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 };
 
@@ -256,25 +257,25 @@ export const institutionServices = {
 export const paymentServices = {
   async plans(): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>("/api/v1/payments/plans/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async subscription(): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>("/api/v1/payments/subscription/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async history(): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>("/api/v1/payments/history/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
-  async subscribe(payload: Record<string, unknown>): Promise<ServiceResult<Record<string, unknown>>> {
-    const { body, error } = await api.post<Record<string, unknown>, Record<string, unknown>>(
+  async subscribe(payload: PaymentSubscribePayload): Promise<ServiceResult<Record<string, unknown>>> {
+    const { body, error } = await api.post<Record<string, unknown>, PaymentSubscribePayload>(
       "/api/v1/payments/subscribe/",
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async cancel(payload?: Record<string, unknown>): Promise<ServiceResult<Record<string, unknown>>> {
@@ -282,7 +283,7 @@ export const paymentServices = {
       "/api/v1/payments/cancel/",
       payload ?? {}
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 };
 

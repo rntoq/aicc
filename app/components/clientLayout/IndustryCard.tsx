@@ -21,7 +21,7 @@ import TheaterComedyOutlinedIcon from "@mui/icons-material/TheaterComedyOutlined
 import SportsSoccerOutlinedIcon from "@mui/icons-material/SportsSoccerOutlined";
 import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
-import type { Industry } from "@/lib/constants";
+import type { Industry } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 
 const INDUSTRY_ICON_MAP: Record<string, React.ReactNode> = {

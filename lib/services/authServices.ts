@@ -19,39 +19,39 @@ export type { UpdateMePayload };
 export const authServices = {
   async login(payload: LoginPayload): Promise<ServiceResult<AuthResponse>> {
     const { body, error } = await api.post<AuthResponse, LoginPayload>(`/api/v1/auth/login/`, payload);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async register(payload: RegisterPayload): Promise<ServiceResult<AuthResponse>> {
     const { body, error } = await api.post<AuthResponse, RegisterPayload>(`/api/v1/auth/register/`, payload);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async refresh(refresh: string): Promise<ServiceResult<RefreshResponse>> {
     const { body, error } = await api.post<RefreshResponse, { refresh: string }>(`/api/v1/auth/refresh/`, {
       refresh,
     });
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async me(): Promise<ServiceResult<User>> {
     const { body, error } = await api.get<User>(`/api/v1/auth/me/`);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async updateMePut(payload: UpdateMePayload): Promise<ServiceResult<User>> {
     const { body, error } = await api.put<User, UpdateMePayload>(`/api/v1/auth/me/`, payload);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async logout(refresh: string): Promise<ServiceResult<unknown>> {
     const { body, error } = await api.post<unknown, { refresh: string }>(`/api/v1/auth/logout/`, { refresh });
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async updateProfile(payload: UpdateMePayload): Promise<ServiceResult<User>> {
     const { body, error } = await api.patch<User, UpdateMePayload>(`/api/v1/auth/me/`, payload);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async changePassword(payload: ChangePasswordPayload): Promise<ServiceResult<Record<string, string>>> {
@@ -59,7 +59,7 @@ export const authServices = {
       `/api/v1/auth/change-password/`,
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async requestPasswordReset(payload: PasswordResetRequestPayload): Promise<ServiceResult<Record<string, string>>> {
@@ -67,7 +67,7 @@ export const authServices = {
       "/api/v1/auth/password-reset/request/",
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async confirmPasswordReset(payload: PasswordResetConfirmPayload): Promise<ServiceResult<Record<string, string>>> {
@@ -75,7 +75,7 @@ export const authServices = {
       "/api/v1/auth/password-reset/confirm/",
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 };
 

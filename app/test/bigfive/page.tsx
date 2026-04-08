@@ -5,11 +5,14 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { OptionsHeader } from "../components/OptionsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
 import QUESTIONS_JSON from "./bigfive_questions.json";
 import type {
@@ -40,23 +43,32 @@ const BigFiveTestPage = () => {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+  const showLoading = useDelayedFlag(initializing || submitting);
 
   useEffect(() => {
     let cancelled = false;
 
     const initSession = async () => {
-      const { body: tests } = await quizServices.listTests({ type: "big_five" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      setInitializing(true);
+      try {
+        const { body: tests, error: listError } = await quizServices.listTests({ type: "big_five" });
+        const slug = tests?.[0]?.slug ?? null;
+        if (!slug || listError) throw new Error("listTests failed");
 
-      const { body: session } = await quizServices.startSession({ test_slug: slug });
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+        const { body: session, error: startError } = await quizServices.startSession({ test_slug: slug });
+        const { body: testDetail, error: detailError } = await quizServices.getTestDetail(slug);
+        if (!session || !testDetail || startError || detailError) throw new Error("start/get detail failed");
 
-      if (!cancelled) {
-        setSessionId(session.id);
-        setSession("bigfive", session.id);
-        setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
+        if (!cancelled) {
+          setSessionId(session.id);
+          setSession("bigfive", session.id);
+          setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
+        }
+      } catch {
+        if (!cancelled) toast.error(t("toast_test_error"));
+      } finally {
+        if (!cancelled) setInitializing(false);
       }
     };
 
@@ -123,6 +135,9 @@ const BigFiveTestPage = () => {
 
       if (backendResult) {
         setResult("bigfive", backendResult);
+        toast.success(t("toast_test_success"));
+      } else {
+        toast.error(t("toast_test_error"));
       }
       router.push("/test");
       setSubmitting(false);
@@ -133,6 +148,7 @@ const BigFiveTestPage = () => {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="md">

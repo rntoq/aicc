@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { ProfessionCard } from "@/app/components/clientLayout";
-import { INDUSTRIES } from "@/lib/constants";
+import { INDUSTRIES } from "@/utils/constants";
 import type { PublicProfession } from "@/lib/types";
 import PROFESSIONS_JSON from "@/public/professions.json";
 import { useIndustry } from "@/lib/services/careerServices";

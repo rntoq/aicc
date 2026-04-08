@@ -20,7 +20,7 @@ import { Header } from "../components/layout/Header";
 import { PasswordField } from "../components/layout/PasswordField";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
 
 const LoginPage = () => {
   const t = useTranslations();

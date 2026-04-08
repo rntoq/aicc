@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import type { PublicUniversity } from "@/lib/types";
 import Image from "next/image";
 import { useState } from "react";
-import {BANNER_PLACEHOLDER_IMAGE} from "@/lib/constants";
+import {BANNER_PLACEHOLDER_IMAGE} from "@/utils/constants";
 import {AttachMoneyOutlined, BedOutlined, MilitaryTechOutlined} from "@mui/icons-material";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 

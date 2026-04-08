@@ -45,7 +45,7 @@ function compactParams<T extends Record<string, unknown>>(params?: T): Record<st
 
 async function fetchQuizTestDetail(testSlug: string): Promise<ServiceResult<QuizTestDetail>> {
   const { body, error } = await api.get<QuizTestDetail>(`/api/v1/quizzes/tests/${testSlug}/`);
-  return { body: body?.data ?? null, error };
+  return { body: body ?? null, error };
 }
 
 // --------------------------------------------------
@@ -60,7 +60,7 @@ export const useQuizTests = (params?: QuizListParams): UseQueryResult<QuizTest[]
       const { body, error } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", { params: qp });
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -72,7 +72,7 @@ export const useQuizTest = (testSlug: string | null): UseQueryResult<QuizTestDet
       const { body, error } = await api.get<QuizTestDetail>(`/api/v1/quizzes/tests/${testSlug}/`);
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
     enabled: !!testSlug,
   });
@@ -85,7 +85,7 @@ export const useQuizCategories = (): UseQueryResult<QuizCategory[], unknown> => 
       const { body, error } = await api.get<QuizCategory[]>("/api/v1/quizzes/categories/");
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -97,7 +97,7 @@ export const useQuizTestTypes = (): UseQueryResult<QuizTestTypeMetaResponse, unk
       const { body, error } = await api.get<QuizTestTypeMetaResponse>("/api/v1/quizzes/test-types/");
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -115,7 +115,7 @@ export const useQuickQuizResult = (
       const { body, error } = await api.get<QuickQuizResult>(`/api/v1/quizzes/quick/${testType}/result/`);
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
     enabled: !!testType,
   });
@@ -134,7 +134,7 @@ export const useSubmitQuickQuiz = (): UseMutationResult<
       );
       if (error) throw error;
       if (!res) throw new Error("Empty response body");
-      return res.data;
+      return res;
     },
   });
 };
@@ -155,7 +155,7 @@ export const useQuizSessions = (
       });
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -169,7 +169,7 @@ export const useQuizSession = (
       const { body, error } = await api.get<QuizSession>(`/api/v1/quizzes/sessions/${sessionId}/`);
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
     enabled: sessionId != null && sessionId !== "",
   });
@@ -182,7 +182,7 @@ export const useQuizMyResults = (): UseQueryResult<QuizMyResultsResponse, unknow
       const { body, error } = await api.get<QuizMyResultsResponse>("/api/v1/quizzes/my-results/");
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -200,7 +200,7 @@ export const useStartQuizSession = (): UseMutationResult<
       );
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -218,7 +218,7 @@ export const useAnswerQuizQuestion = (): UseMutationResult<
       );
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -236,7 +236,7 @@ export const useBulkAnswerQuiz = (): UseMutationResult<
       );
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -254,7 +254,7 @@ export const useFinishQuizSession = (): UseMutationResult<
       );
       if (error) throw error;
       if (!body) throw new Error("Empty response body");
-      return body.data;
+      return body;
     },
   });
 };
@@ -268,7 +268,7 @@ export const quizServices = {
     const { body, error } = await api.get<QuizTest[]>("/api/v1/quizzes/tests/", {
       params: compactParams(params as unknown as Record<string, unknown> | undefined),
     });
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async getTest(testSlug: string): Promise<ServiceResult<QuizTestDetail>> {
@@ -282,29 +282,29 @@ export const quizServices = {
 
   async listCategories(): Promise<ServiceResult<QuizCategory[]>> {
     const { body, error } = await api.get<QuizCategory[]>("/api/v1/quizzes/categories/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async listTestTypes(): Promise<ServiceResult<QuizTestTypeMetaResponse>> {
     const { body, error } = await api.get<QuizTestTypeMetaResponse>("/api/v1/quizzes/test-types/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async myResults(): Promise<ServiceResult<QuizMyResultsResponse>> {
     const { body, error } = await api.get<QuizMyResultsResponse>("/api/v1/quizzes/my-results/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async listSessions(params?: QuizSessionsListParams): Promise<ServiceResult<QuizSessionsListItem[]>> {
     const { body, error } = await api.get<QuizSessionsListItem[]>("/api/v1/quizzes/sessions/", {
       params: compactParams(params as unknown as Record<string, unknown> | undefined),
     });
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async getSession(sessionId: number | string): Promise<ServiceResult<QuizSession>> {
     const { body, error } = await api.get<QuizSession>(`/api/v1/quizzes/sessions/${sessionId}/`);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async startSession(payload: StartQuizSessionVariables): Promise<ServiceResult<QuizSession>> {
@@ -312,7 +312,7 @@ export const quizServices = {
       "/api/v1/quizzes/sessions/start/",
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async answer(payload: AnswerQuizQuestionPayload): Promise<ServiceResult<AnswerQuizQuestionResponse>> {
@@ -320,7 +320,7 @@ export const quizServices = {
       "/api/v1/quizzes/sessions/answer/",
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async bulkAnswer(payload: BulkAnswerQuizPayload): Promise<ServiceResult<BulkAnswerQuizResponse>> {
@@ -328,7 +328,7 @@ export const quizServices = {
       "/api/v1/quizzes/sessions/bulk-answer/",
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   async finish(payload: FinishQuizSessionVariables): Promise<ServiceResult<QuizResult>> {
@@ -336,7 +336,7 @@ export const quizServices = {
       "/api/v1/quizzes/sessions/finish/",
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 };
 

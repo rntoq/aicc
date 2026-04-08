@@ -18,7 +18,8 @@ import { Header } from "../components/layout/Header";
 import { PasswordField } from "../components/layout/PasswordField";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import { validateRegisterForm } from "@/utils/validators";
 
 const RegisterPage = () => {
   const t = useTranslations();
@@ -43,16 +44,13 @@ const RegisterPage = () => {
     e.preventDefault();
     if (loading) return;
 
-    if (!form.email || !form.password || !form.passwordConfirm) {
-      setLocalError(t("register_error_required"));
-      return;
-    }
-    if (form.password.length < 8) {
-      setLocalError(t("register_error_length"));
-      return;
-    }
-    if (form.password !== form.passwordConfirm) {
-      setLocalError(t("register_error_match"));
+    const errorKey = validateRegisterForm({
+      email: form.email,
+      password: form.password,
+      passwordConfirm: form.passwordConfirm,
+    });
+    if (errorKey) {
+      setLocalError(t(errorKey));
       return;
     }
 

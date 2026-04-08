@@ -12,7 +12,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { QuizResult } from "@/lib/types";
 
 export type LeadershipLocalResult = QuizResult & {
@@ -51,6 +51,7 @@ export default function LeadershipResultDialog({
   loading = false,
 }: LeadershipResultDialogProps) {
   const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
   if (loading || !result) {
     return (
@@ -62,7 +63,7 @@ export default function LeadershipResultDialog({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Закрыть</Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </DialogActions>
       </Dialog>
     );
@@ -208,7 +209,7 @@ export default function LeadershipResultDialog({
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          {locale === "en" ? "Close" : locale === "kk" ? "Жабу" : "Закрыть"}
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>

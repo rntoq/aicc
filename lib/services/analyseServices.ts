@@ -1,6 +1,8 @@
 import { api } from "@/lib/api/api";
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import type {
+  AiChatPayload,
+  AiChatResponse,
   AiReportGeneratePayload,
   AiReportGenerateResponse,
   AnalysisDashboardResponse,
@@ -18,30 +20,36 @@ export const analyseServices = {
   /** GET /api/v1/ (API root) */
   async apiRoot(): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>("/api/v1/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   /** POST /api/v1/analysis/ai-report/ */
   async createAiReport(
-    payload: AiReportGeneratePayload
+    payload: AiReportGeneratePayload = {}
   ): Promise<ServiceResult<AiReportGenerateResponse>> {
     const { body, error } = await api.post<AiReportGenerateResponse, AiReportGeneratePayload>(
       "/api/v1/analysis/ai-report/",
       payload
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
+  },
+
+  /** POST /api/v1/analysis/ai-chat/ */
+  async aiChat(payload: AiChatPayload): Promise<ServiceResult<AiChatResponse>> {
+    const { body, error } = await api.post<AiChatResponse, AiChatPayload>("/api/v1/analysis/ai-chat/", payload);
+    return { body: body ?? null, error };
   },
 
   /** GET /api/v1/analysis/reports/ */
   async listReports(params?: { page?: number; limit?: number }): Promise<ServiceResult<Record<string, unknown>>> {
     const { body, error } = await api.get<Record<string, unknown>>("/api/v1/analysis/reports/", { params });
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   /** GET /api/v1/analysis/reports/{report_id}/ */
   async getReport(reportId: number | string): Promise<ServiceResult<AnalysisReportDetail>> {
     const { body, error } = await api.get<AnalysisReportDetail>(`/api/v1/analysis/reports/${reportId}/`);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   /**
@@ -52,19 +60,19 @@ export const analyseServices = {
     const { body, error } = await api.get<ArrayBuffer>(`/api/v1/analysis/ai-report/${reportId}/download/`, {
       responseType: "arraybuffer",
     } as unknown as Record<string, unknown>);
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   /** GET /api/v1/analysis/dashboard/ */
   async dashboard(): Promise<ServiceResult<AnalysisDashboardResponse>> {
     const { body, error } = await api.get<AnalysisDashboardResponse>("/api/v1/analysis/dashboard/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   /** GET /api/v1/analysis/profile/ */
   async profile(): Promise<ServiceResult<AnalysisProfile>> {
     const { body, error } = await api.get<AnalysisProfile>("/api/v1/analysis/profile/");
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 
   /** POST /api/v1/analysis/profile/refresh/ */
@@ -73,7 +81,7 @@ export const analyseServices = {
       "/api/v1/analysis/profile/refresh/",
       {}
     );
-    return { body: body?.data ?? null, error };
+    return { body: body ?? null, error };
   },
 };
 

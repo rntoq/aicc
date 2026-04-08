@@ -9,7 +9,7 @@ import { AppLayout } from "@/app/components/layout/AppLayout";
 import { IndustryCard } from "@/app/components/clientLayout";
 import { ProfessionCard } from "@/app/components/clientLayout/ProfessionCard";
 import { useIndustries } from "@/lib/services/careerServices";
-import { INDUSTRIES, FILTER_CATEGORIES } from "@/lib/constants";
+import { INDUSTRIES, FILTER_CATEGORIES } from "@/utils/constants";
 import PROFESSIONS_JSON from "@/public/professions.json";
 import type { PublicProfession } from "@/lib/types";
 

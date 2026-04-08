@@ -42,7 +42,11 @@ export const OptionQuestionCard = ({
       <Card sx={styles.card}>
         <CardContent sx={styles.content}>
           <Typography variant="h3" sx={styles.questionText}>
-            {questionNumber != null ? `${questionNumber}. ${questionText}` : questionText}
+            {questionNumber != null
+              ? questionText.trim().length > 0
+                ? `${questionNumber}. ${questionText}`
+                : `${questionNumber}.`
+              : questionText}
           </Typography>
           <FormControl component="fieldset" sx={styles.radioGroup}>
             <RadioGroup

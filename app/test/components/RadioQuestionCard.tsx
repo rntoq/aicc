@@ -7,104 +7,82 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { LocalizedText } from "@/lib/types";
 
 export type LikertWordQuestionCardProps = {
   /** Локализованный заголовок утверждения */
-  title: LocalizedText;
+  title: LocalizedText | string;
   /** Текущее значение шкалы 1–5, либо null */
   value: number | null;
   /** Колбэк при изменении значения */
   onChange: (value: number) => void;
   /** Подпись слева от шкалы (по умолчанию “Не про меня”) */
-  leftLabel?: LocalizedText;
+  leftLabel?: LocalizedText | string;
   /** Подпись справа от шкалы (по умолчанию “Про меня”) */
-  rightLabel?: LocalizedText;
+  rightLabel?: LocalizedText | string;
   /**
    * Подписи для N градаций шкалы (обычно 3 или 5).
    * Если не заданы, используются дефолтные 5 фраз.
    */
-  options?: LocalizedText[];
+  options?: Array<LocalizedText | string>;
 };
-
-const DEFAULT_LEFT: LocalizedText = {
-  ru: "Не про меня",
-  kk: "Маған тән емес",
-  en: "Not like me",
-};
-const DEFAULT_RIGHT: LocalizedText = {
-  ru: "Про меня",
-  kk: "Маған тән",
-  en: "Like me",
-};
-
-const DEFAULT_OPTIONS: LocalizedText[] = [
-  { ru: "Совсем не про меня", kk: "Мүлдем маған тән емес", en: "Not like me" },
-  {
-    ru: "Скорее не про меня",
-    kk: "Көбіне маған тән емес",
-    en: "Somewhat not like me",
-  },
-  { ru: "Нейтрально", kk: "Бейтарап", en: "Neutral" },
-  {
-    ru: "Скорее про меня",
-    kk: "Көбіне маған тән",
-    en: "Somewhat like me",
-  },
-  {
-    ru: "Полностью про меня",
-    kk: "Толығымен маған тән",
-    en: "Very much like me",
-  },
-];
 
 export const LikertWordQuestionCard = ({
   title,
   value,
   onChange,
-  leftLabel = DEFAULT_LEFT,
-  rightLabel = DEFAULT_RIGHT,
+  leftLabel,
+  rightLabel,
   options,
 }: LikertWordQuestionCardProps) => {
   const locale = useLocale();
-  const pick = (text: LocalizedText | undefined): string =>
-    (text?.[locale as keyof LocalizedText] as string | undefined) ??
-    text?.ru ??
-    text?.en ??
-    "";
+  const t = useTranslations();
+
+  const pick = (text: LocalizedText | string | undefined): string => {
+    if (typeof text === "string") return text;
+    return (
+      (text?.[locale as keyof LocalizedText] as string | undefined) ??
+      (text?.ru as string | undefined) ??
+      (text?.en as string | undefined) ??
+      ""
+    );
+  };
 
   const titleText = pick(title);
-  const leftText = pick(leftLabel);
-  const rightText = pick(rightLabel);
-  const scaleOptions = options && options.length > 0 ? options : DEFAULT_OPTIONS;
+  const leftText = pick(leftLabel) || t("likert_left");
+  const rightText = pick(rightLabel) || t("likert_right");
+  const scaleOptions =
+    options && options.length > 0
+      ? options
+      : [
+          t("likert_option_1"),
+          t("likert_option_2"),
+          t("likert_option_3"),
+          t("likert_option_4"),
+          t("likert_option_5"),
+        ];
 
   return (
-    <Box>
+    <Box sx={{ mb: 2 }}>
       <Typography
-        sx={{ fontWeight: 600, fontSize: "1rem", textAlign: "center", mb: 1 }}
+        sx={styles.title}
       >
         {titleText}
       </Typography>
 
       <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "1fr auto 1fr" },
-          alignItems: "center",
-          gap: { xs: 1.5, md: 2 },
-          p: 2,
-        }}
+        sx={styles.content}
       >
         <Typography
-          sx={{ fontWeight: 600, fontSize: "0.9rem", textAlign: "right" }}
+          sx={{...styles.label, textAlign: "right"}}
         >
           {leftText}
         </Typography>
 
         <RadioGroup
           row
-          sx={{ justifyContent: "center", gap: { xs: 0.5, md: 1 } }}
+          sx={styles.radioGroup}
           value={value?.toString() ?? ""}
           onChange={(e) => onChange(Number(e.target.value))}
         >
@@ -116,21 +94,14 @@ export const LikertWordQuestionCard = ({
                 value={v.toString()}
                 control={<Radio size="small" />}
                 label
-                sx={{
-                  m: 0,
-                  flexDirection: "column",
-                  alignItems: "center",
-                  ".MuiTypography-root": {
-                    fontSize: 12,
-                  },
-                }}
+                sx={styles.radioLabel}
               />
             );
           })}
         </RadioGroup>
 
         <Typography
-          sx={{ fontWeight: 600, fontSize: "0.9rem", textAlign: "left" }}
+          sx={{...styles.label, textAlign: "left"}}
         >
           {rightText}
         </Typography>
@@ -139,3 +110,36 @@ export const LikertWordQuestionCard = ({
   );
 };
 
+const styles = {
+  title: {
+    fontWeight: 600,
+    fontSize: "1rem",
+    textAlign: "center",
+    maxWidth: 420,
+    mx: "auto",
+  },
+  label: {
+    fontWeight: 600,
+    fontSize: { xs: "0.8rem", md: "0.9rem" },
+    color: "text.secondary",
+  },
+  content: {
+    display: "grid",
+    gridTemplateColumns: { xs: "1fr auto 1fr", md: "1fr auto 1fr" },
+    alignItems: "center",
+    gap: { xs: 1.5, md: 2 },
+    p: 0
+  },
+  radioLabel: {
+    m: 0,
+    flexDirection: "column",
+    alignItems: "center",
+    ".MuiTypography-root": {
+      fontSize: 12,
+    },
+  },
+  radioGroup: {
+    justifyContent: "center",
+    gap: { xs: 0, md: 1 },
+  },
+};

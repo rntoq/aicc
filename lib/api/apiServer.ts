@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { BASE_URL } from "@/lib/constants";
+import { BASE_URL } from "@/utils/constants";
 import { getCookie } from "@/lib/cookies/cookieServer";
 
 const axiosServer: AxiosInstance = axios.create({
@@ -7,11 +7,7 @@ const axiosServer: AxiosInstance = axios.create({
   withCredentials: true,
 });
 
-async function getServerToken(): Promise<string | null> {
-  return getCookie("access");
-}
-
-type ServerResult<T> = { body: T | null; error: unknown };
+type ServerResult<T> = { body: T | null; error: unknown | null };
 
 async function handleRequest<T>(
   method: "get" | "post" | "put" | "patch" | "delete",
@@ -20,7 +16,7 @@ async function handleRequest<T>(
   config?: AxiosRequestConfig
 ): Promise<ServerResult<T>> {
   try {
-    const token = await getServerToken();
+    const token = await getCookie("access");
     const headers = {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(config?.headers || {}),

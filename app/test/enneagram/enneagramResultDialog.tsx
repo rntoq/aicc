@@ -12,8 +12,9 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { QuizResult } from "@/lib/types";
+import { formatPercent } from "@/utils/functions";
 
 export type EnneagramLocalResult = QuizResult & {
   test_title?: string;
@@ -57,12 +58,6 @@ const TRIAD_LABELS: Record<"heart" | "head" | "body", { ru: string; kk: string; 
   body: { ru: "Тело", kk: "Дене", en: "Body" },
 };
 
-const formatPercent = (v: unknown) => {
-  const n = typeof v === "number" ? v : Number(v);
-  if (Number.isNaN(n)) return 0;
-  return Math.max(0, Math.min(100, Math.round(n)));
-};
-
 export default function EnneagramResultDialog({
   open,
   onClose,
@@ -70,6 +65,7 @@ export default function EnneagramResultDialog({
   loading = false,
 }: EnneagramResultDialogProps) {
   const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
   if (loading || !result) {
     return (
@@ -81,7 +77,7 @@ export default function EnneagramResultDialog({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Закрыть</Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </DialogActions>
       </Dialog>
     );
@@ -171,7 +167,7 @@ export default function EnneagramResultDialog({
         {result.summary ? (
           <Box sx={{ mt: 3 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 800, mb: 1 }}>
-              {locale === "en" ? "Summary" : locale === "kk" ? "Қорытынды" : "Кратко"}
+              {t("common_summary")}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
               {result.summary}
@@ -182,7 +178,7 @@ export default function EnneagramResultDialog({
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          {locale === "en" ? "Close" : locale === "kk" ? "Жабу" : "Закрыть"}
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>

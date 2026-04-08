@@ -11,7 +11,7 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { QuizResult } from "@/lib/types";
 
 export interface StrengthsResultDialogProps {
@@ -28,6 +28,7 @@ export default function StrengthsResultDialog({
   loading = false,
 }: StrengthsResultDialogProps) {
   const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
   if (loading || !result) {
     return (
@@ -39,7 +40,7 @@ export default function StrengthsResultDialog({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Закрыть</Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </DialogActions>
       </Dialog>
     );
@@ -59,7 +60,7 @@ export default function StrengthsResultDialog({
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">
       <DialogTitle sx={{ pb: 1 }}>
-        <Typography variant="h6" sx={{ fontWeight: 900 }}>
+        <Typography component="span" variant="h6" sx={{ fontWeight: 900 }}>
           {testTitle}
         </Typography>
         {r["primary_type"] ? (
@@ -116,7 +117,7 @@ export default function StrengthsResultDialog({
         ) : (
           <Box>
             <Typography variant="subtitle1" sx={{ fontWeight: 900, mb: 1 }}>
-              {locale === "en" ? "Result (raw)" : locale === "kk" ? "Нәтиже (raw)" : "Результат (raw)"}
+              {t("common_resultRaw")}
             </Typography>
             <Box
               component="pre"
@@ -137,7 +138,7 @@ export default function StrengthsResultDialog({
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          {locale === "en" ? "Close" : locale === "kk" ? "Жабу" : "Закрыть"}
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>

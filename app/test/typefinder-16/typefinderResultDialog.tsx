@@ -12,8 +12,9 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { QuizResult } from "@/lib/types";
+import { clamp01, pairToPct } from "@/utils/functions";
 
 export interface TypeFinderResultDialogProps {
   open: boolean;
@@ -28,7 +29,7 @@ export default function TypeFinderResultDialog({
   result,
   loading = false,
 }: TypeFinderResultDialogProps) {
-  const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
   if (loading || !result) {
     return (
@@ -40,7 +41,7 @@ export default function TypeFinderResultDialog({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Закрыть</Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </DialogActions>
       </Dialog>
     );
@@ -76,19 +77,11 @@ export default function TypeFinderResultDialog({
     return typeof v === "number" && Number.isFinite(v) ? v : 0;
   };
 
-  const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
-  const pairToPct = (a: number, b: number): { aPct: number; bPct: number } => {
-    const sum = a + b;
-    if (!Number.isFinite(sum) || sum <= 0) return { aPct: 50, bPct: 50 };
-    const aPct = Math.round(clamp01(a / sum) * 100);
-    return { aPct, bPct: 100 - aPct };
-  };
-
   const pairs = [
-    { a: "E", b: "I", label: locale === "ru" ? "E / I" : locale === "kk" ? "E / I" : "E / I" },
-    { a: "S", b: "N", label: locale === "ru" ? "S / N" : locale === "kk" ? "S / N" : "S / N" },
-    { a: "T", b: "F", label: locale === "ru" ? "T / F" : locale === "kk" ? "T / F" : "T / F" },
-    { a: "J", b: "P", label: locale === "ru" ? "J / P" : locale === "kk" ? "J / P" : "J / P" },
+    { a: "E", b: "I", label: "E / I" },
+    { a: "S", b: "N", label: "S / N" },
+    { a: "T", b: "F", label: "T / F" },
+    { a: "J", b: "P", label: "J / P" },
   ] as const;
 
   return (
@@ -120,11 +113,7 @@ export default function TypeFinderResultDialog({
         {scores ? (
           <Box sx={{ mb: 2 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 900, mb: 1 }}>
-              {locale === "en"
-                ? "Scores"
-                : locale === "kk"
-                  ? "Ұпайлар"
-                  : "Баллы"}
+              {t("common_scores")}
             </Typography>
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
@@ -188,7 +177,7 @@ export default function TypeFinderResultDialog({
         {summary ? (
           <Box sx={{ mt: 1 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.75 }}>
-              {locale === "kk" ? "Қорытынды" : locale === "en" ? "Summary" : "Краткий вывод"}
+              {t("common_summary")}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
               {summary}
@@ -199,7 +188,7 @@ export default function TypeFinderResultDialog({
         {detailedReport && detailedReport !== summary ? (
           <Box sx={{ mt: 2 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.75 }}>
-              {locale === "kk" ? "Толық есеп" : locale === "en" ? "Detailed Report" : "Подробный отчёт"}
+              {t("common_detailedReport")}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
               {detailedReport}
@@ -210,7 +199,7 @@ export default function TypeFinderResultDialog({
 
       <DialogActions>
         <Button onClick={onClose} variant="contained" sx={{ borderRadius: 2 }}>
-          {locale === "en" ? "Close" : locale === "kk" ? "Жабу" : "Закрыть"}
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>

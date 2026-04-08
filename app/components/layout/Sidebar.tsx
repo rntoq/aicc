@@ -12,7 +12,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
 import { useAuth } from "@/lib/store/useAuthStore";
 
 const NAV_ITEMS = [

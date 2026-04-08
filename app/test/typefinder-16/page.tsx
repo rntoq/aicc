@@ -5,9 +5,12 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
@@ -16,14 +19,9 @@ import type {
   QuizResult,
 } from "@/lib/types";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import TYPEFINDER_DATA from "./../typefinder/typefinder_question.json";
+import TYPEFINDER_DATA from "./typefinder_question.json";
 
 const QUESTIONS_PER_STEP = 15;
-
-const parseIdNumber = (id: string): number => {
-  const m = String(id).match(/\d+/);
-  return m ? Number(m[0]) : 0;
-};
 
 type Locale = "ru" | "kk" | "en";
 
@@ -62,10 +60,6 @@ export default function TypeFinder16Page() {
   const data = TYPEFINDER_DATA as unknown as TypeFinderData;
   const questions = data.questions ?? [];
 
-  const sortedQuestions = useMemo(() => {
-    return [...questions].sort((a, b) => parseIdNumber(a.id) - parseIdNumber(b.id));
-  }, [questions]);
-
   const pairMeaning: Record<string, LocalizedText | null> = data.scales?.pair?.meaning ?? {};
   const singleLabels: Record<string, LocalizedText | null> = data.scales?.single?.labels ?? {};
 
@@ -83,32 +77,76 @@ export default function TypeFinder16Page() {
 
   const leftTitleEmpty: LocalizedText = { ru: "", kk: "", en: "" };
 
-  const stepsCount = Math.ceil(sortedQuestions.length / QUESTIONS_PER_STEP);
+  const stepChunks = useMemo(() => {
+    const chunks: TypeFinderQuestion[][] = [];
+    let current: TypeFinderQuestion[] = [];
+    let currentType: TypeFinderQuestion["type"] | null = null;
+
+    for (const q of questions) {
+      if (currentType == null) {
+        currentType = q.type;
+        current = [q];
+        continue;
+      }
+
+      if (q.type !== currentType) {
+        // flush current group into fixed-size pages
+        for (let i = 0; i < current.length; i += QUESTIONS_PER_STEP) {
+          chunks.push(current.slice(i, i + QUESTIONS_PER_STEP));
+        }
+        currentType = q.type;
+        current = [q];
+        continue;
+      }
+
+      current.push(q);
+    }
+
+    if (current.length > 0) {
+      for (let i = 0; i < current.length; i += QUESTIONS_PER_STEP) {
+        chunks.push(current.slice(i, i + QUESTIONS_PER_STEP));
+      }
+    }
+
+    return chunks;
+  }, [questions]);
+
+  const stepsCount = stepChunks.length || 1;
 
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+  const showLoading = useDelayedFlag(initializing || submitting);
 
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestions, setBackendQuestions] = useState<
     { id: number; questionType: string; answers: { code: string }[] }[]
   >([]);
 
-  const stepStart = (step - 1) * QUESTIONS_PER_STEP;
-  const stepQuestions = sortedQuestions.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
+  const stepQuestions = stepChunks[Math.max(0, Math.min(step - 1, stepChunks.length - 1))] ?? [];
   const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
 
   useEffect(() => {
     let cancelled = false;
 
     const initSession = async () => {
+      setInitializing(true);
       const { body: tests } = await quizServices.listTests({ type: "mbti" });
       const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      if (!slug) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const { body: session } = await quizServices.startSession({ test_slug: slug });
       const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+      if (!session || !testDetail) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const bqs = (testDetail.questions ?? []).map((q) => ({
         id: q.id,
@@ -121,6 +159,7 @@ export default function TypeFinder16Page() {
         setSession("typefinder-16", session.id);
         setBackendQuestions(bqs);
       }
+      if (!cancelled) setInitializing(false);
     };
 
     void initSession();
@@ -149,20 +188,24 @@ export default function TypeFinder16Page() {
     const finish = async () => {
       let backendResult: QuizResult | null = null;
       if (sessionId && backendQuestions.length > 0) {
-        const count = Math.min(backendQuestions.length, sortedQuestions.length);
-        const answersPayload: BulkAnswerQuizPayload["answers"] = sortedQuestions
-          .slice(0, count)
-          .map((q, idx) => {
-            const bq = backendQuestions[idx];
-            const userAnswer = answers[q.id] ?? 3;
-            if (bq.questionType === "pair") {
-              return {
-                question_id: bq.id,
-                answer_code: userAnswer >= 4 ? "right" : "left",
-              };
-            }
-            return { question_id: bq.id, scale_value: userAnswer };
-          });
+        const count = Math.min(backendQuestions.length, questions.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = [];
+
+        for (let idx = 0; idx < count; idx++) {
+          const q = questions[idx];
+          const bq = backendQuestions[idx];
+          if (!q || !bq) continue;
+
+          const userAnswer = answers[q.id] ?? 3;
+          if (bq.questionType === "pair") {
+            const answerIdx = userAnswer >= 4 ? 1 : 0;
+            const code = bq.answers?.[answerIdx]?.code;
+            if (!code) continue;
+            answersPayload.push({ question_id: bq.id, answer_code: code });
+          } else {
+            answersPayload.push({ question_id: bq.id, scale_value: userAnswer });
+          }
+        }
 
         const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
         if (!bulkRes.error) {
@@ -171,27 +214,17 @@ export default function TypeFinder16Page() {
         }
       }
 
-      const placeholderTitle =
-        locale === "ru"
-          ? data.test?.title?.ru ?? "TypeFinder (16 personalities)"
-          : locale === "kk"
-            ? data.test?.title?.kk ?? "TypeFinder (16 personalities)"
-            : data.test?.title?.en ?? "TypeFinder (16 personalities)";
-
       const placeholder: QuizResult = {
         id: Date.now(),
-        test_title: placeholderTitle,
+        test_title: data.test?.title?.[locale] ?? data.test?.title?.en ?? "TypeFinder (16 personalities)",
         test_type: "typefinder-16",
-        summary:
-          locale === "ru"
-            ? "Результат не удалось получить с сервера. Проверьте доступность backend и повторите позже."
-            : locale === "kk"
-              ? "Серверден нәтижені алу мүмкін болмады. Backend қолжетімділігін тексеріп, кейінірек қайталаңыз."
-              : "Could not fetch the result from the server. Please check backend availability and try again later.",
+        summary: t("result_fetch_failed"),
         created_at: new Date().toISOString(),
       };
 
       setResult("typefinder-16", backendResult ?? placeholder);
+      if (backendResult) toast.success(t("toast_test_success"));
+      else toast.error(t("toast_test_error"));
       router.push("/test");
       setSubmitting(false);
     };
@@ -201,6 +234,7 @@ export default function TypeFinder16Page() {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={{ pt: { xs: 15, md: 12 }, minHeight: "80vh" }}>
         <Container maxWidth="md">
@@ -208,7 +242,7 @@ export default function TypeFinder16Page() {
             step={step}
             total={stepsCount}
             title={t("tests_typefinder-16_name") as string}
-            subtitle={locale === "ru" ? "Ответьте, насколько каждое утверждение похоже на вас" : undefined}
+            subtitle={t("tests_typefinder-16_subtitle")}
             stepLabel={t("step_x_of_y", { step, total: stepsCount })}
           />
 
@@ -259,7 +293,7 @@ export default function TypeFinder16Page() {
               disabled={step === 1 || submitting}
               sx={{ borderRadius: 2, px: 3 }}
             >
-              {locale === "ru" ? "Назад" : locale === "kk" ? "Артқа" : "Back"}
+              {t("holland_back")}
             </Button>
 
             {step < stepsCount ? (
@@ -269,7 +303,7 @@ export default function TypeFinder16Page() {
                 disabled={!allStepAnswered || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {locale === "ru" ? "Далее" : locale === "kk" ? "Келесі" : "Next"}
+                {t("holland_next")}
               </Button>
             ) : (
               <Button
@@ -278,7 +312,7 @@ export default function TypeFinder16Page() {
                 disabled={!allStepAnswered || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {submitting ? "..." : locale === "ru" ? "Завершить" : locale === "kk" ? "Аяқтау" : "Finish"}
+                {submitting ? "..." : t("holland_finish")}
               </Button>
             )}
           </Box>

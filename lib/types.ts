@@ -7,7 +7,7 @@ export interface User {
   last_name: string;
   role: UserRole;
   /** URL или путь к аватару (GET/PATCH /api/v1/auth/me/) */
-  avatar?: string;
+  avatar?: string | null;
   phone?: string;
   city?: string;
   /** YYYY-MM-DD */
@@ -19,7 +19,7 @@ export interface User {
 export type UpdateMePayload = {
   first_name?: string;
   last_name?: string;
-  avatar?: string;
+  avatar?: string | null;
   date_of_birth?: string;
   age?: number;
   phone?: string;
@@ -58,7 +58,6 @@ export interface RefreshResponse {
 export interface ChangePasswordPayload {
   old_password: string;
   new_password: string;
-  new_password_confirm: string;
 }
 
 /** POST /api/v1/auth/password-reset/request/ */
@@ -70,7 +69,6 @@ export interface PasswordResetRequestPayload {
 export interface PasswordResetConfirmPayload {
   token: string;
   new_password: string;
-  new_password_confirm: string;
 }
 
 // ===== Analysis — GET /api/v1/analysis/dashboard/ =====
@@ -142,8 +140,16 @@ export interface AnalysisReportDetail {
 
 /** POST /api/v1/analysis/ai-report/ */
 export type AiReportGeneratePayload =
+  | Record<string, never>
   | { session_id: number }
   | { session_ids: number[] };
+
+/** POST /api/v1/analysis/ai-chat/ */
+export type AiChatPayload = {
+  message: string;
+};
+
+export type AiChatResponse = Record<string, unknown>;
 
 export type AiReportGenerateResponse = {
   report_id: number | string;
@@ -557,6 +563,11 @@ export type AnswerQuizQuestionPayload =
       session_id: number | string;
       question_id: number | string;
       answer_code: string;
+    }
+  | {
+      session_id: number | string;
+      question_id: number | string;
+      text_answer: string;
     };
 
 export interface AnswerQuizQuestionResponse {
@@ -574,8 +585,19 @@ export interface BulkAnswerQuizPayload {
     scale_value?: number;
     answer_id?: number | string;
     answer_code?: string;
+    text_answer?: string;
   }[];
 }
+
+// ===== Payments =====
+
+export type PaymentPlanType = "basic" | "premium" | (string & {});
+export type PaymentPeriod = "monthly" | "yearly" | (string & {});
+
+export type PaymentSubscribePayload = {
+  plan_type: PaymentPlanType;
+  period: PaymentPeriod;
+};
 
 export interface BulkAnswerQuizResponse {
   status: string;

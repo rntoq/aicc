@@ -16,9 +16,12 @@ import { useEffect, useState } from "react";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import DISC_DATA from "./disk_questions.json";
 import { useLocale, useTranslations } from "next-intl";
+import { toast } from "react-toastify";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
 import { OptionsHeader } from "../components/OptionsHeader";
 import { OptionQuestionCard } from "../components/OptionQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import { Header } from "@/app/components/layout/Header";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
@@ -111,6 +114,8 @@ const DiscPage = () => {
   const { setSession, setResult } = useQuizSessionStore();
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+  const showLoading = useDelayedFlag(initializing || submitting);
   const [pairValues, setPairValues] = useState<Record<string, number>>({});
   const [singleValues, setSingleValues] = useState<Record<string, number>>({});
   const [scenarioValues, setScenarioValues] = useState<Record<string, number>>({});
@@ -125,13 +130,22 @@ const DiscPage = () => {
     let cancelled = false;
 
     const initSession = async () => {
+      setInitializing(true);
       const { body: tests } = await quizServices.listTests({ type: "disc" });
       const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      if (!slug) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const { body: session } = await quizServices.startSession({ test_slug: slug } as StartQuizSessionVariables);
       const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+      if (!session || !testDetail) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const questions = (testDetail.questions ?? []).map((q) => ({
         id: q.id,
@@ -143,6 +157,7 @@ const DiscPage = () => {
         setSession("disc", session.id);
         setBackendQuestions(questions);
       }
+      if (!cancelled) setInitializing(false);
     };
 
     void initSession();
@@ -260,28 +275,12 @@ const DiscPage = () => {
 
       const primarySummary =
         primary === "D"
-          ? locale === "ru"
-            ? "Вы — Drive: на работе вы ориентированы на результат, инициативу и быстрые решения."
-            : locale === "kk"
-              ? "Сіз — Drive: жұмыста нәтиже, бастама және жылдам шешімдерге бағытталғансыз."
-              : "You are Drive: you focus on results, initiative, and quick decisions."
+          ? t("disc_summary_D")
           : primary === "I"
-            ? locale === "ru"
-              ? "Вы — Influence: вам важны люди, коммуникация и умение вдохновлять."
-              : locale === "kk"
-                ? "Сіз — Influence: адамдармен қарым-қатынас және шабыттандыру маңызды."
-                : "You are Influence: people, communication, and inspiring others matter most."
+            ? t("disc_summary_I")
             : primary === "S"
-              ? locale === "ru"
-                ? "Вы — Support: вы умеете сохранять стабильность, поддерживать команду и сохранять терпение."
-                : locale === "kk"
-                  ? "Сіз — Support: командаға қолдау көрсетіп, тұрақтылық пен сабырды сақтайсыз."
-                  : "You are Support: you build stability, support the team, and keep patience."
-              : locale === "ru"
-                ? "Вы — Clarity: вам важны точность, качество и корректность решений."
-                : locale === "kk"
-                  ? "Сіз — Clarity: дәлдік, сапа және дұрыс шешімдер сізге маңызды."
-                  : "You are Clarity: accuracy, quality, and correctness guide your decisions.";
+              ? t("disc_summary_S")
+              : t("disc_summary_C");
 
       return {
         id: Date.now(),
@@ -326,6 +325,8 @@ const DiscPage = () => {
 
       const resultToSave = backendResult ?? buildLocalDiscResult();
       setResult("disc", resultToSave);
+      if (backendResult) toast.success(t("toast_test_success"));
+      else toast.error(t("toast_test_error"));
       router.push(`/test`);
       setSubmitting(false);
     };
@@ -335,6 +336,7 @@ const DiscPage = () => {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="md">
@@ -368,7 +370,7 @@ const DiscPage = () => {
           {step <= 2 && (
             <Box sx={styles.section}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                {t("disc_pairs_title")}
+                {t("pairs_title")}
               </Typography>
               {PAIR_STEPS[step].map((q) => (
                 <Box key={q.id} sx={styles.pairRow}>
@@ -402,7 +404,7 @@ const DiscPage = () => {
           {step === 3 && (
             <Box sx={styles.section}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                {t("disc_single_title")}
+                {t("single_title")}
               </Typography>
               <OptionsHeader
                 options={[

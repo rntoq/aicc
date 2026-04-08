@@ -5,10 +5,13 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { OptionQuestionCard } from "../components/OptionQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import LEADERSHIP_DATA from "./leadership_questions.json";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
@@ -17,6 +20,7 @@ import type {
   LocalizedText,
   QuizResult,
 } from "@/lib/types";
+import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
 
 type PairKey = "a" | "b";
 type LeadershipDimensionKey = "openness" | "conscientiousness" | "agreeableness";
@@ -83,7 +87,9 @@ export default function LeadershipTestPage() {
   const { setSession, setResult } = useQuizSessionStore();
 
   const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
+  const [backendQuestions, setBackendQuestions] = useState<
+    { id: number; questionType: string; answers: { code: string }[] }[]
+  >([]);
 
   type LeadershipQuestion =
     | {
@@ -116,15 +122,16 @@ export default function LeadershipTestPage() {
   const leadershipData = LEADERSHIP_DATA as unknown as LeadershipJson;
   const questions = leadershipData.questions ?? [];
   const scaleLabels = leadershipData.scales?.frequency?.labels ?? {};
+  const emptyLabel: LocalizedText = { ru: "", kk: "", en: "" };
 
   const stepTotal = 3;
   const [step, setStep] = useState<number>(1);
   const pairQuestions = useMemo(
-    () => questions.filter((q) => q.type === "pair").sort((a, b) => a.number - b.number),
+    () => questions.filter((q) => q.type === "pair"),
     [questions]
   );
   const frequencyQuestions = useMemo(
-    () => questions.filter((q) => q.type === "frequency").sort((a, b) => a.number - b.number),
+    () => questions.filter((q) => q.type === "frequency"),
     [questions]
   );
 
@@ -135,35 +142,51 @@ export default function LeadershipTestPage() {
   }, [step, pairQuestions, frequencyQuestions]);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+  const showLoading = useDelayedFlag(initializing || submitting);
 
   useEffect(() => {
     let cancelled = false;
     const initSession = async () => {
+      setInitializing(true);
       const { body: tests } = await quizServices.listTests({ type: "leadership" });
       const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      if (!slug) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const { body: session } = await quizServices.startSession({ test_slug: slug });
       const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+      if (!session || !testDetail) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
-      const ids = (testDetail.questions ?? []).map((q) => q.id);
+      const bqs = (testDetail.questions ?? []).map((q) => ({
+        id: q.id,
+        questionType: q.question_type ?? "",
+        answers: (q.answers ?? []).map((a) => ({ code: a.code })),
+      }));
       if (!cancelled) {
         setSessionId(session.id);
         setSession("leadership", session.id);
-        setBackendQuestionIds(ids);
+        setBackendQuestions(bqs);
       }
+      if (!cancelled) setInitializing(false);
     };
     void initSession();
     return () => { cancelled = true; };
   }, [setSession]);
 
-  const frequencyOptions = useMemo(() => {
-    return [1, 2, 3, 4, 5].map((v) => {
-      const item = scaleLabels[String(v)];
-      return item?.[locale] ?? item?.ru ?? String(v);
-    });
-  }, [scaleLabels, locale]);
+  const frequencyScaleOptions = useMemo<LocalizedText[]>(
+    () => [1, 2, 3, 4, 5].map((v) => scaleLabels[String(v)] ?? emptyLabel),
+    [scaleLabels]
+  );
+  const frequencyLeftLabel = scaleLabels["1"] ?? emptyLabel;
+  const frequencyRightLabel = scaleLabels["5"] ?? emptyLabel;
 
   const canProceed = stepQuestions.every((q) => answers[q.id] != null);
 
@@ -247,12 +270,26 @@ export default function LeadershipTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      if (sessionId && backendQuestionIds.length === questions.length) {
-        const orderedQuestions = [...questions].sort((a, b) => a.number - b.number);
-        const answersPayload: BulkAnswerQuizPayload["answers"] = orderedQuestions.map((q, idx) => ({
-          question_id: backendQuestionIds[idx],
-          scale_value: answers[q.id] ?? 3,
-        }));
+      if (sessionId && backendQuestions.length > 0) {
+        const count = Math.min(backendQuestions.length, questions.length);
+        const answersPayload: BulkAnswerQuizPayload["answers"] = [];
+
+        for (let idx = 0; idx < count; idx++) {
+          const q = questions[idx];
+          const bq = backendQuestions[idx];
+          if (!q || !bq) continue;
+
+          const raw = answers[q.id] ?? 3;
+          if (bq.questionType === "pair") {
+            const answerIdx = raw === 2 ? 1 : 0;
+            const code = bq.answers?.[answerIdx]?.code;
+            if (!code) continue;
+            answersPayload.push({ question_id: bq.id, answer_code: code });
+          } else {
+            answersPayload.push({ question_id: bq.id, scale_value: raw });
+          }
+        }
+
         const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
         if (!bulkRes.error) {
           const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
@@ -260,6 +297,8 @@ export default function LeadershipTestPage() {
         }
       }
       setResult("leadership", backendResult ?? computeResult());
+      if (backendResult) toast.success(t("toast_test_success"));
+      else toast.error(t("toast_test_error"));
       router.push("/test");
       setSubmitting(false);
     };
@@ -269,6 +308,7 @@ export default function LeadershipTestPage() {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={{ pt: { xs: 15, md: 12 }, minHeight: "80vh" }}>
         <Container maxWidth="md">
@@ -276,13 +316,7 @@ export default function LeadershipTestPage() {
             step={step}
             total={stepTotal}
             title={t("tests_leadership_name") as string}
-            subtitle={
-              locale === "ru"
-                ? "Определите, какой стиль лидерства вам ближе"
-                : locale === "kk"
-                  ? "Сізге қай көшбасшылық стилі жақын?"
-                  : "Pick what fits you best"
-            }
+            subtitle={t("tests_leadership_subtitle")}
             stepLabel={t("step_x_of_y", { step, total: stepTotal }) as string}
           />
 
@@ -293,15 +327,11 @@ export default function LeadershipTestPage() {
               if (q.type === "pair") {
                 const optionA = q.option_a?.[locale] ?? q.option_a?.ru ?? "";
                 const optionB = q.option_b?.[locale] ?? q.option_b?.ru ?? "";
-                const dimensionLabel =
-                  DIMENSION_LABELS[q.dimension as LeadershipDimensionKey]?.[locale] ??
-                  q.dimension ??
-                  "";
                 return (
                   <OptionQuestionCard
                     key={q.id}
                     questionNumber={q.number}
-                    questionText={dimensionLabel}
+                    questionText=""
                     options={[optionA, optionB]}
                     value={answers[q.id] ?? null}
                     onChange={(v) =>
@@ -316,13 +346,18 @@ export default function LeadershipTestPage() {
 
               const statement = q.statement?.[locale] ?? q.statement?.ru ?? q.statement?.en ?? "";
               return (
-                <OptionQuestionCard
+                <LikertWordQuestionCard
                   key={q.id}
-                  questionNumber={q.number}
-                  questionText={statement}
-                  options={frequencyOptions}
                   value={answers[q.id] ?? null}
                   onChange={(v) => setAnswers((prev) => ({ ...prev, [q.id]: v }))}
+                  title={{
+                    ru: q.statement?.ru ?? q.statement?.en ?? statement,
+                    kk: q.statement?.kk ?? q.statement?.ru ?? q.statement?.en ?? statement,
+                    en: q.statement?.en ?? q.statement?.ru ?? statement,
+                  }}
+                  leftLabel={frequencyLeftLabel}
+                  rightLabel={frequencyRightLabel}
+                  options={frequencyScaleOptions}
                 />
               );
             })}
@@ -338,7 +373,7 @@ export default function LeadershipTestPage() {
               disabled={step === 1 || submitting}
               sx={{ borderRadius: 2, px: 3 }}
             >
-              {locale === "ru" ? "Назад" : locale === "kk" ? "Артқа" : "Back"}
+              {t("holland_back")}
             </Button>
 
             {step < stepTotal ? (
@@ -348,7 +383,7 @@ export default function LeadershipTestPage() {
                 disabled={!canProceed || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {locale === "ru" ? "Далее" : locale === "kk" ? "Келесі" : "Next"}
+                {t("holland_next")}
               </Button>
             ) : (
               <Button
@@ -357,7 +392,7 @@ export default function LeadershipTestPage() {
                 disabled={!canProceed || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {submitting ? "..." : locale === "ru" ? "Завершить" : locale === "kk" ? "Аяқтау" : "Finish"}
+                {submitting ? "..." : t("holland_finish")}
               </Button>
             )}
           </Box>

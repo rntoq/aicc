@@ -16,7 +16,7 @@ import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
 
 const SECTIONS = [
   {

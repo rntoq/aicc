@@ -5,10 +5,13 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import QUESTIONS_JSON from "./holland_questions.json";
 import { ProgressBar } from "../components/ProgressBar";
 import { OptionQuestionCard } from "../components/OptionQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import { Header } from "@/app/components/layout/Header";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
@@ -37,23 +40,32 @@ const HollandTestPage = () => {
   const { setSession, setResult } = useQuizSessionStore();
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
+  const [initializing, setInitializing] = useState(true);
+  const showLoading = useDelayedFlag(initializing);
 
   useEffect(() => {
     let cancelled = false;
 
     const initSession = async () => {
-      const { body: tests } = await quizServices.listTests({ type: "holland" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      setInitializing(true);
+      try {
+        const { body: tests, error: listError } = await quizServices.listTests({ type: "holland" });
+        const slug = tests?.[0]?.slug ?? null;
+        if (!slug || listError) throw new Error("listTests failed");
 
-      const { body: session } = await quizServices.startSession({ test_slug: slug });
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+        const { body: session, error: startError } = await quizServices.startSession({ test_slug: slug });
+        const { body: testDetail, error: detailError } = await quizServices.getTestDetail(slug);
+        if (!session || !testDetail || startError || detailError) throw new Error("start/get detail failed");
 
-      if (!cancelled) {
-        setSessionId(session.id);
-        setSession("holland", session.id);
-        setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
+        if (!cancelled) {
+          setSessionId(session.id);
+          setSession("holland", session.id);
+          setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
+        }
+      } catch {
+        if (!cancelled) toast.error(t("toast_test_error"));
+      } finally {
+        if (!cancelled) setInitializing(false);
       }
     };
 
@@ -118,6 +130,8 @@ const HollandTestPage = () => {
     }
 
     setResult("holland", backendResult ?? buildLocalResult(usedAnswers));
+    if (backendResult) toast.success(t("toast_test_success"));
+    else toast.error(t("toast_test_error"));
     router.push("/test");
   };
 
@@ -125,11 +139,8 @@ const HollandTestPage = () => {
     const updatedAnswers = { ...answers, [currentQuestion.id]: value };
     setAnswers(updatedAnswers);
     const isLast = currentQuestionIndex === TOTAL - 1;
-    const allDone = Object.keys(updatedAnswers).length === TOTAL;
 
-    if (isLast && allDone) {
-      void handleSubmit(updatedAnswers);
-    } else if (!isLast) {
+    if (!isLast) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
@@ -142,8 +153,11 @@ const HollandTestPage = () => {
     if (currentQuestionIndex < TOTAL - 1) setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
+  const canFinish = Object.keys(answers).length === TOTAL;
+
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="md">
@@ -180,14 +194,26 @@ const HollandTestPage = () => {
             >
               {t("holland_back")}
             </Button>
-            <Button
-              variant="contained"
-              onClick={handleNext}
-              disabled={!currentAnswer}
-              sx={styles.navButton}
-            >
-              {t("holland_next")}
-            </Button>
+            {currentQuestionIndex < TOTAL - 1 ? (
+              <Button
+                variant="contained"
+                onClick={handleNext}
+                disabled={!currentAnswer}
+                sx={styles.navButton}
+              >
+                {t("holland_next")}
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => void handleSubmit()}
+                disabled={!canFinish}
+                sx={styles.navButton}
+              >
+                {t("holland_finish")}
+              </Button>
+            )}
           </Box>
         </Container>
       </Box>

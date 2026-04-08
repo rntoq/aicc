@@ -4,9 +4,12 @@ import { Box, Button, CircularProgress, Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import PHOTO_DATA from "./photo_questions.json";
 import { PhotoPair, type PhotoQuestion } from "../components/PhotoPair";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import { Header } from "@/app/components/layout/Header";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
@@ -20,6 +23,8 @@ const PhotoCareerQuizPage = () => {
   const router = useRouter();
   const { setSession, setResult } = useQuizSessionStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+  const showLoading = useDelayedFlag(initializing || isSubmitting);
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestions, setBackendQuestions] = useState<
     { id: number; answers: { code: string }[] }[]
@@ -84,13 +89,22 @@ const PhotoCareerQuizPage = () => {
     let cancelled = false;
 
     const initSession = async () => {
+      setInitializing(true);
       const { body: tests } = await quizServices.listTests({ type: "photo" });
       const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      if (!slug) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const { body: session } = await quizServices.startSession({ test_slug: slug });
       const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+      if (!session || !testDetail) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const questions = (testDetail.questions ?? []).map((q) => ({
         id: q.id,
@@ -102,6 +116,7 @@ const PhotoCareerQuizPage = () => {
         setSession("photo-career", session.id);
         setBackendQuestions(questions);
       }
+      if (!cancelled) setInitializing(false);
     };
 
     void initSession();
@@ -154,6 +169,8 @@ const PhotoCareerQuizPage = () => {
 
       const resultToSave = backendResult ?? buildLocalResult(Date.now());
       setResult("photo-career", resultToSave);
+      if (backendResult) toast.success(t("toast_test_success"));
+      else toast.error(t("toast_test_error"));
       router.push("/test");
       setIsSubmitting(false);
     };
@@ -163,6 +180,7 @@ const PhotoCareerQuizPage = () => {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="xl" sx={styles.container}>

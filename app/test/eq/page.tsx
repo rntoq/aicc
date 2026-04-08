@@ -5,10 +5,13 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
@@ -128,17 +131,43 @@ export default function EqTestPage() {
 
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
+  const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     const initSession = async () => {
-      const { body: tests } = await quizServices.listTests({ type: "eq" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) return;
+      setInitializing(true);
+      // Backend test: category_type = "eq5", slug = "emotional-intelligence-eq5"
+      const preferredSlug = "emotional-intelligence-eq5";
+
+      // Try direct slug first (most stable).
+      let slug: string | null = preferredSlug;
+
+      // If backend slug changes, fallback to list by type.
+      const { error: preflightErr } = await quizServices.getTestDetail(preferredSlug);
+      if (preflightErr) {
+        const { body: testsPrimary } = await quizServices.listTests({ type: "eq5" });
+        slug = testsPrimary?.[0]?.slug ?? null;
+
+        if (!slug) {
+          const { body: testsFallback } = await quizServices.listTests({ type: "eq" });
+          slug = testsFallback?.[0]?.slug ?? null;
+        }
+      }
+
+      if (!slug) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const { body: session } = await quizServices.startSession({ test_slug: slug });
       const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+      if (!session || !testDetail) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const ids = (testDetail.questions ?? []).map((q) => q.id);
       if (!cancelled) {
@@ -146,6 +175,7 @@ export default function EqTestPage() {
         setSession("eq", session.id);
         setBackendQuestionIds(ids);
       }
+      if (!cancelled) setInitializing(false);
     };
     void initSession();
     return () => { cancelled = true; };
@@ -176,6 +206,7 @@ export default function EqTestPage() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
+  const showLoading = useDelayedFlag(initializing || submitting);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = QUESTIONS.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -229,12 +260,7 @@ export default function EqTestPage() {
     );
 
     const power = computeEqSuperpower(dimension_scores);
-    const summary =
-      locale === "ru"
-        ? "Ваш EQ-профиль показывает, как вы понимаете свои и чужие эмоции, контролируете эмоциональные реакции и выстраиваете отношения."
-        : locale === "kk"
-          ? "Сіздің EQ-профиль эмоцияларды түсіну, эмоцияны бақылау және қарым-қатынас құрудағы ерекшеліктеріңізді көрсетеді."
-          : "Your EQ profile reflects how you understand emotions, regulate responses, and build relationships.";
+    const summary = t("eq_summary");
 
     return {
       test_title: eqData.test?.title?.[locale] ?? eqData.test?.title?.en ?? "Emotional Intelligence Assessment",
@@ -280,6 +306,8 @@ export default function EqTestPage() {
       }
 
       setResult("eq", backendResult ?? computeResult());
+      if (backendResult) toast.success(t("toast_test_success"));
+      else toast.error(t("toast_test_error"));
       router.push("/test");
       setSubmitting(false);
     };
@@ -289,6 +317,7 @@ export default function EqTestPage() {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={{ pt: { xs: 15, md: 12 }, minHeight: "80vh" }}>
         <Container maxWidth="md">
@@ -297,11 +326,7 @@ export default function EqTestPage() {
             total={STEPS_COUNT}
             title={t("tests_eq_name") as string}
             subtitle={
-              locale === "ru"
-                ? "Оцените, насколько каждое утверждение описывает вас"
-                : locale === "kk"
-                  ? "Әрбір тұжырым сізге қаншалықты сәйкес келеді деп бағалаңыз"
-                  : "Rate how well each statement describes you"
+              t("tests_eq_subtitle")
             }
             stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT }) as string}
           />
@@ -334,7 +359,7 @@ export default function EqTestPage() {
                   disabled={step === 1 || submitting}
                   sx={{ borderRadius: 2, px: 3 }}
                 >
-                  {locale === "ru" ? "Назад" : locale === "kk" ? "Артқа" : "Back"}
+                  {t("holland_back")}
                 </Button>
 
                 {step < STEPS_COUNT ? (
@@ -344,7 +369,7 @@ export default function EqTestPage() {
                     disabled={!allStepAnswered || submitting}
                     sx={{ borderRadius: 2, px: 3 }}
                   >
-                    {locale === "ru" ? "Далее" : locale === "kk" ? "Келесі" : "Next"}
+                    {t("holland_next")}
                   </Button>
                 ) : (
                   <Button
@@ -355,11 +380,7 @@ export default function EqTestPage() {
                   >
                     {submitting
                       ? "..."
-                      : locale === "ru"
-                        ? "Завершить"
-                        : locale === "kk"
-                          ? "Аяқтау"
-                          : "Finish"}
+                      : t("holland_finish")}
                   </Button>
                 )}
               </Box>

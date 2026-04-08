@@ -49,7 +49,7 @@ function QueryProvider({ children }: { children: React.ReactNode }) {
         onError: (error) => {
           // eslint-disable-next-line no-console
           console.error(error);
-          toast.error(t("error_generic"));
+          // Do not toast for GET/queries to avoid noisy UX.
         },
       }),
       mutationCache: new MutationCache({

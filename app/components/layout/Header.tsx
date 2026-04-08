@@ -17,7 +17,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
 import { LanguageDropdown } from "./LanguageDropdown";
 import { useAuth, useUserLabel } from "@/lib/store/useAuthStore";
 

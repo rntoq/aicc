@@ -13,7 +13,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -106,6 +106,7 @@ export const CareerResultDialog = ({
   loading = false,
 }: CareerResultDialogProps) => {
   const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
   // Loading or no result yet
   if (loading || !result) {
@@ -119,18 +120,12 @@ export const CareerResultDialog = ({
             </Box>
           ) : (
             <Typography variant="body2" color="text.secondary">
-              {locale === "kk"
-                ? "Нәтижені көру үшін тестті өтіңіз."
-                : locale === "en"
-                ? "Complete the Career Aptitude Test to see your profile."
-                : "Пройдите Career Aptitude Test, чтобы увидеть ваш профиль."}
+              {t("dialog_career_empty")}
             </Typography>
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>
-            {locale === "kk" ? "Жабу" : locale === "en" ? "Close" : "Закрыть"}
-          </Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </DialogActions>
       </Dialog>
     );
@@ -198,11 +193,7 @@ export const CareerResultDialog = ({
         {hasInterestScores && (
           <Box sx={styles.section}>
             <Typography variant="subtitle1" sx={styles.sectionTitle}>
-              {locale === "kk"
-                ? "Карьералық қызығушылықтар"
-                : locale === "en"
-                ? "Career Interest Profile"
-                : "Карьерные интересы"}
+              {t("career_interest_profile")}
             </Typography>
 
             <Box sx={styles.scoresList}>
@@ -252,11 +243,7 @@ export const CareerResultDialog = ({
             <Divider sx={{ my: 2 }} />
             <Box sx={styles.section}>
               <Typography variant="subtitle1" sx={styles.sectionTitle}>
-                {locale === "kk"
-                  ? "Тұлғалық қасиеттер (Big Five)"
-                  : locale === "en"
-                  ? "Personality Traits (Big Five)"
-                  : "Личностные качества (Big Five)"}
+                {t("career_personality_traits")}
               </Typography>
 
               <Box sx={styles.scoresList}>
@@ -294,11 +281,7 @@ export const CareerResultDialog = ({
             <Divider sx={{ my: 2 }} />
             <Box sx={styles.section}>
               <Typography variant="subtitle1" sx={styles.sectionTitle}>
-                {locale === "kk"
-                  ? "Жиынтық"
-                  : locale === "en"
-                  ? "Summary"
-                  : "Резюме"}
+                {t("common_summary")}
               </Typography>
               {summaryLines.map((line, i) => (
                 <Typography key={i} variant="body2" sx={{ mb: 0.5, lineHeight: 1.7 }}>
@@ -312,7 +295,7 @@ export const CareerResultDialog = ({
 
       <DialogActions>
         <Button onClick={onClose} variant="contained" sx={{ borderRadius: 2 }}>
-          {locale === "kk" ? "Жабу" : locale === "en" ? "Close" : "Закрыть"}
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>

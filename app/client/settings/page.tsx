@@ -14,6 +14,7 @@ import { AppLayout } from "@/app/components/layout/AppLayout";
 import { PasswordField } from "@/app/components/layout/PasswordField";
 import { useAuth } from "@/lib/store/useAuthStore";
 import { useChangePassword, useUpdateProfile } from "@/lib/services/authServices";
+import { arePasswordsMatching } from "@/utils/validators";
 
 const styles = {
   section: { mb: 3 },
@@ -86,7 +87,7 @@ const SettingsPage = () => {
   };
 
   const handleChangePassword = async () => {
-    if (passwordForm.new_password !== passwordForm.new_password_confirm) {
+    if (!arePasswordsMatching(passwordForm.new_password, passwordForm.new_password_confirm)) {
       setMessage({ type: "error", text: t("settings_passwords_mismatch") });
       return;
     }

@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ALL_TESTS } from "@/lib/constants";
-import type { TestItem } from "@/lib/constants";
+import { ALL_TESTS } from "@/utils/constants";
+import type { TestItem } from "@/utils/constants";
 
 const CARD_ACCENTS = [
   { border: "#7f7fd5", bg: "rgba(127, 127, 213, 0.06)", titleColor: "#7f7fd5" },

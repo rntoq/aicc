@@ -5,9 +5,12 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 import { Header } from "@/app/components/layout/Header";
 import { StepsHeader } from "../components/StepsHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { useDelayedFlag } from "../components/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
@@ -16,7 +19,7 @@ import type {
   QuizResult,
 } from "@/lib/types";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import STRENGTHS_DATA from "../personal-strength/personal_strength_questions.json";
+import STRENGTHS_DATA from "./personal_strength_questions.json";
 
 const STEPS_COUNT = 5;
 const QUESTIONS_PER_STEP = 20;
@@ -45,10 +48,6 @@ export default function StrengthsTestPage() {
   const data = STRENGTHS_DATA as unknown as StrengthsData;
   const questions = data.questions ?? [];
 
-  const sortedQuestions = useMemo(() => {
-    return [...questions].sort((a, b) => Number(a.id) - Number(b.id));
-  }, [questions]);
-
   const labels = (data.scale?.labels ?? {}) as Record<string, LocalizedText>;
   const emptyLabel: LocalizedText = { ru: "", kk: "", en: "" };
   const scaleOptions = useMemo<LocalizedText[]>(
@@ -61,27 +60,50 @@ export default function StrengthsTestPage() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [initializing, setInitializing] = useState(true);
+  const showLoading = useDelayedFlag(initializing || submitting);
 
-  const expectedCount = sortedQuestions.length;
+  const expectedCount = questions.length;
 
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
-  const stepQuestions = sortedQuestions.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
+  const stepQuestions = questions.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
   const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
 
   useEffect(() => {
     let cancelled = false;
 
     const initSession = async () => {
-      const { body: tests } = await quizServices.listTests({ type: "strengths" });
-      const slug = tests?.[0]?.slug ?? null;
+      setInitializing(true);
+      // Backend test: category_type = "personal_strengths", slug = "personal-strengths-character"
+      const preferredSlug = "personal-strengths-character";
+
+      // Try direct slug first (most stable).
+      let slug: string | null = preferredSlug;
+
+      // If backend slug changes, fallback to list by type.
+      const { error: preflightErr } = await quizServices.getTestDetail(preferredSlug);
+      if (preflightErr) {
+        const { body: testsPrimary } = await quizServices.listTests({ type: "personal_strengths" });
+        slug = testsPrimary?.[0]?.slug ?? null;
+
+        if (!slug) {
+          const { body: testsFallback } = await quizServices.listTests({ type: "strengths" });
+          slug = testsFallback?.[0]?.slug ?? null;
+        }
+      }
+
       if (!slug) return;
 
       const { body: session } = await quizServices.startSession({ test_slug: slug });
       const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) return;
+      if (!session || !testDetail) {
+        if (!cancelled) toast.error(t("toast_test_error"));
+        if (!cancelled) setInitializing(false);
+        return;
+      }
 
       const allBackendIds = (testDetail.questions ?? []).map((q) => q.id);
 
@@ -90,6 +112,8 @@ export default function StrengthsTestPage() {
         setSession("strengths", session.id);
         setBackendQuestionIds(allBackendIds);
       }
+
+      if (!cancelled) setInitializing(false);
     };
 
     void initSession();
@@ -118,7 +142,7 @@ export default function StrengthsTestPage() {
     const finish = async () => {
       let backendResult: QuizResult | null = null;
       if (sessionId && backendQuestionIds.length === expectedCount) {
-        const answersPayload: BulkAnswerQuizPayload["answers"] = sortedQuestions.map((q, idx) => ({
+        const answersPayload: BulkAnswerQuizPayload["answers"] = questions.map((q, idx) => ({
           question_id: backendQuestionIds[idx],
           scale_value: answers[q.id] ?? 3,
         }));
@@ -132,23 +156,16 @@ export default function StrengthsTestPage() {
 
       const placeholder: QuizResult = {
         id: Date.now(),
-        test_title:
-          locale === "ru"
-            ? data.test?.title?.ru ?? "Personal Strengths"
-            : locale === "kk"
-              ? data.test?.title?.kk ?? "Personal Strengths"
-              : data.test?.title?.en ?? "Personal Strengths",
-        test_type: "strengths",
+        test_title: data.test?.title?.[locale] ?? data.test?.title?.en ?? "Personal Strengths",
+        test_type: "personal_strengths",
         summary:
-          locale === "ru"
-            ? "Результат не удалось получить с сервера. Проверьте доступность backend и повторите позже."
-            : locale === "kk"
-              ? "Серверден нәтижені алу мүмкін болмады. Backend қолжетімділігін тексеріп, кейінірек қайталаңыз."
-              : "Could not fetch the result from the server. Please check backend availability and try again later.",
+          t("result_fetch_failed"),
         created_at: new Date().toISOString(),
       };
 
       setResult("strengths", backendResult ?? placeholder);
+      if (backendResult) toast.success(t("toast_test_success"));
+      else toast.error(t("toast_test_error"));
       router.push("/test");
       setSubmitting(false);
     };
@@ -158,6 +175,7 @@ export default function StrengthsTestPage() {
 
   return (
     <>
+      <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
       <Header />
       <Box component="main" sx={{ pt: { xs: 15, md: 12 }, minHeight: "80vh" }}>
         <Container maxWidth="md">
@@ -165,7 +183,7 @@ export default function StrengthsTestPage() {
             step={step}
             total={STEPS_COUNT}
             title={t("tests_strengths_name") as string}
-            subtitle={locale === "ru" ? "Оцените, насколько каждое утверждение отражает ваши сильные стороны" : undefined}
+            subtitle={t("tests_strengths_subtitle")}
             stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT })}
           />
 
@@ -195,7 +213,7 @@ export default function StrengthsTestPage() {
               disabled={step === 1 || submitting}
               sx={{ borderRadius: 2, px: 3 }}
             >
-              {locale === "ru" ? "Назад" : locale === "kk" ? "Артқа" : "Back"}
+              {t("holland_back")}
             </Button>
 
             {step < STEPS_COUNT ? (
@@ -205,7 +223,7 @@ export default function StrengthsTestPage() {
                 disabled={!allStepAnswered || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {locale === "ru" ? "Далее" : locale === "kk" ? "Келесі" : "Next"}
+                {t("holland_next")}
               </Button>
             ) : (
               <Button
@@ -214,7 +232,7 @@ export default function StrengthsTestPage() {
                 disabled={!allStepAnswered || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {submitting ? "..." : locale === "ru" ? "Завершить" : locale === "kk" ? "Аяқтау" : "Finish"}
+                {submitting ? "..." : t("holland_finish")}
               </Button>
             )}
           </Box>

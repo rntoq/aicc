@@ -4,7 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/lib/constants";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
 
 const FADE_IN = {
   initial: { opacity: 0, y: 20 },

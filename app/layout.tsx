@@ -4,7 +4,8 @@ import { cookies } from "next/headers";
 import { Box } from "@mui/material";
 import "./globals.css";
 import { Providers } from "./providers";
-import { isValidLocale } from "@/lib/locale";
+import { StyledComponentsRegistry } from "./StyledComponentsRegistry";
+import { isValidLocale } from "@/utils/locale";
 import { apiServer } from "@/lib/api/apiServer";
 import type { RefreshResponse, User } from "@/lib/types";
 
@@ -67,11 +68,11 @@ export default async function RootLayout({
         <meta name="google" content="notranslate" />
       </head>
       <body>
+        <StyledComponentsRegistry>
           <Providers initialLocale={initialLocale} initialUser={initialUser}>
-            <Box component="main">
-              {children}
-            </Box>
+            <Box component="main">{children}</Box>
           </Providers>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

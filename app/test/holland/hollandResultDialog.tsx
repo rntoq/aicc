@@ -13,7 +13,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { HollandSessionFinishResponse, HollandScores } from "@/lib/types";
 
 export type HollandResultDialogProps = {
@@ -42,8 +42,9 @@ export const HollandResultDialog = ({
   loading = false,
 }: HollandResultDialogProps) => {
   const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
-  const closeLabel = locale === "kk" ? "Жабу" : locale === "en" ? "Close" : "Закрыть";
+  const closeLabel = t("close");
 
   if (loading || !result) {
     return (
@@ -56,11 +57,7 @@ export const HollandResultDialog = ({
             </Box>
           ) : (
             <Typography variant="body2" color="text.secondary">
-              {locale === "kk"
-                ? "Профильді көру үшін Холланд тестін тапсырыңыз."
-                : locale === "en"
-                  ? "Complete the Holland test to see your RIASEC profile."
-                  : "Пройдите тест Holland, чтобы увидеть ваш RIASEC-профиль."}
+              {t("dialog_holland_empty")}
             </Typography>
           )}
         </DialogContent>
@@ -87,8 +84,8 @@ export const HollandResultDialog = ({
 
   const codeLetters = sorted.slice(0, 3).map((e) => e.key).join("");
 
-  const summaryLabel = locale === "kk" ? "Қорытынды" : locale === "en" ? "Summary" : "Краткий вывод";
-  const detailedLabel = locale === "kk" ? "Толық есеп" : locale === "en" ? "Detailed Report" : "Подробный отчёт";
+  const summaryLabel = t("common_summary");
+  const detailedLabel = t("common_detailedReport");
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">

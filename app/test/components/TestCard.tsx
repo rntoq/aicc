@@ -3,7 +3,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import type { TestItem } from "@/lib/constants";
+import type { TestItem } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { useTestsStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";

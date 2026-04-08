@@ -12,8 +12,9 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { QuizResult } from "@/lib/types";
+import { formatPercent } from "@/utils/functions";
 
 type EqDimensionKey =
   | "self_awareness"
@@ -49,14 +50,53 @@ const DIMENSIONS: Array<{ key: EqDimensionKey; ru: string; kk: string; en: strin
   { key: "wellbeing", ru: "Эмоциональное благополучие", kk: "Жақсы көңіл-күй", en: "Well-being" },
 ];
 
-const formatPercent = (v: unknown): number => {
-  const n = typeof v === "number" ? v : Number(v);
-  if (Number.isNaN(n)) return 0;
-  return Math.max(0, Math.min(100, Math.round(n)));
+const parseOverallEqPercent = (result: EqLocalResult): number | null => {
+  const candidates: string[] = [];
+  if (typeof result.primary_type === "string") candidates.push(result.primary_type);
+  if (typeof result.summary === "string") candidates.push(result.summary);
+  if (typeof (result as unknown as Record<string, unknown>)["detailed_report"] === "string") {
+    candidates.push(String((result as unknown as Record<string, unknown>)["detailed_report"]));
+  }
+
+  for (const text of candidates) {
+    // Examples:
+    // "EQ: 61%"
+    // "Ваш эмоциональный интеллект (EQ): 61%"
+    const m = text.match(/\bEQ\b[^0-9]{0,20}(\d{1,3})\s*%/i);
+    if (m?.[1]) return formatPercent(Number(m[1]));
+  }
+  return null;
+};
+
+const parseEqDimensionPercents = (result: EqLocalResult): Partial<Record<EqDimensionKey, number>> => {
+  const out: Partial<Record<EqDimensionKey, number>> = {};
+  const text =
+    (typeof result.summary === "string" && result.summary) ||
+    (typeof (result as unknown as Record<string, unknown>)["detailed_report"] === "string"
+      ? String((result as unknown as Record<string, unknown>)["detailed_report"])
+      : "");
+
+  if (!text) return out;
+
+  const patterns: Record<EqDimensionKey, RegExp> = {
+    self_awareness: /(Self[-\s]?Awareness)[^0-9]{0,20}(\d{1,3})\s*%/i,
+    other_awareness: /(Other\s+Awareness)[^0-9]{0,20}(\d{1,3})\s*%/i,
+    emotional_control: /(Emotional\s+Control)[^0-9]{0,20}(\d{1,3})\s*%/i,
+    empathy: /(Empathy)[^0-9]{0,20}(\d{1,3})\s*%/i,
+    wellbeing: /(Well[-\s]?being)[^0-9]{0,20}(\d{1,3})\s*%/i,
+  };
+
+  for (const key of Object.keys(patterns) as EqDimensionKey[]) {
+    const m = text.match(patterns[key]);
+    if (m?.[2]) out[key] = formatPercent(Number(m[2]));
+  }
+
+  return out;
 };
 
 export function EqResultDialog({ open, onClose, result, loading = false }: EqResultDialogProps) {
   const locale = useLocale() as "ru" | "kk" | "en";
+  const t = useTranslations();
 
   if (loading || !result) {
     return (
@@ -68,29 +108,30 @@ export function EqResultDialog({ open, onClose, result, loading = false }: EqRes
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Закрыть</Button>
+          <Button onClick={onClose}>{t("close")}</Button>
         </DialogActions>
       </Dialog>
     );
   }
 
-  const overall = formatPercent(result.overall_eq ?? 0);
-  const scores = (result.dimension_scores ?? {}) as Partial<Record<EqDimensionKey, number>>;
+  const parsedOverall = parseOverallEqPercent(result);
+  const parsedScores = parseEqDimensionPercents(result);
+
+  const overall = formatPercent(parsedOverall ?? result.overall_eq ?? 0);
+  const scores = {
+    ...(result.dimension_scores ?? {}),
+    ...parsedScores,
+  } as Partial<Record<EqDimensionKey, number>>;
 
   const power = result.eq_superpower ?? null;
   const powerCode = power?.archetype ?? "";
-  const powerTitle =
-    locale === "kk"
-      ? "EQ-суперсила"
-      : locale === "en"
-        ? "EQ Superpower"
-        : "EQ-суперсила";
+  const powerTitle = t("eq_superpower");
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">
       <DialogTitle sx={{ pb: 1 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, alignItems: "center" }}>
-          <Typography variant="h6" sx={{ fontWeight: 800 }}>
+          <Typography component="span" variant="h6" sx={{ fontWeight: 800 }}>
             {result.test_title ?? "Emotional Intelligence (EQ)"}
           </Typography>
           {powerCode ? (
@@ -111,7 +152,7 @@ export function EqResultDialog({ open, onClose, result, loading = false }: EqRes
         <Box sx={{ mb: 2 }}>
           <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, alignItems: "center" }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
-              {locale === "en" ? "Overall EQ" : locale === "kk" ? "Жалпы EQ" : "Общий EQ"}
+              {t("eq_overall")}
             </Typography>
             <Typography variant="subtitle1" color="primary.main" sx={{ fontWeight: 900 }}>
               {overall}%
@@ -131,7 +172,7 @@ export function EqResultDialog({ open, onClose, result, loading = false }: EqRes
               <Box key={key}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5, gap: 1 }}>
                   <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                    {locale === "ru" ? ru : locale === "kk" ? kk : en}
+                    {{ ru, kk, en }[locale]}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 800 }}>
                     {v}%
@@ -156,7 +197,7 @@ export function EqResultDialog({ open, onClose, result, loading = false }: EqRes
         {result.summary ? (
           <Box sx={{ mt: 3 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 800, mb: 1 }}>
-              {locale === "en" ? "Summary" : locale === "kk" ? "Қорытынды" : "Краткий вывод"}
+              {t("common_summary")}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
               {result.summary}
@@ -167,7 +208,7 @@ export function EqResultDialog({ open, onClose, result, loading = false }: EqRes
 
       <DialogActions>
         <Button onClick={onClose} variant="outlined">
-          {locale === "en" ? "Close" : locale === "kk" ? "Жабу" : "Закрыть"}
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>
