@@ -58,6 +58,8 @@ export interface RefreshResponse {
 export interface ChangePasswordPayload {
   old_password: string;
   new_password: string;
+  /** Django backend requires confirmation */
+  new_password_confirm: string;
 }
 
 /** POST /api/v1/auth/password-reset/request/ */
@@ -69,6 +71,8 @@ export interface PasswordResetRequestPayload {
 export interface PasswordResetConfirmPayload {
   token: string;
   new_password: string;
+  /** Django backend requires confirmation */
+  new_password_confirm: string;
 }
 
 // ===== Analysis — GET /api/v1/analysis/dashboard/ =====

@@ -11,6 +11,7 @@ import { UniversityCard } from "@/app/components/clientLayout";
 import type { PublicSpeciality, PublicUniversity } from "@/lib/types";
 import SPECIALITIES_JSON from "@/public/specialities.json";
 import UNIVERSITIES_JSON from "@/public/universities.json";
+import { useInstitutions } from "@/lib/services/careerServices";
 
 const normalizeName = (s: string) =>
   s
@@ -25,6 +26,9 @@ const SpecialityUniversitiesPage = () => {
   const params = useParams();
   const idParam = typeof params.id === "string" ? params.id : "";
   const id = Number.parseInt(idParam, 10);
+
+  // Backend institutions list (used for future UI; keep JSON data as-is).
+  useInstitutions();
 
   const specialities = useMemo(() => SPECIALITIES_JSON as PublicSpeciality[], []);
   const speciality = useMemo(

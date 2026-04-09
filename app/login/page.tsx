@@ -110,7 +110,7 @@ const LoginPage = () => {
                   size="small"
                   variant="text"
                 >
-                  {t("login_register")}
+                  {t("register")}
                 </Button>
               </Box>
             </Box>

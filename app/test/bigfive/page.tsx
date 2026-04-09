@@ -7,9 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { Header } from "@/app/components/layout/Header";
-import { StepsHeader } from "../components/StepsHeader";
-import { OptionsHeader } from "../components/OptionsHeader";
+import { TestHeader } from "../components/TestHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { useDelayedFlag } from "../components/useDelayedFlag";
@@ -149,18 +147,18 @@ const BigFiveTestPage = () => {
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
-      <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="md">
-          <StepsHeader
+          <TestHeader
             step={step}
-            total={STEPS_COUNT}
-            title={t("bigfive_title")}
-            subtitle={t("bigfive_subtitle")}
+            totalSteps={STEPS_COUNT}
             stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT })}
+            optionsHeader={scaleLabels}
           />
-
-          <OptionsHeader options={scaleLabels} />
+          <Box sx={{ mb: 3, textAlign: "center" }}>
+            <Box style={{ marginBottom: 6, fontSize: "1.25rem", fontWeight: 700 }}>{t("bigfive_title")}</Box>
+            <Box style={{ color: "rgba(0,0,0,0.6)" }}>{t("bigfive_subtitle")}</Box>
+          </Box>
           <Divider sx={{ mb: 1 }} />
 
           <Box sx={styles.questionsList}>
@@ -190,7 +188,7 @@ const BigFiveTestPage = () => {
               disabled={step === 1}
               sx={styles.navButton}
             >
-              {t("bigfive_prev")}
+              {t("back")}
             </Button>
 
             {step < STEPS_COUNT ? (
@@ -200,7 +198,7 @@ const BigFiveTestPage = () => {
                 disabled={!allStepAnswered}
                 sx={styles.navButton}
               >
-                {t("bigfive_next")}
+                {t("next")}
               </Button>
             ) : (
               <Button
@@ -209,7 +207,7 @@ const BigFiveTestPage = () => {
                 disabled={!allStepAnswered || submitting}
                 sx={styles.navButton}
               >
-                {submitting ? "..." : t("bigfive_submit")}
+                {submitting ? "..." : t("submit")}
               </Button>
             )}
           </Box>
@@ -223,7 +221,7 @@ export default BigFiveTestPage;
 
 const styles = {
   root: {
-    pt: { xs: 15, md: 12 },
+    pt: { xs: 3, md: 3 },
     minHeight: "80vh",
   },
   questionsList: {

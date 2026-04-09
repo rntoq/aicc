@@ -16,6 +16,7 @@ import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { analyseServices } from "@/lib/services/analyseServices";
 import {
   classifyAiChatResponseRole,
@@ -24,7 +25,7 @@ import {
   type ChatRole,
 } from "@/utils/functions";
 
-type ChatMessage = { role: ChatRole; text: string; at: number };
+type ChatMessage = { role: ChatRole; text: string; at: number; kind?: "info" | "warning" };
 
 const AIChatPage = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -73,17 +74,41 @@ const AIChatPage = () => {
     }
 
     const role = classifyAiChatResponseRole(body);
+    const outOfScope =
+      body != null &&
+      typeof body === "object" &&
+      (body as Record<string, unknown>).in_scope === false;
+    const outOfScopeAnswer =
+      body != null && typeof body === "object" && typeof (body as Record<string, unknown>).answer === "string"
+        ? String((body as Record<string, unknown>).answer)
+        : "";
     let text = extractTextFromResponse(body);
+    const quotaOrRateLimited = text.includes("RESOURCE_EXHAUSTED") || text.includes("429");
+    const providerError =
+      /openrouter/i.test(outOfScopeAnswer) ||
+      /ошибка/i.test(outOfScopeAnswer) ||
+      /\berror\b/i.test(outOfScopeAnswer) ||
+      /expecting value/i.test(outOfScopeAnswer);
     if (role === "system") {
       // Make quota/rate-limit failures more readable (backend may still return 200 OK).
-      if (text.includes("RESOURCE_EXHAUSTED") || text.includes("429")) {
+      if (quotaOrRateLimited) {
         const retryMatch = text.match(/retry in\\s+([0-9.]+)s/i) ?? text.match(/retryDelay'?\\s*:\\s*'?([0-9.]+)s'?/i);
         const retrySuffix = retryMatch ? ` Try again in ~${Math.ceil(Number(retryMatch[1]))}s.` : "";
         text = `AI limit/quota exceeded.${retrySuffix}`;
       }
     }
 
-    setMessages((prev) => [...prev, { role, text, at: Date.now() }]);
+    const kind: ChatMessage["kind"] =
+      role !== "system"
+        ? undefined
+        : outOfScope
+          ? providerError
+            ? "warning"
+            : "info"
+          : quotaOrRateLimited
+            ? "warning"
+            : "warning";
+    setMessages((prev) => [...prev, { role, text, at: Date.now(), kind }]);
     setSending(false);
   };
 
@@ -107,6 +132,8 @@ const AIChatPage = () => {
             <CardContent sx={{ p: { xs: 2, md: 2.5 }, height: "100%", display: "flex", flexDirection: "column" }}>
               <Box sx={styles.messagesArea}>
                 {messages.map((msg, idx) => (
+                  // "system" can be informational (out-of-scope) or warning (quota/errors)
+                  // We style "info" system messages to avoid looking like an error.
                   <Box
                     key={idx}
                     sx={{
@@ -121,26 +148,36 @@ const AIChatPage = () => {
                           msg.role === "ai"
                             ? "grey.50"
                             : msg.role === "system"
-                              ? "warning.50"
+                              ? msg.kind === "info"
+                                ? "grey.50"
+                                : "warning.50"
                               : "primary.100",
                         color:
                           msg.role === "ai"
                             ? "text.primary"
                             : msg.role === "system"
-                              ? "warning.dark"
+                              ? msg.kind === "info"
+                                ? "text.secondary"
+                                : "warning.dark"
                               : "text.primary",
                         borderColor:
                           msg.role === "ai"
                             ? "grey.200"
                             : msg.role === "system"
-                              ? "warning.main"
+                              ? msg.kind === "info"
+                                ? "grey.300"
+                                : "warning.main"
                               : "primary.200",
                       }}
                     >
                       {(msg.role === "ai" || msg.role === "system") && (
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                           {msg.role === "system" ? (
-                            <ReportProblemOutlinedIcon fontSize="small" />
+                            msg.kind === "info" ? (
+                              <InfoOutlinedIcon fontSize="small" />
+                            ) : (
+                              <ReportProblemOutlinedIcon fontSize="small" />
+                            )
                           ) : (
                             <SmartToyOutlinedIcon fontSize="small" />
                           )}

@@ -11,7 +11,7 @@ import { ProfessionCard } from "@/app/components/clientLayout";
 import { INDUSTRIES } from "@/utils/constants";
 import type { PublicProfession } from "@/lib/types";
 import PROFESSIONS_JSON from "@/public/professions.json";
-import { useIndustry } from "@/lib/services/careerServices";
+import { useIndustries } from "@/lib/services/careerServices";
 
 type ProfJson = PublicProfession;
 
@@ -50,7 +50,8 @@ const IndustryProfessionsPage = () => {
   const t = useTranslations();
   const params = useParams();
   const industryId = typeof params.industryId === "string" ? params.industryId : "";
-  useIndustry(industryId || null);
+  // Backend industries list (local page uses public JSON ids; keep JSON rendering as-is).
+  useIndustries();
   const { industry, professions } = useIndustryData(industryId);
 
   if (!industry) {

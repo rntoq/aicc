@@ -50,17 +50,17 @@ export const LikertWordQuestionCard = ({
   };
 
   const titleText = pick(title);
-  const leftText = pick(leftLabel) || t("likert_left");
-  const rightText = pick(rightLabel) || t("likert_right");
+  const leftText = pick(leftLabel) || t("not_like_me");
+  const rightText = pick(rightLabel) || t("like_me");
   const scaleOptions =
     options && options.length > 0
       ? options
       : [
-          t("likert_option_1"),
-          t("likert_option_2"),
-          t("likert_option_3"),
-          t("likert_option_4"),
-          t("likert_option_5"),
+          t("not_like_me"),
+          t("somewhat_not_like_me"),
+          t("neutral"),
+          t("somewhat_like_me"),
+          t("like_me"),
         ];
 
   return (

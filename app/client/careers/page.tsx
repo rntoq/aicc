@@ -8,7 +8,7 @@ import Link from "next/link";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { IndustryCard } from "@/app/components/clientLayout";
 import { ProfessionCard } from "@/app/components/clientLayout/ProfessionCard";
-import { useIndustries } from "@/lib/services/careerServices";
+import { useCareerRecommendations, useIndustries } from "@/lib/services/careerServices";
 import { INDUSTRIES, FILTER_CATEGORIES } from "@/utils/constants";
 import PROFESSIONS_JSON from "@/public/professions.json";
 import type { PublicProfession } from "@/lib/types";
@@ -77,8 +77,9 @@ function PassTestCtaSection() {
 const CareersPage = () => {
   const t = useTranslations();
   useIndustries();
+  const { data: recommendations } = useCareerRecommendations();
 
-  const hasPersonalResult = false;
+  const hasPersonalResult = (recommendations?.length ?? 0) > 0;
 
   const [activeFilter, setActiveFilter] = useState("all");
   const filteredIndustries = useMemo(() => {
@@ -141,7 +142,7 @@ const styles = {
   ctaCard: {
     p: 3,
     borderRadius: 2,
-    background: "linear-gradient(135deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)",
+    background: "linear-gradient(45deg, #86a8e7 0%, #91eae4 100%)",
     color: "white",
   },
   ctaIcon: {

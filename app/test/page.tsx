@@ -20,6 +20,7 @@ import { ALL_TESTS, getRecommendedTests } from "@/utils/constants";
 import { TestCard } from "./components/TestCard";
 import { Header } from "../components/layout/Header";
 import { useQuizCategories, useQuizTestTypes, useQuizTests } from "@/lib/services/quizServices";
+import { analyseServices } from "@/lib/services/analyseServices";
 import { HollandResultDialog } from "./holland/hollandResultDialog";
 import { PhotoResultDialog } from "./photo-career/photoResultDialog";
 import { BigFiveResultDialog } from "./bigfive/bigfiveResultDialog";
@@ -31,10 +32,12 @@ import EnneagramResultDialog from "./enneagram/enneagramResultDialog";
 import TypeFinderResultDialog from "./typefinder-16/typefinderResultDialog";
 import StrengthsResultDialog from "./strengths/strengthsResultDialog";
 import { useTestsStore } from "@/lib/store/useQuizStore";
-import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import { useQuizSessionStore, type QuizSessionEntry } from "@/lib/store/useQuizStore";
 import { quizServices } from "@/lib/services/quizServices";
 import type { BigFiveSessionFinishResponse, HollandSessionFinishResponse, QuizResult } from "@/lib/types";
 import type { CareerAptitudeResult } from "./career-aptitude/careerResultDialog";
+import { toast } from "react-toastify";
+import { AiAnalysisCta } from "../components/layout/AiAnalysisCta";
 
 const MAX_CUSTOM_SELECT = 4;
 
@@ -74,6 +77,7 @@ const TestPage = () => {
   const { openResultModalId, setOpenResultModalId } = useTestsStore();
   const { getSession, setResult } = useQuizSessionStore();
   const [fetchingResult, setFetchingResult] = useState(false);
+  // AI analysis CTA теперь вынесен в компонент `AiAnalysisCta`.
 
   // При открытии диалога: если result пустой, но sessionId есть — запрашиваем finish
   useEffect(() => {
@@ -177,6 +181,8 @@ const TestPage = () => {
                 {t("test_showAllTests")}
               </Button>
             </Box>
+
+            <AiAnalysisCta isRecommended />
             <Grid container spacing={3} sx={styles.grid}>
               {recommended.map((test, index) => (
                 <Grid key={test.id} size={{ xs: 12, sm: 6, md: 4 }}>
@@ -261,6 +267,7 @@ const TestPage = () => {
               <Typography component="h2" variant="h2" sx={styles.sectionTitle}>
                 {t("test_custom_title", { max: MAX_CUSTOM_SELECT })}
               </Typography>
+              <AiAnalysisCta isRecommended={false} customDescriptionKey={"test_custom_warning"} />
               <Grid container spacing={3} sx={styles.grid}>
                 {ALL_TESTS.map((test, index) => (
                   <Grid key={test.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
@@ -272,9 +279,6 @@ const TestPage = () => {
                   </Grid>
                 ))}
               </Grid>
-              <Typography variant="body2" color="text.secondary" sx={styles.warningText}>
-                {t("test_custom_warning")}
-              </Typography>
             </Box>
           )}
         </Container>
@@ -396,6 +400,32 @@ const styles = {
     },
     heroTitle: { fontSize: { xs: "1.6rem", md: "2rem" }, mb: 1.5 , color: "white"},
     heroSubtitle: { opacity: 0.92, maxWidth: 720, mb: 3, whiteSpace: "pre-line" as const },
+    analysisCta: {
+      mt: 3,
+      mb: 3,
+      p: { xs: 2, md: 2.5 },
+      borderRadius: 3,
+      border: "1px solid rgba(99,102,241,0.18)",
+      background:
+        "linear-gradient(135deg, rgba(99,102,241,0.10) 0%, rgba(145,234,228,0.14) 100%)",
+    },
+    analysisIcon: {
+      width: 44,
+      height: 44,
+      borderRadius: 2,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      bgcolor: "rgba(99,102,241,0.14)",
+      color: "primary.main",
+      flexShrink: 0,
+    },
+    analysisButton: {
+      borderRadius: 999,
+      px: 3,
+      py: 1.1,
+      boxShadow: "0 12px 30px rgba(99,102,241,0.22)",
+    },
     heroChip: {
       bgcolor: "rgba(255,255,255,0.2)",
       color: "white",

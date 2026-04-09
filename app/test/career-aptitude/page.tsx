@@ -7,8 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { Header } from "@/app/components/layout/Header";
-import { StepsHeader } from "../components/StepsHeader";
+import { TestHeader } from "../components/TestHeader";
 import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { useDelayedFlag } from "../components/useDelayedFlag";
@@ -209,15 +208,16 @@ const CareerAptitudeTestPage = () => {
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
-      <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="md">
-          <StepsHeader
+          <TestHeader
             step={step}
-            total={TOTAL_STEPS}
-            title={t("career_title")}
+            totalSteps={TOTAL_STEPS}
             stepLabel={t("step_x_of_y", { step, total: TOTAL_STEPS })}
           />
+          <Box sx={{ mb: 3, textAlign: "center" }}>
+            <Box style={{ marginBottom: 6, fontSize: "1.25rem", fontWeight: 700 }}>{t("career_title")}</Box>
+          </Box>
 
           <Divider sx={{ mb: 2 }} />
 
@@ -256,7 +256,7 @@ const CareerAptitudeTestPage = () => {
               disabled={step === 1}
               sx={styles.navButton}
             >
-              {t("career_prev")}
+              {t("back")}
             </Button>
 
             {step < TOTAL_STEPS ? (
@@ -266,7 +266,7 @@ const CareerAptitudeTestPage = () => {
                 disabled={!allStepAnswered}
                 sx={styles.navButton}
               >
-                {t("career_next")}
+                {t("next")}
               </Button>
             ) : (
               <Button
@@ -275,7 +275,7 @@ const CareerAptitudeTestPage = () => {
                 disabled={!allStepAnswered || submitting}
                 sx={styles.navButton}
               >
-                {submitting ? "..." : t("career_submit")}
+                {submitting ? "..." : t("finish")}
               </Button>
             )}
           </Box>
@@ -289,7 +289,7 @@ export default CareerAptitudeTestPage;
 
 const styles = {
   root: {
-    pt: { xs: 15, md: 12 },
+    pt: { xs: 3, md: 3 },
     minHeight: "80vh",
   },
   questionsList: {

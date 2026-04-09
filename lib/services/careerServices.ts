@@ -169,6 +169,32 @@ export const useGenerateCareerRecommendations = (): UseMutationResult<unknown, u
 };
 
 // --------------------------------------------------
+// Institutions (list/detail/programs)
+// --------------------------------------------------
+
+export type InstitutionsListParams = {
+  city?: string;
+  type?: string;
+  grants?: boolean;
+  dormitory?: boolean;
+  search?: string;
+};
+
+export const useInstitutions = (
+  params?: InstitutionsListParams
+): UseQueryResult<Record<string, unknown> | null, unknown> => {
+  const qp = compactParams(params as Record<string, unknown> | undefined);
+  return useQuery({
+    queryKey: ["institutions", "list", qp],
+    queryFn: async () => {
+      const { body, error } = await api.get<Record<string, unknown>>("/api/v1/institutions/", { params: qp });
+      if (error) throw error;
+      return body ?? null;
+    },
+  });
+};
+
+// --------------------------------------------------
 // Non-React service functions (same endpoints)
 // --------------------------------------------------
 

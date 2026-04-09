@@ -7,8 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { Header } from "@/app/components/layout/Header";
-import { StepsHeader } from "../components/StepsHeader";
+import { TestHeader } from "../components/TestHeader";
 import { OptionQuestionCard } from "../components/OptionQuestionCard";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { useDelayedFlag } from "../components/useDelayedFlag";
@@ -309,16 +308,17 @@ export default function LeadershipTestPage() {
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
-      <Header />
-      <Box component="main" sx={{ pt: { xs: 15, md: 12 }, minHeight: "80vh" }}>
+      <Box component="main" sx={{ pt: { xs: 3, md: 3 }, minHeight: "80vh" }}>
         <Container maxWidth="md">
-          <StepsHeader
+          <TestHeader
             step={step}
-            total={stepTotal}
-            title={t("tests_leadership_name") as string}
-            subtitle={t("tests_leadership_subtitle")}
+            totalSteps={stepTotal}
             stepLabel={t("step_x_of_y", { step, total: stepTotal }) as string}
           />
+          <Box sx={{ mb: 3, textAlign: "center" }}>
+            <Box style={{ marginBottom: 6, fontSize: "1.25rem", fontWeight: 700 }}>{t("tests_leadership_name") as string}</Box>
+            <Box style={{ color: "rgba(0,0,0,0.6)" }}>{t("tests_leadership_subtitle")}</Box>
+          </Box>
 
           <Divider sx={{ mb: 2 }} />
 
@@ -373,7 +373,7 @@ export default function LeadershipTestPage() {
               disabled={step === 1 || submitting}
               sx={{ borderRadius: 2, px: 3 }}
             >
-              {t("holland_back")}
+              {t("back")}
             </Button>
 
             {step < stepTotal ? (
@@ -383,7 +383,7 @@ export default function LeadershipTestPage() {
                 disabled={!canProceed || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {t("holland_next")}
+                {t("next")}
               </Button>
             ) : (
               <Button
@@ -392,7 +392,7 @@ export default function LeadershipTestPage() {
                 disabled={!canProceed || submitting}
                 sx={{ borderRadius: 2, px: 3 }}
               >
-                {submitting ? "..." : t("holland_finish")}
+                {submitting ? "..." : t("finish")}
               </Button>
             )}
           </Box>

@@ -10,7 +10,7 @@ import PHOTO_DATA from "./photo_questions.json";
 import { PhotoPair, type PhotoQuestion } from "../components/PhotoPair";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { useDelayedFlag } from "../components/useDelayedFlag";
-import { Header } from "@/app/components/layout/Header";
+import { TestHeader } from "../components/TestHeader";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
@@ -181,9 +181,16 @@ const PhotoCareerQuizPage = () => {
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
-      <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="xl" sx={styles.container}>
+          <TestHeader
+            answered={Object.keys(answers).length}
+            totalQuestions={PHOTO_QUESTIONS.length}
+          />
+          <Box sx={{ textAlign: "center", mb: 2 }}>
+            <Box sx={{ mb: 0.5, fontSize: "1.25rem", fontWeight: 700 }}>{t("tests_photo-career_name") as string}</Box>
+            <Box style={{ color: "rgba(0,0,0,0.6)" }}>{t("tests_photo-career_subtitle")}</Box>
+          </Box>
           {PHOTO_QUESTIONS.map((question) => {
             const questionAnswer = answers[question.id] || null;
             return (
@@ -207,7 +214,7 @@ const PhotoCareerQuizPage = () => {
                 disabled={isSubmitting}
                 sx={styles.submitButton}
               >
-                {isSubmitting ? <CircularProgress size={20} /> : t("holland_finish")}
+                {isSubmitting ? <CircularProgress size={20} /> : t("finish")}
               </Button>
             </Box>
           )}
@@ -221,7 +228,7 @@ export default PhotoCareerQuizPage;
 
 const styles = {
   root: {
-    pt: { xs: 15, md: 12 },
+    pt: { xs: 3, md: 3 },
     minHeight: "100vh",
   },
   container: {

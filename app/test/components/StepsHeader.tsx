@@ -25,7 +25,7 @@ export const StepsHeader = ({
   const safeStep = Math.min(Math.max(step, 1), total);
 
   return (
-    <Box sx={{ mb: 3, textAlign: "center" }}>
+    <Box sx={{textAlign: "center" }}>
       {title && (
         <Typography component="h2" variant="h2" sx={{ mb: 0.5, fontSize: "1.25rem", fontWeight: 700 }}>
           {title}
@@ -37,7 +37,7 @@ export const StepsHeader = ({
         </Typography>
       )}
 
-      <Box sx={{ mt: 2 }}>
+      <Box >
         <Typography variant="caption" color="text.secondary">
           {stepLabel ?? `Шаг ${safeStep} из ${total}`}
         </Typography>

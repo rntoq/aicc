@@ -8,11 +8,10 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import QUESTIONS_JSON from "./holland_questions.json";
-import { ProgressBar } from "../components/ProgressBar";
+import { TestHeader } from "../components/TestHeader";
 import { OptionQuestionCard } from "../components/OptionQuestionCard";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { useDelayedFlag } from "../components/useDelayedFlag";
-import { Header } from "@/app/components/layout/Header";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
@@ -158,9 +157,12 @@ const HollandTestPage = () => {
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
-      <Header />
       <Box component="main" sx={styles.root}>
         <Container maxWidth="md">
+          <TestHeader
+            answered={answeredCount}
+            totalQuestions={TOTAL}
+          />
           <Box sx={styles.header}>
             <Typography component="h2" variant="h2" sx={styles.title}>
               {t("holland_title")}
@@ -169,12 +171,6 @@ const HollandTestPage = () => {
               {t("holland_subtitle")}
             </Typography>
           </Box>
-
-          <ProgressBar
-            progress={progress}
-            current={answeredCount}
-            total={TOTAL}
-          />
 
           <OptionQuestionCard
             questionNumber={currentQuestionIndex + 1}
@@ -192,7 +188,7 @@ const HollandTestPage = () => {
               disabled={currentQuestionIndex === 0}
               sx={styles.navButton}
             >
-              {t("holland_back")}
+              {t("back")}
             </Button>
             {currentQuestionIndex < TOTAL - 1 ? (
               <Button
@@ -201,7 +197,7 @@ const HollandTestPage = () => {
                 disabled={!currentAnswer}
                 sx={styles.navButton}
               >
-                {t("holland_next")}
+                {t("next")}
               </Button>
             ) : (
               <Button
@@ -211,7 +207,7 @@ const HollandTestPage = () => {
                 disabled={!canFinish}
                 sx={styles.navButton}
               >
-                {t("holland_finish")}
+                {t("finish")}
               </Button>
             )}
           </Box>
@@ -225,7 +221,7 @@ export default HollandTestPage;
 
 const styles = {
   root: {
-    pt: { xs: 15, md: 12 },
+    pt: { xs: 3, md: 3 },
     minHeight: "80vh",
   },
   header: {

@@ -4,6 +4,7 @@ import { Alert, Box, CardContent, CircularProgress, Typography } from "@mui/mate
 import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { useAnalysisDashboard } from "@/lib/services/analyseServices";
+import { muiTheme } from "@/ui/theme/muiTheme";
 
 const DashboardPage = () => {
   const t = useTranslations();
@@ -46,7 +47,7 @@ const styles = {
     mb: 3,
     p: 3,
     borderRadius: 2,
-    background: "linear-gradient(45deg, #86a8e7 0%, #91eae4 100%)",
+    background: muiTheme.landing.lightGradient,
     color: "white",
   },
   card: {

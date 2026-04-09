@@ -10,6 +10,8 @@ const textPrimary = "#182453";
 const textSecondary = "#64748B";
 const titleKeywordGradient =
   "linear-gradient(90deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%)";
+  const lightGradient =
+  "linear-gradient(45deg, #86a8e7 0%, #91eae4 100%)";
 const surfaceShadow = "0 4px 12px rgba(15, 23, 42, 0.08)";
 const surfaceHoverShadow = "0 8px 24px rgba(15, 23, 42, 0.1)";
 
@@ -26,7 +28,7 @@ export const muiTheme = createTheme({
       main: secondary,
       light: "#b3f2ee",
       dark: "#6dd4ce",
-      contrastText: "#182453",
+      contrastText: "#5a5a5a",
     },
     background: {
       default: background,
@@ -136,6 +138,7 @@ export const muiTheme = createTheme({
   // Градиент для заливки ключевых слов в заголовках (background + backgroundClip: 'text').
   landing: {
     titleKeywordGradient,
+    lightGradient,
   },
   components: {
     MuiButton: {
@@ -147,21 +150,12 @@ export const muiTheme = createTheme({
         },
         containedPrimary: {
           boxShadow: "0 2px 8px rgba(127, 127, 213, 0.35)",
-          "&:hover": {
-            boxShadow: "0 4px 12px rgba(127, 127, 213, 0.4)",
-          },
         },
         containedSecondary: {
           boxShadow: "0 2px 8px rgba(145, 234, 228, 0.35)",
-          "&:hover": {
-            boxShadow: "0 4px 12px rgba(145, 234, 228, 0.4)",
-          },
         },
         outlined: {
           borderWidth: 2,
-          "&:hover": {
-            borderWidth: 2,
-          },
         },
       },
     },
@@ -181,7 +175,6 @@ export const muiTheme = createTheme({
           transition: "box-shadow 0.2s ease, transform 0.2s ease",
           "&:hover": {
             boxShadow: surfaceHoverShadow,
-            transform: "translateY(-2px)",
           },
         },
       },
@@ -193,11 +186,13 @@ declare module "@mui/material/styles" {
   interface Theme {
     landing: {
       titleKeywordGradient: string;
+      lightGradient: string;
     };
   }
   interface ThemeOptions {
     landing?: {
       titleKeywordGradient: string;
+      lightGradient: string;
     };
   }
 }

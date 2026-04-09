@@ -12,7 +12,7 @@ export interface ProgressBarProps {
 export const ProgressBar = ({ progress, current, total }: ProgressBarProps) => {
   const t = useTranslations();
   return (
-    <Box sx={styles.container}>
+    <Box >
       <Box sx={styles.header}>
         <Typography variant="body2" color="text.secondary">
           {t("progress")}: {current} / {total}
@@ -31,9 +31,6 @@ export const ProgressBar = ({ progress, current, total }: ProgressBarProps) => {
 };
 
 const styles = {
-  container: {
-    mb: 3,
-  },
   header: {
     display: "flex",
     justifyContent: "space-between",

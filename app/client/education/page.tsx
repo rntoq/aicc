@@ -6,11 +6,15 @@ import { useTranslations, useLocale } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import type { PublicSpeciality } from "@/lib/types";
 import SPECIALITIES_JSON from "@/public/specialities.json";
+import { useInstitutions } from "@/lib/services/careerServices";
 
 const EducationPage = () => {
   const t = useTranslations();
   const locale = useLocale();
   const [q, setQ] = useState("");
+
+  // Backend institutions list (used for future UI; keep JSON data as-is).
+  useInstitutions();
 
   const specialities = useMemo(() => SPECIALITIES_JSON as PublicSpeciality[], []);
 
