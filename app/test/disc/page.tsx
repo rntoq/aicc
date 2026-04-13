@@ -1,24 +1,21 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
-import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import DiscResultPanel from "./discResultDialog";
+import { TestResultActions } from "../../components/tests/TestResultActions";
 import DISC_DATA from "./disk_questions.json";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "react-toastify";
-import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
-import { OptionQuestionCard } from "../components/OptionQuestionCard";
-import { LoadingScreen } from "../components/LoadingScreen";
-import { useDelayedFlag } from "../components/useDelayedFlag";
-import { TestHeader } from "../components/TestHeader";
+import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
+import { OptionQuestionCard } from "../../components/tests/OptionQuestionCard";
+import { LoadingScreen } from "../../components/tests/LoadingScreen";
+import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
+import { TestHeader } from "../../components/tests/TestHeader";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
@@ -55,6 +52,9 @@ const SCENARIO_ITEMS: DiscScenario[] = DISC.scenarios ?? [];
 
 const PAIR_STEPS: DiscPair[][] = [PAIRS.slice(0, 8), PAIRS.slice(8, 16), PAIRS.slice(16, 24)];
 
+const SESSION_KEY = "disc";
+const DISC_TOTAL_STEPS = 5;
+
 type DiscStepQuestion =
   | { type: "pair"; id: string; left: DiscPair["left"]; right: DiscPair["right"] }
   | { type: "single"; id: string; text: DiscSingleWord["text"] }
@@ -63,12 +63,14 @@ type DiscStepQuestion =
 const DiscPage = () => {
   const t = useTranslations();
   const locale = useLocale();
-  const router = useRouter();
+  const hydrated = useQuizSessionHydrated();
   const { setSession, setResult } = useQuizSessionStore();
+  const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as QuizResult | null | undefined);
+  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [initializing, setInitializing] = useState(true);
-  const showLoading = useDelayedFlag(initializing || submitting);
+  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
   const [pairValues, setPairValues] = useState<Record<string, number>>({});
   const [singleValues, setSingleValues] = useState<Record<string, number>>({});
   const [scenarioValues, setScenarioValues] = useState<Record<string, number>>({});
@@ -77,6 +79,15 @@ const DiscPage = () => {
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
 
   useEffect(() => {
+    if (!hydrated) return;
+
+    const st = useQuizSessionStore.getState();
+    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
+      setPhase("result");
+      setInitializing(false);
+      return;
+    }
+
     let cancelled = false;
 
     const initSession = async () => {
@@ -103,7 +114,7 @@ const DiscPage = () => {
 
       if (!cancelled && questionIds.length > 0) {
         setSessionId(session.id);
-        setSession("disc", session.id);
+        setSession(SESSION_KEY, session.id);
         setBackendQuestionIds(questionIds);
       }
       if (!cancelled) setInitializing(false);
@@ -114,7 +125,7 @@ const DiscPage = () => {
     return () => {
       cancelled = true;
     };
-  }, [setSession]);
+  }, [hydrated, setSession]);
 
   const leftTitleEmpty = { ru: "", kk: "", en: "" } as const;
 
@@ -132,11 +143,20 @@ const DiscPage = () => {
   }, [step]);
 
   const stepQuestionType = stepQuestions[0]?.type;
-  const helperTitle = stepQuestionType === "pair" ? t("pairs_title") : stepQuestionType === "single" ? t("single_title") : undefined;
+  const discFormatHelper =
+    stepQuestionType === "pair"
+      ? t("pairs_title")
+      : stepQuestionType === "single"
+        ? t("single_title")
+        : stepQuestionType === "scenario"
+          ? t("tests_disc_helper_scenario")
+          : null;
+  const discLikertFive = useMemo(
+    () => [t("not_like_me"), t("somewhat_not_like_me"), t("neutral"), t("somewhat_like_me"), t("like_me")],
+    [t],
+  );
   const optionsHeader =
-    stepQuestionType === "single"
-      ? [t("not_like_me"), t("somewhat_not_like_me"), t("neutral"), t("somewhat_like_me"), t("like_me")]
-      : undefined;
+    stepQuestionType === "pair" || stepQuestionType === "single" ? discLikertFive : undefined;
 
   const canGoNext = () => {
     if (stepQuestions.length === 0) return false;
@@ -211,14 +231,39 @@ const DiscPage = () => {
         return;
       }
 
-      setResult("disc", backendResult);
+      setResult(SESSION_KEY, backendResult);
       toast.success(t("toast_test_success"));
-      router.push(`/test`);
+      setPhase("result");
       setSubmitting(false);
     };
 
     void finish();
   };
+
+  if (!hydrated) {
+    return <LoadingScreen open text={t("toast_test_loading")} />;
+  }
+
+  if (phase === "result") {
+    const panelResult = (finishedResult ?? null) as QuizResult | null;
+    return (
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <TestHeader
+            step={DISC_TOTAL_STEPS}
+            totalSteps={DISC_TOTAL_STEPS}
+            stepLabel={t("step_x_of_y", { step: DISC_TOTAL_STEPS, total: DISC_TOTAL_STEPS })}
+            optionsHeader={discLikertFive}
+          />
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("disc_title")}</Box>
+          </Box>
+          <DiscResultPanel result={panelResult} />
+          <TestResultActions />
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -227,20 +272,20 @@ const DiscPage = () => {
         <Container maxWidth="md">
           <TestHeader
             step={step + 1}
-            totalSteps={5}
-            helperTitle={helperTitle}
+            totalSteps={DISC_TOTAL_STEPS}
             optionsHeader={optionsHeader}
           />
-          <Box sx={styles.header}>
-            <Typography component="h2" variant="h2" sx={styles.title}>
-              {t("disc_title")}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {t("disc_subtitle")}
-            </Typography>
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("disc_title")}</Box>
+            {discFormatHelper ? <Box sx={styles.pageHelper}>{discFormatHelper}</Box> : null}
           </Box>
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: stepQuestionType === "scenario" ? 3 : 2 }}>
+          <Box
+            sx={[
+              styles.questionsColumn,
+              stepQuestionType === "scenario" ? { gap: 3 } : null,
+            ]}
+          >
             {stepQuestions.map((q, index) => {
               if (q.type === "pair") {
                 return (
@@ -251,13 +296,7 @@ const DiscPage = () => {
                     onChange={(val) => setPairValues((prev) => ({ ...prev, [q.id]: val }))}
                     leftLabel={q.left.text}
                     rightLabel={q.right.text}
-                    options={[
-                      t("not_like_me"),
-                      t("somewhat_not_like_me"),
-                      t("neutral"),
-                      t("somewhat_like_me"),
-                      t("like_me"),
-                    ]}
+                    options={discLikertFive}
                   />
                 );
               }
@@ -269,6 +308,7 @@ const DiscPage = () => {
                     title={q.text}
                     value={singleValues[q.id] ?? null}
                     onChange={(val) => setSingleValues((prev) => ({ ...prev, [q.id]: val }))}
+                    options={discLikertFive}
                   />
                 );
               }
@@ -319,57 +359,25 @@ export default DiscPage;
 
 const styles = {
   root: {
-    pt: { xs: 3, md: 3 },
+    pt: 3,
     minHeight: "80vh",
   },
-  header: {
+  pageHeader: {
     mb: 3,
     textAlign: "center" as const,
   },
-  title: {
-    mb: 1,
+  pageTitle: {
+    mb: 0.75,
     fontSize: "1.25rem",
     fontWeight: 700,
   },
-  stepsMeta: {
-    mt: 2,
+  pageHelper: {
+    color: "text.secondary",
   },
-  stepsBar: {
-    mt: 1,
-    display: "flex",
-    gap: 0.75,
-  },
-  stepSegment: {
-    flex: 1,
-    height: 6,
-    borderRadius: 999,
-  },
-  section: {
+  questionsColumn: {
     display: "flex",
     flexDirection: "column" as const,
     gap: 2,
-  },
-  pairRow: {
-    display: "grid",
-    gridTemplateColumns: "1fr auto 1fr",
-    alignItems: "center",
-    gap: { xs: 1.5, md: 2 },
-    p: 2,
-  },
-  pairLabelLeft: {
-    fontWeight: 500,
-    textAlign: "right",
-  },
-  pairLabelRight: {
-    fontWeight: 500,
-    textAlign: "left",
-  },
-  pairRadioGroup: {
-    justifyContent: "center",
-    gap: { xs: 0.5, md: 1 },
-  },
-  pairRadioLabel: {
-    m: 0,
   },
   navigation: {
     mt: 3,

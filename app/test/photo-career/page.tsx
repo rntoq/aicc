@@ -1,16 +1,18 @@
 "use client";
 
 import { Box, Button, CircularProgress, Container } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { PhotoResultPanel } from "./photoResultDialog";
+import { TestResultActions } from "../../components/tests/TestResultActions";
 import PHOTO_DATA from "./photo_questions.json";
-import { PhotoPair, type PhotoQuestion } from "../components/PhotoPair";
-import { LoadingScreen } from "../components/LoadingScreen";
-import { useDelayedFlag } from "../components/useDelayedFlag";
-import { TestHeader } from "../components/TestHeader";
+import { PhotoPair, type PhotoQuestion } from "../../components/tests/PhotoPair";
+import { LoadingScreen } from "../../components/tests/LoadingScreen";
+import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
+import { TestHeader } from "../../components/tests/TestHeader";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
   BulkAnswerQuizPayload,
@@ -18,13 +20,17 @@ import type {
   QuizResult,
 } from "@/lib/types";
 
+const SESSION_KEY = "photo-career";
+
 const PhotoCareerQuizPage = () => {
   const t = useTranslations();
-  const router = useRouter();
+  const hydrated = useQuizSessionHydrated();
   const { setSession, setResult } = useQuizSessionStore();
+  const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as QuizResult | null | undefined);
+  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [initializing, setInitializing] = useState(true);
-  const showLoading = useDelayedFlag(initializing || isSubmitting);
+  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || isSubmitting));
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestions, setBackendQuestions] = useState<
     { id: number; answers: { code: string }[] }[]
@@ -86,6 +92,15 @@ const PhotoCareerQuizPage = () => {
   };
 
   useEffect(() => {
+    if (!hydrated) return;
+
+    const st = useQuizSessionStore.getState();
+    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
+      setPhase("result");
+      setInitializing(false);
+      return;
+    }
+
     let cancelled = false;
 
     const initSession = async () => {
@@ -113,7 +128,7 @@ const PhotoCareerQuizPage = () => {
 
       if (!cancelled && questions.length > 0) {
         setSessionId(session.id);
-        setSession("photo-career", session.id);
+        setSession(SESSION_KEY, session.id);
         setBackendQuestions(questions);
       }
       if (!cancelled) setInitializing(false);
@@ -124,7 +139,7 @@ const PhotoCareerQuizPage = () => {
     return () => {
       cancelled = true;
     };
-  }, [setSession]);
+  }, [hydrated, setSession]);
 
   const handleSubmit = () => {
     if (!allAnswered) return;
@@ -168,15 +183,37 @@ const PhotoCareerQuizPage = () => {
       }
 
       const resultToSave = backendResult ?? buildLocalResult(Date.now());
-      setResult("photo-career", resultToSave);
+      setResult(SESSION_KEY, resultToSave);
       if (backendResult) toast.success(t("toast_test_success"));
       else toast.error(t("toast_test_error"));
-      router.push("/test");
+      setPhase("result");
       setIsSubmitting(false);
     };
 
     void finish();
   };
+
+  if (!hydrated) {
+    return <LoadingScreen open text={t("toast_test_loading")} />;
+  }
+
+  const photoTotal = PHOTO_QUESTIONS.length;
+
+  if (phase === "result") {
+    const result = (finishedResult ?? null) as QuizResult | null;
+    return (
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="xl" sx={styles.container}>
+          <TestHeader answered={photoTotal} totalQuestions={photoTotal} />
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("tests_photo-career_name") as string}</Box>
+          </Box>
+          <PhotoResultPanel result={result} />
+          <TestResultActions />
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -185,11 +222,11 @@ const PhotoCareerQuizPage = () => {
         <Container maxWidth="xl" sx={styles.container}>
           <TestHeader
             answered={Object.keys(answers).length}
-            totalQuestions={PHOTO_QUESTIONS.length}
+            totalQuestions={photoTotal}
           />
-          <Box sx={{ textAlign: "center", mb: 2 }}>
-            <Box sx={{ mb: 0.5, fontSize: "1.25rem", fontWeight: 700 }}>{t("tests_photo-career_name") as string}</Box>
-            <Box style={{ color: "rgba(0,0,0,0.6)" }}>{t("tests_photo-career_subtitle")}</Box>
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("tests_photo-career_name") as string}</Box>
+            <Box sx={styles.pageHelper}>{t("tests_photo-career_helper")}</Box>
           </Box>
           {PHOTO_QUESTIONS.map((question) => {
             const questionAnswer = answers[question.id] || null;
@@ -228,8 +265,20 @@ export default PhotoCareerQuizPage;
 
 const styles = {
   root: {
-    pt: { xs: 3, md: 3 },
+    pt: 3,
     minHeight: "100vh",
+  },
+  pageHeader: {
+    textAlign: "center" as const,
+    mb: 2,
+  },
+  pageTitle: {
+    mb: 0.5,
+    fontSize: "1.25rem",
+    fontWeight: 700,
+  },
+  pageHelper: {
+    color: "text.secondary",
   },
   container: {
     display: "flex",

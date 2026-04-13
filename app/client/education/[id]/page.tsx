@@ -1,144 +1,250 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { useMemo } from "react";
+import { Box, Button, Divider, Icon, Link, Typography } from "@mui/material";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import Link from "next/link";
+import NextLink from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { AppLayout } from "@/app/components/layout/AppLayout";
-import { UniversityCard } from "@/app/components/clientLayout";
 import type { PublicSpeciality, PublicUniversity } from "@/lib/types";
 import SPECIALITIES_JSON from "@/public/specialities.json";
 import UNIVERSITIES_JSON from "@/public/universities.json";
 import { useInstitutions } from "@/lib/services/careerServices";
+import Image from "next/image";
+import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import { AttachMoneyOutlined, BedOutlined, LocationOnOutlined, MilitaryTechOutlined } from "@mui/icons-material";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 
-const normalizeName = (s: string) =>
-  s
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .replace(/[«»\"“”]/g, "");
+const listsUniversity = (s: PublicSpeciality, u: PublicUniversity) => {
+  const shortEn = (u.short_name?.en ?? "").trim();
+  if (!shortEn) return false;
+  return (s.Universities ?? []).some((name) => name.trim() === shortEn);
+};
 
-const SpecialityUniversitiesPage = () => {
+const UniversitySpecialitiesPage = () => {
   const t = useTranslations();
   const locale = useLocale();
   const params = useParams();
   const idParam = typeof params.id === "string" ? params.id : "";
   const id = Number.parseInt(idParam, 10);
 
-  // Backend institutions list (used for future UI; keep JSON data as-is).
   useInstitutions();
 
-  const specialities = useMemo(() => SPECIALITIES_JSON as PublicSpeciality[], []);
-  const speciality = useMemo(
-    () => specialities.find((s) => s.id === id) ?? null,
-    [specialities, id]
+  const universities = useMemo(() => UNIVERSITIES_JSON as PublicUniversity[], []);
+  const university = useMemo(
+    () => universities.find((u) => u.id === id) ?? null,
+    [universities, id]
   );
 
-  const specialityTitle =
-    speciality?.name?.[locale as keyof PublicSpeciality["name"]] ?? idParam;
+  const specialities = useMemo(() => SPECIALITIES_JSON as PublicSpeciality[], []);
 
-  const [q, setQ] = useState("");
-  const universities = useMemo(() => UNIVERSITIES_JSON as PublicUniversity[], []);
+  const universityTitle =
+    university?.short_name?.[locale as keyof PublicUniversity["short_name"]] ??
+    university?.name?.[locale as keyof PublicUniversity["name"]] ??
+    idParam;
 
-  const filtered = useMemo(() => {
-    const query = q.trim().toLowerCase();
-    const specialityUniNames = new Set(
-      (speciality?.Universities ?? []).map((n) => n.trim()).filter(Boolean)
-    );
+  const filteredSpecialities = useMemo(() => {
+    if (!university) return [];
 
-    const scoped = universities.filter((u) => {
-      const shortEn = u.short_name?.en ?? "";
-      return specialityUniNames.has(shortEn);
-    });
+    return specialities.filter((s) => listsUniversity(s, university));
+  }, [specialities, university]);
 
-    const byNormName = new Map<string, PublicUniversity>();
-    for (const u of scoped) {
-      const keys = [
-        u.short_name?.en,
-        u.short_name?.ru,
-        u.short_name?.kk,
-        u.name?.en,
-        u.name?.ru,
-        u.name?.kk,
-      ]
-        .filter(Boolean)
-        .map((x) => normalizeName(x as string));
-      for (const k of keys) {
-        if (!byNormName.has(k)) byNormName.set(k, u);
-      }
-    }
-
-    const ordered = (speciality?.Universities ?? [])
-      .map((su) => {
-        const key = normalizeName(su);
-        return byNormName.get(key);
-      })
-      .filter(Boolean) as PublicUniversity[];
-
-    // `speciality.Universities` может содержать дубликаты строк, которые мапятся
-    // на один и тот же университет → дубли по `id` ломают React keys.
-    const seenIds = new Set<number>();
-    const uniqueOrdered = ordered.filter((u) => {
-      if (seenIds.has(u.id)) return false;
-      seenIds.add(u.id);
-      return true;
-    });
-
-    if (!query) return uniqueOrdered;
-
-    return uniqueOrdered.filter((u) => {
-      const name = u.name?.[locale as keyof PublicUniversity["name"]] ?? "";
-      return u.code.toLowerCase().includes(query) || name.toLowerCase().includes(query);
-    });
-  }, [q, universities, locale, speciality]);
+  const localeKey = locale as keyof PublicUniversity["name"];
+  const title = university?.short_name?.[localeKey] ?? "";
+  const subtitle = university?.name?.[localeKey] ?? "";
+  const logoSrc = university?.logo || BANNER_PLACEHOLDER_IMAGE;
 
   return (
-    <AppLayout title={specialityTitle}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <AppLayout title={universityTitle}>
+      <Box sx={styles.page}>
         <Button
-          component={Link}
+          component={NextLink}
           href="/client/education"
           startIcon={<ArrowBackRoundedIcon />}
-          sx={{ alignSelf: "flex-start" }}
+          sx={styles.backButton}
         >
-          {t("back", { defaultValue: "Back" } as never)}
+          {t("back")}
         </Button>
 
-        <Box>
-          <Typography variant="h5" sx={{ fontWeight: 800, mb: 0.5 }}>
-            {specialityTitle}
-          </Typography>
+        {!university ? (
           <Typography variant="body2" color="text.secondary">
-            {t("education_universities_subtitle", {
-              defaultValue: "Universities for this speciality.",
-            } as never)}
-          </Typography>
-        </Box>
-
-        {speciality && (speciality.Universities?.length ?? 0) === 0 ? (
-          <Typography variant="body2" color="text.secondary">
-            {t("education_no_universities", {
-              defaultValue: "No universities found for this speciality.",
-            } as never)}
+            {t("education_university_not_found")}
           </Typography>
         ) : (
-          <Grid container spacing={2.5}>
-            {filtered.map((u) => (
-              <Grid
-                key={`${u.id}`}
-                size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 3 }}
-              >
-                <UniversityCard university={u} />
-              </Grid>
-            ))}
-          </Grid>
+            <Box sx={styles.card}>
+              <Box sx={styles.cardContent}>
+                <Box sx={styles.cardHeader}>
+                  <Image src={logoSrc} alt={title} width={100} height={100} />
+                  <Box sx={styles.titleBlock}>
+                    <Typography component="h2" variant="h2" sx={styles.title}>
+                      {title}
+                    </Typography>
+                    <Typography component="h6" variant="h6" color="text.secondary">
+                      {subtitle}
+                    </Typography>
+                  </Box>
+                  <Link
+                    href={university.url || ""}
+                    target="_blank"
+                    underline="always"
+                    sx={styles.moreLink}
+                  >
+                    {t("more")}
+                  </Link>
+                </Box>
+
+                <Divider />
+
+                <Typography variant="subtitle2" color="text.primary" sx={styles.infoTitle}>
+                  {t("information")}:
+                </Typography>
+                <Box component="ul" sx={styles.infoList}>
+                  {university.dormitory && (
+                    <Box component="li" sx={styles.listItem}>
+                      <Icon component={BedOutlined} sx={{ fontSize: "16px" }} />
+                      {t("dormitory")}
+                    </Box>
+                  )}
+                  {university.military_faculty && (
+                    <Box component="li" sx={styles.listItem}>
+                      <Icon component={MilitaryTechOutlined} sx={{ fontSize: "16px" }} />
+                      {t("military_faculty")}
+                    </Box>
+                  )}
+                  {university.price && (
+                    <Box component="li" sx={styles.listItem}>
+                      <Icon component={AttachMoneyOutlined} sx={{ fontSize: "16px" }} />
+                      {t("price")}: {university.price} тг
+                    </Box>
+                  )}
+                  {university.address && (
+                    <Box component="li" sx={styles.listItem}>
+                      <Icon component={LocationOnOutlined} sx={{ fontSize: "16px" }} />
+                      {t("address")}: {university.address}
+                    </Box>
+                  )}
+                  {university.specialities_count && (
+                    <Box component="li" sx={styles.listItem}>
+                      <Icon component={SchoolOutlinedIcon} sx={{ fontSize: "16px" }} />
+                      {t("specialities")}: {university.specialities_count}
+                    </Box>
+                  )}
+                </Box>
+
+                {filteredSpecialities.length === 0 ? (
+                  <Typography variant="body2" color="text.secondary">
+                    {t("education_no_specialities")}
+                  </Typography>
+                ) : (
+                  <Box sx={styles.section}>
+                    <Typography variant="subtitle2" color="text.primary">
+                      {t("education_specialities_subtitle")}
+                    </Typography>
+                    {filteredSpecialities.map((s) => (
+                      <Box key={s.id} sx={styles.specialityRow}>
+                        <Typography component="span" variant="body2">
+                          {s.name?.[locale as keyof PublicSpeciality["name"]]}
+                        </Typography>
+                        <Typography component="span" variant="body2" color="text.secondary">
+                          —
+                        </Typography>
+                        <Link
+                          component={NextLink}
+                          href={`/client/education?speciality=${encodeURIComponent(String(s.id))}`}
+                          underline="always"
+                          sx={styles.codeLink}
+                        >
+                          {t("code")}: {s.code}
+                        </Link>
+                      </Box>
+                    ))}
+                  </Box>
+                )}
+              </Box>
+            </Box>  
         )}
       </Box>
     </AppLayout>
   );
 };
 
-export default SpecialityUniversitiesPage;
+export default UniversitySpecialitiesPage;
 
+const styles = {
+  page: { display: "flex", 
+    flexDirection: "column", 
+    gap: 2 
+  },
+  backButton: { 
+    alignSelf: "flex-start" 
+  },
+  card: {
+    border: "1px solid #E0E0E0",
+    p: 3,
+    borderRadius: 1,
+    backgroundColor: "background.paper",
+  },
+  cardContent: { 
+    display: "flex", 
+    flexDirection: "column", 
+    gap: 1.2 
+  },
+  cardHeader: {
+    display: "flex",
+    alignItems: "flex-start",
+    gap: 2,
+  },
+  titleBlock: { 
+    display: "flex", 
+    flexDirection: "column", 
+    textAlign: "left",
+    gap: 2,
+  },
+  title: { 
+    fontWeight: 800, 
+    lineHeight: 1.2,
+  },
+  infoTitle: { 
+    mt: 1 
+  },
+  infoList: {
+    mb: 1,
+    pl: 2,
+    display: "grid",
+    gap: 0.5,
+    color: "text.primary",
+    fontSize: 13,
+  },
+  listItem: {
+    display: "flex",
+    alignItems: "center",
+    gap: 0.5,
+  },
+  footer: { 
+    display: "flex", 
+    alignItems: "flex-end", 
+    justifyContent: "space-between", 
+    gap: 2 
+  },
+  moreLink: {
+    fontSize: "16px", 
+    marginLeft: "auto", 
+    color: "blue",  
+  },
+  section: { 
+    display: "flex", 
+    flexDirection: "column", 
+    gap: 1.5 
+  },
+  specialityRow: { 
+    display: "flex", 
+    alignItems: "center", 
+    gap: 1, 
+    flexWrap: "wrap" 
+  },
+  codeLink: { 
+    fontSize: 16, 
+    fontWeight: 300 
+  },
+};

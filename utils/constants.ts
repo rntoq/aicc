@@ -182,10 +182,10 @@ export interface TestItem {
 /** Recommended set: 3 required + 2 optional (order matters) */
 export const RECOMMENDED_TEST_IDS: string[] = [
   "holland",
-  "photo-career",
-  "disc",
-  "typefinder-16",
+  "career-aptitude",
   "big-five",
+  "photo-career",
+  "typefinder-16",
 ];
 
 export const ALL_TESTS: TestItem[] = [
@@ -198,26 +198,10 @@ export const ALL_TESTS: TestItem[] = [
     questions: 48,
   },
   {
-    id: "photo-career",
-    name: "Photo Career Quiz",
-    icon: PhotoCameraOutlinedIcon,
-    required: true,
-    duration: 7,
-    questions: 30,
-  },
-  {
-    id: "disc",
-    name: "DiSC Assessment",
-    icon: PersonOutlineOutlinedIcon,
-    required: true,
-    duration: 5,
-    questions: 38,
-  },
-  {
     id: "career-aptitude",
     name: "Career Aptitude Test",
     icon: FavoriteBorderOutlinedIcon,
-    required: false,
+    required: true,
     duration: 12,
     questions: 94,
   },
@@ -225,9 +209,23 @@ export const ALL_TESTS: TestItem[] = [
     id: "big-five",
     name: "Big Five Personality (OCEAN)",
     icon: PersonOutlinedIcon,
-    required: false,
+    required: true,
     duration: 10,
     questions: 74,
+  },
+  {
+    id: "photo-career",
+    name: "Photo Career Quiz",
+    icon: PhotoCameraOutlinedIcon,
+    duration: 7,
+    questions: 30,
+  },
+  {
+    id: "disc",
+    name: "DiSC Assessment",
+    icon: PersonOutlineOutlinedIcon,
+    duration: 5,
+    questions: 38,
   },
   {
     id: "eq",

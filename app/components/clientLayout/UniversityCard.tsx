@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Box, Divider, Icon, Typography } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
 import type { PublicUniversity } from "@/lib/types";
@@ -16,6 +17,7 @@ type UniversityCardProps = {
 };
 
 export function UniversityCard({ university, href }: UniversityCardProps) {
+  const router = useRouter();
   const locale = useLocale();
   const t = useTranslations();
   const localeKey = locale as keyof PublicUniversity["name"];
@@ -30,11 +32,13 @@ export function UniversityCard({ university, href }: UniversityCardProps) {
 
   return (
     <Box
+      onClick={href ? () => router.push(href) : undefined}
       sx={{
         height: "100%",
         border: "1px solid #E0E0E0",
         p: 3,
-        backgroundColor: "background.paper"
+        backgroundColor: "background.paper",
+        ...(href ? { cursor: "pointer" } : {}),
       }}
     >
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1.2, height: "100%" }}>
@@ -93,12 +97,17 @@ export function UniversityCard({ university, href }: UniversityCardProps) {
               )}
             </Box>
             <Box sx={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 2, mt: "auto" }}>
-              {university.address && (
+              {/* {university.address && (
                   <Typography variant="caption" color="text.secondary" sx={{ mt: "auto" }}>
                   {university.address}
                   </Typography>
-              )}
-              <Link href={university.url || ""} target="_blank" style={{ textDecoration: "underline" , fontSize: "12px", color: "blue" }}> {t("more")}</Link>
+              )} */}
+              <Link
+                href={href ?? ""}
+                style={{ textDecoration: "underline", fontSize: "12px", color: "blue", marginLeft: "auto" }}
+              >
+                {t("more")}
+              </Link>
             </Box>
         </Box>
     </Box>

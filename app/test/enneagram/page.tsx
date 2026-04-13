@@ -2,15 +2,17 @@
 
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { TestHeader } from "../components/TestHeader";
-import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
-import { LoadingScreen } from "../components/LoadingScreen";
-import { useDelayedFlag } from "../components/useDelayedFlag";
+import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import EnneagramResultPanel, { type EnneagramLocalResult } from "./enneagramResultDialog";
+import { TestResultActions } from "../../components/tests/TestResultActions";
+import { TestHeader } from "../../components/tests/TestHeader";
+import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
+import { LoadingScreen } from "../../components/tests/LoadingScreen";
+import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import ENNEAGRAM_DATA from "./enneagram_questions.json";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
@@ -31,16 +33,7 @@ type EnneagramTypeKey =
   | "type_8"
   | "type_9";
 
-type EnneagramLocalResult = {
-  test_title: string;
-  test_type: "enneagram";
-  scores: Record<EnneagramTypeKey, number>; // 0-100
-  primary_type: EnneagramTypeKey;
-  primary_name: string;
-  wing_notation: string; // e.g., 9w1
-  triad: { code: "heart" | "head" | "body"; label: string; description?: string };
-  summary: string | null;
-};
+const SESSION_KEY = "enneagram";
 
 const STEPS_COUNT = 7;
 const QUESTIONS_PER_STEP = 15; // 7 × 15 = 105
@@ -86,11 +79,25 @@ const triadMap: Record<EnneagramTypeKey, "heart" | "head" | "body"> = {
   type_9: "body",
 };
 
+const styles = {
+  root: { pt: 3, minHeight: "80vh" },
+  pageHeader: { mb: 3, textAlign: "center" as const },
+  pageTitle: { mb: 0.75, fontSize: "1.25rem", fontWeight: 700 },
+  pageHelper: { color: "text.secondary" },
+  questionsColumn: { display: "flex", flexDirection: "column" as const, gap: 2 },
+  dividerBeforeQuestions: { mb: 2 },
+  dividerAfterQuestions: { mt: 3, mb: 2 },
+  navRow: { display: "flex", justifyContent: "space-between", gap: 2, mt: 4, mb: 6 },
+  navButton: { borderRadius: 2, px: 3 },
+};
+
 export default function EnneagramTestPage() {
   const t = useTranslations();
-  const router = useRouter();
   const locale = useLocale() as "ru" | "kk" | "en";
+  const hydrated = useQuizSessionHydrated();
   const { setSession, setResult } = useQuizSessionStore();
+  const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as EnneagramLocalResult | null | undefined);
+  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
 
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
@@ -124,9 +131,18 @@ export default function EnneagramTestPage() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(initializing || submitting);
+  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
 
   useEffect(() => {
+    if (!hydrated) return;
+
+    const st = useQuizSessionStore.getState();
+    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
+      setPhase("result");
+      setInitializing(false);
+      return;
+    }
+
     let cancelled = false;
     const initSession = async () => {
       setInitializing(true);
@@ -149,14 +165,16 @@ export default function EnneagramTestPage() {
       const ids = (testDetail.questions ?? []).map((q) => q.id);
       if (!cancelled) {
         setSessionId(session.id);
-        setSession("enneagram", session.id);
+        setSession(SESSION_KEY, session.id);
         setBackendQuestionIds(ids);
       }
       if (!cancelled) setInitializing(false);
     };
     void initSession();
-    return () => { cancelled = true; };
-  }, [setSession]);
+    return () => {
+      cancelled = true;
+    };
+  }, [hydrated, setSession]);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = QUESTIONS.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -222,6 +240,7 @@ export default function EnneagramTestPage() {
     const summary = t("enneagram_summary");
 
     return {
+      id: Date.now(),
       test_title: data.test?.title?.[locale] ?? data.test?.title?.en ?? "Enneagram Personality Test",
       test_type: "enneagram",
       scores,
@@ -230,7 +249,8 @@ export default function EnneagramTestPage() {
       wing_notation: wingNotation,
       triad: { code: triadCode, label: triadLabel, description: undefined },
       summary,
-    };
+      created_at: new Date().toISOString(),
+    } as EnneagramLocalResult;
   };
 
   const handlePrev = () => {
@@ -265,34 +285,60 @@ export default function EnneagramTestPage() {
         }
       }
 
-      setResult("enneagram", backendResult ?? computeResult());
+      setResult(SESSION_KEY, backendResult ?? computeResult());
       if (backendResult) toast.success(t("toast_test_success"));
       else toast.error(t("toast_test_error"));
-      router.push("/test");
+      setPhase("result");
       setSubmitting(false);
     };
 
     void finish();
   };
 
+  if (!hydrated) {
+    return <LoadingScreen open text={t("toast_test_loading")} />;
+  }
+
+  if (phase === "result") {
+    const result = (finishedResult ?? null) as EnneagramLocalResult | null;
+    return (
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <TestHeader
+            step={STEPS_COUNT}
+            totalSteps={STEPS_COUNT}
+            stepLabel={t("step_x_of_y", { step: STEPS_COUNT, total: STEPS_COUNT }) as string}
+            optionsHeader={scaleOptions}
+          />
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("tests_enneagram_name") as string}</Box>
+          </Box>
+          <EnneagramResultPanel result={result} />
+          <TestResultActions />
+        </Container>
+      </Box>
+    );
+  }
+
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
-      <Box component="main" sx={{ pt: { xs: 3, md: 3 }, minHeight: "80vh" }}>
+      <Box component="main" sx={styles.root}>
         <Container maxWidth="md">
           <TestHeader
             step={step}
             totalSteps={STEPS_COUNT}
             stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT }) as string}
+            optionsHeader={scaleOptions}
           />
-          <Box sx={{ mb: 3, textAlign: "center" }}>
-            <Box style={{ marginBottom: 6, fontSize: "1.25rem", fontWeight: 700 }}>{t("tests_enneagram_name") as string}</Box>
-            <Box style={{ color: "rgba(0,0,0,0.6)" }}>{t("tests_enneagram_subtitle")}</Box>
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("tests_enneagram_name") as string}</Box>
+            <Box sx={styles.pageHelper}>{t("tests_enneagram_helper")}</Box>
           </Box>
 
-          <Divider sx={{ mb: 2 }} />
+          <Divider sx={styles.dividerBeforeQuestions} />
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Box sx={styles.questionsColumn}>
             {stepQuestions.map((q) => (
               <LikertWordQuestionCard
                 key={q.id}
@@ -306,15 +352,15 @@ export default function EnneagramTestPage() {
             ))}
           </Box>
 
-          <Divider sx={{ mt: 3, mb: 2 }} />
+          <Divider sx={styles.dividerAfterQuestions} />
 
-          <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, mt: 4, mb: 6 }}>
+          <Box sx={styles.navRow}>
             <Button
               variant="outlined"
               startIcon={<ArrowBackOutlinedIcon />}
               onClick={handlePrev}
               disabled={step === 1 || submitting}
-              sx={{ borderRadius: 2, px: 3 }}
+              sx={styles.navButton}
             >
               {t("back")}
             </Button>
@@ -324,7 +370,7 @@ export default function EnneagramTestPage() {
                 variant="contained"
                 onClick={handleNext}
                 disabled={!allStepAnswered || submitting}
-                sx={{ borderRadius: 2, px: 3 }}
+                sx={styles.navButton}
               >
                 {t("next")}
               </Button>
@@ -333,7 +379,7 @@ export default function EnneagramTestPage() {
                 variant="contained"
                 onClick={handleSubmit}
                 disabled={!allStepAnswered || submitting}
-                sx={{ borderRadius: 2, px: 3 }}
+                sx={styles.navButton}
               >
                 {submitting ? "..." : t("finish")}
               </Button>

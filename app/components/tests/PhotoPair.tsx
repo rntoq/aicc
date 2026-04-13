@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { Box, Card } from "@mui/material";
 import Image from "next/image";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
@@ -22,62 +23,56 @@ export interface PhotoPairProps {
   onSelect: (option: "optionA" | "optionB") => void;
 }
 
+function PhotoChoice({
+  src,
+  alt,
+  selected,
+  onClick,
+}: {
+  src: string;
+  alt: string;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Card
+      sx={[styles.imageCard, selected && styles.imageCardSelected]}
+      onClick={onClick}
+    >
+      <Box sx={styles.imageWrapper}>
+        <Image src={src} alt={alt} style={imgStyle} width={300} height={200} />
+        {selected ? <Box sx={styles.overlay} /> : null}
+      </Box>
+    </Card>
+  );
+}
+
+const imgStyle: CSSProperties = {
+  display: "block",
+  width: "100%",
+  height: "auto",
+  objectFit: "cover",
+};
+
 export const PhotoPair = ({ question, selected, onSelect }: PhotoPairProps) => {
   const srcA = question.optionA.imageSrc || BANNER_PLACEHOLDER_IMAGE;
   const srcB = question.optionB.imageSrc || BANNER_PLACEHOLDER_IMAGE;
-  const isSelectedA = selected === "optionA";
-  const isSelectedB = selected === "optionB";
 
   return (
     <Box sx={styles.container}>
       <Box sx={styles.pairContainer}>
-        <Card
-          sx={{
-            ...styles.imageCard,
-            borderColor: isSelectedA ? "primary.main" : "transparent",
-          }}
+        <PhotoChoice
+          src={srcA}
+          alt={question.optionA.description}
+          selected={selected === "optionA"}
           onClick={() => onSelect("optionA")}
-        >
-          <Box sx={styles.imageWrapper}>
-            <Image
-              src={srcA}
-              alt={question.optionA.description}
-              style={{
-                display: "block",
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
-              }}
-              width={300}
-              height={200}
-            />
-            {isSelectedA && <Box sx={styles.overlay} />}
-          </Box>
-        </Card>
-
-        <Card
-          sx={{
-            ...styles.imageCard,
-            borderColor: isSelectedB ? "primary.main" : "transparent",
-          }}
+        />
+        <PhotoChoice
+          src={srcB}
+          alt={question.optionB.description}
+          selected={selected === "optionB"}
           onClick={() => onSelect("optionB")}
-        >
-          <Box sx={styles.imageWrapper}>
-            <Image
-              src={srcB}
-              alt={question.optionB.description}
-              style={{
-                display: "block",
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
-              }}
-              width={300}
-              height={200}
-            />
-            {isSelectedB && <Box sx={styles.overlay} />}
-          </Box>
-        </Card>
+        />
       </Box>
     </Box>
   );
@@ -96,16 +91,15 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     gap: { xs: 3, md: 6 },
-    flexDirection: "row",
     width: "100%",
     maxWidth: { xs: "100%", md: "1400px" },
     "@media (max-width: 600px)": {
-      backgroundColor: "background.paper",
+      bgcolor: "background.paper",
       border: "1px solid",
       borderColor: "divider",
       borderRadius: 2,
       flexDirection: "column",
-      padding: 2,
+      p: 2,
     },
   },
   imageCard: {
@@ -122,6 +116,9 @@ const styles = {
       boxShadow: "0 12px 32px rgba(0,0,0,0.2)",
     },
   },
+  imageCardSelected: {
+    borderColor: "primary.main",
+  },
   imageWrapper: {
     position: "relative" as const,
     width: "100%",
@@ -133,4 +130,3 @@ const styles = {
     bgcolor: "rgba(0,0,0,0.70)",
   },
 };
-

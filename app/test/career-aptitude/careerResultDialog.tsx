@@ -1,21 +1,7 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Chip,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  LinearProgress,
-  Typography,
-} from "@mui/material";
+import { Box, Chip, CircularProgress, Divider, LinearProgress, Paper, Typography } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 export type CareerInterestScores = {
   R?: number;
@@ -43,22 +29,16 @@ export type CareerAptitudeResult = {
   summary?: string | null;
   detailed_report?: string | null;
   holland_code?: string;
-  // From backend finish response
   scores?: CareerInterestScores & CareerPersonalityScores;
-  // From local scoring fallback
   interest_scores?: CareerInterestScores;
   personality_scores?: CareerPersonalityScores;
   created_at?: string;
 };
 
-export type CareerResultDialogProps = {
-  open: boolean;
-  onClose: () => void;
+export type CareerResultPanelProps = {
   result: CareerAptitudeResult | null;
   loading?: boolean;
 };
-
-// ─── Labels ───────────────────────────────────────────────────────────────────
 
 const INTEREST_LABELS: Record<string, { ru: string; kk: string; en: string; icon: string }> = {
   R: { ru: "Строительство", kk: "Құрылыс", en: "Building", icon: "🏗️" },
@@ -97,41 +77,55 @@ function getInterestLevel(score: number, locale: string): string {
   return lvl[0];
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
+const paperSx = {
+  p: { xs: 2, md: 2.5 },
+  borderRadius: 2,
+  border: "1px solid",
+  borderColor: "divider",
+};
 
-export const CareerResultDialog = ({
-  open,
-  onClose,
-  result,
-  loading = false,
-}: CareerResultDialogProps) => {
+const styles = {
+  section: { mb: 1 },
+  sectionTitle: { fontWeight: 700, mb: 1.5, fontSize: "1rem" },
+  scoresList: { display: "flex", flexDirection: "column" as const, gap: 1.2 },
+  scoreRow: {
+    display: "grid",
+    gridTemplateColumns: { xs: "1fr", sm: "180px 1fr auto" },
+    alignItems: "center",
+    gap: 1.5,
+  },
+  scoreLabelBox: { display: "flex", alignItems: "center", gap: 0.5 },
+  scoreLabel: { fontSize: "0.875rem", fontWeight: 500, whiteSpace: "nowrap" as const },
+  scoreBarBox: { display: "flex", alignItems: "center", gap: 1 },
+  progressBar: { flex: 1, height: 8, borderRadius: 4, bgcolor: "grey.200" },
+  scoreValue: { fontSize: "0.85rem", fontWeight: 600, minWidth: 36, textAlign: "right" as const },
+  scoreLevel: { fontSize: "0.75rem", minWidth: 80, textAlign: "right" as const },
+};
+
+export function CareerResultPanel({ result, loading = false }: CareerResultPanelProps) {
   const locale = useLocale() as "ru" | "kk" | "en";
   const t = useTranslations();
 
-  // Loading or no result yet
-  if (loading || !result) {
+  if (loading) {
     return (
-      <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
-        <DialogTitle>Career Aptitude Test</DialogTitle>
-        <DialogContent>
-          {loading ? (
-            <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-              <CircularProgress />
-            </Box>
-          ) : (
-            <Typography variant="body2" color="text.secondary">
-              {t("dialog_career_empty")}
-            </Typography>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>{t("close")}</Button>
-        </DialogActions>
-      </Dialog>
+      <Paper elevation={0} sx={paperSx}>
+        <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+          <CircularProgress />
+        </Box>
+      </Paper>
     );
   }
 
-  // Resolve interest scores (from backend or local scoring)
+  if (!result) {
+    return (
+      <Paper elevation={0} sx={paperSx}>
+        <Typography variant="body2" color="text.secondary">
+          {t("dialog_career_empty")}
+        </Typography>
+      </Paper>
+    );
+  }
+
   const interestScores: Record<string, number> = {};
   for (const key of ["R", "I", "A", "S", "E", "C"]) {
     const val =
@@ -140,7 +134,6 @@ export const CareerResultDialog = ({
     if (val != null) interestScores[key] = val as number;
   }
 
-  // Resolve personality scores
   const personalityScores: Record<string, number> = {};
   for (const key of ["O", "C", "E", "A", "N"]) {
     const val =
@@ -151,8 +144,6 @@ export const CareerResultDialog = ({
 
   const hasInterestScores = Object.keys(interestScores).length > 0;
   const hasPersonalityScores = Object.keys(personalityScores).length > 0;
-
-  // Sort interest areas by score
   const sortedInterests = Object.entries(interestScores).sort(([, a], [, b]) => b - a);
   const hollandCode =
     result.holland_code ??
@@ -162,7 +153,6 @@ export const CareerResultDialog = ({
       .map(([k]) => k)
       .join("");
 
-  // Parse summary lines
   const summaryLines = result.summary
     ? result.summary
         .split(/\n|(?<=[.!?])\s+(?=[А-ЯA-Z])/)
@@ -171,192 +161,96 @@ export const CareerResultDialog = ({
     : [];
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="md" scroll="paper">
-      <DialogTitle sx={styles.dialogTitle}>
-        <Box>
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            {result.test_title ?? "Career Aptitude Test"}
-          </Typography>
-          {hollandCode && (
-            <Chip
-              label={hollandCode}
-              color="primary"
-              size="small"
-              sx={{ mt: 0.5, fontWeight: 700, letterSpacing: 2 }}
-            />
-          )}
-        </Box>
-      </DialogTitle>
+    <Paper elevation={0} sx={paperSx}>
+      <Box sx={{ pb: 2 }}>
+        <Typography variant="h6" sx={{ fontWeight: 700 }}>
+          {result.test_title ?? "Career Aptitude Test"}
+        </Typography>
+        {hollandCode ? (
+          <Chip label={hollandCode} color="primary" size="small" sx={{ mt: 0.5, fontWeight: 700, letterSpacing: 2 }} />
+        ) : null}
+      </Box>
 
-      <DialogContent dividers>
-        {/* ─── Interest Scores ─── */}
-        {hasInterestScores && (
+      {hasInterestScores && (
+        <Box sx={styles.section}>
+          <Typography variant="subtitle1" sx={styles.sectionTitle}>
+            {t("career_interest_profile")}
+          </Typography>
+          <Box sx={styles.scoresList}>
+            {sortedInterests.map(([key, score], idx) => {
+              const info = INTEREST_LABELS[key];
+              const label = info?.[locale] ?? info?.ru ?? key;
+              const icon = info?.icon ?? "";
+              const isTop = idx < 3;
+              return (
+                <Box key={key} sx={styles.scoreRow}>
+                  <Box sx={styles.scoreLabelBox}>
+                    <Typography sx={styles.scoreLabel}>
+                      {icon} {label}
+                    </Typography>
+                    {isTop ? (
+                      <Chip label="TOP" size="small" color="primary" sx={{ height: 18, fontSize: "0.65rem", fontWeight: 700 }} />
+                    ) : null}
+                  </Box>
+                  <Box sx={styles.scoreBarBox}>
+                    <LinearProgress variant="determinate" value={score} color={getScoreColor(score)} sx={styles.progressBar} />
+                    <Typography sx={styles.scoreValue}>{score}%</Typography>
+                  </Box>
+                  <Typography sx={styles.scoreLevel} color="text.secondary">
+                    {getInterestLevel(score, locale)}
+                  </Typography>
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
+      )}
+
+      {hasPersonalityScores && (
+        <>
+          <Divider sx={{ my: 2 }} />
           <Box sx={styles.section}>
             <Typography variant="subtitle1" sx={styles.sectionTitle}>
-              {t("career_interest_profile")}
+              {t("career_personality_traits")}
             </Typography>
-
             <Box sx={styles.scoresList}>
-              {sortedInterests.map(([key, score]) => {
-                const info = INTEREST_LABELS[key];
+              {Object.entries(personalityScores).map(([key, score]) => {
+                const info = PERSONALITY_LABELS[key];
                 const label = info?.[locale] ?? info?.ru ?? key;
-                const icon = info?.icon ?? "";
-                const isTop = sortedInterests.indexOf([key, score]) < 3;
-
                 return (
                   <Box key={key} sx={styles.scoreRow}>
                     <Box sx={styles.scoreLabelBox}>
                       <Typography sx={styles.scoreLabel}>
-                        {icon} {label}
+                        {key} — {label}
                       </Typography>
-                      {isTop && (
-                        <Chip
-                          label="TOP"
-                          size="small"
-                          color="primary"
-                          sx={{ height: 18, fontSize: "0.65rem", fontWeight: 700 }}
-                        />
-                      )}
                     </Box>
                     <Box sx={styles.scoreBarBox}>
-                      <LinearProgress
-                        variant="determinate"
-                        value={score}
-                        color={getScoreColor(score)}
-                        sx={styles.progressBar}
-                      />
+                      <LinearProgress variant="determinate" value={score} color={getScoreColor(score)} sx={styles.progressBar} />
                       <Typography sx={styles.scoreValue}>{score}%</Typography>
                     </Box>
-                    <Typography sx={styles.scoreLevel} color="text.secondary">
-                      {getInterestLevel(score, locale)}
-                    </Typography>
                   </Box>
                 );
               })}
             </Box>
           </Box>
-        )}
+        </>
+      )}
 
-        {/* ─── Personality Scores ─── */}
-        {hasPersonalityScores && (
-          <>
-            <Divider sx={{ my: 2 }} />
-            <Box sx={styles.section}>
-              <Typography variant="subtitle1" sx={styles.sectionTitle}>
-                {t("career_personality_traits")}
+      {summaryLines.length > 0 && (
+        <>
+          <Divider sx={{ my: 2 }} />
+          <Box sx={styles.section}>
+            <Typography variant="subtitle1" sx={styles.sectionTitle}>
+              {t("common_summary")}
+            </Typography>
+            {summaryLines.map((line, i) => (
+              <Typography key={i} variant="body2" sx={{ mb: 0.5, lineHeight: 1.7 }}>
+                {line}
               </Typography>
-
-              <Box sx={styles.scoresList}>
-                {Object.entries(personalityScores).map(([key, score]) => {
-                  const info = PERSONALITY_LABELS[key];
-                  const label = info?.[locale] ?? info?.ru ?? key;
-
-                  return (
-                    <Box key={key} sx={styles.scoreRow}>
-                      <Box sx={styles.scoreLabelBox}>
-                        <Typography sx={styles.scoreLabel}>
-                          {key} — {label}
-                        </Typography>
-                      </Box>
-                      <Box sx={styles.scoreBarBox}>
-                        <LinearProgress
-                          variant="determinate"
-                          value={score}
-                          color={getScoreColor(score)}
-                          sx={styles.progressBar}
-                        />
-                        <Typography sx={styles.scoreValue}>{score}%</Typography>
-                      </Box>
-                    </Box>
-                  );
-                })}
-              </Box>
-            </Box>
-          </>
-        )}
-
-        {/* ─── Summary ─── */}
-        {summaryLines.length > 0 && (
-          <>
-            <Divider sx={{ my: 2 }} />
-            <Box sx={styles.section}>
-              <Typography variant="subtitle1" sx={styles.sectionTitle}>
-                {t("common_summary")}
-              </Typography>
-              {summaryLines.map((line, i) => (
-                <Typography key={i} variant="body2" sx={{ mb: 0.5, lineHeight: 1.7 }}>
-                  {line}
-                </Typography>
-              ))}
-            </Box>
-          </>
-        )}
-      </DialogContent>
-
-      <DialogActions>
-        <Button onClick={onClose} variant="contained" sx={{ borderRadius: 2 }}>
-          {t("close")}
-        </Button>
-      </DialogActions>
-    </Dialog>
+            ))}
+          </Box>
+        </>
+      )}
+    </Paper>
   );
-};
-
-// ─── Styles ───────────────────────────────────────────────────────────────────
-
-const styles = {
-  dialogTitle: {
-    pb: 1,
-  },
-  section: {
-    mb: 1,
-  },
-  sectionTitle: {
-    fontWeight: 700,
-    mb: 1.5,
-    fontSize: "1rem",
-  },
-  scoresList: {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: 1.2,
-  },
-  scoreRow: {
-    display: "grid",
-    gridTemplateColumns: "180px 1fr auto",
-    alignItems: "center",
-    gap: 1.5,
-  },
-  scoreLabelBox: {
-    display: "flex",
-    alignItems: "center",
-    gap: 0.5,
-  },
-  scoreLabel: {
-    fontSize: "0.875rem",
-    fontWeight: 500,
-    whiteSpace: "nowrap" as const,
-  },
-  scoreBarBox: {
-    display: "flex",
-    alignItems: "center",
-    gap: 1,
-  },
-  progressBar: {
-    flex: 1,
-    height: 8,
-    borderRadius: 4,
-    bgcolor: "grey.200",
-  },
-  scoreValue: {
-    fontSize: "0.85rem",
-    fontWeight: 600,
-    minWidth: 36,
-    textAlign: "right" as const,
-  },
-  scoreLevel: {
-    fontSize: "0.75rem",
-    minWidth: 80,
-    textAlign: "right" as const,
-  },
-};
+}

@@ -2,15 +2,15 @@
 
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { TestHeader } from "../components/TestHeader";
-import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
-import { LoadingScreen } from "../components/LoadingScreen";
-import { useDelayedFlag } from "../components/useDelayedFlag";
+import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { TestHeader } from "../../components/tests/TestHeader";
+import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
+import { LoadingScreen } from "../../components/tests/LoadingScreen";
+import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
 import QUESTIONS_JSON from "./bigfive_questions.json";
 import type {
@@ -18,6 +18,10 @@ import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
 } from "@/lib/types";
+import { BigFiveResultPanel } from "./bigfiveResultDialog";
+import { TestResultActions } from "../../components/tests/TestResultActions";
+
+const SESSION_KEY = "bigfive";
 
 const QUESTIONS_PER_STEP = 12;
 const STEPS_COUNT = Math.ceil(QUESTIONS_JSON.length / QUESTIONS_PER_STEP); // 74 → 7 steps
@@ -33,8 +37,10 @@ const BIGFIVE_OPTIONS = [
 const BigFiveTestPage = () => {
   const t = useTranslations();
   const locale = useLocale();
-  const router = useRouter();
+  const hydrated = useQuizSessionHydrated();
   const { setSession, setResult } = useQuizSessionStore();
+  const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as BigFiveSessionFinishResponse | null | undefined);
+  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
 
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
@@ -42,9 +48,18 @@ const BigFiveTestPage = () => {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
   const [initializing, setInitializing] = useState(true);
-  const showLoading = useDelayedFlag(initializing || submitting);
+  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
 
   useEffect(() => {
+    if (!hydrated) return;
+
+    const st = useQuizSessionStore.getState();
+    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
+      setPhase("result");
+      setInitializing(false);
+      return;
+    }
+
     let cancelled = false;
 
     const initSession = async () => {
@@ -60,7 +75,7 @@ const BigFiveTestPage = () => {
 
         if (!cancelled) {
           setSessionId(session.id);
-          setSession("bigfive", session.id);
+          setSession(SESSION_KEY, session.id);
           setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
         }
       } catch {
@@ -75,7 +90,7 @@ const BigFiveTestPage = () => {
     return () => {
       cancelled = true;
     };
-  }, [setSession]);
+  }, [hydrated, setSession]);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = QUESTIONS_JSON.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -132,17 +147,42 @@ const BigFiveTestPage = () => {
       }
 
       if (backendResult) {
-        setResult("bigfive", backendResult);
+        setResult(SESSION_KEY, backendResult);
         toast.success(t("toast_test_success"));
+        setPhase("result");
       } else {
         toast.error(t("toast_test_error"));
       }
-      router.push("/test");
       setSubmitting(false);
     };
 
     void finish();
   };
+
+  if (!hydrated) {
+    return <LoadingScreen open text={t("toast_test_loading")} />;
+  }
+
+  if (phase === "result") {
+    const result = (finishedResult ?? null) as BigFiveSessionFinishResponse | null;
+    return (
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <TestHeader
+            step={STEPS_COUNT}
+            totalSteps={STEPS_COUNT}
+            stepLabel={t("step_x_of_y", { step: STEPS_COUNT, total: STEPS_COUNT })}
+            optionsHeader={scaleLabels}
+          />
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("bigfive_title")}</Box>
+          </Box>
+          <BigFiveResultPanel result={result} />
+          <TestResultActions />
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -155,11 +195,11 @@ const BigFiveTestPage = () => {
             stepLabel={t("step_x_of_y", { step, total: STEPS_COUNT })}
             optionsHeader={scaleLabels}
           />
-          <Box sx={{ mb: 3, textAlign: "center" }}>
-            <Box style={{ marginBottom: 6, fontSize: "1.25rem", fontWeight: 700 }}>{t("bigfive_title")}</Box>
-            <Box style={{ color: "rgba(0,0,0,0.6)" }}>{t("bigfive_subtitle")}</Box>
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("bigfive_title")}</Box>
+            <Box sx={styles.pageHelper}>{t("tests_big-five_helper")}</Box>
           </Box>
-          <Divider sx={{ mb: 1 }} />
+          <Divider sx={styles.dividerTop} />
 
           <Box sx={styles.questionsList}>
             {stepQuestions.map((q) => {
@@ -178,7 +218,7 @@ const BigFiveTestPage = () => {
             })}
           </Box>
 
-          <Divider sx={{ mt: 1, mb: 3 }} />
+          <Divider sx={styles.dividerBottom} />
 
           <Box sx={styles.navigation}>
             <Button
@@ -221,9 +261,23 @@ export default BigFiveTestPage;
 
 const styles = {
   root: {
-    pt: { xs: 3, md: 3 },
+    pt: 3,
     minHeight: "80vh",
   },
+  pageHeader: {
+    mb: 3,
+    textAlign: "center" as const,
+  },
+  pageTitle: {
+    mb: 0.75,
+    fontSize: "1.25rem",
+    fontWeight: 700,
+  },
+  pageHelper: {
+    color: "text.secondary",
+  },
+  dividerTop: { mb: 1 },
+  dividerBottom: { mt: 1, mb: 3 },
   questionsList: {
     display: "flex",
     flexDirection: "column",

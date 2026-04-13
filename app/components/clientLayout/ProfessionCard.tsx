@@ -83,7 +83,7 @@ export function ProfessionCard({ profession, t, compact = false }: ProfessionCar
                 const hrefId = resolvedId != null ? String(resolvedId) : code;
                 return (
                   <Link
-                    href={`/client/education/${encodeURIComponent(hrefId)}`}
+                    href={`/client/education?speciality=${encodeURIComponent(hrefId)}`}
                     key={objId}
                     style={{ color: "blue", marginRight: "5px" }}
                   >

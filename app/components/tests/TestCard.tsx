@@ -1,13 +1,22 @@
 "use client";
 
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { TestItem } from "@/utils/constants";
 import { useRouter } from "next/navigation";
-import { useTestsStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { type ReactNode, useSyncExternalStore } from "react";
+import { useAuth } from "@/lib/store/useAuthStore";
+import { type ReactNode, useState, useSyncExternalStore } from "react";
 import LockResetIcon from "@mui/icons-material/LockReset";
 
 const CARD_ACCENTS = [
@@ -21,52 +30,57 @@ const CARD_ACCENTS = [
   { border: "#f59e0b", bg: "rgba(245, 158, 11, 0.06)", titleColor: "#f59e0b" },
   { border: "#10b981", bg: "rgba(16, 185, 129, 0.06)", titleColor: "#10b981" },
   { border: "#64748B", bg: "rgba(100, 116, 139, 0.06)", titleColor: "#64748B" },
-];
+] as const;
 
-const getBadgeLabel = (
-  test: TestItem,
-  t: ReturnType<typeof useTranslations>
-): ReactNode => {
-  if (test.required) return <><LockResetIcon sx={{ fontSize: 14, mr: 0.5 }} /> {t("tests_badge_required")}</>;
+type Accent = (typeof CARD_ACCENTS)[number];
+
+function getBadgeLabel(test: TestItem, t: ReturnType<typeof useTranslations>): ReactNode {
+  if (test.required) {
+    return (
+      <>
+        <LockResetIcon sx={styles.lockIcon} /> {t("tests_badge_required")}
+      </>
+    );
+  }
   return t("tests_badge_optional");
-};
+}
 
-const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
-  if (test.required) return { bg: "rgba(99, 102, 241, 0.15)", color: "#6366F1" };
-  return { bg: "rgba(59, 59, 59, 0.15)", color: "#3B3B3B" };
-};
+function getBadgeStyle(test: TestItem) {
+  return test.required
+    ? { bg: "rgba(99, 102, 241, 0.15)", color: "#6366F1" }
+    : { bg: "rgba(59, 59, 59, 0.15)", color: "#3B3B3B" };
+}
 
-/** Maps test.id → the key used in quizSessionStore */
-const testIdToSessionKey = (id: TestItem["id"]): string => {
-  if (id === "big-five") return "bigfive";
-  return id;
-};
+function testIdToSessionKey(id: TestItem["id"]): string {
+  return id === "big-five" ? "bigfive" : id;
+}
 
-const ROUTES: Partial<Record<string, string>> = {
-  "holland": "/test/holland",
+const ROUTES: Partial<Record<TestItem["id"], string>> = {
+  holland: "/test/holland",
   "photo-career": "/test/photo-career",
-  "disc": "/test/disc",
+  disc: "/test/disc",
   "career-aptitude": "/test/career-aptitude",
   "big-five": "/test/bigfive",
-  "leadership": "/test/leadership",
-  "eq": "/test/eq",
-  "enneagram": "/test/enneagram",
+  leadership: "/test/leadership",
+  eq: "/test/eq",
+  enneagram: "/test/enneagram",
   "typefinder-16": "/test/typefinder-16",
-  "strengths": "/test/strengths",
+  strengths: "/test/strengths",
 };
 
-const RESULT_MODAL_IDS: Partial<Record<string, string>> = {
-  "holland": "holland",
-  "disc": "disc",
-  "photo-career": "photo-career",
-  "big-five": "bigfive",
-  "career-aptitude": "career-aptitude",
-  "eq": "eq",
-  "leadership": "leadership",
-  "enneagram": "enneagram",
-  "typefinder-16": "typefinder-16",
-  "strengths": "strengths",
-};
+function cardSxForAccent(accent: Accent): SxProps<Theme> {
+  return {
+    ...styles.item,
+    borderColor: accent.border,
+    backgroundColor: accent.bg,
+    "&:hover": {
+      transform: "translateY(-6px) scale(1.02)",
+      boxShadow: "0 20px 50px rgba(127,127,213,0.18)",
+      borderColor: accent.border,
+      backgroundImage: `linear-gradient(180deg, #ffffff 0%, ${accent.bg} 100%)`,
+    },
+  };
+}
 
 export const TestCard = ({
   test,
@@ -81,15 +95,18 @@ export const TestCard = ({
 }) => {
   const t = useTranslations();
   const router = useRouter();
-  const { setOpenResultModalId } = useTestsStore();
+  const hydrated = useAuth((s) => s.hydrated);
+  const isAuthenticated = useAuth((s) => s.isAuthenticated);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [pendingRoute, setPendingRoute] = useState<string | null>(null);
   const sessionKey = testIdToSessionKey(test.id);
 
-  // Safe SSR: server snapshot always false, client reads Zustand store
   const completed = useSyncExternalStore(
     useQuizSessionStore.subscribe,
     () => useQuizSessionStore.getState().isCompleted(sessionKey),
-    () => false
+    () => false,
   );
+
   const name = (t(`tests_${test.id}_name` as Parameters<typeof t>[0]) as string) || test.name;
   const featuresRaw = (t(`tests_${test.id}_features` as Parameters<typeof t>[0]) as string) || "";
   const features = featuresRaw ? featuresRaw.split("\n").filter(Boolean).slice(0, 3) : [];
@@ -100,49 +117,75 @@ export const TestCard = ({
   const badgeStyle = getBadgeStyle(test);
   const accent = CARD_ACCENTS[index % CARD_ACCENTS.length];
 
-  const handleStart = () => {
+  const navigateToTest = () => {
     const route = ROUTES[test.id];
     if (route) router.push(route);
   };
 
-  const handleShowResult = () => {
-    const modalId = RESULT_MODAL_IDS[test.id];
-    if (modalId) setOpenResultModalId(modalId);
+  const requestNavigate = () => {
+    const route = ROUTES[test.id];
+    if (!route) return;
+    if (!hydrated) {
+      navigateToTest();
+      return;
+    }
+    if (!isAuthenticated) {
+      setPendingRoute(route);
+      setAuthModalOpen(true);
+      return;
+    }
+    navigateToTest();
   };
 
+  const handleGuestContinue = () => {
+    setAuthModalOpen(false);
+    if (pendingRoute) router.push(pendingRoute);
+    setPendingRoute(null);
+  };
+
+  const handleLogin = () => {
+    setAuthModalOpen(false);
+    setPendingRoute(null);
+    router.push("/login");
+  };
+
+  const Icon = test.icon;
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.15 }}
-    >
-      <Box
-        sx={{
-          ...styles.item,
-          borderColor: accent.border,
-          backgroundColor: accent.bg,
-          "&:hover": {
-            transform: "translateY(-6px) scale(1.02)",
-            boxShadow: "0 20px 50px rgba(127,127,213,0.18)",
-            borderColor: accent.border,
-            backgroundImage: `linear-gradient(180deg, #ffffff 0%, ${accent.bg} 100%)`,
-          },
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.15 }}>
+      <Dialog
+        open={authModalOpen}
+        onClose={() => {
+          setAuthModalOpen(false);
+          setPendingRoute(null);
         }}
+        maxWidth="sm"
+        fullWidth
       >
+        <DialogTitle>{t("test_card_auth_title")}</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" color="text.secondary">
+            {t("test_card_auth_body")}
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2, gap: 1, flexWrap: "wrap" }}>
+          <Button variant="contained" onClick={handleLogin} sx={{ flex: 1, minWidth: 140 }}>
+            {t("test_card_auth_login")}
+          </Button>
+          <Button variant="outlined" onClick={handleGuestContinue} sx={{ flex: 1, minWidth: 140 }}>
+            {t("test_card_auth_guest")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Box sx={cardSxForAccent(accent)}>
         <Box sx={styles.itemBgIcon} aria-hidden>
-          {test.icon && <test.icon />}
+          {Icon ? <Icon /> : null}
         </Box>
         <Box sx={styles.itemContent}>
-          {variant === "recommended" && (
-            <Box sx={{ ...styles.badge, background: badgeStyle.bg, color: badgeStyle.color }}>
-              {badgeLabel}
-            </Box>
-          )}
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            {category && (
-              <Typography sx={styles.category}>{category}</Typography>
-            )}
-          </Box>
+          {variant === "recommended" ? (
+            <Box sx={{ ...styles.badge, background: badgeStyle.bg, color: badgeStyle.color }}>{badgeLabel}</Box>
+          ) : null}
+          {category ? <Typography sx={styles.category}>{category}</Typography> : null}
           <Typography variant="subtitle1" sx={{ ...styles.itemTitle, color: accent.titleColor }}>
             {name}
           </Typography>
@@ -153,19 +196,14 @@ export const TestCard = ({
           <Box component="ul" sx={styles.featureList}>
             {features.map((line, j) => (
               <Box key={j} component="li" sx={styles.featureItem}>
-                <Typography variant="body2" sx={styles.featureText}>• {line}</Typography>
+                <Typography variant="body2" sx={styles.featureText}>
+                  • {line}
+                </Typography>
               </Box>
             ))}
           </Box>
           {completed ? (
-            <Button
-              variant="contained"
-              color="primary"
-              size="medium"
-              fullWidth
-              onClick={handleShowResult}
-              sx={styles.cta}
-            >
+            <Button variant="contained" color="primary" size="medium" fullWidth onClick={requestNavigate} sx={styles.cta}>
               {t("showResult")}
             </Button>
           ) : (
@@ -174,7 +212,7 @@ export const TestCard = ({
               color="primary"
               size="medium"
               fullWidth
-              onClick={handleStart}
+              onClick={requestNavigate}
               sx={styles.cta}
               disabled={disabled}
             >
@@ -212,6 +250,7 @@ const styles = {
       transform: "scale(1.1)",
     },
   },
+  lockIcon: { fontSize: 14, mr: 0.5 },
   badge: {
     display: "flex",
     alignSelf: "flex-start",

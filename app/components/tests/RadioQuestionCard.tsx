@@ -10,22 +10,29 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import type { LocalizedText } from "@/lib/types";
 
+export function pickLocalizedString(
+  locale: string,
+  text: LocalizedText | string | undefined | null,
+): string {
+  if (text == null) return "";
+  if (typeof text === "string") return text;
+  return (
+    (text[locale as keyof LocalizedText] as string | undefined) ??
+    text.ru ??
+    text.en ??
+    ""
+  );
+}
+
+export type LikertWordScaleOptions = Array<LocalizedText | string>;
+
 export type LikertWordQuestionCardProps = {
-  /** Локализованный заголовок утверждения */
   title: LocalizedText | string;
-  /** Текущее значение шкалы 1–5, либо null */
   value: number | null;
-  /** Колбэк при изменении значения */
   onChange: (value: number) => void;
-  /** Подпись слева от шкалы (по умолчанию “Не про меня”) */
   leftLabel?: LocalizedText | string;
-  /** Подпись справа от шкалы (по умолчанию “Про меня”) */
   rightLabel?: LocalizedText | string;
-  /**
-   * Подписи для N градаций шкалы (обычно 3 или 5).
-   * Если не заданы, используются дефолтные 5 фраз.
-   */
-  options?: Array<LocalizedText | string>;
+  options?: LikertWordScaleOptions;
 };
 
 export const LikertWordQuestionCard = ({
@@ -39,19 +46,9 @@ export const LikertWordQuestionCard = ({
   const locale = useLocale();
   const t = useTranslations();
 
-  const pick = (text: LocalizedText | string | undefined): string => {
-    if (typeof text === "string") return text;
-    return (
-      (text?.[locale as keyof LocalizedText] as string | undefined) ??
-      (text?.ru as string | undefined) ??
-      (text?.en as string | undefined) ??
-      ""
-    );
-  };
-
-  const titleText = pick(title);
-  const leftText = pick(leftLabel) || t("not_like_me");
-  const rightText = pick(rightLabel) || t("like_me");
+  const titleText = pickLocalizedString(locale, title);
+  const leftText = pickLocalizedString(locale, leftLabel) || t("not_like_me");
+  const rightText = pickLocalizedString(locale, rightLabel) || t("like_me");
   const scaleOptions =
     options && options.length > 0
       ? options
@@ -64,22 +61,10 @@ export const LikertWordQuestionCard = ({
         ];
 
   return (
-    <Box sx={{ mb: 2 }}>
-      <Typography
-        sx={styles.title}
-      >
-        {titleText}
-      </Typography>
-
-      <Box
-        sx={styles.content}
-      >
-        <Typography
-          sx={{...styles.label, textAlign: "right"}}
-        >
-          {leftText}
-        </Typography>
-
+    <Box sx={styles.root}>
+      <Typography sx={styles.title}>{titleText}</Typography>
+      <Box sx={styles.content}>
+        <Typography sx={styles.labelRight}>{leftText}</Typography>
         <RadioGroup
           row
           sx={styles.radioGroup}
@@ -91,7 +76,7 @@ export const LikertWordQuestionCard = ({
             return (
               <FormControlLabel
                 key={v}
-                value={v.toString()}
+                value={String(v)}
                 control={<Radio size="small" />}
                 label
                 sx={styles.radioLabel}
@@ -99,18 +84,14 @@ export const LikertWordQuestionCard = ({
             );
           })}
         </RadioGroup>
-
-        <Typography
-          sx={{...styles.label, textAlign: "left"}}
-        >
-          {rightText}
-        </Typography>
+        <Typography sx={styles.labelLeft}>{rightText}</Typography>
       </Box>
     </Box>
   );
 };
 
 const styles = {
+  root: { mb: 2 },
   title: {
     fontWeight: 600,
     fontSize: "1rem",
@@ -118,17 +99,24 @@ const styles = {
     maxWidth: 420,
     mx: "auto",
   },
-  label: {
+  labelRight: {
     fontWeight: 600,
     fontSize: { xs: "0.8rem", md: "0.9rem" },
     color: "text.secondary",
+    textAlign: "right",
+  },
+  labelLeft: {
+    fontWeight: 600,
+    fontSize: { xs: "0.8rem", md: "0.9rem" },
+    color: "text.secondary",
+    textAlign: "left",
   },
   content: {
     display: "grid",
-    gridTemplateColumns: { xs: "1fr auto 1fr", md: "1fr auto 1fr" },
+    gridTemplateColumns: "1fr auto 1fr",
     alignItems: "center",
     gap: { xs: 1.5, md: 2 },
-    p: 0
+    p: 0,
   },
   radioLabel: {
     m: 0,

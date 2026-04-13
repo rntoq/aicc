@@ -2,15 +2,17 @@
 
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { TestHeader } from "../components/TestHeader";
-import { OptionQuestionCard } from "../components/OptionQuestionCard";
-import { LoadingScreen } from "../components/LoadingScreen";
-import { useDelayedFlag } from "../components/useDelayedFlag";
+import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import LeadershipResultPanel, { type LeadershipLocalResult } from "./leadershipResultDialog";
+import { TestResultActions } from "../../components/tests/TestResultActions";
+import { TestHeader } from "../../components/tests/TestHeader";
+import { OptionQuestionCard } from "../../components/tests/OptionQuestionCard";
+import { LoadingScreen } from "../../components/tests/LoadingScreen";
+import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import LEADERSHIP_DATA from "./leadership_questions.json";
 import { quizServices } from "@/lib/services/quizServices";
 import type {
@@ -19,21 +21,12 @@ import type {
   LocalizedText,
   QuizResult,
 } from "@/lib/types";
-import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
+import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
 
 type PairKey = "a" | "b";
 type LeadershipDimensionKey = "openness" | "conscientiousness" | "agreeableness";
 
-type LeadershipLocalResult = {
-  test_title: string;
-  test_type: string;
-  dimension_scores: Record<LeadershipDimensionKey, number>;
-  leadership_type: {
-    code: string;
-    name: string;
-    tagline: string;
-  } | null;
-};
+const SESSION_KEY = "leadership";
 
 const DIMENSION_LABELS: Record<LeadershipDimensionKey, { ru: string; kk: string; en: string }> = {
   openness: { ru: "Открытость", kk: "Ашықтық", en: "Openness" },
@@ -79,11 +72,25 @@ const LEADERSHIP_TYPES: Record<
   },
 };
 
+const styles = {
+  root: { pt: 3, minHeight: "80vh" },
+  pageHeader: { mb: 3, textAlign: "center" as const },
+  pageTitle: { mb: 0.75, fontSize: "1.25rem", fontWeight: 700 },
+  pageHelper: { color: "text.secondary" },
+  questionsColumn: { display: "flex", flexDirection: "column" as const, gap: 2 },
+  dividerBeforeQuestions: { mb: 2 },
+  dividerBeforeNav: { mt: 2, mb: 3 },
+  navRow: { display: "flex", justifyContent: "space-between", gap: 2, mt: 4, mb: 6 },
+  navButton: { borderRadius: 2, px: 3 },
+};
+
 export default function LeadershipTestPage() {
   const t = useTranslations();
   const locale = useLocale() as "ru" | "kk" | "en";
-  const router = useRouter();
+  const hydrated = useQuizSessionHydrated();
   const { setSession, setResult } = useQuizSessionStore();
+  const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as LeadershipLocalResult | null | undefined);
+  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
 
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestions, setBackendQuestions] = useState<
@@ -142,9 +149,18 @@ export default function LeadershipTestPage() {
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
   const [initializing, setInitializing] = useState(true);
-  const showLoading = useDelayedFlag(initializing || submitting);
+  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
 
   useEffect(() => {
+    if (!hydrated) return;
+
+    const st = useQuizSessionStore.getState();
+    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
+      setPhase("result");
+      setInitializing(false);
+      return;
+    }
+
     let cancelled = false;
     const initSession = async () => {
       setInitializing(true);
@@ -171,14 +187,16 @@ export default function LeadershipTestPage() {
       }));
       if (!cancelled) {
         setSessionId(session.id);
-        setSession("leadership", session.id);
+        setSession(SESSION_KEY, session.id);
         setBackendQuestions(bqs);
       }
       if (!cancelled) setInitializing(false);
     };
     void initSession();
-    return () => { cancelled = true; };
-  }, [setSession]);
+    return () => {
+      cancelled = true;
+    };
+  }, [hydrated, setSession]);
 
   const frequencyScaleOptions = useMemo<LocalizedText[]>(
     () => [1, 2, 3, 4, 5].map((v) => scaleLabels[String(v)] ?? emptyLabel),
@@ -188,6 +206,8 @@ export default function LeadershipTestPage() {
   const frequencyRightLabel = scaleLabels["5"] ?? emptyLabel;
 
   const canProceed = stepQuestions.every((q) => answers[q.id] != null);
+
+  const optionsHeaderLeadership = step === 2 ? frequencyScaleOptions : undefined;
 
   const computeResult = (): LeadershipLocalResult => {
     const dimScores: Record<LeadershipDimensionKey, number> = {
@@ -238,6 +258,7 @@ export default function LeadershipTestPage() {
     const type = LEADERSHIP_TYPES[key] ?? null;
 
     return {
+      id: Date.now(),
       test_title: leadershipData.test?.title?.[locale] ?? leadershipData.test?.title?.en ?? "Leadership Style Assessment",
       test_type: "leadership",
       dimension_scores: dimScores,
@@ -248,7 +269,8 @@ export default function LeadershipTestPage() {
             tagline: type.tagline,
           }
         : null,
-    };
+      created_at: new Date().toISOString(),
+    } as LeadershipLocalResult;
   };
 
   const handlePrev = () => {
@@ -295,34 +317,62 @@ export default function LeadershipTestPage() {
           backendResult = finishRes.body;
         }
       }
-      setResult("leadership", backendResult ?? computeResult());
+      setResult(SESSION_KEY, backendResult ?? computeResult());
       if (backendResult) toast.success(t("toast_test_success"));
       else toast.error(t("toast_test_error"));
-      router.push("/test");
+      setPhase("result");
       setSubmitting(false);
     };
 
     void finish();
   };
 
+  if (!hydrated) {
+    return <LoadingScreen open text={t("toast_test_loading")} />;
+  }
+
+  if (phase === "result") {
+    const result = (finishedResult ?? null) as LeadershipLocalResult | null;
+    return (
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <TestHeader
+            step={stepTotal}
+            totalSteps={stepTotal}
+            stepLabel={t("step_x_of_y", { step: stepTotal, total: stepTotal }) as string}
+            optionsHeader={frequencyScaleOptions}
+          />
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("tests_leadership_name") as string}</Box>
+          </Box>
+          <LeadershipResultPanel result={result} />
+          <TestResultActions />
+        </Container>
+      </Box>
+    );
+  }
+
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
-      <Box component="main" sx={{ pt: { xs: 3, md: 3 }, minHeight: "80vh" }}>
+      <Box component="main" sx={styles.root}>
         <Container maxWidth="md">
           <TestHeader
             step={step}
             totalSteps={stepTotal}
             stepLabel={t("step_x_of_y", { step, total: stepTotal }) as string}
+            optionsHeader={optionsHeaderLeadership}
           />
-          <Box sx={{ mb: 3, textAlign: "center" }}>
-            <Box style={{ marginBottom: 6, fontSize: "1.25rem", fontWeight: 700 }}>{t("tests_leadership_name") as string}</Box>
-            <Box style={{ color: "rgba(0,0,0,0.6)" }}>{t("tests_leadership_subtitle")}</Box>
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("tests_leadership_name") as string}</Box>
+            <Box sx={styles.pageHelper}>
+              {step === 1 ? t("tests_leadership_helper_pairs") : t("tests_leadership_helper_scale")}
+            </Box>
           </Box>
 
-          <Divider sx={{ mb: 2 }} />
+          <Divider sx={styles.dividerBeforeQuestions} />
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Box sx={styles.questionsColumn}>
             {stepQuestions.map((q) => {
               if (q.type === "pair") {
                 const optionA = q.option_a?.[locale] ?? q.option_a?.ru ?? "";
@@ -363,15 +413,15 @@ export default function LeadershipTestPage() {
             })}
           </Box>
 
-          <Divider sx={{ mt: 2, mb: 3 }} />
+          <Divider sx={styles.dividerBeforeNav} />
 
-          <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, mt: 4, mb: 6 }}>
+          <Box sx={styles.navRow}>
             <Button
               variant="outlined"
               startIcon={<ArrowBackOutlinedIcon />}
               onClick={handlePrev}
               disabled={step === 1 || submitting}
-              sx={{ borderRadius: 2, px: 3 }}
+              sx={styles.navButton}
             >
               {t("back")}
             </Button>
@@ -381,7 +431,7 @@ export default function LeadershipTestPage() {
                 variant="contained"
                 onClick={handleNext}
                 disabled={!canProceed || submitting}
-                sx={{ borderRadius: 2, px: 3 }}
+                sx={styles.navButton}
               >
                 {t("next")}
               </Button>
@@ -390,7 +440,7 @@ export default function LeadershipTestPage() {
                 variant="contained"
                 onClick={handleSubmit}
                 disabled={!canProceed || submitting}
-                sx={{ borderRadius: 2, px: 3 }}
+                sx={styles.navButton}
               >
                 {submitting ? "..." : t("finish")}
               </Button>

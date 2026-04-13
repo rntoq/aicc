@@ -4,7 +4,7 @@ import { Box, LinearProgress, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 export interface ProgressBarProps {
-  progress: number; // 0-100
+  progress: number;
   current: number;
   total: number;
 }
@@ -12,7 +12,7 @@ export interface ProgressBarProps {
 export const ProgressBar = ({ progress, current, total }: ProgressBarProps) => {
   const t = useTranslations();
   return (
-    <Box >
+    <Box sx={styles.root}>
       <Box sx={styles.header}>
         <Typography variant="body2" color="text.secondary">
           {t("progress")}: {current} / {total}
@@ -21,16 +21,15 @@ export const ProgressBar = ({ progress, current, total }: ProgressBarProps) => {
           {progress}%
         </Typography>
       </Box>
-      <LinearProgress
-        variant="determinate"
-        value={progress}
-        sx={styles.progress}
-      />
+      <LinearProgress variant="determinate" value={progress} sx={styles.progress} />
     </Box>
   );
 };
 
 const styles = {
+  root: {
+    width: "100%",
+  },
   header: {
     display: "flex",
     justifyContent: "space-between",

@@ -2,17 +2,19 @@
 
 import { Box, Button, Container, Typography } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
 import QUESTIONS_JSON from "./holland_questions.json";
-import { TestHeader } from "../components/TestHeader";
-import { OptionQuestionCard } from "../components/OptionQuestionCard";
-import { LoadingScreen } from "../components/LoadingScreen";
-import { useDelayedFlag } from "../components/useDelayedFlag";
+import { TestHeader } from "../../components/tests/TestHeader";
+import { OptionQuestionCard } from "../../components/tests/OptionQuestionCard";
+import { LoadingScreen } from "../../components/tests/LoadingScreen";
+import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
+import { HollandResultPanel } from "./hollandResultDialog";
+import { TestResultActions } from "../../components/tests/TestResultActions";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
@@ -32,17 +34,30 @@ const TOTAL = QUESTIONS.length; // 48
 
 const RIASEC_CATEGORIES = ["R", "I", "A", "S", "E", "C"] as const;
 
+const SESSION_KEY = "holland";
+
 const HollandTestPage = () => {
   const t = useTranslations();
   const locale = useLocale() as "ru" | "kk" | "en";
-  const router = useRouter();
+  const hydrated = useQuizSessionHydrated();
   const { setSession, setResult } = useQuizSessionStore();
+  const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as HollandSessionFinishResponse | null | undefined);
+  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
   const [initializing, setInitializing] = useState(true);
-  const showLoading = useDelayedFlag(initializing);
+  const showLoading = useDelayedFlag(phase === "quiz" && initializing);
 
   useEffect(() => {
+    if (!hydrated) return;
+
+    const st = useQuizSessionStore.getState();
+    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
+      setPhase("result");
+      setInitializing(false);
+      return;
+    }
+
     let cancelled = false;
 
     const initSession = async () => {
@@ -58,7 +73,7 @@ const HollandTestPage = () => {
 
         if (!cancelled) {
           setSessionId(session.id);
-          setSession("holland", session.id);
+          setSession(SESSION_KEY, session.id);
           setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
         }
       } catch {
@@ -69,8 +84,10 @@ const HollandTestPage = () => {
     };
 
     void initSession();
-    return () => { cancelled = true; };
-  }, [setSession]);
+    return () => {
+      cancelled = true;
+    };
+  }, [hydrated, setSession]);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -128,10 +145,10 @@ const HollandTestPage = () => {
       }
     }
 
-    setResult("holland", backendResult ?? buildLocalResult(usedAnswers));
+    setResult(SESSION_KEY, backendResult ?? buildLocalResult(usedAnswers));
     if (backendResult) toast.success(t("toast_test_success"));
     else toast.error(t("toast_test_error"));
-    router.push("/test");
+    setPhase("result");
   };
 
   const handleAnswerChange = (value: number) => {
@@ -154,6 +171,28 @@ const HollandTestPage = () => {
 
   const canFinish = Object.keys(answers).length === TOTAL;
 
+  if (!hydrated) {
+    return <LoadingScreen open text={t("toast_test_loading")} />;
+  }
+
+  if (phase === "result") {
+    const result = (finishedResult ?? null) as HollandSessionFinishResponse | null;
+    return (
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <TestHeader answered={TOTAL} totalQuestions={TOTAL} />
+          <Box sx={{ ...styles.header, mt: 1 }}>
+            <Typography component="h2" variant="h2" sx={styles.title}>
+              {t("holland_title")}
+            </Typography>
+          </Box>
+          <HollandResultPanel result={result} />
+          <TestResultActions />
+        </Container>
+      </Box>
+    );
+  }
+
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
@@ -163,13 +202,9 @@ const HollandTestPage = () => {
             answered={answeredCount}
             totalQuestions={TOTAL}
           />
-          <Box sx={styles.header}>
-            <Typography component="h2" variant="h2" sx={styles.title}>
-              {t("holland_title")}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {t("holland_subtitle")}
-            </Typography>
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("tests_holland_name") as string}</Box>
+            <Box sx={styles.pageHelper}>{t("tests_holland_helper")}</Box>
           </Box>
 
           <OptionQuestionCard
@@ -221,17 +256,29 @@ export default HollandTestPage;
 
 const styles = {
   root: {
-    pt: { xs: 3, md: 3 },
+    pt: 3,
     minHeight: "80vh",
   },
   header: {
     mb: 4,
-    textAlign: "center",
+    textAlign: "center" as const,
   },
   title: {
     mb: 1,
     fontSize: "1.25rem",
     fontWeight: 700,
+  },
+  pageHeader: {
+    mb: 3,
+    textAlign: "center" as const,
+  },
+  pageTitle: {
+    mb: 0.75,
+    fontSize: "1.25rem",
+    fontWeight: 700,
+  },
+  pageHelper: {
+    color: "text.secondary",
   },
   navigation: {
     display: "flex",

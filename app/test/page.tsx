@@ -13,30 +13,13 @@ import {
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
 import { Footer } from "@/app/components/landing/Footer";
 import { ALL_TESTS, getRecommendedTests } from "@/utils/constants";
-import { TestCard } from "./components/TestCard";
+import { TestCard } from "../components/tests/TestCard";
 import { Header } from "../components/layout/Header";
 import { useQuizCategories, useQuizTestTypes, useQuizTests } from "@/lib/services/quizServices";
-import { analyseServices } from "@/lib/services/analyseServices";
-import { HollandResultDialog } from "./holland/hollandResultDialog";
-import { PhotoResultDialog } from "./photo-career/photoResultDialog";
-import { BigFiveResultDialog } from "./bigfive/bigfiveResultDialog";
-import { CareerResultDialog } from "./career-aptitude/careerResultDialog";
-import DiscResultDialog from "./disc/discResultDialog";
-import { EqResultDialog } from "./eq/eqResultDialog";
-import LeadershipResultDialog from "./leadership/leadershipResultDialog";
-import EnneagramResultDialog from "./enneagram/enneagramResultDialog";
-import TypeFinderResultDialog from "./typefinder-16/typefinderResultDialog";
-import StrengthsResultDialog from "./strengths/strengthsResultDialog";
-import { useTestsStore } from "@/lib/store/useQuizStore";
-import { useQuizSessionStore, type QuizSessionEntry } from "@/lib/store/useQuizStore";
-import { quizServices } from "@/lib/services/quizServices";
-import type { BigFiveSessionFinishResponse, HollandSessionFinishResponse, QuizResult } from "@/lib/types";
-import type { CareerAptitudeResult } from "./career-aptitude/careerResultDialog";
-import { toast } from "react-toastify";
 import { AiAnalysisCta } from "../components/layout/AiAnalysisCta";
 
 const MAX_CUSTOM_SELECT = 4;
@@ -73,47 +56,6 @@ const TestPage = () => {
   const [showCustom, setShowCustom] = useState(false);
   const recommendedRef = useRef<HTMLDivElement | null>(null);
   const customRef = useRef<HTMLDivElement | null>(null);
-
-  const { openResultModalId, setOpenResultModalId } = useTestsStore();
-  const { getSession, setResult } = useQuizSessionStore();
-  const [fetchingResult, setFetchingResult] = useState(false);
-  // AI analysis CTA теперь вынесен в компонент `AiAnalysisCta`.
-
-  // При открытии диалога: если result пустой, но sessionId есть — запрашиваем finish
-  useEffect(() => {
-    if (!openResultModalId) return;
-
-    const entry = getSession(openResultModalId);
-    if (!entry?.sessionId || entry.result != null) return;
-
-    let cancelled = false;
-    Promise.resolve().then(() => {
-      if (!cancelled) setFetchingResult(true);
-    });
-
-    void (async () => {
-      const { body, error } = await quizServices.finish({ session_id: entry.sessionId });
-      if (!cancelled && body && !error) {
-        setResult(openResultModalId, body);
-      }
-      if (!cancelled) setFetchingResult(false);
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [openResultModalId]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const hollandResult = getSession("holland")?.result as HollandSessionFinishResponse | null | undefined;
-  const bigfiveResult = getSession("bigfive")?.result as BigFiveSessionFinishResponse | null | undefined;
-  const discResult = getSession("disc")?.result as QuizResult | null | undefined;
-  const eqResult = getSession("eq")?.result as QuizResult | null | undefined;
-  const leadershipResult = getSession("leadership")?.result as QuizResult | null | undefined;
-  const enneagramResult = getSession("enneagram")?.result as QuizResult | null | undefined;
-  const typefinderResult = getSession("typefinder-16")?.result as QuizResult | null | undefined;
-  const strengthsResult = getSession("strengths")?.result as QuizResult | null | undefined;
-  const photoResult = getSession("photo-career")?.result as QuizResult | null | undefined;
-  const careerResult = getSession("career-aptitude")?.result as CareerAptitudeResult | null | undefined;
 
   // Подгружаем категории/типы тестов с бэкенда (prefetch)
   useQuizCategories();
@@ -212,7 +154,7 @@ const TestPage = () => {
                 ))}
               </Grid>
               <Box sx={styles.whyConclusion}>
-                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                <Typography variant="body1" sx={styles.whyConclusionText}>
                   {t("test_why_conclusion")}
                 </Typography>
               </Box>
@@ -283,66 +225,6 @@ const TestPage = () => {
           )}
         </Container>
 
-        <HollandResultDialog
-          open={openResultModalId === "holland"}
-          onClose={() => setOpenResultModalId(null)}
-          result={hollandResult ?? null}
-          loading={fetchingResult && openResultModalId === "holland"}
-        />
-        <PhotoResultDialog
-          open={openResultModalId === "photo-career"}
-          onClose={() => setOpenResultModalId(null)}
-          result={photoResult ?? null}
-          loading={fetchingResult && openResultModalId === "photo-career"}
-        />
-        <DiscResultDialog
-          open={openResultModalId === "disc"}
-          onClose={() => setOpenResultModalId(null)}
-          result={discResult ?? null}
-          loading={fetchingResult && openResultModalId === "disc"}
-        />
-        <BigFiveResultDialog
-          open={openResultModalId === "bigfive"}
-          onClose={() => setOpenResultModalId(null)}
-          result={bigfiveResult ?? null}
-          loading={fetchingResult && openResultModalId === "bigfive"}
-        />
-        <CareerResultDialog
-          open={openResultModalId === "career-aptitude"}
-          onClose={() => setOpenResultModalId(null)}
-          result={careerResult ?? null}
-          loading={fetchingResult && openResultModalId === "career-aptitude"}
-        />
-        <EqResultDialog
-          open={openResultModalId === "eq"}
-          onClose={() => setOpenResultModalId(null)}
-          result={eqResult ?? null}
-          loading={fetchingResult && openResultModalId === "eq"}
-        />
-        <LeadershipResultDialog
-          open={openResultModalId === "leadership"}
-          onClose={() => setOpenResultModalId(null)}
-          result={leadershipResult ?? null}
-          loading={fetchingResult && openResultModalId === "leadership"}
-        />
-        <EnneagramResultDialog
-          open={openResultModalId === "enneagram"}
-          onClose={() => setOpenResultModalId(null)}
-          result={enneagramResult ?? null}
-          loading={fetchingResult && openResultModalId === "enneagram"}
-        />
-        <TypeFinderResultDialog
-          open={openResultModalId === "typefinder-16"}
-          onClose={() => setOpenResultModalId(null)}
-          result={typefinderResult ?? null}
-          loading={fetchingResult && openResultModalId === "typefinder-16"}
-        />
-        <StrengthsResultDialog
-          open={openResultModalId === "strengths"}
-          onClose={() => setOpenResultModalId(null)}
-          result={strengthsResult ?? null}
-          loading={fetchingResult && openResultModalId === "strengths"}
-        />
         <Footer />
       </Box>
     </>
@@ -385,7 +267,7 @@ const styles = {
     },
     heroInner: {
       display: "grid",
-      gridTemplateColumns: { xs: "1fr", md: "1fr" },
+      gridTemplateColumns: "1fr",
       gap: { xs: 1.5, md: 3 },
       alignItems: "end",
     },
@@ -398,34 +280,8 @@ const styles = {
       flexDirection: "row",
       gap: 1,
     },
-    heroTitle: { fontSize: { xs: "1.6rem", md: "2rem" }, mb: 1.5 , color: "white"},
+    heroTitle: { fontSize: { xs: "1.6rem", md: "2rem" }, mb: 1.5, color: "white" },
     heroSubtitle: { opacity: 0.92, maxWidth: 720, mb: 3, whiteSpace: "pre-line" as const },
-    analysisCta: {
-      mt: 3,
-      mb: 3,
-      p: { xs: 2, md: 2.5 },
-      borderRadius: 3,
-      border: "1px solid rgba(99,102,241,0.18)",
-      background:
-        "linear-gradient(135deg, rgba(99,102,241,0.10) 0%, rgba(145,234,228,0.14) 100%)",
-    },
-    analysisIcon: {
-      width: 44,
-      height: 44,
-      borderRadius: 2,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      bgcolor: "rgba(99,102,241,0.14)",
-      color: "primary.main",
-      flexShrink: 0,
-    },
-    analysisButton: {
-      borderRadius: 999,
-      px: 3,
-      py: 1.1,
-      boxShadow: "0 12px 30px rgba(99,102,241,0.22)",
-    },
     heroChip: {
       bgcolor: "rgba(255,255,255,0.2)",
       color: "white",
@@ -463,6 +319,7 @@ const styles = {
       borderTop: "1px solid",
       borderColor: "divider",
     },
+    whyConclusionText: { fontWeight: 600 },
     resultPaper: {
       borderRadius: 3,
       p: { xs: 2.5, md: 3.5 },
@@ -485,5 +342,4 @@ const styles = {
     ctaTitle: { fontSize: { xs: "1.35rem", md: "1.6rem" }, fontWeight: 700 },
     ctaPrimaryButton: { borderRadius: 2.5, px: 5 },
     ctaSecondaryButton: { borderRadius: 2, px: 4 },
-    warningText: { mt: 2, textAlign: "center" },
   };

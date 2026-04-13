@@ -2,15 +2,17 @@
 
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { TestHeader } from "../components/TestHeader";
-import { LikertWordQuestionCard } from "../components/RadioQuestionCard";
-import { LoadingScreen } from "../components/LoadingScreen";
-import { useDelayedFlag } from "../components/useDelayedFlag";
+import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { CareerResultPanel, type CareerAptitudeResult } from "./careerResultDialog";
+import { TestResultActions } from "../../components/tests/TestResultActions";
+import { TestHeader } from "../../components/tests/TestHeader";
+import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
+import { LoadingScreen } from "../../components/tests/LoadingScreen";
+import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
 import QUESTIONS_JSON from "./career_questions.json";
 import type {
@@ -29,6 +31,8 @@ const INTEREST_OPTIONS = [
   { ru: "Нравится", kk: "Ұнайды", en: "Like" },
 ];
 
+const SESSION_KEY = "career-aptitude";
+
 const PERSONALITY_OPTIONS = [
   { ru: "Неточно", kk: "Дәл емес", en: "Inaccurate" },
   { ru: "Скорее неточно", kk: "Дәлірек емес", en: "Somewhat inaccurate" },
@@ -39,9 +43,10 @@ const PERSONALITY_OPTIONS = [
 
 const CareerAptitudeTestPage = () => {
   const t = useTranslations();
-  const locale = useLocale() as "ru" | "kk" | "en";
-  const router = useRouter();
+  const hydrated = useQuizSessionHydrated();
   const { setSession, setResult } = useQuizSessionStore();
+  const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as CareerAptitudeResult | null | undefined);
+  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
 
   const stepChunks = useMemo(() => {
     const chunks: (typeof QUESTIONS_JSON)[] = [];
@@ -84,9 +89,18 @@ const CareerAptitudeTestPage = () => {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
   const [initializing, setInitializing] = useState(true);
-  const showLoading = useDelayedFlag(initializing || submitting);
+  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
 
   useEffect(() => {
+    if (!hydrated) return;
+
+    const st = useQuizSessionStore.getState();
+    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
+      setPhase("result");
+      setInitializing(false);
+      return;
+    }
+
     let cancelled = false;
 
     const initSession = async () => {
@@ -109,19 +123,27 @@ const CareerAptitudeTestPage = () => {
 
       if (!cancelled) {
         setSessionId(session.id);
-        setSession("career-aptitude", session.id);
+        setSession(SESSION_KEY, session.id);
         setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
       }
       if (!cancelled) setInitializing(false);
     };
 
     void initSession();
-    return () => { cancelled = true; };
-  }, [setSession]);
+    return () => {
+      cancelled = true;
+    };
+  }, [hydrated, setSession]);
 
   const stepQuestions =
     stepChunks[Math.max(0, Math.min(step - 1, stepChunks.length - 1))] ?? [];
   const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
+
+  const optionsHeaderCareer = useMemo(() => {
+    const part = stepQuestions[0]?.part;
+    if (part == null) return undefined;
+    return part === 1 ? INTEREST_OPTIONS : PERSONALITY_OPTIONS;
+  }, [stepQuestions]);
 
   const handleAnswer = (questionId: string, value: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
@@ -162,10 +184,10 @@ const CareerAptitudeTestPage = () => {
         }
       }
 
-      setResult("career-aptitude", backendResult ?? buildLocalResult());
+      setResult(SESSION_KEY, backendResult ?? buildLocalResult());
       if (backendResult) toast.success(t("toast_test_success"));
       else toast.error(t("toast_test_error"));
-      router.push("/test");
+      setPhase("result");
       setSubmitting(false);
     };
 
@@ -205,6 +227,31 @@ const CareerAptitudeTestPage = () => {
     };
   };
 
+  if (!hydrated) {
+    return <LoadingScreen open text={t("toast_test_loading")} />;
+  }
+
+  if (phase === "result") {
+    const result = (finishedResult ?? null) as CareerAptitudeResult | null;
+    return (
+      <Box component="main" sx={styles.root}>
+        <Container maxWidth="md">
+          <TestHeader
+            step={TOTAL_STEPS}
+            totalSteps={TOTAL_STEPS}
+            stepLabel={t("step_x_of_y", { step: TOTAL_STEPS, total: TOTAL_STEPS })}
+            optionsHeader={PERSONALITY_OPTIONS}
+          />
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("career_title")}</Box>
+          </Box>
+          <CareerResultPanel result={result} />
+          <TestResultActions />
+        </Container>
+      </Box>
+    );
+  }
+
   return (
     <>
       <LoadingScreen open={showLoading} text={t("toast_test_loading")} />
@@ -214,12 +261,18 @@ const CareerAptitudeTestPage = () => {
             step={step}
             totalSteps={TOTAL_STEPS}
             stepLabel={t("step_x_of_y", { step, total: TOTAL_STEPS })}
+            optionsHeader={optionsHeaderCareer}
           />
-          <Box sx={{ mb: 3, textAlign: "center" }}>
-            <Box style={{ marginBottom: 6, fontSize: "1.25rem", fontWeight: 700 }}>{t("career_title")}</Box>
+          <Box sx={styles.pageHeader}>
+            <Box sx={styles.pageTitle}>{t("career_title")}</Box>
+            {stepQuestions[0]?.part === 1 ? (
+              <Box sx={styles.pageHelper}>{t("tests_career-aptitude_helper_interest")}</Box>
+            ) : stepQuestions[0]?.part === 2 ? (
+              <Box sx={styles.pageHelper}>{t("tests_career-aptitude_helper_personality")}</Box>
+            ) : null}
           </Box>
 
-          <Divider sx={{ mb: 2 }} />
+          <Divider sx={styles.dividerBeforeQuestions} />
 
           <Box sx={styles.questionsList}>
             {stepQuestions.map((q) => {
@@ -246,7 +299,7 @@ const CareerAptitudeTestPage = () => {
             })}
           </Box>
 
-          <Divider sx={{ mt: 1, mb: 3 }} />
+          <Divider sx={styles.dividerBeforeNav} />
 
           <Box sx={styles.navigation}>
             <Button
@@ -289,9 +342,23 @@ export default CareerAptitudeTestPage;
 
 const styles = {
   root: {
-    pt: { xs: 3, md: 3 },
+    pt: 3,
     minHeight: "80vh",
   },
+  pageHeader: {
+    mb: 3,
+    textAlign: "center" as const,
+  },
+  pageTitle: {
+    mb: 0.75,
+    fontSize: "1.25rem",
+    fontWeight: 700,
+  },
+  pageHelper: {
+    color: "text.secondary",
+  },
+  dividerBeforeQuestions: { mb: 2 },
+  dividerBeforeNav: { mt: 1, mb: 3 },
   questionsList: {
     display: "flex",
     flexDirection: "column" as const,

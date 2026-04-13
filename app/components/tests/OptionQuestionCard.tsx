@@ -13,16 +13,17 @@ import {
 import { motion } from "framer-motion";
 
 export interface OptionQuestionCardProps {
-  /** 1-based question index to show before the text */
   questionNumber?: number;
-  /** Полный текст вопроса (уже локализованный) */
   questionText: string;
-  /** Варианты ответа, упорядоченный список сверху вниз */
   options: string[];
-  /** Текущее значение шкалы: 1..options.length, либо null, если ничего не выбрано */
   value: number | null;
-  /** Вызывается при выборе варианта (1..options.length) */
   onChange: (value: number) => void;
+}
+
+function formatQuestionHeading(questionNumber: number | undefined, questionText: string) {
+  if (questionNumber == null) return questionText;
+  const trimmed = questionText.trim();
+  return trimmed.length > 0 ? `${questionNumber}. ${trimmed}` : `${questionNumber}.`;
 }
 
 export const OptionQuestionCard = ({
@@ -32,6 +33,8 @@ export const OptionQuestionCard = ({
   value,
   onChange,
 }: OptionQuestionCardProps) => {
+  const heading = formatQuestionHeading(questionNumber, questionText);
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
@@ -42,38 +45,33 @@ export const OptionQuestionCard = ({
       <Card sx={styles.card}>
         <CardContent sx={styles.content}>
           <Typography variant="h3" sx={styles.questionText}>
-            {questionNumber != null
-              ? questionText.trim().length > 0
-                ? `${questionNumber}. ${questionText}`
-                : `${questionNumber}.`
-              : questionText}
+            {heading}
           </Typography>
-          <FormControl component="fieldset" sx={styles.radioGroup}>
+          <FormControl component="fieldset" sx={styles.formControl}>
             <RadioGroup
-              value={value?.toString() || ""}
+              value={value?.toString() ?? ""}
               onChange={(e) => onChange(Number(e.target.value))}
-              sx={styles.radioGroupInner}
+              sx={styles.radioGroup}
             >
               {options.map((label, index) => {
                 const optionValue = index + 1;
+                const selected = value === optionValue;
                 return (
-                <FormControlLabel
-                  key={optionValue}
-                  value={optionValue.toString()}
-                  control={<Radio />}
-                  label={
-                    <Box sx={styles.labelBox}>
-                      <Typography variant="body2" fontWeight={value === optionValue ? 600 : 400}>
-                        {label}
-                      </Typography>
-                    </Box>
-                  }
-                  sx={[
-                    styles.radioLabel,
-                    value === optionValue && styles.radioLabelSelected,
-                  ]}
-                />
-              );})}
+                  <FormControlLabel
+                    key={optionValue}
+                    value={String(optionValue)}
+                    control={<Radio />}
+                    label={
+                      <Box sx={styles.labelBox}>
+                        <Typography variant="body2" fontWeight={selected ? 600 : 400}>
+                          {label}
+                        </Typography>
+                      </Box>
+                    }
+                    sx={[styles.radioLabel, selected && styles.radioLabelSelected]}
+                  />
+                );
+              })}
             </RadioGroup>
           </FormControl>
         </CardContent>
@@ -88,9 +86,6 @@ const styles = {
     boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
     maxWidth: 720,
     mx: "auto",
-    "&:hover": {
-      transform: "none",
-    },
   },
   content: {
     p: 3,
@@ -101,10 +96,10 @@ const styles = {
     mb: 3,
     lineHeight: 1.5,
   },
-  radioGroup: {
+  formControl: {
     width: "100%",
   },
-  radioGroupInner: {
+  radioGroup: {
     display: "flex",
     flexDirection: "column",
     gap: 1,
@@ -123,7 +118,7 @@ const styles = {
     bgcolor: "#d6e3fb",
     borderColor: "primary.main",
     "& .MuiFormControlLabel-label": {
-      color: "text.primary.dark",
+      color: "text.primary",
     },
   },
   labelBox: {

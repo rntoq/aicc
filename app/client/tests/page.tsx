@@ -4,7 +4,7 @@ import { Box, Button, ButtonGroup, Grid, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { ALL_TESTS, getRecommendedTests } from "@/utils/constants";
-import { TestCard } from "@/app/test/components/TestCard";
+import { TestCard } from "@/app/components/tests/TestCard";
 import { useState } from "react";
 import { AiAnalysisCta } from "@/app/components/layout/AiAnalysisCta";
 
