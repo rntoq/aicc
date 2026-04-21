@@ -16,7 +16,7 @@ import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE from "../../../public/images/paidplan_banner.jpg";
 
 const SECTIONS = [
   {
@@ -67,7 +67,7 @@ export const PaidPlanSection = () => {
         >
           <Box sx={styles.bannerBlock}>
             <Image
-              src={BANNER_PLACEHOLDER_IMAGE}
+              src={BANNER_IMAGE}
               alt=""
               fill
               sizes="(max-width: 768px) 100vw, 960px"

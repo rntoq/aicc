@@ -4,7 +4,8 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE_1 from "../../../public/images/howitworks_card2.png";
+import BANNER_IMAGE_2 from "../../../public/images/howitworks_card3.png";
 
 const FADE_IN = {
   initial: { opacity: 0, y: 24 },
@@ -74,7 +75,7 @@ export const HowItWorks = () => {
               <Typography variant="body2">{t("how_step2_desc")}</Typography>
               <Box sx={styles.centerBannerWrap}>
                 <Image
-                  src={BANNER_PLACEHOLDER_IMAGE}
+                  src={BANNER_IMAGE_1}
                   alt=""
                   width={200}
                   height={120}
@@ -88,7 +89,7 @@ export const HowItWorks = () => {
             <Box sx={styles.resultCard}>
               <Box sx={styles.resultBannerWrap}>
                 <Image
-                  src={BANNER_PLACEHOLDER_IMAGE}
+                  src={BANNER_IMAGE_2}
                   alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"

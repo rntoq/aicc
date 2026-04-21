@@ -6,7 +6,8 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE from "../../../public/images/main_banner.jpg";
+import BANNER_IMAGE_BANNER from "../../../public/images/main_banner_under.jpg";
 
 const imageStyle = { objectFit: "cover" as const };
 
@@ -19,7 +20,7 @@ export const Hero = () => {
         <Box sx={styles.bannerImage}>
           <Box sx={styles.bannerImageInner}>
             <Image
-              src={BANNER_PLACEHOLDER_IMAGE}
+              src={BANNER_IMAGE}
               alt=""
               fill
               sizes="100vw"
@@ -64,7 +65,7 @@ export const Hero = () => {
           <Box sx={styles.heroVisual}>
             <Box sx={styles.bannerImageSmall}>
               <Image
-                src={BANNER_PLACEHOLDER_IMAGE}
+                src={BANNER_IMAGE_BANNER}
                 alt=""
                 fill
                 sizes="(max-width: 768px) 100vw, 720px"

@@ -15,7 +15,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE from "../../../public/images/aichat_banner.png";
 
 export const AIChatBlock = () => {
   const t = useTranslations();
@@ -36,10 +36,9 @@ export const AIChatBlock = () => {
       <Container maxWidth="lg">
         <Box sx={styles.illustrationWrap}>
           <Image
-            src={BANNER_PLACEHOLDER_IMAGE}
+            src={BANNER_IMAGE}
             alt=""
             fill
-            sizes="200px"
             style={{ objectFit: "cover" }}
           />
         </Box>
@@ -144,9 +143,8 @@ const styles = {
   },
   illustrationWrap: {
     position: "relative",
-    width: 120,
-    height: 120,
-    borderRadius: "50%",
+    width: 220,
+    height: 150,
     overflow: "hidden",
     mx: "auto",
     mb: 3,

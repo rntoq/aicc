@@ -17,7 +17,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE from "../../../public/icons/logo.svg";
 import { LanguageDropdown } from "./LanguageDropdown";
 import { useAuth, useUserLabel } from "@/lib/store/useAuthStore";
 
@@ -44,7 +44,7 @@ export const Header = ({ onLanding = false }: { onLanding?: boolean }) => {
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={styles.toolbar}>
           <Button component={Link} href="/" sx={styles.logoButton} disableRipple>
-            <Image src={BANNER_PLACEHOLDER_IMAGE} alt="Logo" width={100} height={48} />
+            <Image src={BANNER_IMAGE} alt="Logo" width={100} height={48} />
           </Button>
 
           <Box component="nav" sx={styles.nav}>

@@ -49,8 +49,8 @@ export const authServices = {
     return { body: body ?? null, error };
   },
 
-  async updateProfile(payload: UpdateMePayload): Promise<ServiceResult<User>> {
-    const { body, error } = await api.patch<User, UpdateMePayload>(`/api/v1/auth/me/`, payload);
+  async updateProfile(payload: UpdateMePayload | FormData): Promise<ServiceResult<User>> {
+    const { body, error } = await api.patch<User, UpdateMePayload | FormData>(`/api/v1/auth/me/`, payload);
     return { body: body ?? null, error };
   },
 

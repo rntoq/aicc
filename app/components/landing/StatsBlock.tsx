@@ -8,7 +8,7 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE from "../../../public/images/stats_banner.jpg";
 
 const STATS = [
   { icon: SchoolOutlinedIcon, value: 150, suffix: "+", labelKey: "stats_unis", descKey: "stats_unis_desc" },
@@ -127,8 +127,7 @@ export const StatsBlock = () => {
 const styles = {
   section: {
     py: { xs: 6, md: 8 },
-    bgcolor: "background.paper",
-    backgroundImage: `url(${BANNER_PLACEHOLDER_IMAGE})`,
+    backgroundImage: `url(${BANNER_IMAGE.src})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",

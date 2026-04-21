@@ -20,7 +20,7 @@ import { Header } from "../components/layout/Header";
 import { PasswordField } from "../components/layout/PasswordField";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE from "../../public/icons/user.svg";
 
 const LoginPage = () => {
   const t = useTranslations();
@@ -65,7 +65,7 @@ const LoginPage = () => {
         <Container maxWidth="sm">
           <Paper sx={styles.paper}>
             <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-              <Image src={BANNER_PLACEHOLDER_IMAGE} alt="logo" width={100} height={48} />
+              <Image src={BANNER_IMAGE} alt="logo" width={100} height={48} />
             </Box>
 
             <Box component="form" noValidate onSubmit={handleSubmit}>

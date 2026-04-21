@@ -12,7 +12,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE from "../../../public/icons/logo.svg";
 import { useAuth } from "@/lib/store/useAuthStore";
 
 const NAV_ITEMS = [
@@ -45,7 +45,7 @@ export const Sidebar = () => {
     <Box sx={styles.sidebar}>
       <Box>
         <Box component={Link} href="/">
-          <Image src={BANNER_PLACEHOLDER_IMAGE} alt="Logo" width={100} height={48} />
+          <Image src={BANNER_IMAGE} alt="Logo" width={100} height={48} />
         </Box>
 
         <List sx={{ my: 5 }}>

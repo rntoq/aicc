@@ -465,5 +465,7 @@
   "test_card_auth_guest": "Continue without signing in",
   "universities_list_qazaqstan": "Universities in Kazakhstan",
   "dashboard_welcome": "Welcome back!",
-  "dashboard_subtitle": "Here's your career journey overview."
+  "dashboard_subtitle": "Here's your career journey overview.",
+  "upload_avatar": "Upload avatar",
+  "settings_city_empty": "Select region"
 }

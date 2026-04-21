@@ -465,5 +465,7 @@
   "test_card_auth_guest": "Авторизациясыз тапсыру",
   "universities_list_qazaqstan": "Қазақстандағы университеттер",
   "dashboard_welcome": "Қайта оралдыңызға қош келдіңіз!",
-  "dashboard_subtitle": "Мансаптық жолыңыздың шолуы."
+  "dashboard_subtitle": "Мансаптық жолыңыздың шолуы.",
+  "upload_avatar": "Аватар жүктеу",
+  "settings_city_empty": "Облыс таңдаңыз"
 }

@@ -465,5 +465,7 @@
   "test_card_auth_guest": "Сдать без авторизации",
   "universities_list_qazaqstan": "Университеты в Казахстане",
   "dashboard_welcome": "С возвращением!",
-  "dashboard_subtitle": "Вот обзор вашего карьерного пути."
+  "dashboard_subtitle": "Вот обзор вашего карьерного пути.",
+  "upload_avatar": "Загрузить аватар",
+  "settings_city_empty": "Выберите область"
 }

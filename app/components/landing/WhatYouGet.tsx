@@ -4,7 +4,11 @@ import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE_2 from "../../../public/images/whatyouget_card2.png";
+import BANNER_IMAGE_3 from "../../../public/images/whatyouget_card3.png";
+import BANNER_IMAGE_4 from "../../../public/images/whatyouget_card4.png";
+import BANNER_IMAGE_5 from "../../../public/images/whatyouget_card5.png";
+import BANNER_IMAGE_6 from "../../../public/images/whatyouget_card6.png";
 
 const FADE_IN = {
   initial: { opacity: 0, y: 20 },
@@ -14,11 +18,11 @@ const FADE_IN = {
 };
 
 const CARDS = [
-  { title1Key: "whatyouget_card1_title", textKey: "whatyouget_card1_text", title2Key: "whatyouget_card1_title2" },
-  { title1Key: "whatyouget_card2_title", textKey: "whatyouget_card2_text", title2Key: "whatyouget_card2_title2" },
-  { title1Key: "whatyouget_card3_title", textKey: "whatyouget_card3_text", title2Key: "whatyouget_card3_title2" },
-  { title1Key: "whatyouget_card4_title", textKey: "whatyouget_card4_text", title2Key: "whatyouget_card4_title2" },
-  { title1Key: "whatyouget_card5_title", textKey: "whatyouget_card5_text", title2Key: "whatyouget_card5_title2" },
+  { title1Key: "whatyouget_card1_title", textKey: "whatyouget_card1_text", title2Key: "whatyouget_card1_title2", image: BANNER_IMAGE_2 },
+  { title1Key: "whatyouget_card2_title", textKey: "whatyouget_card2_text", title2Key: "whatyouget_card2_title2", image: BANNER_IMAGE_3 },
+  { title1Key: "whatyouget_card3_title", textKey: "whatyouget_card3_text", title2Key: "whatyouget_card3_title2", image: BANNER_IMAGE_4 },
+  { title1Key: "whatyouget_card4_title", textKey: "whatyouget_card4_text", title2Key: "whatyouget_card4_title2", image: BANNER_IMAGE_5 },
+  { title1Key: "whatyouget_card5_title", textKey: "whatyouget_card5_text", title2Key: "whatyouget_card5_title2", image: BANNER_IMAGE_6 },
 ] as const;
 
 type CardConfig = (typeof CARDS)[number];
@@ -65,10 +69,10 @@ const FeatureCard = ({
         </Box>
         <Box sx={styles.imageWrap}>
           <Image
-            src={BANNER_PLACEHOLDER_IMAGE}
+            src={card.image}
             width={200}
             height={150}
-            alt=""
+            alt={card.title1Key}
             className="whatyouget-image"
           />
         </Box>

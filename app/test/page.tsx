@@ -14,7 +14,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
-import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
+import BANNER_IMAGE from "@/public/images/test_banner.jpg";
 import { Footer } from "@/app/components/landing/Footer";
 import { ALL_TESTS, getRecommendedTests } from "@/utils/constants";
 import { TestCard } from "../components/tests/TestCard";
@@ -76,7 +76,7 @@ const TestPage = () => {
             <Box sx={styles.heroBox}>
               <Box sx={styles.heroImage}>
                 <Image
-                  src={BANNER_PLACEHOLDER_IMAGE}
+                  src={BANNER_IMAGE}
                   alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 1200px"
