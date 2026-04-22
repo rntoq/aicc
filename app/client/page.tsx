@@ -1,205 +1,367 @@
 "use client";
 
-import { Box, Button, Card, CardContent, Chip, Grid, LinearProgress, Stack, Typography } from "@mui/material";
-import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
-import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
-import PsychologyRoundedIcon from "@mui/icons-material/PsychologyRounded";
-import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
-import WorkspacePremiumRoundedIcon from "@mui/icons-material/WorkspacePremiumRounded";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
 import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
-import { muiTheme } from "@/ui/theme/muiTheme";
+import { ProfessionCard } from "@/app/components/clientLayout/ProfessionCard";
+import { UniversityCard } from "@/app/components/clientLayout/UniversityCard";
+import { TestCard } from "@/app/components/tests/TestCard";
+import type { PublicProfession, PublicUniversity } from "@/lib/types";
+import { ALL_TESTS, type TestItem } from "@/utils/constants";
 
-const MOCK_DASHBOARD_DATA = {
-  user: {
-    name: "Aruzhan",
-  },
-  stats: {
-    completed_tests: 6,
-    total_tests: 10,
-    completed_sessions: 8,
-    profile_readiness_percent: 72,
-  },
-  subscription: {
-    plan: "Basic",
-  },
-  next_step: {
-    kind: "test",
-    title: "Complete 2 more tests to unlock stronger recommendations",
-    cta: "Continue testing",
-  },
-  top_recommendations: [
-    { id: 1, title: "Product Manager", match_score: 91, reason: "Strong communication and leadership profile." },
-    { id: 2, title: "UX Researcher", match_score: 86, reason: "High empathy and analytical thinking." },
-    { id: 3, title: "Business Analyst", match_score: 83, reason: "Balanced logic, structure, and teamwork style." },
-  ],
-  recent_results: [
-    { id: 101, test_name: "Holland Code", primary_type: "RIA", date: "2026-04-20" },
-    { id: 102, test_name: "DiSC", primary_type: "SC", date: "2026-04-18" },
-    { id: 103, test_name: "Big Five", primary_type: "Conscientiousness", date: "2026-04-15" },
-  ],
-  checklist: [
-    { id: "required-tests", label: "Pass all required tests", done: true },
-    { id: "refresh-profile", label: "Refresh profile summary", done: true },
-    { id: "ai-report", label: "Generate AI analysis report", done: false },
-    { id: "universities", label: "Review universities and programs", done: false },
-  ],
-} as const;
+const dashboardPalette = {
+  primaryLight: "#86a8e7",
+  secondaryLight: "#91eae4",
+  lightGradient: "linear-gradient(135deg, rgba(134, 168, 231, 0.2) 0%, rgba(145, 234, 228, 0.24) 100%)",
+};
 
-const formatIsoDate = (value: string) => {
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return value;
-  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+type DashboardData = {
+  userName: string;
+  testsDone: number;
+  totalTests: number;
+  aiReport: null | {
+    id: number;
+    pdfUrl: string;
+    summary: string;
+  };
+  recommendedProfessions: PublicProfession[];
+  lastDoneTest: null | {
+    testId: string;
+    resultLabel: string;
+    finishedAt: string;
+  };
+  suitableUniversity: PublicUniversity | null;
+};
+
+const PROFESSION_CARD_DATA: PublicProfession[] = [
+  {
+    id: "p1",
+    name: { ru: "Data Scientist", kk: "Data Scientist", en: "Data Scientist" },
+    industry: "it_technology",
+    specialities: [{ code: "B057", id: 57 }],
+    demand_level: "high",
+    salary_kzt: { min: 450000, max: 1200000, average: 780000 },
+    description: {
+      ru: "Анализирует данные и строит предиктивные модели для бизнеса.",
+      kk: "Деректерді талдап, бизнеске болжам модельдерін жасайды.",
+      en: "Analyzes data and builds predictive models for business.",
+    },
+  },
+  {
+    id: "p2",
+    name: { ru: "Product Manager", kk: "Product Manager", en: "Product Manager" },
+    industry: "business_management",
+    specialities: [{ code: "B044", id: 44 }],
+    demand_level: "high",
+    salary_kzt: { min: 500000, max: 1400000, average: 900000 },
+    description: {
+      ru: "Ведет продукт от идеи до запуска и роста.",
+      kk: "Өнімді идеядан іске қосуға және өсіруге дейін басқарады.",
+      en: "Leads product from idea to launch and growth.",
+    },
+  },
+  {
+    id: "p3",
+    name: { ru: "UX Researcher", kk: "UX Researcher", en: "UX Researcher" },
+    industry: "design_creative",
+    specialities: [{ code: "B073", id: 73 }],
+    demand_level: "medium",
+    salary_kzt: { min: 350000, max: 850000, average: 550000 },
+    description: {
+      ru: "Изучает поведение пользователей и улучшает цифровые продукты.",
+      kk: "Пайдаланушылар мінез-құлқын зерттеп, цифрлық өнімдерді жақсартады.",
+      en: "Studies user behavior and improves digital products.",
+    },
+  },
+  {
+    id: "p4",
+    name: { ru: "Business Analyst", kk: "Business Analyst", en: "Business Analyst" },
+    industry: "finance_accounting",
+    specialities: [{ code: "B045", id: 45 }],
+    demand_level: "high",
+    salary_kzt: { min: 380000, max: 980000, average: 620000 },
+    description: {
+      ru: "Формулирует требования и связывает бизнес с разработкой.",
+      kk: "Талаптарды жинап, бизнес пен әзірлеушілерді байланыстырады.",
+      en: "Defines requirements and bridges business with engineering.",
+    },
+  },
+  {
+    id: "p5",
+    name: { ru: "Cybersecurity Analyst", kk: "Cybersecurity Analyst", en: "Cybersecurity Analyst" },
+    industry: "it_technology",
+    specialities: [{ code: "B058", id: 58 }],
+    demand_level: "very_high",
+    salary_kzt: { min: 500000, max: 1300000, average: 870000 },
+    description: {
+      ru: "Защищает инфраструктуру и данные от киберугроз.",
+      kk: "Инфрақұрылым мен деректерді киберқауіптен қорғайды.",
+      en: "Protects infrastructure and data from cyber threats.",
+    },
+  },
+];
+
+const UNIVERSITY_DATA: PublicUniversity = {
+  id: 1,
+  logo: "/images/default.png",
+  code: "NU",
+  region: 1,
+  military_faculty: false,
+  dormitory: true,
+  price: 3200000,
+  paid: true,
+  url: "https://nu.edu.kz",
+  consult_landing_url: null,
+  specialities_count: 77,
+  name: {
+    ru: "Назарбаев Университет",
+    kk: "Назарбаев Университеті",
+    en: "Nazarbayev University",
+  },
+  short_name: { ru: "NU", kk: "NU", en: "NU" },
+  address: "Astana",
+};
+
+const DASHBOARD_DATA: DashboardData = {
+  userName: "Aruzhan",
+  testsDone: 8,
+  totalTests: 10,
+  aiReport: {
+    id: 25,
+    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    summary: "You show strong analytical thinking and leadership potential in structured environments.",
+  },
+  recommendedProfessions: PROFESSION_CARD_DATA,
+  lastDoneTest: {
+    testId: "holland",
+    resultLabel: "Primary profile: RIA",
+    finishedAt: "20 Apr 2026",
+  },
+  suitableUniversity: UNIVERSITY_DATA,
 };
 
 const DashboardPage = () => {
   const t = useTranslations();
-  const data = MOCK_DASHBOARD_DATA;
-  const progressValue = Math.round((data.stats.completed_tests / data.stats.total_tests) * 100);
+  const router = useRouter();
+  const [professionIndex, setProfessionIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+  const data = DASHBOARD_DATA;
+  const selectedProfession = data.recommendedProfessions[professionIndex] ?? null;
+  const mappedLastTest: TestItem | null = data.lastDoneTest
+    ? ALL_TESTS.find((item) => item.id === data.lastDoneTest?.testId) ?? null
+    : null;
+
+  const hasProfessions = data.recommendedProfessions.length > 0;
+
+  const handlePrevProfession = () => {
+    if (!hasProfessions) return;
+    setProfessionIndex((prev) => (prev === 0 ? data.recommendedProfessions.length - 1 : prev - 1));
+  };
+
+  const handleNextProfession = () => {
+    if (!hasProfessions) return;
+    setProfessionIndex((prev) => (prev + 1) % data.recommendedProfessions.length);
+  };
+
+  const goToAiChat = () => {
+    if (typeof window !== "undefined" && data.aiReport) {
+      window.sessionStorage.setItem(
+        "ai_chat_report_context",
+        JSON.stringify({
+          reportId: data.aiReport.id,
+          reportPdfUrl: data.aiReport.pdfUrl,
+          reportSummary: data.aiReport.summary,
+        })
+      );
+    }
+    router.push(data.aiReport ? `/client/ai-chat?reportId=${data.aiReport.id}` : "/client/ai-chat");
+  };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <AppLayout title={t("sidebar_dashboard")}>
-      <Box>
+      <Box sx={styles.dashboardRoot}>
         <Box sx={styles.welcomeCard}>
-          <CardContent sx={{ p: 0 }}>
-            <Typography variant="h4" sx={{ mb: 1, fontWeight: 700 }}>
-              {t("dashboard_welcome")}, {data.user.name}
-            </Typography>
-            <Typography variant="body1" sx={{ opacity: 0.95 }}>
-              {data.next_step.title}
-            </Typography>
-          </CardContent>
+          <Typography variant="h5" sx={{ mb: 0.5, fontWeight: 700 }}>
+            {t("dashboard_welcome")}, {data.userName}
+          </Typography>
+          <Typography variant="body2" sx={{ opacity: 0.95 }}>
+            Dashboard preview mode for different user states.
+          </Typography>
         </Box>
 
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-            <Card sx={styles.metricCard}>
-              <CardContent>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                  <Typography variant="body2" color="text.secondary">Tests completed</Typography>
-                  <AssignmentTurnedInRoundedIcon fontSize="small" color="primary" />
-                </Stack>
-                <Typography variant="h4" sx={styles.metricValue}>
-                  {data.stats.completed_tests}/{data.stats.total_tests}
+        <Grid container spacing={1.25}>
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Box sx={{ ...styles.boxCard, ...styles.compactStatCard }}>
+              <Typography variant="overline" color="text.secondary">
+                Tests progress
+              </Typography>
+              <Typography variant="h5" sx={styles.metricValue}>
+                {data.testsDone}/{data.totalTests}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                Completed tests
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 8 }}>
+            <Box sx={styles.boxCard}>
+              <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
+                <DescriptionRoundedIcon color="primary" fontSize="small" />
+                <Typography variant="h6" sx={styles.sectionTitle}>
+                  AI report
                 </Typography>
-                <LinearProgress value={progressValue} variant="determinate" sx={{ mt: 1 }} />
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-            <Card sx={styles.metricCard}>
-              <CardContent>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                  <Typography variant="body2" color="text.secondary">Completed sessions</Typography>
-                  <PsychologyRoundedIcon fontSize="small" color="primary" />
-                </Stack>
-                <Typography variant="h4" sx={styles.metricValue}>{data.stats.completed_sessions}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-            <Card sx={styles.metricCard}>
-              <CardContent>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                  <Typography variant="body2" color="text.secondary">Profile readiness</Typography>
-                  <AutoAwesomeRoundedIcon fontSize="small" color="primary" />
-                </Stack>
-                <Typography variant="h4" sx={styles.metricValue}>{data.stats.profile_readiness_percent}%</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-            <Card sx={styles.metricCard}>
-              <CardContent>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                  <Typography variant="body2" color="text.secondary">Plan</Typography>
-                  <WorkspacePremiumRoundedIcon fontSize="small" color="primary" />
-                </Stack>
-                <Typography variant="h4" sx={styles.metricValue}>{data.subscription.plan}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 7 }}>
-            <Card sx={styles.card}>
-              <CardContent>
-                <Typography variant="h6" sx={styles.sectionTitle}>Top career matches</Typography>
-                <Stack spacing={1.5}>
-                  {data.top_recommendations.map((rec) => (
-                    <Box key={rec.id} sx={styles.rowCard}>
-                      <Box>
-                        <Typography sx={{ fontWeight: 700 }}>{rec.title}</Typography>
-                        <Typography variant="body2" color="text.secondary">{rec.reason}</Typography>
-                      </Box>
-                      <Chip label={`${rec.match_score}% match`} color="primary" variant="outlined" />
+              </Stack>
+              {data.aiReport ? (
+                <Stack spacing={1.25}>
+                  <Typography variant="caption" color="text.secondary">
+                    {data.aiReport.summary}
+                  </Typography>
+                  <Box sx={styles.fileFallbackBox}>
+                    <DescriptionRoundedIcon sx={styles.fileFallbackIcon} />
+                    <Box>
+                      <Typography sx={styles.fileFallbackTitle}>PDF preview is unavailable</Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        Open or download the file to view full report.
+                      </Typography>
                     </Box>
-                  ))}
+                  </Box>
+                  <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+                    <Button
+                      size="small"
+                      variant="contained"
+                      href={data.aiReport.pdfUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      sx={styles.primaryButton}
+                    >
+                      Open
+                    </Button>
+                    <Button size="small" variant="outlined" href={data.aiReport.pdfUrl} download sx={styles.outlinedButton}>
+                      Download PDF
+                    </Button>
+                    <Button size="small" variant="text" onClick={goToAiChat} sx={styles.textButton}>
+                      AI chat
+                    </Button>
+                  </Stack>
                 </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 5 }}>
-            <Card sx={styles.card}>
-              <CardContent>
-                <Typography variant="h6" sx={styles.sectionTitle}>Next step</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                  {data.next_step.kind === "test"
-                    ? "Recommended action based on your progress."
-                    : "Your profile is ready for deeper analysis."}
+              ) : (
+                <Typography variant="caption" color="text.secondary">
+                  No AI analysis yet. Complete tests and generate AI report to see PDF and insights here.
                 </Typography>
-                <Button fullWidth size="large" variant="contained" sx={styles.ctaButton}>
-                  {data.next_step.cta}
-                </Button>
-              </CardContent>
-            </Card>
+              )}
+            </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Card sx={styles.card}>
-              <CardContent>
-                <Typography variant="h6" sx={styles.sectionTitle}>Recent test results</Typography>
-                <Stack spacing={1.5}>
-                  {data.recent_results.map((result) => (
-                    <Box key={result.id} sx={styles.rowCard}>
-                      <Box>
-                        <Typography sx={{ fontWeight: 700 }}>{result.test_name}</Typography>
-                        <Typography variant="body2" color="text.secondary">Primary type: {result.primary_type}</Typography>
-                      </Box>
-                      <Typography variant="caption" color="text.secondary">{formatIsoDate(result.date)}</Typography>
-                    </Box>
-                  ))}
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
+              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+                <Typography variant="h6" sx={styles.sectionTitle}>
+                  Recommended professions
+                </Typography>
+                <Stack direction="row" spacing={1}>
+                  <IconButton size="small" sx={styles.navIconButton} onClick={handlePrevProfession} disabled={!hasProfessions}>
+                    <ArrowBackIosNewRoundedIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" sx={styles.navIconButton} onClick={handleNextProfession} disabled={!hasProfessions}>
+                    <ArrowForwardIosRoundedIcon fontSize="small" />
+                  </IconButton>
                 </Stack>
-              </CardContent>
-            </Card>
+              </Stack>
+              {selectedProfession ? (
+                <Stack spacing={0.8} sx={styles.sectionContentCompact}>
+                  <Box sx={styles.professionCardWrap}>
+                    <ProfessionCard profession={selectedProfession} t={(key) => t(key)} compact />
+                  </Box>
+                  <Typography variant="caption" color="text.secondary">
+                    {professionIndex + 1} / {data.recommendedProfessions.length}
+                  </Typography>
+                  <Link component="button" underline="hover" sx={styles.moreLink} onClick={() => router.push("/client/careers")}>
+                    More professions
+                  </Link>
+                </Stack>
+              ) : (
+                <Typography color="text.secondary">
+                  No recommended professions yet. Complete required tests to get career matches.
+                </Typography>
+              )}
+            </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Card sx={styles.card}>
-              <CardContent>
-                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1.5 }}>
-                  <SchoolRoundedIcon color="primary" fontSize="small" />
-                  <Typography variant="h6" sx={styles.sectionTitle}>Action checklist</Typography>
-                </Stack>
-                <Stack spacing={1}>
-                  {data.checklist.map((item) => (
-                    <Box key={item.id} sx={styles.checklistItem}>
-                      <Typography variant="body2">{item.label}</Typography>
-                      <Chip
-                        size="small"
-                        label={item.done ? "Done" : "Pending"}
-                        color={item.done ? "success" : "default"}
-                        variant={item.done ? "filled" : "outlined"}
-                      />
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
+              <Typography variant="h6" sx={styles.sectionTitle}>
+                Last done test
+              </Typography>
+              {mappedLastTest && data.lastDoneTest ? (
+                <Stack spacing={0.8} sx={styles.sectionContentCompact}>
+                  {mounted ? (
+                    <Box sx={styles.testCardWrap}>
+                      <TestCard index={0} test={mappedLastTest} variant="recommended" />
                     </Box>
-                  ))}
+                  ) : (
+                    <Box sx={styles.testCardSkeleton} />
+                  )}
+                  <Box sx={styles.smallInfoBox}>
+                    <Typography sx={{ fontWeight: 700 }}>{data.lastDoneTest.resultLabel}</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Completed: {data.lastDoneTest.finishedAt}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Done tests now: {data.testsDone}
+                    </Typography>
+                  </Box>
+                  <Link component="button" underline="hover" sx={styles.moreLink} onClick={() => router.push("/client")}>
+                    More tests
+                  </Link>
                 </Stack>
-              </CardContent>
-            </Card>
+              ) : (
+                <Typography color="text.secondary">
+                  No test results yet. Start with any test and your latest result will appear here.
+                </Typography>
+              )}
+            </Box>
           </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
+              <Typography variant="h6" sx={styles.sectionTitle}>
+                Most suitable university
+              </Typography>
+              {data.suitableUniversity ? (
+                <Stack spacing={0.8} sx={styles.sectionContentCompact}>
+                  <Box sx={styles.universityCardWrap}>
+                    <UniversityCard university={data.suitableUniversity} href="/client/education" />
+                  </Box>
+                  <Link component="button" underline="hover" sx={styles.moreLink} onClick={() => router.push("/client/education")}>
+                    More universities
+                  </Link>
+                </Stack>
+              ) : (
+                <Typography color="text.secondary">
+                  No university recommendation yet. Finish analysis to unlock suitable university suggestions.
+                </Typography>
+              )}
+            </Box>
+          </Grid>
+
         </Grid>
       </Box>
     </AppLayout>
@@ -209,60 +371,162 @@ const DashboardPage = () => {
 export default DashboardPage;
 
 const styles = {
+  dashboardRoot: {
+    minHeight: "calc(100vh - 96px)",
+    display: "flex",
+    flexDirection: "column",
+  },
   welcomeCard: {
-    mb: 3,
-    p: 3,
-    borderRadius: 3,
-    background: muiTheme.landing.lightGradient,
-    color: "white",
+    mb: 1,
+    p: { xs: 1, md: 1.2 },
+    borderRadius: 2.5,
+    background: dashboardPalette.lightGradient,
+    color: "#182453",
+    border: "1px solid rgba(134, 168, 231, 0.32)",
   },
-  metricCard: {
-    borderRadius: 3,
+  boxCard: {
+    borderRadius: 2.8,
     height: "100%",
+    border: "1px solid",
+    borderColor: "rgba(134, 168, 231, 0.3)",
+    bgcolor: "background.paper",
+    backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(145, 234, 228, 0.06) 100%)",
+    p: 1.15,
   },
-  metricValue: {
-    mt: 1,
-    fontWeight: 800,
+  compactStatCard: {
+    justifyContent: "center",
+    minHeight: 160,
+    display: "flex",
+    flexDirection: "column",
   },
-  card: {
+  equalPanel: {
+    minHeight: 400,
+    maxHeight: 400,
+    overflow: "hidden",
+  },
+  metricValue: { mt: 0.25, fontWeight: 800, fontSize: "2rem", color: "#233f74", lineHeight: 1.05 },
+  sectionTitle: {
+    mb: 0.2,
+    fontWeight: 700,
+    color: "#1f2a56",
+    fontSize: "1rem",
+  },
+  sectionContentCompact: {
+    minHeight: 0,
     height: "100%",
-    borderRadius: 3,
-    transition: "transform 0.2s ease, box-shadow 0.2s ease",
-    textDecoration: "none",
-    display: "block",
+    overflow: "hidden",
+  },
+  primaryButton: {
+    bgcolor: dashboardPalette.primaryLight,
+    color: "#0f2547",
+    borderColor: dashboardPalette.primaryLight,
+    "&:hover": { bgcolor: "#78a0e4" },
+  },
+  outlinedButton: {
+    borderColor: "rgba(134, 168, 231, 0.7)",
+    color: "#35538a",
     "&:hover": {
-      transform: "translateY(-4px)",
-      boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+      borderColor: dashboardPalette.secondaryLight,
+      bgcolor: "rgba(145, 234, 228, 0.12)",
     },
   },
-  sectionTitle: {
-    mb: 1.5,
-    fontWeight: 700,
+  textButton: {
+    color: "#35538a",
+    "&:hover": { bgcolor: "rgba(145, 234, 228, 0.12)" },
   },
-  rowCard: {
+  navIconButton: {
+    border: "1px solid rgba(134, 168, 231, 0.5)",
+    color: "#35538a",
+    bgcolor: "rgba(134, 168, 231, 0.08)",
+    "&:hover": { bgcolor: "rgba(145, 234, 228, 0.18)" },
+  },
+  fileFallbackBox: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
     gap: 1,
-    p: 1.5,
+    p: 0.9,
     borderRadius: 2,
-    bgcolor: "grey.50",
-    border: "1px solid",
-    borderColor: "divider",
+    border: "1px solid rgba(134, 168, 231, 0.4)",
+    bgcolor: "rgba(134, 168, 231, 0.08)",
+    minHeight: 50,
   },
-  ctaButton: {
-    borderRadius: 999,
-    textTransform: "none",
+  fileFallbackIcon: {
+    fontSize: 20,
+    color: "#3f6fb8",
+    flexShrink: 0,
+  },
+  fileFallbackTitle: {
     fontWeight: 700,
+    fontSize: "0.86rem",
   },
-  checklistItem: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 1,
-    p: 1.25,
+  smallInfoBox: {
+    p: 0.8,
     borderRadius: 2,
+    bgcolor: "rgba(145, 234, 228, 0.08)",
     border: "1px solid",
-    borderColor: "divider",
+    borderColor: "rgba(145, 234, 228, 0.4)",
+  },
+  professionCardWrap: {
+    height: 270,
+    overflow: "hidden",
+    "& > div": {
+      minWidth: "100%",
+      maxWidth: "100%",
+      borderColor: "rgba(134, 168, 231, 0.5)",
+      p: 1,
+      borderRadius: 2.2,
+    },
+  },
+  testCardWrap: {
+    height: 205,
+    display: "flex",
+    alignItems: "flex-start",
+    overflow: "hidden",
+    "& > div": {
+      transform: "scale(0.78)",
+      transformOrigin: "top left",
+      width: "128%",
+    },
+    "& .MuiButton-root": {
+      backgroundColor: dashboardPalette.primaryLight,
+      borderColor: dashboardPalette.primaryLight,
+      color: "#0f2547",
+    },
+    "& [class*='badge']": {
+      backgroundColor: "rgba(145, 234, 228, 0.35)",
+      color: "#35538a",
+    },
+  },
+  testCardSkeleton: {
+    height: 205,
+    borderRadius: 2,
+    border: "1px dashed",
+    borderColor: "rgba(134, 168, 231, 0.45)",
+    bgcolor: "rgba(145, 234, 228, 0.08)",
+  },
+  moreLink: {
+    mt: "auto",
+    alignSelf: "flex-end",
+    fontSize: "0.84rem",
+    fontWeight: 600,
+    color: "#3c5f9f",
+    textUnderlineOffset: "3px",
+    "&:hover": {
+      color: "#2a4f92",
+      bgcolor: "transparent",
+    },
+  },
+  universityCardWrap: {
+    height: 286,
+    overflow: "hidden",
+    borderRadius: 2.2,
+    border: "1px solid rgba(134, 168, 231, 0.35)",
+    "& > div": {
+      transform: "scale(0.86)",
+      transformOrigin: "top left",
+      width: "116%",
+      border: "none !important",
+      p: "14px !important",
+    },
   },
 };

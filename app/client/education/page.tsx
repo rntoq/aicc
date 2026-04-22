@@ -110,7 +110,7 @@ const EducationPage = () => {
             <Typography variant="h3" color="text.primary">
               {t("education_universities_subtitle")}
             </Typography>
-            <Typography variant="body1" color="text.primary">
+            <Typography variant="h5" color="primary.light">
               {t("speciality")}: {specialityTitle}
             </Typography>
           </Box>

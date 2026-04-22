@@ -28,6 +28,7 @@ import {
 type ChatMessage = { role: ChatRole; text: string; at: number; kind?: "info" | "warning" };
 
 const AIChatPage = () => {
+  const [hydrated, setHydrated] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "ai" as const,
@@ -44,6 +45,10 @@ const AIChatPage = () => {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages.length]);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const clearChat = () => {
     setMessages([
@@ -206,7 +211,7 @@ const AIChatPage = () => {
                           textAlign: msg.role === "user" ? "right" : "left",
                         }}
                       >
-                        {formatTime(msg.at)}
+                        {hydrated ? formatTime(msg.at) : "--:--"}
                       </Typography>
                     </Paper>
                   </Box>

@@ -438,7 +438,7 @@
   "settings_password_changed": "Password changed",
   "settings_password_error": "Failed to change password",
   "settings_passwords_mismatch": "Passwords do not match",
-  "address ": "Address",
+  "address": "Address",
   "loading": "Loading…",
   "error_generic": "Something went wrong. Please try again.",
   "error_action": "Failed to perform action. Please try again.",
