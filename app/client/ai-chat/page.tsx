@@ -122,12 +122,12 @@ const AIChatPage = () => {
       <Box>
         <Box sx={styles.chatContainer}>
           <Box sx={styles.toolbar}>
-            <Chip
+            {/* <Chip
               avatar={<Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />}
               label={sending ? "Thinking…" : "AI Assistant"}
               variant="outlined"
               sx={styles.assistantChip}
-            />
+            /> */}
             <IconButton onClick={clearChat} aria-label="Clear chat" size="small" disabled={sending}>
               <DeleteOutlineRoundedIcon />
             </IconButton>
@@ -281,7 +281,7 @@ const styles = {
   toolbar: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     px: 0.5,
   },
   assistantChip: {

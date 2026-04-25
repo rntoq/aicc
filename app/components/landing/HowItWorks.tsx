@@ -4,8 +4,9 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import BANNER_IMAGE_1 from "../../../public/images/howitworks_card2.png";
-import BANNER_IMAGE_2 from "../../../public/images/howitworks_card3.png";
+import BANNER_IMAGE_1 from "../../../public/images/howitworks_card1.png";
+import BANNER_IMAGE_2 from "../../../public/images/howitworks_card2.png";
+import BANNER_IMAGE_3 from "../../../public/images/howitworks_card3.png";
 
 const FADE_IN = {
   initial: { opacity: 0, y: 24 },
@@ -54,17 +55,23 @@ export const HowItWorks = () => {
         </Typography>
 
         <Grid container spacing={3} sx={styles.grid}>
-          <StepCard delay={0.1} order={{ xs: 2, md: 1 }}>
+          <StepCard delay={0.1} order={{ xs: 1, md: 1 }}>
             <Box sx={styles.card}>
-              <Box sx={styles.stackedCards}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Box key={i} />
-                ))}
+              <Box sx={styles.step1BannerWrap}>
+                <Image
+                  src={BANNER_IMAGE_1}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={imageStyle}
+                />
               </Box>
-              <Typography sx={styles.step1Value}>{t("how_step1_value").toUpperCase()}</Typography>
-              <Typography variant="body2" sx={{ mb: 1.5 }} className="text_gradient">
-                {t("how_step1_desc")}
-              </Typography>
+              <Box sx={{p: "28px"}}>
+                <Typography sx={styles.step1Value}>{t("how_step1_value").toUpperCase()}</Typography>
+                <Typography variant="body2" sx={{ mb: 1.5 }} className="text_gradient">
+                  {t("how_step1_desc")}
+                </Typography>
+              </Box>
             </Box>
           </StepCard>
 
@@ -75,7 +82,7 @@ export const HowItWorks = () => {
               <Typography variant="body2">{t("how_step2_desc")}</Typography>
               <Box sx={styles.centerBannerWrap}>
                 <Image
-                  src={BANNER_IMAGE_1}
+                  src={BANNER_IMAGE_2}
                   alt=""
                   width={200}
                   height={120}
@@ -89,7 +96,7 @@ export const HowItWorks = () => {
             <Box sx={styles.resultCard}>
               <Box sx={styles.resultBannerWrap}>
                 <Image
-                  src={BANNER_IMAGE_2}
+                  src={BANNER_IMAGE_3}
                   alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -130,7 +137,7 @@ const sectionStyles = {
   },
   card: {
     borderRadius: 3,
-    p: "28px",
+    pt: { xs: "12px", md: "28px" },
     boxShadow: "0 8px 32px rgba(15, 23, 42, 0.08)",
     width: "100%",
     height: "100%",
@@ -143,22 +150,12 @@ const sectionStyles = {
       boxShadow: "0 16px 48px rgba(15, 23, 42, 0.14)",
     },
   },
-  stackedCards: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 4,
-    mt: 10,
-    "& > div": {
-      borderRadius: 1.5,
-      bgcolor: "primary.main",
-      opacity: 0.15,
-    },
-    "& > div:nth-of-type(1)": { width: 56, height: 72, transform: "rotate(-6deg)" },
-    "& > div:nth-of-type(2)": { width: 56, height: 72, transform: "rotate(-2deg) translateY(-14px)", opacity: 0.18 },
-    "& > div:nth-of-type(3)": { width: 56, height: 72, transform: "rotate(2deg) translateY(-24px)", opacity: 0.22 },
-    "& > div:nth-of-type(4)": { width: 56, height: 72, transform: "rotate(5deg) translateY(-14px)", opacity: 0.26 },
-    "& > div:nth-of-type(5)": { width: 56, height: 72, transform: "rotate(8deg)", opacity: 0.3 },
+  step1BannerWrap: {
+    position: "relative",
+    width: "100%",
+    overflow: "hidden",
+    minHeight: "400px",
+    "& img": { objectFit: "cover" },
   },
   step1Value: {
     fontSize: 40,
