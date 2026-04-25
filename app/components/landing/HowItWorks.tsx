@@ -137,24 +137,18 @@ const sectionStyles = {
   },
   card: {
     borderRadius: 3,
-    pt: { xs: "12px", md: "28px" },
+    pt: { xs: "12px", md: "16px" },
     boxShadow: "0 8px 32px rgba(15, 23, 42, 0.08)",
     width: "100%",
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    transition:
-      "transform 300ms cubic-bezier(0.33, 1, 0.68, 1), box-shadow 300ms cubic-bezier(0.33, 1, 0.68, 1)",
-    "&:hover": {
-      transform: "translateY(-6px)",
-      boxShadow: "0 16px 48px rgba(15, 23, 42, 0.14)",
-    },
   },
   step1BannerWrap: {
     position: "relative",
     width: "100%",
     overflow: "hidden",
-    minHeight: "400px",
+    minHeight: "310px",
     "& img": { objectFit: "cover" },
   },
   step1Value: {
@@ -175,12 +169,6 @@ const sectionStyles = {
     background: "linear-gradient(135deg, rgba(127, 127, 213, 0.38) 0%, rgba(134, 168, 231, 0.42) 100%)",
     color: "text.primary",
     boxShadow: "0 12px 40px rgba(91, 111, 214, 0.35)",
-    transition:
-      "transform 300ms cubic-bezier(0.33, 1, 0.68, 1), box-shadow 300ms cubic-bezier(0.33, 1, 0.68, 1)",
-    "&:hover": {
-      transform: "translateY(-6px)",
-      boxShadow: "0 20px 56px rgba(91, 111, 214, 0.4)",
-    },
   },
   centerCardTitle: {
     fontSize: "1.25rem",
@@ -220,12 +208,6 @@ const sectionStyles = {
     overflow: "hidden",
     minHeight: 0,
     boxShadow: "0 8px 32px rgba(15, 23, 42, 0.08)",
-    transition:
-      "transform 300ms cubic-bezier(0.33, 1, 0.68, 1), box-shadow 300ms cubic-bezier(0.33, 1, 0.68, 1)",
-    "&:hover": {
-      transform: "translateY(-6px)",
-      boxShadow: "0 16px 48px rgba(15, 23, 42, 0.14)",
-    },
   },
   resultBannerWrap: {
     position: "relative",
