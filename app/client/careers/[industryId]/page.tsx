@@ -10,7 +10,7 @@ import { AppLayout } from "@/app/components/layout/AppLayout";
 import { ProfessionCard } from "@/app/components/clientLayout";
 import { INDUSTRIES } from "@/utils/constants";
 import type { PublicProfession } from "@/lib/types";
-import PROFESSIONS_JSON from "@/public/professions.json";
+import PROFESSIONS_JSON from "@/public/jsons/professions.json";
 import { useIndustries } from "@/lib/services/careerServices";
 
 type ProfJson = PublicProfession;

@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
+  Chip,
+  Divider,
   Grid,
   IconButton,
+  LinearProgress,
   Link,
   Stack,
   Typography,
@@ -14,11 +17,11 @@ import {
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
+import AccessTimeRoundedIcon from "@mui/icons-material/AccessTimeRounded";
+import QuizRoundedIcon from "@mui/icons-material/QuizRounded";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { AppLayout } from "@/app/components/layout/AppLayout";
-import { ProfessionCard } from "@/app/components/clientLayout/ProfessionCard";
-import { UniversityCard } from "@/app/components/clientLayout/UniversityCard";
-import { TestCard } from "@/app/components/tests/TestCard";
 import type { PublicProfession, PublicUniversity } from "@/lib/types";
 import { ALL_TESTS, type TestItem } from "@/utils/constants";
 
@@ -153,16 +156,32 @@ const DASHBOARD_DATA: DashboardData = {
   suitableUniversity: UNIVERSITY_DATA,
 };
 
+const formatKzt = (value: number) =>
+  `${new Intl.NumberFormat("ru-RU").format(value)} ₸`;
+
+const getDemandMeta = (demand: PublicProfession["demand_level"]) => {
+  if (demand === "very_high") return { label: "Очень высокий спрос", color: "#1a8f64" };
+  if (demand === "high") return { label: "Высокий спрос", color: "#1f7a9d" };
+  if (demand === "medium") return { label: "Средний спрос", color: "#946200" };
+  return { label: "Базовый спрос", color: "#5c6384" };
+};
+
+const normalizeSpecialityCode = (spec: string | { code: string; id: number }) =>
+  typeof spec === "string" ? spec : spec.code;
+
 const DashboardPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const [professionIndex, setProfessionIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
   const data = DASHBOARD_DATA;
   const selectedProfession = data.recommendedProfessions[professionIndex] ?? null;
   const mappedLastTest: TestItem | null = data.lastDoneTest
     ? ALL_TESTS.find((item) => item.id === data.lastDoneTest?.testId) ?? null
     : null;
+  const testsProgress = useMemo(
+    () => (data.totalTests > 0 ? (data.testsDone / data.totalTests) * 100 : 0),
+    [data.testsDone, data.totalTests]
+  );
 
   const hasProfessions = data.recommendedProfessions.length > 0;
 
@@ -190,10 +209,6 @@ const DashboardPage = () => {
     router.push(data.aiReport ? `/client/ai-chat?reportId=${data.aiReport.id}` : "/client/ai-chat");
   };
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <AppLayout title={t("sidebar_dashboard")}>
       <Box sx={styles.dashboardRoot}>
@@ -206,8 +221,8 @@ const DashboardPage = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={1.25}>
-          <Grid size={{ xs: 12, md: 4 }}>
+        <Grid container spacing={{ xs: 1.5, md: 2 }}>
+          <Grid size={{ xs: 12, md: 4, lg: 3 }}>
             <Box sx={{ ...styles.boxCard, ...styles.compactStatCard }}>
               <Typography variant="overline" color="text.secondary">
                 Tests progress
@@ -215,13 +230,14 @@ const DashboardPage = () => {
               <Typography variant="h5" sx={styles.metricValue}>
                 {data.testsDone}/{data.totalTests}
               </Typography>
+              <LinearProgress variant="determinate" value={testsProgress} sx={styles.metricProgress} />
               <Typography variant="caption" color="text.secondary">
                 Completed tests
               </Typography>
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 8 }}>
+          <Grid size={{ xs: 12, md: 8, lg: 9 }}>
             <Box sx={styles.boxCard}>
               <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
                 <DescriptionRoundedIcon color="primary" fontSize="small" />
@@ -270,7 +286,7 @@ const DashboardPage = () => {
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }}>
             <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
                 <Typography variant="h6" sx={styles.sectionTitle}>
@@ -287,8 +303,32 @@ const DashboardPage = () => {
               </Stack>
               {selectedProfession ? (
                 <Stack spacing={0.8} sx={styles.sectionContentCompact}>
-                  <Box sx={styles.professionCardWrap}>
-                    <ProfessionCard profession={selectedProfession} t={(key) => t(key)} compact />
+                  <Box sx={styles.innerCard}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={1}>
+                      <Box>
+                        <Typography sx={styles.innerTitle}>{selectedProfession.name.ru}</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {t(selectedProfession.industry)}
+                        </Typography>
+                      </Box>
+                      <Chip
+                        label={getDemandMeta(selectedProfession.demand_level).label}
+                        size="small"
+                        sx={{ ...styles.infoChip, color: getDemandMeta(selectedProfession.demand_level).color }}
+                      />
+                    </Stack>
+                    <Divider sx={styles.innerDivider} />
+                    <Typography variant="body2" sx={styles.lineClamp2}>
+                      {selectedProfession.description?.ru ?? "Описание скоро будет доступно."}
+                    </Typography>
+                    <Stack direction="row" spacing={0.8} useFlexGap flexWrap="wrap" sx={{ mt: 1.2 }}>
+                      {selectedProfession.specialities.slice(0, 3).map((spec) => (
+                        <Chip key={normalizeSpecialityCode(spec)} label={normalizeSpecialityCode(spec)} size="small" sx={styles.codeChip} />
+                      ))}
+                    </Stack>
+                    <Box sx={styles.salaryStrip}>
+                      {formatKzt(selectedProfession.salary_kzt.min ?? 0)} - {formatKzt(selectedProfession.salary_kzt.max ?? 0)}
+                    </Box>
                   </Box>
                   <Typography variant="caption" color="text.secondary">
                     {professionIndex + 1} / {data.recommendedProfessions.length}
@@ -305,20 +345,40 @@ const DashboardPage = () => {
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }}>
             <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
               <Typography variant="h6" sx={styles.sectionTitle}>
                 Last done test
               </Typography>
               {mappedLastTest && data.lastDoneTest ? (
                 <Stack spacing={0.8} sx={styles.sectionContentCompact}>
-                  {mounted ? (
-                    <Box sx={styles.testCardWrap}>
-                      <TestCard index={0} test={mappedLastTest} variant="recommended" />
-                    </Box>
-                  ) : (
-                    <Box sx={styles.testCardSkeleton} />
-                  )}
+                  <Box sx={styles.innerCard}>
+                    <Stack direction="row" spacing={1.2} alignItems="center" sx={{ mb: 0.8 }}>
+                      <Box sx={styles.testIconCircle}>
+                        <mappedLastTest.icon />
+                      </Box>
+                      <Box>
+                        <Typography sx={styles.innerTitle}>{mappedLastTest.name}</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {mappedLastTest.required ? "Required test" : "Optional test"}
+                        </Typography>
+                      </Box>
+                    </Stack>
+                    <Stack direction="row" spacing={1.5}>
+                      <Stack direction="row" spacing={0.5} alignItems="center">
+                        <AccessTimeRoundedIcon sx={styles.metaIcon} />
+                        <Typography variant="caption" color="text.secondary">
+                          {mappedLastTest.duration ?? "-"} min
+                        </Typography>
+                      </Stack>
+                      <Stack direction="row" spacing={0.5} alignItems="center">
+                        <QuizRoundedIcon sx={styles.metaIcon} />
+                        <Typography variant="caption" color="text.secondary">
+                          {mappedLastTest.questions ?? "-"} questions
+                        </Typography>
+                      </Stack>
+                    </Stack>
+                  </Box>
                   <Box sx={styles.smallInfoBox}>
                     <Typography sx={{ fontWeight: 700 }}>{data.lastDoneTest.resultLabel}</Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -340,15 +400,43 @@ const DashboardPage = () => {
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 12, lg: 4 }}>
             <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
               <Typography variant="h6" sx={styles.sectionTitle}>
                 Most suitable university
               </Typography>
               {data.suitableUniversity ? (
                 <Stack spacing={0.8} sx={styles.sectionContentCompact}>
-                  <Box sx={styles.universityCardWrap}>
-                    <UniversityCard university={data.suitableUniversity} href="/client/education" />
+                  <Box sx={styles.innerCard}>
+                    <Stack direction="row" spacing={1.2} alignItems="center">
+                      <Box sx={styles.uniLogoWrap}>
+                        <Image
+                          src={data.suitableUniversity.logo || "/images/default.png"}
+                          alt={data.suitableUniversity.short_name.ru ?? "University"}
+                          fill
+                          sizes="48px"
+                          style={{ objectFit: "cover" }}
+                        />
+                      </Box>
+                      <Box>
+                        <Typography sx={styles.innerTitle}>{data.suitableUniversity.short_name.ru ?? "University"}</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {data.suitableUniversity.name.ru ?? data.suitableUniversity.name.en ?? "University profile"}
+                        </Typography>
+                      </Box>
+                    </Stack>
+                    <Divider sx={styles.innerDivider} />
+                    <Stack spacing={0.6}>
+                      <Typography variant="body2" color="text.secondary">
+                        Город: <b>{data.suitableUniversity.address ?? "-"}</b>
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Стоимость: <b>{formatKzt(data.suitableUniversity.price ?? 0)}</b>
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Специальностей: <b>{data.suitableUniversity.specialities_count}</b>
+                      </Typography>
+                    </Stack>
                   </Box>
                   <Link component="button" underline="hover" sx={styles.moreLink} onClick={() => router.push("/client/education")}>
                     More universities
@@ -375,41 +463,62 @@ const styles = {
     minHeight: "calc(100vh - 96px)",
     display: "flex",
     flexDirection: "column",
+    gap: { xs: 1.25, md: 1.5 },
   },
   welcomeCard: {
-    mb: 1,
-    p: { xs: 1, md: 1.2 },
-    borderRadius: 2.5,
+    p: { xs: 1.2, md: 1.6 },
+    borderRadius: 3,
     background: dashboardPalette.lightGradient,
     color: "#182453",
     border: "1px solid rgba(134, 168, 231, 0.32)",
+    boxShadow: "0 8px 18px rgba(62, 93, 152, 0.08)",
   },
   boxCard: {
-    borderRadius: 2.8,
+    borderRadius: 3,
     height: "100%",
     border: "1px solid",
-    borderColor: "rgba(134, 168, 231, 0.3)",
+    borderColor: "rgba(134, 168, 231, 0.28)",
     bgcolor: "background.paper",
     backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(145, 234, 228, 0.06) 100%)",
-    p: 1.15,
+    p: { xs: 1.2, md: 1.35 },
+    boxShadow: "0 10px 24px rgba(27, 46, 94, 0.06)",
+    display: "flex",
+    flexDirection: "column",
+    minHeight: { xs: 300, md: 340 },
   },
   compactStatCard: {
     justifyContent: "center",
-    minHeight: 160,
+    minHeight: { xs: 140, md: 160 },
     display: "flex",
     flexDirection: "column",
   },
   equalPanel: {
-    minHeight: 400,
-    maxHeight: 400,
+    minHeight: { xs: 340, sm: 360, md: 400 },
+    maxHeight: { xs: "none", md: 400 },
     overflow: "hidden",
   },
-  metricValue: { mt: 0.25, fontWeight: 800, fontSize: "2rem", color: "#233f74", lineHeight: 1.05 },
+  metricValue: {
+    mt: 0.35,
+    fontWeight: 800,
+    fontSize: { xs: "1.7rem", md: "2rem" },
+    color: "#233f74",
+    lineHeight: 1.05,
+  },
+  metricProgress: {
+    my: 1,
+    height: 8,
+    borderRadius: 999,
+    bgcolor: "rgba(134, 168, 231, 0.16)",
+    "& .MuiLinearProgress-bar": {
+      borderRadius: 999,
+      backgroundImage: "linear-gradient(90deg, #7fa7ea 0%, #7de0cf 100%)",
+    },
+  },
   sectionTitle: {
-    mb: 0.2,
+    mb: 0.35,
     fontWeight: 700,
     color: "#1f2a56",
-    fontSize: "1rem",
+    fontSize: { xs: "0.98rem", md: "1rem" },
   },
   sectionContentCompact: {
     minHeight: 0,
@@ -444,7 +553,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: 1,
-    p: 0.9,
+    p: 1,
     borderRadius: 2,
     border: "1px solid rgba(134, 168, 231, 0.4)",
     bgcolor: "rgba(134, 168, 231, 0.08)",
@@ -460,49 +569,76 @@ const styles = {
     fontSize: "0.86rem",
   },
   smallInfoBox: {
-    p: 0.8,
+    p: 1,
     borderRadius: 2,
     bgcolor: "rgba(145, 234, 228, 0.08)",
     border: "1px solid",
     borderColor: "rgba(145, 234, 228, 0.4)",
   },
-  professionCardWrap: {
-    height: 270,
-    overflow: "hidden",
-    "& > div": {
-      minWidth: "100%",
-      maxWidth: "100%",
-      borderColor: "rgba(134, 168, 231, 0.5)",
-      p: 1,
-      borderRadius: 2.2,
-    },
+  innerCard: {
+    p: 1.2,
+    borderRadius: 2.2,
+    border: "1px solid rgba(134, 168, 231, 0.35)",
+    bgcolor: "rgba(255,255,255,0.9)",
+    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6)",
+    minHeight: { xs: 180, md: 195 },
   },
-  testCardWrap: {
-    height: 205,
-    display: "flex",
-    alignItems: "flex-start",
-    overflow: "hidden",
-    "& > div": {
-      transform: "scale(0.78)",
-      transformOrigin: "top left",
-      width: "128%",
-    },
-    "& .MuiButton-root": {
-      backgroundColor: dashboardPalette.primaryLight,
-      borderColor: dashboardPalette.primaryLight,
-      color: "#0f2547",
-    },
-    "& [class*='badge']": {
-      backgroundColor: "rgba(145, 234, 228, 0.35)",
-      color: "#35538a",
-    },
+  innerTitle: {
+    fontSize: "0.98rem",
+    fontWeight: 700,
+    color: "#22325f",
   },
-  testCardSkeleton: {
-    height: 205,
-    borderRadius: 2,
-    border: "1px dashed",
-    borderColor: "rgba(134, 168, 231, 0.45)",
-    bgcolor: "rgba(145, 234, 228, 0.08)",
+  innerDivider: {
+    my: 1,
+    borderColor: "rgba(134, 168, 231, 0.2)",
+  },
+  lineClamp2: {
+    fontSize: "0.86rem",
+    color: "text.secondary",
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+  },
+  salaryStrip: {
+    mt: 1.2,
+    borderRadius: 1.6,
+    py: 0.55,
+    px: 0.9,
+    textAlign: "center",
+    fontSize: "0.84rem",
+    fontWeight: 700,
+    color: "#23416a",
+    bgcolor: "rgba(125, 224, 207, 0.22)",
+  },
+  codeChip: {
+    height: 24,
+    fontSize: "0.72rem",
+    borderRadius: 1.2,
+    bgcolor: "rgba(134, 168, 231, 0.12)",
+    color: "#2a4b7a",
+  },
+  infoChip: {
+    height: 24,
+    fontSize: "0.72rem",
+    borderRadius: 1.2,
+    bgcolor: "rgba(125, 224, 207, 0.2)",
+    border: "1px solid rgba(125, 224, 207, 0.35)",
+  },
+  testIconCircle: {
+    width: 34,
+    height: 34,
+    borderRadius: "50%",
+    display: "grid",
+    placeItems: "center",
+    color: "#2c4f86",
+    bgcolor: "rgba(134, 168, 231, 0.2)",
+    border: "1px solid rgba(134, 168, 231, 0.34)",
+    flexShrink: 0,
+  },
+  metaIcon: {
+    fontSize: 16,
+    color: "#446594",
   },
   moreLink: {
     mt: "auto",
@@ -516,17 +652,13 @@ const styles = {
       bgcolor: "transparent",
     },
   },
-  universityCardWrap: {
-    height: 286,
+  uniLogoWrap: {
+    width: 48,
+    height: 48,
+    borderRadius: 1.4,
     overflow: "hidden",
-    borderRadius: 2.2,
     border: "1px solid rgba(134, 168, 231, 0.35)",
-    "& > div": {
-      transform: "scale(0.86)",
-      transformOrigin: "top left",
-      width: "116%",
-      border: "none !important",
-      p: "14px !important",
-    },
+    position: "relative",
+    flexShrink: 0,
   },
 };

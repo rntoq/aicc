@@ -18,11 +18,11 @@ import { PasswordField } from "@/app/components/layout/PasswordField";
 import { useAuth } from "@/lib/store/useAuthStore";
 import { useChangePassword, useUpdateProfile } from "@/lib/services/authServices";
 import { arePasswordsMatching } from "@/utils/validators";
-import REGONS_JSON from "@/public/regons.json";
+import REGIONS_JSON from "@/public/jsons/regions.json";
 import { toast } from "react-toastify";
 
 type RegionOption = { id: number; name: { ru: string; kk: string; en: string } };
-const regions = REGONS_JSON as RegionOption[];
+const regions = REGIONS_JSON as RegionOption[];
 
 const SettingsPage = () => {
   const t = useTranslations();

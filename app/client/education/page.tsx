@@ -9,7 +9,7 @@ import { UniversityCard } from "@/app/components/clientLayout";
 import type { PublicSpeciality, PublicUniversity } from "@/lib/types";
 import SPECIALITIES_JSON from "@/public/jsons/specialities.json";
 import UNIVERSITIES_JSON from "@/public/jsons/universities.json";
-import REGONS_JSON from "@/public/jsons/regions.json";
+import REGIONS_JSON from "@/public/jsons/regions.json";
 import { useInstitutions } from "@/lib/services/careerServices";
 
 const normalizeName = (s: string) =>
@@ -22,7 +22,7 @@ const normalizeName = (s: string) =>
 const universitiesData = UNIVERSITIES_JSON as PublicUniversity[];
 const specialitiesData = SPECIALITIES_JSON as PublicSpeciality[];
 type RegionOption = { id: number; name: { ru: string; kk: string; en: string } };
-const regionsData = REGONS_JSON as RegionOption[];
+const regionsData = REGIONS_JSON as RegionOption[];
 
 const EducationPage = () => {
   const t = useTranslations();
