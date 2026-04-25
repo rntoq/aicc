@@ -4,7 +4,7 @@ import { Box, CardContent, Chip, Divider, Link, Typography } from "@mui/material
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import { useLocale } from "next-intl";
 import type { PublicProfession, PublicSpeciality } from "@/lib/types";
-import SPECIALITIES_JSON from "@/public/specialities.json";
+import SPECIALITIES_JSON from "@/public/jsons/specialities.json";
 
 export type TranslateFn = (key: string, values?: Record<string, string | number>) => string;
 

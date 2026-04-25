@@ -7,9 +7,9 @@ import { useSearchParams } from "next/navigation";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { UniversityCard } from "@/app/components/clientLayout";
 import type { PublicSpeciality, PublicUniversity } from "@/lib/types";
-import SPECIALITIES_JSON from "@/public/specialities.json";
-import UNIVERSITIES_JSON from "@/public/universities.json";
-import REGONS_JSON from "@/public/regons.json";
+import SPECIALITIES_JSON from "@/public/jsons/specialities.json";
+import UNIVERSITIES_JSON from "@/public/jsons/universities.json";
+import REGONS_JSON from "@/public/jsons/regions.json";
 import { useInstitutions } from "@/lib/services/careerServices";
 
 const normalizeName = (s: string) =>

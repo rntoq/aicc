@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   title: "CareerMap — Найди профессию, которая подходит именно тебе",
   description:
     "Пройди научно-обоснованные тесты и получи персональный карьерный анализ с помощью AI. Профориентация для школьников и студентов в Казахстане.",
+  icons: {
+    icon: "/icons/logo.ico",
+    shortcut: "/icons/logo.ico",
+  },
 };
 
 async function initLogin(): Promise<{ initialUser: User | null }> {

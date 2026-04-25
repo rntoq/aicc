@@ -10,7 +10,7 @@ import { IndustryCard } from "@/app/components/clientLayout";
 import { ProfessionCard } from "@/app/components/clientLayout/ProfessionCard";
 import { useCareerRecommendations, useIndustries } from "@/lib/services/careerServices";
 import { INDUSTRIES, FILTER_CATEGORIES } from "@/utils/constants";
-import PROFESSIONS_JSON from "@/public/professions.json";
+import PROFESSIONS_JSON from "@/public/jsons/professions.json";
 import type { PublicProfession } from "@/lib/types";
 
 // ─── PersonalResultSection ────────────────────────────────────────────────────

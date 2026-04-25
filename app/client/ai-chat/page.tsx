@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  Avatar,
   Box,
   Chip,
   CardContent,
@@ -12,7 +13,6 @@ import {
 } from "@mui/material";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
@@ -123,10 +123,10 @@ const AIChatPage = () => {
         <Box sx={styles.chatContainer}>
           <Box sx={styles.toolbar}>
             <Chip
-              icon={<SmartToyOutlinedIcon />}
+              avatar={<Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />}
               label={sending ? "Thinking…" : "AI Assistant"}
               variant="outlined"
-              sx={{ borderRadius: 999 }}
+              sx={styles.assistantChip}
             />
             <IconButton onClick={clearChat} aria-label="Clear chat" size="small" disabled={sending}>
               <DeleteOutlineRoundedIcon />
@@ -184,7 +184,7 @@ const AIChatPage = () => {
                               <ReportProblemOutlinedIcon fontSize="small" />
                             )
                           ) : (
-                            <SmartToyOutlinedIcon fontSize="small" />
+                            <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
                           )}
                           <Typography variant="caption" fontWeight={600}>
                             {msg.role === "system" ? "System" : "AI Assistant"}
@@ -220,7 +220,7 @@ const AIChatPage = () => {
                   <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
                     <Paper sx={{ ...styles.messageBubble, bgcolor: "grey.50", borderColor: "grey.200" }}>
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                        <SmartToyOutlinedIcon fontSize="small" />
+                        <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
                         <Typography variant="body2" color="text.secondary">
                           Typing…
                         </Typography>
@@ -273,9 +273,9 @@ const styles = {
   chatContainer: {
     display: "flex",
     flexDirection: "column",
-    height: "calc(100vh - 100px)",
-    minHeight: 500,
-    maxHeight: 800,
+    height: { xs: "calc(100vh - 92px)", md: "calc(100vh - 100px)" },
+    minHeight: { xs: 420, md: 500 },
+    maxHeight: { xs: "none", md: 800 },
     gap: 1.25,
   },
   toolbar: {
@@ -284,7 +284,19 @@ const styles = {
     justifyContent: "space-between",
     px: 0.5,
   },
+  assistantChip: {
+    borderRadius: 999,
+    bgcolor: "rgba(255,255,255,0.78)",
+    backdropFilter: "blur(1.5px)",
+    borderColor: "rgba(27, 46, 94, 0.18)",
+  },
+  aiAvatarTiny: {
+    width: 22,
+    height: 22,
+    bgcolor: "transparent",
+  },
   chatCard: {
+    position: "relative",
     borderRadius: 3,
     border: "1px solid",
     borderColor: "divider",
@@ -292,26 +304,42 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     bgcolor: "background.paper",
+    backgroundImage: "url('/images/aichat_background.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    overflow: "hidden",
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+      background: "linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.09) 100%)",
+      pointerEvents: "none",
+    },
   },
   messagesArea: {
     flex: 1,
     overflowY: "auto",
-    mb: 2,
-    px: 1,
+    mb: { xs: 1.25, md: 2 },
+    px: { xs: 0.25, sm: 0.75, md: 1 },
   },
   messageBubble: {
-    maxWidth: "75%",
-    mb: 2,
-    p: 2,
+    maxWidth: { xs: "90%", sm: "82%", md: "75%" },
+    mb: { xs: 1.25, md: 2 },
+    p: { xs: 1.4, md: 2 },
     borderRadius: 2,
     border: "1px solid",
   },
   inputPaper: {
+    position: "relative",
+    zIndex: 1,
     display: "flex",
     alignItems: "center",
-    p: 1,
-    borderRadius: 2,
+    p: { xs: 0.65, md: 1 },
+    borderRadius: 999,
     border: "1px solid",
-    borderColor: "divider",
+    borderColor: "rgba(27, 46, 94, 0.2)",
+    bgcolor: "rgba(255,255,255,0.92)",
+    backdropFilter: "blur(2px)",
   },
 };
