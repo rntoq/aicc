@@ -14,10 +14,9 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import BANNER_IMAGE from "@/public/images/test_banner.jpg";
-import { Footer } from "@/app/components/landing/Footer";
 import { ALL_TESTS, getRecommendedTests } from "@/utils/constants";
 import { TestCard } from "../components/tests/TestCard";
-import { Header } from "../components/layout/Header";
+import { Header, Footer } from "../components/layout";
 import { useQuizCategories, useQuizTestTypes, useQuizTests } from "@/lib/services/quizServices";
 import { AiAnalysisCta } from "../components/layout/AiAnalysisCta";
 

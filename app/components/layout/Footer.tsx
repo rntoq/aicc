@@ -38,7 +38,7 @@ export const Footer = () => {
           </Box>
 
           <Box sx={styles.linksWrap}>
-            {footerLinks.map((link) => (
+            {/* {footerLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -47,7 +47,7 @@ export const Footer = () => {
               >
                 {link.label}
               </Link>
-            ))}
+            ))} */}
             <Box sx={styles.langWrap}>
               <LanguageIcon sx={styles.langIcon} />
               <Typography

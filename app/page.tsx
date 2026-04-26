@@ -7,9 +7,8 @@ import {
   PaidPlanSection,
   StatsBlock,
   AIChatBlock,
-  Footer,
 } from "@/app/components/landing";
-import { Header } from "./components/layout/Header";
+import { Header, Footer } from "./components/layout";
 
 const styles = { main: { minHeight: "100vh", pt: { xs: 7, sm: 8 } } };
 

@@ -1,13 +1,30 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "@/utils/constants";
 import { getCookie } from "@/lib/cookies/cookieServer";
 
-const axiosServer: AxiosInstance = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true,
-});
-
 type ServerResult<T> = { body: T | null; error: unknown | null };
+
+const buildUrl = (path: string): string => {
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return new URL(path, BASE_URL).toString();
+};
+
+const toHeaders = (
+  token: string | null,
+  extra?: AxiosRequestConfig["headers"]
+): HeadersInit => {
+  const headers = new Headers();
+  headers.set("Accept", "application/json");
+
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+  if (extra && typeof extra === "object") {
+    Object.entries(extra as Record<string, string>).forEach(([k, v]) => {
+      if (typeof v === "string") headers.set(k, v);
+    });
+  }
+
+  return headers;
+};
 
 async function handleRequest<T>(
   method: "get" | "post" | "put" | "patch" | "delete",
@@ -17,20 +34,33 @@ async function handleRequest<T>(
 ): Promise<ServerResult<T>> {
   try {
     const token = await getCookie("access");
-    const headers = {
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(config?.headers || {}),
-    };
-
-    const response = await axiosServer.request<T>({
-      method,
-      url,
-      data,
-      ...config,
+    const headers = toHeaders(token, config?.headers);
+    const response = await fetch(buildUrl(url), {
+      method: method.toUpperCase(),
       headers,
+      body: data != null ? JSON.stringify(data) : undefined,
+      cache: "no-store",
     });
 
-    return { body: response.data, error: null };
+    if (!response.ok) {
+      return {
+        body: null,
+        error: {
+          status: response.status,
+          statusText: response.statusText,
+        },
+      };
+    }
+
+    if (response.status === 204) return { body: null, error: null };
+
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      return { body: null, error: null };
+    }
+
+    const body = (await response.json()) as T;
+    return { body, error: null };
   } catch (error) {
     return { body: null, error };
   }

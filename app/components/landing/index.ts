@@ -5,4 +5,3 @@ export { TestsCarousel } from "./TestsCarousel";
 export { PaidPlanSection } from "./PaidPlanSection";
 export { StatsBlock } from "./StatsBlock";
 export { AIChatBlock } from "./AIChatBlock";
-export { Footer } from "./Footer";

@@ -209,7 +209,7 @@ export const TestCard = ({
             ))}
           </Box>
           {completed ? (
-            <Button variant="contained" color="primary" size="medium" fullWidth onClick={requestNavigate} sx={styles.cta}>
+            <Button variant="contained" color="primary" size="medium" fullWidth onClick={navigateToTest} sx={styles.cta}>
               {t("showResult")}
             </Button>
           ) : (

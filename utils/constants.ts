@@ -8,7 +8,9 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 
-export const BASE_URL = "https://dimplom-j8u3.onrender.com";
+export const BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL?.trim() ||
+  "https://dimplom-j8u3.onrender.com";
 
 export const BANNER_PLACEHOLDER_IMAGE = "/images/default.png";
 

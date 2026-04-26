@@ -35,6 +35,16 @@ let failedQueue: {
   reject: (error: unknown) => void;
 }[] = [];
 
+const shouldRedirectToLogin = (): boolean => {
+  if (typeof window === "undefined") return false;
+  return window.location.pathname.startsWith("/client");
+};
+
+const redirectToLoginIfNeeded = () => {
+  if (!shouldRedirectToLogin()) return;
+  window.location.href = "/login";
+};
+
 const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach((prom) => {
     if (error) {
@@ -76,8 +86,8 @@ async function refreshAccessToken(): Promise<string> {
   if (!refreshToken) {
     removeCookie("access");
     removeCookie("refresh");
-    window.location.href = "/login";
-    throw new Error("Missing refresh token");
+    redirectToLoginIfNeeded();
+    throw new Error("Unauthorized");
   }
 
   try {
@@ -110,7 +120,7 @@ async function refreshAccessToken(): Promise<string> {
 
     removeCookie("access");
     removeCookie("refresh");
-    window.location.href = "/login";
+    redirectToLoginIfNeeded();
 
     throw refreshError;
   }
@@ -146,6 +156,14 @@ axiosInstance.interceptors.response.use(
       !isAuthEndpoint &&
       !originalRequest._retry
     ) {
+      const hasRefreshToken = !!getCookie("refresh");
+      if (!hasRefreshToken) {
+        removeCookie("access");
+        removeCookie("refresh");
+        redirectToLoginIfNeeded();
+        return Promise.reject(error);
+      }
+
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({

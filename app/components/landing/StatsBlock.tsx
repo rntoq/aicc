@@ -12,9 +12,9 @@ import BANNER_IMAGE from "../../../public/images/stats_banner.jpg";
 import { useAnalysisDashboard } from "@/lib/services/analyseServices";
 
 const STATS = [
-  { icon: SchoolOutlinedIcon, value: 150, suffix: "+", labelKey: "stats_unis", descKey: "stats_unis_desc" },
-  { icon: WorkOutlineOutlinedIcon, value: 200, suffix: "+", labelKey: "stats_profs", descKey: "stats_profs_desc" },
-  { icon: AssignmentOutlinedIcon, value: 8, suffix: "", labelKey: "stats_tests", descKey: "stats_tests_desc" },
+  { icon: SchoolOutlinedIcon, value: 118, labelKey: "stats_unis", descKey: "stats_unis_desc" },
+  { icon: WorkOutlineOutlinedIcon, value: 120, labelKey: "stats_profs", descKey: "stats_profs_desc" },
+  { icon: AssignmentOutlinedIcon, value: 10, labelKey: "stats_tests", descKey: "stats_tests_desc" },
 ] as const;
 
 const CARD_ANIMATION = {
@@ -24,7 +24,7 @@ const CARD_ANIMATION = {
   transition: { duration: 0.4 },
 };
 
-const CountUp = ({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) => {
+const CountUp = ({ value, inView }: { value: number; inView: boolean }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -48,7 +48,6 @@ const CountUp = ({ value, suffix, inView }: { value: number; suffix: string; inV
   return (
     <Typography variant="h3" sx={styles.value} component="span" display="block">
       {count}
-      {suffix}
     </Typography>
   );
 };
@@ -56,7 +55,6 @@ const CountUp = ({ value, suffix, inView }: { value: number; suffix: string; inV
 const StatCard = ({
   icon: Icon,
   value,
-  suffix,
   label,
   description,
   index,
@@ -64,7 +62,6 @@ const StatCard = ({
 }: {
   icon: React.ComponentType<SvgIconProps>;
   value: number;
-  suffix: string;
   label: string;
   description: string;
   index: number;
@@ -75,7 +72,7 @@ const StatCard = ({
       <Box sx={styles.iconWrap}>
         <Icon sx={{ fontSize: 32 }} />
       </Box>
-      <CountUp value={value} suffix={suffix} inView={inView} />
+      <CountUp value={value} inView={inView} />
       <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 0.5 }}>
         {label}
       </Typography>
@@ -113,7 +110,6 @@ export const StatsBlock = () => {
               key={stat.labelKey}
               icon={stat.icon}
               value={stat.value}
-              suffix={stat.suffix}
               label={t(stat.labelKey)}
               description={t(stat.descKey)}
               index={index}
