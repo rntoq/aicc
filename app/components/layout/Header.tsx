@@ -23,7 +23,7 @@ import { useAuth, useUserLabel } from "@/lib/store/useAuthStore";
 
 const NAV_ITEMS: { labelKey: string; href: string }[] = [
   { labelKey: "hero_cta2", href: "/#how-it-works" },
-  { labelKey: "header_takeTest", href: "/test" },
+  { labelKey: "take_test", href: "/test" },
 ];
 
 export const Header = ({ onLanding = false }: { onLanding?: boolean }) => {

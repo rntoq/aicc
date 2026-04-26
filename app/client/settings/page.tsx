@@ -16,7 +16,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { PasswordField } from "@/app/components/layout/PasswordField";
 import { useAuth } from "@/lib/store/useAuthStore";
-import { useChangePassword, useUpdateProfile } from "@/lib/services/authServices";
+import { authServices, useChangePassword, useUpdateProfile } from "@/lib/services/authServices";
 import { arePasswordsMatching } from "@/utils/validators";
 import REGIONS_JSON from "@/public/jsons/regions.json";
 import { toast } from "react-toastify";
@@ -45,6 +45,23 @@ const SettingsPage = () => {
 
   const updateProfile = useUpdateProfile();
   const changePassword = useChangePassword();
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const syncProfile = async () => {
+      const { body } = await authServices.me();
+      if (!cancelled && body) {
+        setUser(body);
+      }
+    };
+
+    void syncProfile();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [setUser]);
 
   useEffect(() => {
     if (user) {
@@ -257,7 +274,7 @@ const SettingsPage = () => {
           variant="outlined"
           onClick={resetFormFromUser}
         >
-          {t("settings_cancel")}
+          {t("cancel")}
         </Button>
         <Button variant="contained" onClick={handleSave} disabled={updateProfile.isPending}>
           {updateProfile.isPending ? t("settings_saving") : t("settings_save")}

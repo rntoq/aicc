@@ -311,7 +311,7 @@ export default function TypeFinder16Page() {
             <Box sx={styles.pageTitle}>{t("tests_typefinder-16_name") as string}</Box>
             <Box sx={styles.pageHelper}>
               {stepQuestions[0]?.type === "pair"
-                ? t("tests_typefinder-16_helper_pair")
+                ? t("pairs_title")
                 : t("tests_typefinder-16_helper_single")}
             </Box>
           </Box>

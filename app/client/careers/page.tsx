@@ -8,7 +8,7 @@ import Link from "next/link";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { IndustryCard } from "@/app/components/clientLayout";
 import { ProfessionCard } from "@/app/components/clientLayout/ProfessionCard";
-import { useCareerRecommendations, useIndustries } from "@/lib/services/careerServices";
+import { useCareerRecommendations, useIndustries, useProfessions } from "@/lib/services/careerServices";
 import { INDUSTRIES, FILTER_CATEGORIES } from "@/utils/constants";
 import PROFESSIONS_JSON from "@/public/jsons/professions.json";
 import type { PublicProfession } from "@/lib/types";
@@ -66,7 +66,7 @@ function PassTestCtaSection() {
         size="large"
         sx={styles.ctaButton}
       >
-        {t("careers_pass_test_cta")}
+        {t("take_test")}
       </Button>
     </Box>
   );
@@ -76,12 +76,16 @@ function PassTestCtaSection() {
 
 const CareersPage = () => {
   const t = useTranslations();
+  const [activeFilter, setActiveFilter] = useState("all");
+
   useIndustries();
+  useProfessions({
+    industry: activeFilter === "all" ? undefined : activeFilter,
+  });
   const { data: recommendations } = useCareerRecommendations();
 
   const hasPersonalResult = (recommendations?.length ?? 0) > 0;
 
-  const [activeFilter, setActiveFilter] = useState("all");
   const filteredIndustries = useMemo(() => {
     if (activeFilter === "all") return INDUSTRIES;
     return INDUSTRIES.filter((ind) => ind.filterCategory === activeFilter);

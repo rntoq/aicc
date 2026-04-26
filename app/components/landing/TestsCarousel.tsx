@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ALL_TESTS } from "@/utils/constants";
 import type { TestItem } from "@/utils/constants";
+import { useQuizTests } from "@/lib/services/quizServices";
 
 const CARD_ACCENTS = [
   { border: "#7f7fd5", bg: "rgba(127, 127, 213, 0.06)", titleColor: "#7f7fd5" },
@@ -26,7 +27,7 @@ const getBadgeLabel = (
   t: ReturnType<typeof useTranslations>
 ): string => {
   if (test.required) return t("tests_badge_recommended");
-  return t("tests_badge_optional");
+  return t("optional");
 };
 
 const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
@@ -37,6 +38,7 @@ const getBadgeStyle = (test: TestItem): { bg: string; color: string } => {
 export const TestsCarousel = () => {
   const t = useTranslations();
   const [isPaused, setIsPaused] = useState(false);
+  useQuizTests();
 
   const { items: TESTS, trackWidth } = useMemo(() => {
     const items = ALL_TESTS.map((test) => {
@@ -53,7 +55,7 @@ export const TestsCarousel = () => {
         : [];
       const category = (t(categoryKey) as string) || "";
       const time =
-        test.duration != null ? `${test.duration} мин` : "";
+        test.duration != null ? `${test.duration} ${t("minutes_short")}` : "";
       const questions = test.questions ?? 0;
       const badgeLabel = getBadgeLabel(test, t);
       const badgeStyle = getBadgeStyle(test);
@@ -193,7 +195,7 @@ export const TestsCarousel = () => {
                           ))}
                         </Box>
                         <Typography className="cta" sx={styles.cta}>
-                          {t("tests_cta_take")} →
+                          {t("tests_title")} →
                         </Typography>
                       </Box>
                     </Box>

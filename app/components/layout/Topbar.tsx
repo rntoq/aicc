@@ -7,6 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTheme } from "@mui/material/styles";
 import type { Theme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { LanguageDropdown } from "@/app/components/layout/LanguageDropdown";
 import { useAuth } from "@/lib/store/useAuthStore";
 
@@ -16,6 +17,7 @@ type TopbarProps = {
 };
 
 export const Topbar = ({ title, onMenuClick }: TopbarProps) => {
+  const t = useTranslations();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -51,7 +53,7 @@ export const Topbar = ({ title, onMenuClick }: TopbarProps) => {
       >
         <Box sx={styles.leftSection}>
           {isMobile && onMenuClick && (
-            <IconButton edge="start" onClick={onMenuClick} sx={styles.menuButton} aria-label="Open navigation">
+            <IconButton edge="start" onClick={onMenuClick} sx={styles.menuButton} aria-label={t("open_navigation")}>
               <MenuIcon />
             </IconButton>
           )}
@@ -82,8 +84,8 @@ export const Topbar = ({ title, onMenuClick }: TopbarProps) => {
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
-            <MenuItem onClick={() => router.push("/client/settings")} >Settings</MenuItem>
-            <MenuItem onClick={handleLogout} >Logout</MenuItem>
+            <MenuItem onClick={() => router.push("/client/settings")} >{t("sidebar_settings")}</MenuItem>
+            <MenuItem onClick={handleLogout} >{t("sidebar_logout")}</MenuItem>
           </Menu>
         </Box>
       </Toolbar>

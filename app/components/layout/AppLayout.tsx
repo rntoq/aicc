@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Drawer, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Box, Drawer } from "@mui/material";
 import type { ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
@@ -15,8 +14,6 @@ type AppLayoutProps = {
 };
 
 export const AppLayout = ({ title, children }: AppLayoutProps) => {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const toggleMobileSidebar = () => {
@@ -31,49 +28,47 @@ export const AppLayout = ({ title, children }: AppLayoutProps) => {
         bgcolor: "background.default",
       }}
     >
-      {/* Desktop sidebar */}
-      {isDesktop && (
+      {/* Desktop sidebar (always mounted, responsive display to avoid refresh flicker) */}
+      <Box
+        sx={{
+          width: { xs: 0, md: SIDEBAR_WIDTH },
+          flexShrink: 0,
+        }}
+      >
         <Box
           sx={{
+            display: { xs: "none", md: "block" },
+            position: "fixed",
+            top: 0,
+            left: 0,
             width: SIDEBAR_WIDTH,
-            flexShrink: 0,
-          }}
-        >
-          <Box
-            sx={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: SIDEBAR_WIDTH,
-              height: "100vh",
-              bgcolor: "background.paper",
-              borderRight: "1px solid",
-              borderColor: "divider",
-              overflowY: "auto",
-            }}
-          >
-            <Sidebar />
-          </Box>
-        </Box>
-      )}
-
-      {/* Mobile sidebar as Drawer */}
-      {!isDesktop && (
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={toggleMobileSidebar}
-          ModalProps={{ keepMounted: true }}
-          sx={{
-            "& .MuiDrawer-paper": {
-              width: SIDEBAR_WIDTH,
-              boxSizing: "border-box",
-            },
+            height: "100vh",
+            bgcolor: "background.paper",
+            borderRight: "1px solid",
+            borderColor: "divider",
+            overflowY: "auto",
           }}
         >
           <Sidebar />
-        </Drawer>
-      )}
+        </Box>
+      </Box>
+
+      {/* Mobile sidebar as Drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={toggleMobileSidebar}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": {
+            width: SIDEBAR_WIDTH,
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        <Sidebar />
+      </Drawer>
 
       {/* Main content */}
       <Box
@@ -84,7 +79,7 @@ export const AppLayout = ({ title, children }: AppLayoutProps) => {
           minHeight: "100vh",
         }}
       >
-        <Topbar title={title} onMenuClick={!isDesktop ? toggleMobileSidebar : undefined} />
+        <Topbar title={title} onMenuClick={toggleMobileSidebar} />
 
         <Box
           component="main"

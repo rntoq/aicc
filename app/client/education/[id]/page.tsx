@@ -15,6 +15,8 @@ import Image from "next/image";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
 import { AttachMoneyOutlined, BedOutlined, LocationOnOutlined, MilitaryTechOutlined } from "@mui/icons-material";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import { useQuery } from "@tanstack/react-query";
+import { institutionServices } from "@/lib/services/careerServices";
 
 const listsUniversity = (s: PublicSpeciality, u: PublicUniversity) => {
   const shortEn = (u.short_name?.en ?? "").trim();
@@ -30,6 +32,24 @@ const UniversitySpecialitiesPage = () => {
   const id = Number.parseInt(idParam, 10);
 
   useInstitutions();
+  useQuery({
+    queryKey: ["institutions", "detail", idParam],
+    queryFn: async () => {
+      const { body, error } = await institutionServices.getInstitution("uni-302");
+      if (error) throw error;
+      return body;
+    },
+    enabled: !!idParam,
+  });
+  useQuery({
+    queryKey: ["institutions", "programs", idParam],
+    queryFn: async () => {
+      const { body, error } = await institutionServices.listInstitutionPrograms("uni-302");
+      if (error) throw error;
+      return body;
+    },
+    enabled: !!idParam,
+  });
 
   const universities = useMemo(() => UNIVERSITIES_JSON as PublicUniversity[], []);
   const university = useMemo(

@@ -23,6 +23,10 @@ const NAV_ITEMS = [
   { labelKey: "sidebar_education", href: "/client/education", icon: SchoolOutlinedIcon },
 ] as const;
 
+const FOOTER_ITEMS = [
+  { labelKey: "sidebar_settings", href: "/client/settings", icon: SettingsOutlinedIcon },
+] as const;
+
 export const Sidebar = () => {
   const t = useTranslations();
   const pathname = usePathname();
@@ -56,10 +60,11 @@ export const Sidebar = () => {
                 key={href}
                 component={Link}
                 href={href}
-                sx={styles.navItem}>
+                sx={styles.item}
+              >
                 <ListItemIcon
                   sx={{
-                    minWidth: 40,
+                    ...styles.itemIcon,
                     color: active ? "primary.main" : "text.secondary",
                   }}
                 >
@@ -78,24 +83,22 @@ export const Sidebar = () => {
       <Box sx={{ mt: "auto" }}>
         <Divider sx={{ mb: 1.5 }} />
         <List>
-          <ListItemButton
-            component={Link}
-            href="/client/settings"
-            sx={styles.bottomItem}
-          >
-            <ListItemIcon sx={{ minWidth: 40, color: "text.secondary" }}>
-              <SettingsOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText
-              primary={t("sidebar_settings")}
-              primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
-            />
-          </ListItemButton>
+          {FOOTER_ITEMS.map(({ labelKey, href, icon: Icon }) => (
+            <ListItemButton key={href} component={Link} href={href} sx={styles.item}>
+              <ListItemIcon sx={{ ...styles.itemIcon, color: "text.secondary" }}>
+                <Icon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText
+                primary={t(labelKey)}
+                primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+              />
+            </ListItemButton>
+          ))}
           <ListItemButton
             onClick={handleLogout}
-            sx={styles.bottomItem}
+            sx={styles.item}
           >
-            <ListItemIcon sx={{ minWidth: 40, color: "text.secondary" }}>
+            <ListItemIcon sx={{ ...styles.itemIcon, color: "text.secondary" }}>
               <LogoutOutlinedIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText
@@ -118,7 +121,7 @@ const styles = {
     px: 3,
     py: 5,
   },
-  navItem: {
+  item: {
     mb: 0.5,
     borderRadius: 1.5,
     px: 1,
@@ -129,15 +132,5 @@ const styles = {
       color: "text.primary",
     },
   },
-  bottomItem: {
-    mb: 0.5,
-    borderRadius: 1.5,
-    px: 1,
-    py: 0.75,
-    color: "text.secondary",
-    "&:hover": {
-      bgcolor: "action.hover",
-      color: "text.primary",
-    },
-  },
+  itemIcon: { minWidth: 40 },
 };

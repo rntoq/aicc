@@ -21,14 +21,12 @@ import { analyseServices } from "@/lib/services/analyseServices";
 import {
   classifyAiChatResponseRole,
   extractTextFromResponse,
-  formatTime,
   type ChatRole,
 } from "@/utils/functions";
 
 type ChatMessage = { role: ChatRole; text: string; at: number; kind?: "info" | "warning" };
 
 const AIChatPage = () => {
-  const [hydrated, setHydrated] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "ai" as const,
@@ -45,10 +43,6 @@ const AIChatPage = () => {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages.length]);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
 
   const clearChat = () => {
     setMessages([
@@ -124,7 +118,7 @@ const AIChatPage = () => {
           <Box sx={styles.toolbar}>
             {/* <Chip
               avatar={<Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />}
-              label={sending ? "Thinking…" : "AI Assistant"}
+              label={sending ? "Thinking…" : "AI Counsellor"}
               variant="outlined"
               sx={styles.assistantChip}
             /> */}
@@ -187,7 +181,7 @@ const AIChatPage = () => {
                             <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
                           )}
                           <Typography variant="caption" fontWeight={600}>
-                            {msg.role === "system" ? "System" : "AI Assistant"}
+                            {msg.role === "system" ? "System" : "AI Counsellor"}
                           </Typography>
                         </Box>
                       )}
@@ -201,17 +195,6 @@ const AIChatPage = () => {
                       )}
                       <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
                         {msg.text}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{
-                          display: "block",
-                          mt: 1,
-                          opacity: msg.role === "ai" ? 0.6 : msg.role === "system" ? 0.7 : 0.85,
-                          textAlign: msg.role === "user" ? "right" : "left",
-                        }}
-                      >
-                        {hydrated ? formatTime(msg.at) : "--:--"}
                       </Typography>
                     </Paper>
                   </Box>

@@ -11,7 +11,7 @@ import { ProfessionCard } from "@/app/components/clientLayout";
 import { INDUSTRIES } from "@/utils/constants";
 import type { PublicProfession } from "@/lib/types";
 import PROFESSIONS_JSON from "@/public/jsons/professions.json";
-import { useIndustries } from "@/lib/services/careerServices";
+import { useIndustries, useIndustry, useProfessions } from "@/lib/services/careerServices";
 
 type ProfJson = PublicProfession;
 
@@ -36,10 +36,10 @@ function IndustryNotFound() {
     <AppLayout title={t("header_professions")}>
       <Box sx={{ py: 4, textAlign: "center" }}>
         <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
-          Направление не найдено
+          {t("industry_not_found")}
         </Typography>
         <Button component={Link} href="/client/careers" startIcon={<ArrowBackRoundedIcon />}>
-          К направлениям
+          {t("back_to_industries")}
         </Button>
       </Box>
     </AppLayout>
@@ -52,6 +52,8 @@ const IndustryProfessionsPage = () => {
   const industryId = typeof params.industryId === "string" ? params.industryId : "";
   // Backend industries list (local page uses public JSON ids; keep JSON rendering as-is).
   useIndustries();
+  useIndustry(industryId || null);
+  useProfessions({ industry: industryId || undefined });
   const { industry, professions } = useIndustryData(industryId);
 
   if (!industry) {
@@ -69,7 +71,7 @@ const IndustryProfessionsPage = () => {
           startIcon={<ArrowBackRoundedIcon />}
           sx={{ alignSelf: "flex-start" }}
         >
-          К направлениям
+          {t("back_to_industries")}
         </Button>
 
         <Box>
@@ -82,7 +84,7 @@ const IndustryProfessionsPage = () => {
         </Box>
 
         <Typography variant="h6" sx={{ fontWeight: 600 }}>
-          Профессии в этой сфере
+          {t("professions_in_industry")}
         </Typography>
 
         {professions.length > 0 ? (
@@ -96,7 +98,7 @@ const IndustryProfessionsPage = () => {
         ) : (
           <Card variant="outlined" sx={{ p: 4, textAlign: "center" }}>
             <Typography color="text.secondary">
-              Список профессий по этой индустрии скоро появится.
+              {t("professions_coming_soon")}
             </Typography>
           </Card>
         )}

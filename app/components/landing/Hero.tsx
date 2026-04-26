@@ -45,7 +45,7 @@ export const Hero = () => {
                   href="/test"
                   sx={styles.ctaButton}
                 >
-                  {t("hero_cta1")}
+                  {t("take_test")}
                 </Button>
                 <Button
                   variant="outlined"

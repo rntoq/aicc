@@ -38,11 +38,11 @@ function getBadgeLabel(test: TestItem, t: ReturnType<typeof useTranslations>): R
   if (test.required) {
     return (
       <>
-        <LockResetIcon sx={styles.lockIcon} /> {t("tests_badge_required")}
+        <LockResetIcon sx={styles.lockIcon} /> {t("required")}
       </>
     );
   }
-  return t("tests_badge_optional");
+  return t("optional");
 }
 
 function getBadgeStyle(test: TestItem) {
@@ -87,11 +87,13 @@ export const TestCard = ({
   index,
   variant,
   disabled,
+  skipAuthModal = false,
 }: {
   test: TestItem;
   index: number;
   variant: string;
   disabled?: boolean;
+  skipAuthModal?: boolean;
 }) => {
   const t = useTranslations();
   const router = useRouter();
@@ -111,7 +113,7 @@ export const TestCard = ({
   const featuresRaw = (t(`tests_${test.id}_features` as Parameters<typeof t>[0]) as string) || "";
   const features = featuresRaw ? featuresRaw.split("\n").filter(Boolean).slice(0, 3) : [];
   const category = (t(`tests_${test.id}_category` as Parameters<typeof t>[0]) as string) || "";
-  const time = test.duration != null ? `${test.duration} мин` : "";
+  const time = test.duration != null ? `${test.duration} ${t("minutes_short")}` : "";
   const questions = test.questions ?? 0;
   const badgeLabel = getBadgeLabel(test, t);
   const badgeStyle = getBadgeStyle(test);
@@ -125,6 +127,10 @@ export const TestCard = ({
   const requestNavigate = () => {
     const route = ROUTES[test.id];
     if (!route) return;
+    if (skipAuthModal) {
+      navigateToTest();
+      return;
+    }
     if (!hydrated) {
       navigateToTest();
       return;
@@ -170,7 +176,7 @@ export const TestCard = ({
         </DialogContent>
         <DialogActions sx={{ px: 3, pb: 2, gap: 1, flexWrap: "wrap" }}>
           <Button variant="contained" onClick={handleLogin} sx={{ flex: 1, minWidth: 140 }}>
-            {t("test_card_auth_login")}
+            {t("login")}
           </Button>
           <Button variant="outlined" onClick={handleGuestContinue} sx={{ flex: 1, minWidth: 140 }}>
             {t("test_card_auth_guest")}

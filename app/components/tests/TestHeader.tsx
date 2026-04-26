@@ -3,6 +3,7 @@
 import { AppBar, Box, Button, Container, Toolbar } from "@mui/material";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { LanguageDropdown } from "@/app/components/layout/LanguageDropdown";
 import { ProgressBar } from "@/app/components/tests/ProgressBar";
 import { OptionsHeader } from "@/app/components/tests/OptionsHeader";
@@ -26,6 +27,7 @@ export function TestHeader({
   totalQuestions,
   optionsHeader,
 }: TestHeaderProps) {
+  const t = useTranslations();
   const router = useRouter();
 
   const canShowQuestionsProgress =
@@ -48,7 +50,7 @@ export function TestHeader({
                   onClick={() => router.back()}
                   sx={styles.backButton}
                 >
-                  К тестам
+                  {t("backToTests")}
                 </Button>
                 <LanguageDropdown />
               </Box>

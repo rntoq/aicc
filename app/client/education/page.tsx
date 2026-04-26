@@ -31,7 +31,10 @@ const EducationPage = () => {
   const [q, setQ] = useState("");
   const [regionId, setRegionId] = useState<string>("all");
 
-  useInstitutions();
+  useInstitutions({
+    search: q.trim() || undefined,
+    city: regionId !== "all" ? regionId : undefined,
+  });
 
   const specialityId = Number(searchParams.get("speciality"));
   const hasSpecialityQuery = searchParams.has("speciality");

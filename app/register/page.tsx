@@ -146,7 +146,7 @@ const RegisterPage = () => {
                   fullWidth
                   disabled={loading}
                 >
-                  {loading ? <CircularProgress size={20} /> : t("register_submit")}
+                  {loading ? <CircularProgress size={20} /> : t("register")}
                 </Button>
               </Stack>
 

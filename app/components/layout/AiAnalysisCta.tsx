@@ -4,10 +4,6 @@ import {
   Box,
   Button,
   Chip,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Paper,
   Typography,
 } from "@mui/material";
@@ -16,6 +12,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { toast } from "react-toastify";
+import type { AxiosError } from "axios";
 import { analyseServices } from "@/lib/services/analyseServices";
 import { LoadingScreen } from "@/app/components/tests/LoadingScreen";
 import { useDelayedFlag } from "@/app/components/tests/useDelayedFlag";
@@ -29,6 +26,8 @@ import { muiTheme } from "@/ui/theme/muiTheme";
  
  export type AiAnalysisCtaProps = {
    isRecommended: boolean;
+  /** Disable auth prompt/redirect checks when page is already protected */
+  skipAuthCheck?: boolean;
    /**
     * Optional description text key for custom mode (defaults to selection helper).
     * Recommended mode always uses `test_why_conclusion`.
@@ -36,7 +35,13 @@ import { muiTheme } from "@/ui/theme/muiTheme";
    customDescriptionKey?: Parameters<ReturnType<typeof useTranslations>>[0];
  };
  
-export function AiAnalysisCta({ isRecommended, customDescriptionKey }: AiAnalysisCtaProps) {
+export function AiAnalysisCta({ isRecommended, customDescriptionKey, skipAuthCheck = false }: AiAnalysisCtaProps) {
+  const getErrorDetail = (error: unknown): string | null => {
+    const maybeAxios = error as AxiosError<{ detail?: unknown }> | undefined;
+    const detail = maybeAxios?.response?.data?.detail;
+    return typeof detail === "string" && detail.trim() ? detail : null;
+  };
+
   const t = useTranslations();
   const router = useRouter();
   const recommended = getRecommendedTests();
@@ -44,7 +49,6 @@ export function AiAnalysisCta({ isRecommended, customDescriptionKey }: AiAnalysi
   const isAuthenticated = useAuth((s) => s.isAuthenticated);
 
   const [generatingAnalysis, setGeneratingAnalysis] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
   const showAnalysisLoading = useDelayedFlag(generatingAnalysis, 450);
  
    const sessions = useSyncExternalStore(
@@ -125,9 +129,10 @@ export function AiAnalysisCta({ isRecommended, customDescriptionKey }: AiAnalysi
  
   const handleGenerateAnalysis = async (sessionIds: number[]) => {
     if (generatingAnalysis) return;
-    if (!hydrated) return;
-    if (!isAuthenticated) {
-      setAuthModalOpen(true);
+   if (!skipAuthCheck && !hydrated) return;
+   if (!skipAuthCheck && !isAuthenticated) {
+      toast.info(t("analysis_auth_required_body"));
+      router.push("/login");
       return;
     }
     if (!sessionIds || sessionIds.length === 0) {
@@ -137,45 +142,19 @@ export function AiAnalysisCta({ isRecommended, customDescriptionKey }: AiAnalysi
     setGeneratingAnalysis(true);
     const { body, error } = await analyseServices.createAiReport({ session_ids: sessionIds });
     if (error || !body?.report_id) {
-      toast.error(t("analysis_generate_error"));
+      toast.error(getErrorDetail(error) ?? t("analysis_generate_error"));
       setGeneratingAnalysis(false);
       return;
     }
     toast.success(t("analysis_generate_success", { reportId: body.report_id }));
     setGeneratingAnalysis(false);
   };
-
-  const authDialog = (
-    <Dialog open={authModalOpen} onClose={() => setAuthModalOpen(false)} maxWidth="sm" fullWidth>
-      <DialogTitle>{t("analysis_auth_required_title")}</DialogTitle>
-      <DialogContent>
-        <Typography variant="body2" color="text.secondary">
-          {t("analysis_auth_required_body")}
-        </Typography>
-      </DialogContent>
-      <DialogActions sx={{ px: 3, pb: 2 }}>
-        <Button onClick={() => setAuthModalOpen(false)} color="inherit">
-          {t("analysis_auth_cancel")}
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => {
-            setAuthModalOpen(false);
-            router.push("/login");
-          }}
-        >
-          {t("analysis_auth_login")}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
  
   if (isRecommended) {
     if (!allRequiredDone || recommendedDoneSessionIds.length === 0) return null;
 
     return (
       <>
-        {authDialog}
         <LoadingScreen open={showAnalysisLoading} text={t("analysis_generate_loading")} />
         <Paper elevation={0} sx={styles.analysisCta}>
            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>
@@ -210,7 +189,6 @@ export function AiAnalysisCta({ isRecommended, customDescriptionKey }: AiAnalysi
 
   return (
     <>
-      {authDialog}
       <LoadingScreen open={showAnalysisLoading} text={t("analysis_generate_loading")} />
       <Paper elevation={0} sx={styles.analysisCta}>
          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>

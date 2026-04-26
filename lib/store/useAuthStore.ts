@@ -1,7 +1,9 @@
 import { create } from "zustand";
 import { authServices } from "@/lib/services/authServices";
+import { quizServices } from "@/lib/services/quizServices";
 import { getCookie, setCookie, removeCookie } from "@/lib/cookies/cookieClient";
-import type { AuthResponse, User } from "@/lib/types";
+import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import type { AuthResponse, QuizSessionsListItem, User } from "@/lib/types";
 
 interface AuthState {
   user: User | null;
@@ -65,6 +67,51 @@ function persistTokens(access: string | null, refresh: string | null) {
   }
 }
 
+const SESSION_IDS_STORAGE_KEY = "quiz-session-ids";
+
+function normalizeQuizSessionKey(session: QuizSessionsListItem): string {
+  const slug = session.test_slug?.toLowerCase();
+  if (slug === "big-five") return "bigfive";
+  if (slug === "photo") return "photo-career";
+  if (slug) return slug;
+
+  const type = String(session.test_type ?? "").toLowerCase();
+  if (type === "big_five") return "bigfive";
+  if (type === "career_aptitude") return "career-aptitude";
+  return type.replace(/_/g, "-");
+}
+
+async function syncQuizSessionIdsToLocalStorage() {
+  if (typeof window === "undefined") return;
+
+  try {
+    const { body, error } = await quizServices.listSessions();
+    if (error || !body?.length) {
+      localStorage.setItem(SESSION_IDS_STORAGE_KEY, JSON.stringify([]));
+      return;
+    }
+
+    const uniqueSessionIds = Array.from(new Set(body.map((s) => s.id)));
+    localStorage.setItem(SESSION_IDS_STORAGE_KEY, JSON.stringify(uniqueSessionIds));
+
+    const latestByTest = new Map<string, QuizSessionsListItem>();
+    body.forEach((session) => {
+      const key = normalizeQuizSessionKey(session);
+      const prev = latestByTest.get(key);
+      if (!prev || prev.id < session.id) {
+        latestByTest.set(key, session);
+      }
+    });
+
+    const quizState = useQuizSessionStore.getState();
+    latestByTest.forEach((session, key) => {
+      quizState.setSession(key, session.id);
+    });
+  } catch {
+    // ignore sync failures: auth should still complete successfully
+  }
+}
+
 export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   access: null,
@@ -111,6 +158,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw error ?? new Error(message);
       }
       get().setFromResponse(resp);
+      await syncQuizSessionIdsToLocalStorage();
     } catch (e) {
       const message = messageFromUnknown(e, "Не удалось выполнить вход");
       set({ error: message });
@@ -130,6 +178,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw error ?? new Error(message);
       }
       get().setFromResponse(resp);
+      await syncQuizSessionIdsToLocalStorage();
     } catch (e) {
       const message = messageFromUnknown(e, "Не удалось выполнить регистрацию");
       set({ error: message });

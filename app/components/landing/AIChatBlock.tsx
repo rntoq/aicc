@@ -18,13 +18,12 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { analyseServices } from "@/lib/services/analyseServices";
 import {
   classifyAiChatResponseRole,
   extractTextFromResponse,
-  formatTime,
   type ChatRole,
 } from "@/utils/functions";
 import { useAuth } from "@/lib/store/useAuthStore";
@@ -36,7 +35,6 @@ export const AIChatBlock = () => {
   const t = useTranslations();
   const router = useRouter();
   const { isAuthenticated, hydrated: authHydrated } = useAuth();
-  const [timeHydrated, setTimeHydrated] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "ai",
@@ -46,16 +44,7 @@ export const AIChatBlock = () => {
   ]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
-  const bottomRef = useRef<HTMLDivElement | null>(null);
   const canSend = useMemo(() => input.trim().length > 0 && !sending, [input, sending]);
-
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages.length]);
-
-  useEffect(() => {
-    setTimeHydrated(true);
-  }, []);
 
   const handleSend = async () => {
     if (!canSend) return;
@@ -108,7 +97,7 @@ export const AIChatBlock = () => {
   };
 
   return (
-    <Box component="section" id="ai-chat" sx={styles.section}>
+    <Box component="section" sx={styles.section}>
       <Container maxWidth="lg">
         <Box sx={styles.illustrationWrap}>
           <Image
@@ -197,9 +186,6 @@ export const AIChatBlock = () => {
                     <Typography variant="body2">
                       {msg.text}
                     </Typography>
-                    <Typography variant="caption" sx={styles.timestamp}>
-                      {timeHydrated ? formatTime(msg.at) : "--:--"}
-                    </Typography>
                   </Box>
                 </Box>
               ))}
@@ -215,7 +201,6 @@ export const AIChatBlock = () => {
                   </Box>
                 </Box>
               )}
-              <div ref={bottomRef} />
             </Box>
 
             <Paper
@@ -239,8 +224,6 @@ export const AIChatBlock = () => {
                 disabled={sending}
                 fullWidth
                 sx={styles.input}
-                multiline
-                maxRows={4}
               />
               <IconButton
                 type="submit"
@@ -341,7 +324,6 @@ const styles = {
     gap: 0.8,
     mb: 0.7,
   },
-  timestamp: { display: "block", mt: 0.7, opacity: 0.7 },
   aiAvatarTiny: { width: 20, height: 20, bgcolor: "transparent" },
   inputWrap: {
     display: "flex",

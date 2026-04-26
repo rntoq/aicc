@@ -19,11 +19,14 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
 import AccessTimeRoundedIcon from "@mui/icons-material/AccessTimeRounded";
 import QuizRoundedIcon from "@mui/icons-material/QuizRounded";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import type { PublicProfession, PublicUniversity } from "@/lib/types";
 import { ALL_TESTS, type TestItem } from "@/utils/constants";
+import { useAnalysisDashboard, analyseServices } from "@/lib/services/analyseServices";
+import { useCareerRecommendations, useInstitutions } from "@/lib/services/careerServices";
+import { useQuery } from "@tanstack/react-query";
 
 const dashboardPalette = {
   primaryLight: "#86a8e7",
@@ -159,11 +162,11 @@ const DASHBOARD_DATA: DashboardData = {
 const formatKzt = (value: number) =>
   `${new Intl.NumberFormat("ru-RU").format(value)} ₸`;
 
-const getDemandMeta = (demand: PublicProfession["demand_level"]) => {
-  if (demand === "very_high") return { label: "Очень высокий спрос", color: "#1a8f64" };
-  if (demand === "high") return { label: "Высокий спрос", color: "#1f7a9d" };
-  if (demand === "medium") return { label: "Средний спрос", color: "#946200" };
-  return { label: "Базовый спрос", color: "#5c6384" };
+const getDemandMeta = (demand: PublicProfession["demand_level"], t: ReturnType<typeof useTranslations>) => {
+  if (demand === "very_high") return { label: t("careers_demand_very_high"), color: "#1a8f64" };
+  if (demand === "high") return { label: t("careers_demand_high"), color: "#1f7a9d" };
+  if (demand === "medium") return { label: t("careers_demand_medium"), color: "#946200" };
+  return { label: t("careers_demand_low"), color: "#5c6384" };
 };
 
 const normalizeSpecialityCode = (spec: string | { code: string; id: number }) =>
@@ -171,8 +174,23 @@ const normalizeSpecialityCode = (spec: string | { code: string; id: number }) =>
 
 const DashboardPage = () => {
   const t = useTranslations();
+  const locale = useLocale() as keyof PublicProfession["name"];
   const router = useRouter();
   const [professionIndex, setProfessionIndex] = useState(0);
+
+  // Keep UI on local preview data, but warm up real backend dashboard/report/recommendation/institution endpoints.
+  useAnalysisDashboard();
+  useCareerRecommendations();
+  useInstitutions();
+  useQuery({
+    queryKey: ["analysis", "reports", "dashboard-preview"],
+    queryFn: async () => {
+      const { body, error } = await analyseServices.listReports();
+      if (error) throw error;
+      return body;
+    },
+  });
+
   const data = DASHBOARD_DATA;
   const selectedProfession = data.recommendedProfessions[professionIndex] ?? null;
   const mappedLastTest: TestItem | null = data.lastDoneTest
@@ -217,7 +235,7 @@ const DashboardPage = () => {
             {t("dashboard_welcome")}, {data.userName}
           </Typography>
           <Typography variant="body2" sx={{ opacity: 0.95 }}>
-            Dashboard preview mode for different user states.
+            {t("dashboard_preview_mode")}
           </Typography>
         </Box>
 
@@ -225,14 +243,14 @@ const DashboardPage = () => {
           <Grid size={{ xs: 12, md: 4, lg: 3 }}>
             <Box sx={{ ...styles.boxCard, ...styles.compactStatCard }}>
               <Typography variant="overline" color="text.secondary">
-                Tests progress
+                {t("dashboard_tests_progress")}
               </Typography>
               <Typography variant="h5" sx={styles.metricValue}>
                 {data.testsDone}/{data.totalTests}
               </Typography>
               <LinearProgress variant="determinate" value={testsProgress} sx={styles.metricProgress} />
               <Typography variant="caption" color="text.secondary">
-                Completed tests
+                {t("dashboard_completed_tests")}
               </Typography>
             </Box>
           </Grid>
@@ -242,7 +260,7 @@ const DashboardPage = () => {
               <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
                 <DescriptionRoundedIcon color="primary" fontSize="small" />
                 <Typography variant="h6" sx={styles.sectionTitle}>
-                  AI report
+                  {t("dashboard_ai_report_title")}
                 </Typography>
               </Stack>
               {data.aiReport ? (
@@ -253,9 +271,9 @@ const DashboardPage = () => {
                   <Box sx={styles.fileFallbackBox}>
                     <DescriptionRoundedIcon sx={styles.fileFallbackIcon} />
                     <Box>
-                      <Typography sx={styles.fileFallbackTitle}>PDF preview is unavailable</Typography>
+                      <Typography sx={styles.fileFallbackTitle}>{t("dashboard_pdf_unavailable")}</Typography>
                       <Typography variant="caption" color="text.secondary">
-                        Open or download the file to view full report.
+                        {t("dashboard_pdf_unavailable_hint")}
                       </Typography>
                     </Box>
                   </Box>
@@ -268,19 +286,19 @@ const DashboardPage = () => {
                       rel="noreferrer"
                       sx={styles.primaryButton}
                     >
-                      Open
+                      {t("dashboard_open")}
                     </Button>
                     <Button size="small" variant="outlined" href={data.aiReport.pdfUrl} download sx={styles.outlinedButton}>
-                      Download PDF
+                      {t("dashboard_download_pdf")}
                     </Button>
                     <Button size="small" variant="text" onClick={goToAiChat} sx={styles.textButton}>
-                      AI chat
+                      {t("dashboard_ai_chat")}
                     </Button>
                   </Stack>
                 </Stack>
               ) : (
                 <Typography variant="caption" color="text.secondary">
-                  No AI analysis yet. Complete tests and generate AI report to see PDF and insights here.
+                  {t("dashboard_no_ai_analysis")}
                 </Typography>
               )}
             </Box>
@@ -290,7 +308,7 @@ const DashboardPage = () => {
             <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
                 <Typography variant="h6" sx={styles.sectionTitle}>
-                  Recommended professions
+                  {t("dashboard_professions_title")}
                 </Typography>
                 <Stack direction="row" spacing={1}>
                   <IconButton size="small" sx={styles.navIconButton} onClick={handlePrevProfession} disabled={!hasProfessions}>
@@ -306,20 +324,24 @@ const DashboardPage = () => {
                   <Box sx={styles.innerCard}>
                     <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={1}>
                       <Box>
-                        <Typography sx={styles.innerTitle}>{selectedProfession.name.ru}</Typography>
+                        <Typography sx={styles.innerTitle}>
+                          {selectedProfession.name[locale] ?? selectedProfession.name.en}
+                        </Typography>
                         <Typography variant="caption" color="text.secondary">
                           {t(selectedProfession.industry)}
                         </Typography>
                       </Box>
                       <Chip
-                        label={getDemandMeta(selectedProfession.demand_level).label}
+                        label={getDemandMeta(selectedProfession.demand_level, t).label}
                         size="small"
-                        sx={{ ...styles.infoChip, color: getDemandMeta(selectedProfession.demand_level).color }}
+                        sx={{ ...styles.infoChip, color: getDemandMeta(selectedProfession.demand_level, t).color }}
                       />
                     </Stack>
                     <Divider sx={styles.innerDivider} />
                     <Typography variant="body2" sx={styles.lineClamp2}>
-                      {selectedProfession.description?.ru ?? "Описание скоро будет доступно."}
+                      {selectedProfession.description?.[locale] ??
+                        selectedProfession.description?.en ??
+                        t("dashboard_profession_desc_fallback")}
                     </Typography>
                     <Stack direction="row" spacing={0.8} useFlexGap flexWrap="wrap" sx={{ mt: 1.2 }}>
                       {selectedProfession.specialities.slice(0, 3).map((spec) => (
@@ -334,12 +356,12 @@ const DashboardPage = () => {
                     {professionIndex + 1} / {data.recommendedProfessions.length}
                   </Typography>
                   <Link component="button" underline="hover" sx={styles.moreLink} onClick={() => router.push("/client/careers")}>
-                    More professions
+                    {t("dashboard_professions_more")}
                   </Link>
                 </Stack>
               ) : (
                 <Typography color="text.secondary">
-                  No recommended professions yet. Complete required tests to get career matches.
+                  {t("dashboard_no_professions")}
                 </Typography>
               )}
             </Box>
@@ -348,7 +370,7 @@ const DashboardPage = () => {
           <Grid size={{ xs: 12, md: 6, lg: 4 }}>
             <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
               <Typography variant="h6" sx={styles.sectionTitle}>
-                Last done test
+                {t("dashboard_last_test_title")}
               </Typography>
               {mappedLastTest && data.lastDoneTest ? (
                 <Stack spacing={0.8} sx={styles.sectionContentCompact}>
@@ -360,7 +382,7 @@ const DashboardPage = () => {
                       <Box>
                         <Typography sx={styles.innerTitle}>{mappedLastTest.name}</Typography>
                         <Typography variant="caption" color="text.secondary">
-                          {mappedLastTest.required ? "Required test" : "Optional test"}
+                          {mappedLastTest.required ? t("dashboard_test_required") : t("dashboard_test_optional")}
                         </Typography>
                       </Box>
                     </Stack>
@@ -382,19 +404,19 @@ const DashboardPage = () => {
                   <Box sx={styles.smallInfoBox}>
                     <Typography sx={{ fontWeight: 700 }}>{data.lastDoneTest.resultLabel}</Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Completed: {data.lastDoneTest.finishedAt}
+                      {t("dashboard_completed_at")}: {data.lastDoneTest.finishedAt}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Done tests now: {data.testsDone}
+                      {t("dashboard_done_tests_now")}: {data.testsDone}
                     </Typography>
                   </Box>
                   <Link component="button" underline="hover" sx={styles.moreLink} onClick={() => router.push("/client")}>
-                    More tests
+                    {t("test_showAllTests")}
                   </Link>
                 </Stack>
               ) : (
                 <Typography color="text.secondary">
-                  No test results yet. Start with any test and your latest result will appear here.
+                  {t("dashboard_no_test_results")}
                 </Typography>
               )}
             </Box>
@@ -403,7 +425,7 @@ const DashboardPage = () => {
           <Grid size={{ xs: 12, md: 12, lg: 4 }}>
             <Box sx={{ ...styles.boxCard, ...styles.equalPanel }}>
               <Typography variant="h6" sx={styles.sectionTitle}>
-                Most suitable university
+                {t("dashboard_university_title")}
               </Typography>
               {data.suitableUniversity ? (
                 <Stack spacing={0.8} sx={styles.sectionContentCompact}>
@@ -412,39 +434,49 @@ const DashboardPage = () => {
                       <Box sx={styles.uniLogoWrap}>
                         <Image
                           src={data.suitableUniversity.logo || "/images/default.png"}
-                          alt={data.suitableUniversity.short_name.ru ?? "University"}
+                          alt={
+                            data.suitableUniversity.short_name[locale] ??
+                            data.suitableUniversity.short_name.en ??
+                            "University"
+                          }
                           fill
                           sizes="48px"
                           style={{ objectFit: "cover" }}
                         />
                       </Box>
                       <Box>
-                        <Typography sx={styles.innerTitle}>{data.suitableUniversity.short_name.ru ?? "University"}</Typography>
+                        <Typography sx={styles.innerTitle}>
+                          {data.suitableUniversity.short_name[locale] ??
+                            data.suitableUniversity.short_name.en ??
+                            "University"}
+                        </Typography>
                         <Typography variant="caption" color="text.secondary">
-                          {data.suitableUniversity.name.ru ?? data.suitableUniversity.name.en ?? "University profile"}
+                          {data.suitableUniversity.name[locale] ??
+                            data.suitableUniversity.name.en ??
+                            "University profile"}
                         </Typography>
                       </Box>
                     </Stack>
                     <Divider sx={styles.innerDivider} />
                     <Stack spacing={0.6}>
                       <Typography variant="body2" color="text.secondary">
-                        Город: <b>{data.suitableUniversity.address ?? "-"}</b>
+                        {t("dashboard_city")}: <b>{data.suitableUniversity.address ?? "-"}</b>
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Стоимость: <b>{formatKzt(data.suitableUniversity.price ?? 0)}</b>
+                        {t("price")}: <b>{formatKzt(data.suitableUniversity.price ?? 0)}</b>
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Специальностей: <b>{data.suitableUniversity.specialities_count}</b>
+                        {t("specialities")}: <b>{data.suitableUniversity.specialities_count}</b>
                       </Typography>
                     </Stack>
                   </Box>
                   <Link component="button" underline="hover" sx={styles.moreLink} onClick={() => router.push("/client/education")}>
-                    More universities
+                    {t("dashboard_universities_more")}
                   </Link>
                 </Stack>
               ) : (
                 <Typography color="text.secondary">
-                  No university recommendation yet. Finish analysis to unlock suitable university suggestions.
+                  {t("dashboard_no_university")}
                 </Typography>
               )}
             </Box>

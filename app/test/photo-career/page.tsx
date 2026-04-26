@@ -206,10 +206,12 @@ const PhotoCareerQuizPage = () => {
         <Container maxWidth="xl" sx={styles.container}>
           <TestHeader answered={photoTotal} totalQuestions={photoTotal} />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_photo-career_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{t("photo_title") as string}</Box>
           </Box>
-          <PhotoResultPanel result={result} />
-          <TestResultActions />
+          <Box sx={styles.resultWrapper}>
+            <PhotoResultPanel result={result} />
+            <TestResultActions />
+          </Box>
         </Container>
       </Box>
     );
@@ -225,7 +227,7 @@ const PhotoCareerQuizPage = () => {
             totalQuestions={photoTotal}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_photo-career_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{t("photo_title") as string}</Box>
             <Box sx={styles.pageHelper}>{t("tests_photo-career_helper")}</Box>
           </Box>
           {PHOTO_QUESTIONS.map((question) => {
@@ -302,6 +304,11 @@ const styles = {
     py: 1.5,
     fontSize: "1.125rem",
     fontWeight: 600,
+  },
+  resultWrapper: {
+    width: "100%",
+    maxWidth: 900,
+    mx: "auto",
   },
 };
 
