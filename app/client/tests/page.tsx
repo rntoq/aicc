@@ -68,9 +68,6 @@ const TestsPage = () => {
             <Typography variant="body1" color="text.secondary">
               {t("tests_carousel_subtitle")}
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-              {t("ai_reports_count", { count: reportsCount })}
-            </Typography>
           </Box>
 
           <ButtonGroup sx={{ flexWrap: "wrap", mt: 5 }}>

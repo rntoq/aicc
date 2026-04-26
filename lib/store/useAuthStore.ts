@@ -3,7 +3,7 @@ import { authServices } from "@/lib/services/authServices";
 import { quizServices } from "@/lib/services/quizServices";
 import { getCookie, setCookie, removeCookie } from "@/lib/cookies/cookieClient";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import type { AuthResponse, QuizSessionsListItem, User } from "@/lib/types";
+import type { AuthResponse, LoginPayload, QuizSessionsListItem, RegisterPayload, User } from "@/lib/types";
 
 interface AuthState {
   user: User | null;
@@ -17,19 +17,8 @@ interface AuthState {
   bootstrap: (user: User | null) => void;
   setFromResponse: (resp: AuthResponse) => void;
   setUser: (user: User | null) => void;
-  login: (payload: { email: string; password: string }) => Promise<void>;
-  register: (payload: {
-    email: string;
-    password: string;
-    password_confirm: string;
-    first_name: string;
-    last_name: string;
-    date_of_birth?: string;
-    age?: number;
-    phone?: string;
-    city?: string;
-    role?: User["role"];
-  }) => Promise<void>;
+  login: (payload: LoginPayload) => Promise<void>;
+  register: (payload: RegisterPayload) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -68,6 +57,21 @@ function persistTokens(access: string | null, refresh: string | null) {
 }
 
 const SESSION_IDS_STORAGE_KEY = "quiz-session-ids";
+
+function readGuestSessionIdsFromStorage(): number[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(SESSION_IDS_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .map((v) => Number(v))
+      .filter((v) => Number.isInteger(v) && v > 0);
+  } catch {
+    return [];
+  }
+}
 
 function normalizeQuizSessionKey(session: QuizSessionsListItem): string {
   const slug = session.test_slug?.toLowerCase();
@@ -151,7 +155,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   login: async (payload) => {
     set({ loading: true, error: null });
     try {
-      const { body: resp, error } = await authServices.login(payload);
+      const guestSessionIds = readGuestSessionIdsFromStorage();
+      const loginPayload: LoginPayload =
+        guestSessionIds.length > 0
+          ? { ...payload, guest_session_ids: guestSessionIds }
+          : payload;
+      const { body: resp, error } = await authServices.login(loginPayload);
       if (error || !resp) {
         const message = messageFromUnknown(error, "Не удалось выполнить вход");
         set({ error: message });
@@ -171,7 +180,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   register: async (payload) => {
     set({ loading: true, error: null });
     try {
-      const { body: resp, error } = await authServices.register(payload);
+      const guestSessionIds = readGuestSessionIdsFromStorage();
+      const registerPayload: RegisterPayload =
+        guestSessionIds.length > 0
+          ? { ...payload, guest_session_ids: guestSessionIds }
+          : payload;
+      const { body: resp, error } = await authServices.register(registerPayload);
       if (error || !resp) {
         const message = messageFromUnknown(error, "Не удалось выполнить регистрацию");
         set({ error: message });

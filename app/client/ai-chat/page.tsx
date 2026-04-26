@@ -18,6 +18,7 @@ import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { analyseServices } from "@/lib/services/analyseServices";
+import { useTranslations } from "next-intl";
 import {
   classifyAiChatResponseRole,
   extractTextFromResponse,
@@ -27,10 +28,11 @@ import {
 type ChatMessage = { role: ChatRole; text: string; at: number; kind?: "info" | "warning" };
 
 const AIChatPage = () => {
+  const t = useTranslations();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "ai" as const,
-      text: "Hello! I'm your AI career advisor. How can I help you today?",
+      text: t("ai_chat_welcome"),
       at: Date.now(),
     },
   ]);
@@ -48,7 +50,7 @@ const AIChatPage = () => {
     setMessages([
       {
         role: "ai",
-        text: "Hello! I'm your AI career advisor. How can I help you today?",
+        text: t("ai_chat_welcome"),
         at: Date.now(),
       },
     ]);

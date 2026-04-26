@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -30,6 +30,16 @@ const LoginPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/client";
+  const sessionExpired = searchParams.get("sessionExpired") === "1";
+
+  useEffect(() => {
+    if (!sessionExpired) return;
+    toast.info(t("session_expired_toast"));
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("sessionExpired");
+    const next = params.toString();
+    router.replace(next ? `/login?${next}` : "/login");
+  }, [router, searchParams, sessionExpired, t]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,13 +114,14 @@ const LoginPage = () => {
                 <Typography variant="body2" color="text.secondary">
                   {t("login_no_account")}
                 </Typography>
-                <Button
-                  component={Link}
-                  href="/register"
-                  size="small"
-                  variant="text"
-                >
-                  {t("register")}
+
+                <Button sx={styles.forgotPasswordButton} component={Link} href="/register" size="small" variant="text">
+                    {t("register")}
+                </Button>
+              </Box>
+              <Box sx={styles.actionsRow}>
+                <Button sx={styles.forgotPasswordButton} component={Link} href="/forgot-password" size="small" variant="text">
+                  {t("forgot_password")}
                 </Button>
               </Box>
             </Box>
@@ -139,9 +150,15 @@ const styles = {
     boxShadow: "0 18px 45px rgba(15,23,42,0.18)",
   },
   actionsRow: {
-    mt: 1,
+    mt: 2,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  forgotPasswordButton: {
+    padding: 0,
+    "&:hover": {
+      bgcolor: "transparent",
+    },
   },
 };

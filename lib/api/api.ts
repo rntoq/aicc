@@ -42,7 +42,9 @@ const shouldRedirectToLogin = (): boolean => {
 
 const redirectToLoginIfNeeded = () => {
   if (!shouldRedirectToLogin()) return;
-  window.location.href = "/login";
+  const current = window.location.pathname + window.location.search;
+  const redirect = encodeURIComponent(current);
+  window.location.href = `/login?sessionExpired=1&redirect=${redirect}`;
 };
 
 const processQueue = (error: unknown, token: string | null = null) => {

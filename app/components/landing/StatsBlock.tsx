@@ -9,7 +9,6 @@ import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import BANNER_IMAGE from "../../../public/images/stats_banner.jpg";
-import { useAnalysisDashboard } from "@/lib/services/analyseServices";
 
 const STATS = [
   { icon: SchoolOutlinedIcon, value: 118, labelKey: "stats_unis", descKey: "stats_unis_desc" },
@@ -87,7 +86,6 @@ export const StatsBlock = () => {
   const t = useTranslations();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  useAnalysisDashboard();
 
   return (
     <Box component="section" id="stats" sx={styles.section} ref={ref}>

@@ -29,6 +29,7 @@ export type UpdateMePayload = {
 export interface LoginPayload {
   email: string;
   password: string;
+  guest_session_ids?: number[];
 }
 
 export interface RegisterPayload {
@@ -42,6 +43,7 @@ export interface RegisterPayload {
   phone?: string;
   city?: string;
   role?: UserRole;
+  guest_session_ids?: number[];
 }
 
 export interface AuthResponse {
