@@ -15,6 +15,7 @@ import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
 import { HollandResultPanel } from "./hollandResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
+import { TEST_DISPLAY_NAMES } from "@/utils/constants";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
@@ -35,6 +36,7 @@ const TOTAL = QUESTIONS.length; // 48
 const RIASEC_CATEGORIES = ["R", "I", "A", "S", "E", "C"] as const;
 
 const SESSION_KEY = "holland";
+const PAGE_TITLE = TEST_DISPLAY_NAMES.holland;
 
 const HollandTestPage = () => {
   const t = useTranslations();
@@ -203,7 +205,7 @@ const HollandTestPage = () => {
             totalQuestions={TOTAL}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_holland_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
             <Box sx={styles.pageHelper}>{t("tests_holland_helper")}</Box>
           </Box>
 

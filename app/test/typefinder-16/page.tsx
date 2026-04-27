@@ -21,8 +21,10 @@ import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
 import TypeFinderResultPanel from "./typefinderResultPanel";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import TYPEFINDER_DATA from "./typefinder_question.json";
+import { TEST_DISPLAY_NAMES } from "@/utils/constants";
 
 const SESSION_KEY = "typefinder-16";
+const PAGE_TITLE = TEST_DISPLAY_NAMES["typefinder-16"];
 
 const QUESTIONS_PER_STEP = 15;
 
@@ -287,7 +289,7 @@ export default function TypeFinder16Page() {
             optionsHeader={optionsHeaderTypefinderResult}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_typefinder-16_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <TypeFinderResultPanel result={result} />
           <TestResultActions />
@@ -308,7 +310,7 @@ export default function TypeFinder16Page() {
             optionsHeader={optionsHeaderTypefinder}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_typefinder-16_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
             <Box sx={styles.pageHelper}>
               {stepQuestions[0]?.type === "pair"
                 ? t("pairs_title")

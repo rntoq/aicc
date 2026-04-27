@@ -12,7 +12,7 @@ import {
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import type { SxProps, Theme } from "@mui/material/styles";
-import type { TestItem } from "@/utils/constants";
+import { TEST_DISPLAY_NAMES, type TestItem } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useAuth } from "@/lib/store/useAuthStore";
@@ -109,7 +109,7 @@ export const TestCard = ({
     () => false,
   );
 
-  const name = (t(`tests_${test.id}_name` as Parameters<typeof t>[0]) as string) || test.name;
+  const name = TEST_DISPLAY_NAMES[test.id] ?? test.name;
   const featuresRaw = (t(`tests_${test.id}_features` as Parameters<typeof t>[0]) as string) || "";
   const features = featuresRaw ? featuresRaw.split("\n").filter(Boolean).slice(0, 3) : [];
   const category = (t(`tests_${test.id}_category` as Parameters<typeof t>[0]) as string) || "";

@@ -21,6 +21,7 @@ import type {
   LocalizedText,
   QuizResult,
 } from "@/lib/types";
+import { TEST_DISPLAY_NAMES } from "@/utils/constants";
 
 type EnneagramTypeKey =
   | "type_1"
@@ -34,6 +35,7 @@ type EnneagramTypeKey =
   | "type_9";
 
 const SESSION_KEY = "enneagram";
+const PAGE_TITLE = TEST_DISPLAY_NAMES.enneagram;
 
 const STEPS_COUNT = 7;
 const QUESTIONS_PER_STEP = 15; // 7 × 15 = 105
@@ -311,7 +313,7 @@ export default function EnneagramTestPage() {
             optionsHeader={scaleOptions}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_enneagram_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <EnneagramResultPanel result={result} />
           <TestResultActions />
@@ -332,7 +334,7 @@ export default function EnneagramTestPage() {
             optionsHeader={scaleOptions}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_enneagram_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
             <Box sx={styles.pageHelper}>{t("tests_enneagram_helper")}</Box>
           </Box>
 

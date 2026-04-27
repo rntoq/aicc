@@ -16,7 +16,7 @@ import type { AxiosError } from "axios";
 import { analyseServices } from "@/lib/services/analyseServices";
 import { LoadingScreen } from "@/app/components/tests/LoadingScreen";
 import { useDelayedFlag } from "@/app/components/tests/useDelayedFlag";
-import { ALL_TESTS, getRecommendedTests } from "@/utils/constants";
+import { ALL_TESTS, TEST_DISPLAY_NAMES, getRecommendedTests } from "@/utils/constants";
 import { useQuizSessionStore, type QuizSessionEntry } from "@/lib/store/useQuizStore";
 import { useAuth } from "@/lib/store/useAuthStore";
 import { muiTheme } from "@/ui/theme/muiTheme";
@@ -94,7 +94,7 @@ export function AiAnalysisCta({ isRecommended, customDescriptionKey, skipAuthChe
          testId,
          sessionId: e.sessionId,
          completedAt: e.completedAt,
-         name: (t(`tests_${testId}_name` as Parameters<typeof t>[0]) as string) || test.name,
+         name: TEST_DISPLAY_NAMES[testId] ?? test.name,
        };
      })
      .filter((x): x is NonNullable<typeof x> => x != null);

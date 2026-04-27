@@ -68,7 +68,7 @@ const AIChatPage = () => {
     if (error) {
       setMessages((prev) => [
         ...prev,
-        { role: "system", text: "Failed to send message. Please try again.", at: Date.now() },
+        { role: "system", text: t("ai_chat_send_error"), at: Date.now() },
       ]);
       setSending(false);
       return;
@@ -94,8 +94,11 @@ const AIChatPage = () => {
       // Make quota/rate-limit failures more readable (backend may still return 200 OK).
       if (quotaOrRateLimited) {
         const retryMatch = text.match(/retry in\\s+([0-9.]+)s/i) ?? text.match(/retryDelay'?\\s*:\\s*'?([0-9.]+)s'?/i);
-        const retrySuffix = retryMatch ? ` Try again in ~${Math.ceil(Number(retryMatch[1]))}s.` : "";
-        text = `AI limit/quota exceeded.${retrySuffix}`;
+        const retrySeconds = retryMatch ? Math.ceil(Number(retryMatch[1])) : null;
+        text =
+          retrySeconds != null
+            ? t("ai_chat_quota_exceeded_with_retry", { seconds: retrySeconds })
+            : t("ai_chat_quota_exceeded");
       }
     }
 
@@ -114,7 +117,7 @@ const AIChatPage = () => {
   };
 
   return (
-    <AppLayout title="AI Chat">
+    <AppLayout title={t("sidebar_ai_chat")}>
       <Box>
         <Box sx={styles.chatContainer}>
           <Box sx={styles.toolbar}>
@@ -124,7 +127,7 @@ const AIChatPage = () => {
               variant="outlined"
               sx={styles.assistantChip}
             /> */}
-            <IconButton onClick={clearChat} aria-label="Clear chat" size="small" disabled={sending}>
+            <IconButton onClick={clearChat} aria-label={t("ai_chat_clear")} size="small" disabled={sending}>
               <DeleteOutlineRoundedIcon />
             </IconButton>
           </Box>
@@ -183,14 +186,14 @@ const AIChatPage = () => {
                             <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
                           )}
                           <Typography variant="caption" fontWeight={600}>
-                            {msg.role === "system" ? "System" : "AI Counsellor"}
+                            {msg.role === "system" ? t("ai_chat_system_label") : t("ai_chat_assistant_label")}
                           </Typography>
                         </Box>
                       )}
                       {msg.role === "user" && (
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1, justifyContent: "flex-end" }}>
                           <Typography variant="caption" fontWeight={600} sx={{ opacity: 0.85 }}>
-                            You
+                            {t("ai_chat_you_label")}
                           </Typography>
                           <PersonOutlineRoundedIcon fontSize="small" />
                         </Box>
@@ -207,7 +210,7 @@ const AIChatPage = () => {
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
                         <Typography variant="body2" color="text.secondary">
-                          Typing…
+                          {t("ai_chat_typing")}
                         </Typography>
                       </Box>
                     </Paper>
@@ -226,7 +229,7 @@ const AIChatPage = () => {
               >
                 <InputBase
                   fullWidth
-                  placeholder="Ask about your career…"
+                  placeholder={t("ai_chat_input_placeholder")}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   sx={{ px: 1.5, py: 1.25 }}

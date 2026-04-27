@@ -181,6 +181,19 @@ export interface TestItem {
   categoryKey?: string;
 }
 
+export const TEST_DISPLAY_NAMES: Record<string, string> = {
+  holland: "Holland Code Career Quiz",
+  "photo-career": "Photo Career Quiz",
+  disc: "DISC Personality Test",
+  "career-aptitude": "Career Aptitude Test",
+  "big-five": "Big Five Personality Test",
+  eq: "Emotional Intelligence (EQ) Test",
+  enneagram: "Enneagram Personality Test",
+  "typefinder-16": "16 Types (TypeFinder) Test",
+  strengths: "Personal Strengths Test",
+  leadership: "Leadership Style Test",
+};
+
 /** Recommended set: 3 required + 2 optional (order matters) */
 export const RECOMMENDED_TEST_IDS: string[] = [
   "holland",

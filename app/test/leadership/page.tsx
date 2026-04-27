@@ -22,11 +22,13 @@ import type {
   QuizResult,
 } from "@/lib/types";
 import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
+import { TEST_DISPLAY_NAMES } from "@/utils/constants";
 
 type PairKey = "a" | "b";
 type LeadershipDimensionKey = "openness" | "conscientiousness" | "agreeableness";
 
 const SESSION_KEY = "leadership";
+const PAGE_TITLE = TEST_DISPLAY_NAMES.leadership;
 
 const DIMENSION_LABELS: Record<LeadershipDimensionKey, { ru: string; kk: string; en: string }> = {
   openness: { ru: "Открытость", kk: "Ашықтық", en: "Openness" },
@@ -343,7 +345,7 @@ export default function LeadershipTestPage() {
             optionsHeader={frequencyScaleOptions}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_leadership_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <LeadershipResultPanel result={result} />
           <TestResultActions />
@@ -364,7 +366,7 @@ export default function LeadershipTestPage() {
             optionsHeader={optionsHeaderLeadership}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_leadership_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
             <Box sx={styles.pageHelper}>
               {step === 1 ? t("tests_leadership_helper_pairs") : t("tests_leadership_helper_scale")}
             </Box>

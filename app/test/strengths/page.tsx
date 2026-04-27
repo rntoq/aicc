@@ -21,8 +21,10 @@ import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
 import StrengthsResultPanel from "./strengthsResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import STRENGTHS_DATA from "./personal_strength_questions.json";
+import { TEST_DISPLAY_NAMES } from "@/utils/constants";
 
 const SESSION_KEY = "strengths";
+const PAGE_TITLE = TEST_DISPLAY_NAMES.strengths;
 
 const STEPS_COUNT = 5;
 const QUESTIONS_PER_STEP = 20;
@@ -215,7 +217,7 @@ export default function StrengthsTestPage() {
             optionsHeader={scaleOptions}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_strengths_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <StrengthsResultPanel result={result} />
           <TestResultActions />
@@ -236,7 +238,7 @@ export default function StrengthsTestPage() {
             optionsHeader={scaleOptions}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_strengths_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
             <Box sx={styles.pageHelper}>{t("tests_strengths_helper")}</Box>
           </Box>
 

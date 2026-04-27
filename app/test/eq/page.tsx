@@ -21,6 +21,7 @@ import type {
   QuizResult,
 } from "@/lib/types";
 import EQ_DATA from "./eq_question.json";
+import { TEST_DISPLAY_NAMES } from "@/utils/constants";
 
 const EMPTY_LABEL: LocalizedText = { ru: "", kk: "", en: "" };
 
@@ -32,6 +33,7 @@ type EqDimensionKey =
   | "wellbeing";
 
 const SESSION_KEY = "eq";
+const PAGE_TITLE = TEST_DISPLAY_NAMES.eq;
 
 const STEPS_COUNT = 7;
 const QUESTIONS_PER_STEP = 9; // 7 × 9 = 63
@@ -349,7 +351,7 @@ export default function EqTestPage() {
             optionsHeader={scaleOptions}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_eq_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <EqResultPanel result={result} />
           <TestResultActions />
@@ -370,7 +372,7 @@ export default function EqTestPage() {
             optionsHeader={scaleOptions}
           />
           <Box sx={styles.pageHeader}>
-            <Box sx={styles.pageTitle}>{t("tests_eq_name") as string}</Box>
+            <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
             <Box sx={styles.pageHelper}>{t("tests_eq_helper")}</Box>
           </Box>
 

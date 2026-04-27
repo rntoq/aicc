@@ -203,7 +203,7 @@ const PhotoCareerQuizPage = () => {
     const result = (finishedResult ?? null) as QuizResult | null;
     return (
       <Box component="main" sx={styles.root}>
-        <Container maxWidth="xl" sx={styles.container}>
+        <Container maxWidth="md" sx={styles.container}>
           <TestHeader answered={photoTotal} totalQuestions={photoTotal} />
           <Box sx={styles.pageHeader}>
             <Box sx={styles.pageTitle}>{t("photo_title") as string}</Box>

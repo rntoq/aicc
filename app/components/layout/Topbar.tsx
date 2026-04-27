@@ -24,7 +24,7 @@ export const Topbar = ({ title, onMenuClick }: TopbarProps) => {
   const router = useRouter();
   const { logout, loading } = useAuth();
   const open = Boolean(anchorEl);
-
+  const user = useAuth((state) => state.user);
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -74,7 +74,7 @@ export const Topbar = ({ title, onMenuClick }: TopbarProps) => {
             onClick={handleAvatarClick}
             sx={styles.avatarButton}
           >
-            <Avatar sx={styles.avatar}>U</Avatar>
+            <Avatar sx={styles.avatar}> {user?.first_name?.charAt(0).toUpperCase()}{user?.last_name?.charAt(0).toUpperCase()}</Avatar>
             <ExpandMoreIcon fontSize="small" sx={styles.avatarIcon} />
           </IconButton>
           <Menu

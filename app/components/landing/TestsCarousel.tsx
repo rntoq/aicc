@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ALL_TESTS } from "@/utils/constants";
+import { ALL_TESTS, TEST_DISPLAY_NAMES } from "@/utils/constants";
 import type { TestItem } from "@/utils/constants";
 import { useQuizTests } from "@/lib/services/quizServices";
 
@@ -42,10 +42,9 @@ export const TestsCarousel = () => {
 
   const { items: TESTS, trackWidth } = useMemo(() => {
     const items = ALL_TESTS.map((test) => {
-      const nameKey = `tests_${test.id}_name` as keyof typeof t;
       const featuresKey = `tests_${test.id}_features` as keyof typeof t;
       const categoryKey = `tests_${test.id}_category` as keyof typeof t;
-      const name = (t(nameKey) as string) || test.name;
+      const name = TEST_DISPLAY_NAMES[test.id] ?? test.name;
       const featuresRaw = (t(featuresKey) as string) || "";
       const features = featuresRaw
         ? featuresRaw
