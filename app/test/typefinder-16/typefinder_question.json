@@ -3,8 +3,8 @@
     "id": "test_008",
     "code": "mbti-16-personalities",
     "title": {
-      "ru": "Myers-Briggs Type Indicator (TypeFinder)",
-      "kk": "Myers-Briggs Type Indicator (TypeFinder)",
+      "ru": "Индикатор типа Майерс-Бриггс (TypeFinder)",
+      "kk": "Myers-Briggs түрінің көрсеткіші (TypeFinder)",
       "en": "Myers-Briggs Type Indicator (TypeFinder)"
     },
     "version": 1
@@ -20,28 +20,28 @@
       "max": 5,
       "meaning": {
         "1": {
-          "ru": "Far left",
-          "kk": "Far left",
+          "ru": "Крайне левая",
+          "kk": "Өте сол жақ",
           "en": "Far left"
         },
         "2": {
-          "ru": "Moderate left",
-          "kk": "Moderate left",
+          "ru": "Умеренно левая",
+          "kk": "Орташа сол жақ",
           "en": "Moderate left"
         },
         "3": {
-          "ru": "Neutral",
-          "kk": "Neutral",
+          "ru": "Нейтрально",
+          "kk": "Бейтарап",
           "en": "Neutral"
         },
         "4": {
-          "ru": "Moderate right",
-          "kk": "Moderate right",
+          "ru": "Умеренно правая",
+          "kk": "Орташа оң жақ",
           "en": "Moderate right"
         },
         "5": {
-          "ru": "Far right",
-          "kk": "Far right",
+          "ru": "Крайне правая",
+          "kk": "Өте оң жақ",
           "en": "Far right"
         }
       }
@@ -51,28 +51,28 @@
       "max": 5,
       "labels": {
         "1": {
-          "ru": "Inaccurate",
-          "kk": "Inaccurate",
+          "ru": "неточный",
+          "kk": "Дәл емес",
           "en": "Inaccurate"
         },
         "2": {
-          "ru": "Mostly Inaccurate",
-          "kk": "Mostly Inaccurate",
+          "ru": "В основном неточно",
+          "kk": "Көбінесе дәл емес",
           "en": "Mostly Inaccurate"
         },
         "3": {
-          "ru": "Neutral",
-          "kk": "Neutral",
+          "ru": "Нейтральный",
+          "kk": "Бейтарап",
           "en": "Neutral"
         },
         "4": {
-          "ru": "Mostly Accurate",
-          "kk": "Mostly Accurate",
+          "ru": "В основном точный",
+          "kk": "Көбінесе дәл",
           "en": "Mostly Accurate"
         },
         "5": {
-          "ru": "Accurate",
-          "kk": "Accurate",
+          "ru": "Точный",
+          "kk": "Дәл",
           "en": "Accurate"
         }
       }
@@ -84,15 +84,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I am often disorganized",
-          "kk": "I am often disorganized",
+          "ru": "Я часто неорганизован",
+          "kk": "Мен жиі тәртіпсізмін",
           "en": "I am often disorganized"
         }
       },
       "right": {
         "text": {
-          "ru": "I keep myself organized",
-          "kk": "I keep myself organized",
+          "ru": "Я держу себя в порядке",
+          "kk": "Мен өзімді ретке келтіремін",
           "en": "I keep myself organized"
         }
       }
@@ -102,15 +102,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I make decisions with my head",
-          "kk": "I make decisions with my head",
+          "ru": "Я принимаю решения головой",
+          "kk": "Мен өз басым шешім қабылдаймын",
           "en": "I make decisions with my head"
         }
       },
       "right": {
         "text": {
-          "ru": "I make decisions with my heart",
-          "kk": "I make decisions with my heart",
+          "ru": "Я принимаю решения сердцем",
+          "kk": "Мен шешімді жүрегіммен қабылдаймын",
           "en": "I make decisions with my heart"
         }
       }
@@ -120,15 +120,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I like to try to innovate",
-          "kk": "I like to try to innovate",
+          "ru": "Мне нравится пытаться вводить новшества",
+          "kk": "Маған жаңалық енгізуге тырысқан ұнайды",
           "en": "I like to try to innovate"
         }
       },
       "right": {
         "text": {
-          "ru": "I like to use trusted methods",
-          "kk": "I like to use trusted methods",
+          "ru": "Мне нравится использовать проверенные методы",
+          "kk": "Мен сенімді әдістерді қолданғанды ​​ұнатамын",
           "en": "I like to use trusted methods"
         }
       }
@@ -138,15 +138,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I keep my thoughts to myself",
-          "kk": "I keep my thoughts to myself",
+          "ru": "Я держу свои мысли при себе",
+          "kk": "Мен өз ойымды ішімде сақтаймын",
           "en": "I keep my thoughts to myself"
         }
       },
       "right": {
         "text": {
-          "ru": "I speak up",
-          "kk": "I speak up",
+          "ru": "Я говорю",
+          "kk": "мен сөйлеймін",
           "en": "I speak up"
         }
       }
@@ -156,15 +156,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I seek attention from others",
-          "kk": "I seek attention from others",
+          "ru": "Я ищу внимания со стороны других",
+          "kk": "Мен басқалардың назарын аударамын",
           "en": "I seek attention from others"
         }
       },
       "right": {
         "text": {
-          "ru": "I avoid attention from others",
-          "kk": "I avoid attention from others",
+          "ru": "Я избегаю внимания со стороны других",
+          "kk": "Мен басқалардың назарынан аулақпын",
           "en": "I avoid attention from others"
         }
       }
@@ -174,15 +174,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I look for ways to help others",
-          "kk": "I look for ways to help others",
+          "ru": "Я ищу способы помочь другим",
+          "kk": "Мен басқаларға көмектесу жолдарын іздеймін",
           "en": "I look for ways to help others"
         }
       },
       "right": {
         "text": {
-          "ru": "I look for ways to achieve my own goals",
-          "kk": "I look for ways to achieve my own goals",
+          "ru": "Я ищу пути достижения своих целей",
+          "kk": "Мен өз мақсатыма жетудің жолдарын іздеймін",
           "en": "I look for ways to achieve my own goals"
         }
       }
@@ -192,15 +192,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I start conversations",
-          "kk": "I start conversations",
+          "ru": "Я начинаю разговоры",
+          "kk": "Мен әңгімелерді бастаймын",
           "en": "I start conversations"
         }
       },
       "right": {
         "text": {
-          "ru": "I let others start conversations",
-          "kk": "I let others start conversations",
+          "ru": "Я позволяю другим начинать разговор",
+          "kk": "Мен басқаларға әңгіме бастауға мүмкіндік беремін",
           "en": "I let others start conversations"
         }
       }
@@ -210,15 +210,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I like ideas that are easy to understand",
-          "kk": "I like ideas that are easy to understand",
+          "ru": "Мне нравятся идеи, которые легко понять",
+          "kk": "Маған оңай түсінікті идеялар ұнайды",
           "en": "I like ideas that are easy to understand"
         }
       },
       "right": {
         "text": {
-          "ru": "I like ideas that are complex",
-          "kk": "I like ideas that are complex",
+          "ru": "Мне нравятся сложные идеи",
+          "kk": "Маған күрделі идеялар ұнайды",
           "en": "I like ideas that are complex"
         }
       }
@@ -228,15 +228,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I feel the pain of other people",
-          "kk": "I feel the pain of other people",
+          "ru": "Я чувствую боль других людей",
+          "kk": "Мен басқа адамдардың қайғысын сезінемін",
           "en": "I feel the pain of other people"
         }
       },
       "right": {
         "text": {
-          "ru": "I am not easily affected by sad stories",
-          "kk": "I am not easily affected by sad stories",
+          "ru": "На меня нелегко действуют грустные истории",
+          "kk": "Маған қайғылы оқиғалар оңай әсер етпейді",
           "en": "I am not easily affected by sad stories"
         }
       }
@@ -246,15 +246,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I value my social status",
-          "kk": "I value my social status",
+          "ru": "Я ценю свой социальный статус",
+          "kk": "Мен өзімнің әлеуметтік жағдайымды бағалаймын",
           "en": "I value my social status"
         }
       },
       "right": {
         "text": {
-          "ru": "I value my privacy",
-          "kk": "I value my privacy",
+          "ru": "Я ценю свою конфиденциальность",
+          "kk": "Мен жеке өмірімді бағалаймын",
           "en": "I value my privacy"
         }
       }
@@ -264,15 +264,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I put my needs first",
-          "kk": "I put my needs first",
+          "ru": "Я ставлю свои потребности на первое место",
+          "kk": "Мен өз қажеттіліктерімді бірінші орынға қоямын",
           "en": "I put my needs first"
         }
       },
       "right": {
         "text": {
-          "ru": "I put others’ needs ahead of my own",
-          "kk": "I put others’ needs ahead of my own",
+          "ru": "Я ставлю потребности других выше своих собственных",
+          "kk": "Мен басқалардың қажеттіліктерін өзімнің қажеттіліктерімнен жоғары қоямын",
           "en": "I put others’ needs ahead of my own"
         }
       }
@@ -282,15 +282,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I follow a plan",
-          "kk": "I follow a plan",
+          "ru": "Я следую плану",
+          "kk": "Мен жоспарды ұстанамын",
           "en": "I follow a plan"
         }
       },
       "right": {
         "text": {
-          "ru": "I act on impulse",
-          "kk": "I act on impulse",
+          "ru": "Я действую импульсивно",
+          "kk": "Мен импульспен әрекет етемін",
           "en": "I act on impulse"
         }
       }
@@ -300,15 +300,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I am always prepared",
-          "kk": "I am always prepared",
+          "ru": "я всегда готов",
+          "kk": "Мен әрқашан дайынмын",
           "en": "I am always prepared"
         }
       },
       "right": {
         "text": {
-          "ru": "I am often unprepared",
-          "kk": "I am often unprepared",
+          "ru": "Я часто не готов",
+          "kk": "Мен көбіне дайын емеспін",
           "en": "I am often unprepared"
         }
       }
@@ -318,15 +318,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I make sure everyone is taken care of",
-          "kk": "I make sure everyone is taken care of",
+          "ru": "Я слежу за тем, чтобы обо всех позаботились",
+          "kk": "Мен барлығына қамқорлық жасайтынына сенімдімін",
           "en": "I make sure everyone is taken care of"
         }
       },
       "right": {
         "text": {
-          "ru": "I look out for myself",
-          "kk": "I look out for myself",
+          "ru": "я забочусь о себе",
+          "kk": "Мен өзіме қараймын",
           "en": "I look out for myself"
         }
       }
@@ -336,15 +336,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I work first, play later",
-          "kk": "I work first, play later",
+          "ru": "Сначала работаю, потом играю",
+          "kk": "Алдымен жұмыс істеймін, кейін ойнаймын",
           "en": "I work first, play later"
         }
       },
       "right": {
         "text": {
-          "ru": "I play first, work later",
-          "kk": "I play first, work later",
+          "ru": "Я сначала играю, потом работаю",
+          "kk": "Алдымен ойнаймын, кейін жұмыс істеймін",
           "en": "I play first, work later"
         }
       }
@@ -353,8 +353,8 @@
       "id": "mbti_q016",
       "type": "single",
       "text": {
-        "ru": "I have a lot of energy",
-        "kk": "I have a lot of energy",
+        "ru": "У меня много энергии",
+        "kk": "Менде энергия көп",
         "en": "I have a lot of energy"
       }
     },
@@ -362,8 +362,8 @@
       "id": "mbti_q017",
       "type": "single",
       "text": {
-        "ru": "I have a vivid imagination",
-        "kk": "I have a vivid imagination",
+        "ru": "У меня яркое воображение",
+        "kk": "Менің қиялым бай",
         "en": "I have a vivid imagination"
       }
     },
@@ -371,8 +371,8 @@
       "id": "mbti_q018",
       "type": "single",
       "text": {
-        "ru": "I prefer to follow a schedule",
-        "kk": "I prefer to follow a schedule",
+        "ru": "Я предпочитаю следовать расписанию",
+        "kk": "Мен кесте бойынша жүргенді қалаймын",
         "en": "I prefer to follow a schedule"
       }
     },
@@ -380,8 +380,8 @@
       "id": "mbti_q019",
       "type": "single",
       "text": {
-        "ru": "I enjoy trying to understand complicated ideas",
-        "kk": "I enjoy trying to understand complicated ideas",
+        "ru": "Мне нравится пытаться понять сложные идеи",
+        "kk": "Маған күрделі идеяларды түсінуге тырысқан ұнайды",
         "en": "I enjoy trying to understand complicated ideas"
       }
     },
@@ -389,8 +389,8 @@
       "id": "mbti_q020",
       "type": "single",
       "text": {
-        "ru": "I think about the needs of others",
-        "kk": "I think about the needs of others",
+        "ru": "Я думаю о потребностях других",
+        "kk": "Мен басқалардың қажеттіліктерін ойлаймын",
         "en": "I think about the needs of others"
       }
     },
@@ -398,8 +398,8 @@
       "id": "mbti_q021",
       "type": "single",
       "text": {
-        "ru": "I enjoy being the center of attention",
-        "kk": "I enjoy being the center of attention",
+        "ru": "Мне нравится быть в центре внимания",
+        "kk": "Маған назардың ортасында болу ұнайды",
         "en": "I enjoy being the center of attention"
       }
     },
@@ -407,8 +407,8 @@
       "id": "mbti_q022",
       "type": "single",
       "text": {
-        "ru": "I make sure my work is finished on time",
-        "kk": "I make sure my work is finished on time",
+        "ru": "Я слежу, чтобы работа была завершена вовремя",
+        "kk": "Жұмысымды уақытында аяқтауды қадағалаймын",
         "en": "I make sure my work is finished on time"
       }
     },
@@ -416,8 +416,8 @@
       "id": "mbti_q023",
       "type": "single",
       "text": {
-        "ru": "I sympathize with the homeless",
-        "kk": "I sympathize with the homeless",
+        "ru": "Я сочувствую бездомным",
+        "kk": "Мен үйсіз адамдарға жанашырлық танытамын",
         "en": "I sympathize with the homeless"
       }
     },
@@ -425,8 +425,8 @@
       "id": "mbti_q024",
       "type": "single",
       "text": {
-        "ru": "I think about why people do the things they do",
-        "kk": "I think about why people do the things they do",
+        "ru": "Я думаю о том, почему люди поступают так, как поступают",
+        "kk": "Адамдардың неге осылай әрекет ететіні туралы ойлаймын",
         "en": "I think about why people do the things they do"
       }
     },
@@ -434,8 +434,8 @@
       "id": "mbti_q025",
       "type": "single",
       "text": {
-        "ru": "I enjoy chatting with new acquaintances",
-        "kk": "I enjoy chatting with new acquaintances",
+        "ru": "Мне нравится общаться с новыми знакомыми",
+        "kk": "Маған жаңа таныстармен сөйлескен ұнайды",
         "en": "I enjoy chatting with new acquaintances"
       }
     },
@@ -443,8 +443,8 @@
       "id": "mbti_q026",
       "type": "single",
       "text": {
-        "ru": "I keep my belongings in their proper place",
-        "kk": "I keep my belongings in their proper place",
+        "ru": "Я держу свои вещи на своих местах",
+        "kk": "Заттарымды өз орнында ұстаймын",
         "en": "I keep my belongings in their proper place"
       }
     },
@@ -452,8 +452,8 @@
       "id": "mbti_q027",
       "type": "single",
       "text": {
-        "ru": "I enjoy being there for people when they are feeling sad",
-        "kk": "I enjoy being there for people when they are feeling sad",
+        "ru": "Мне нравится быть рядом с людьми, когда им грустно",
+        "kk": "Адамдар мұңайғанда жанында болған ұнайды",
         "en": "I enjoy being there for people when they are feeling sad"
       }
     },
@@ -461,8 +461,8 @@
       "id": "mbti_q028",
       "type": "single",
       "text": {
-        "ru": "I would rather go with the flow than have a set schedule",
-        "kk": "I would rather go with the flow than have a set schedule",
+        "ru": "Я скорее буду действовать по ситуации, чем придерживаться строгого графика",
+        "kk": "Қатаң кестеден гөрі жағдайға қарай әрекет еткенді жөн көремін",
         "en": "I would rather go with the flow than have a set schedule"
       }
     },
@@ -470,8 +470,8 @@
       "id": "mbti_q029",
       "type": "single",
       "text": {
-        "ru": "I enjoy philosophical discussions",
-        "kk": "I enjoy philosophical discussions",
+        "ru": "Мне нравятся философские обсуждения",
+        "kk": "Маған философиялық талқылаулар ұнайды",
         "en": "I enjoy philosophical discussions"
       }
     },
@@ -479,8 +479,8 @@
       "id": "mbti_q030",
       "type": "single",
       "text": {
-        "ru": "I would enjoy attending a large party in my honor",
-        "kk": "I would enjoy attending a large party in my honor",
+        "ru": "Мне бы понравилось посетить большую вечеринку в мою честь",
+        "kk": "Құрметіме арналған үлкен кешке бару маған ұнар еді",
         "en": "I would enjoy attending a large party in my honor"
       }
     },
@@ -488,8 +488,8 @@
       "id": "mbti_q031",
       "type": "single",
       "text": {
-        "ru": "I am very attentive to deadlines",
-        "kk": "I am very attentive to deadlines",
+        "ru": "Я очень внимательно отношусь к срокам",
+        "kk": "Мерзімдерге өте мұқият қараймын",
         "en": "I am very attentive to deadlines"
       }
     },
@@ -497,8 +497,8 @@
       "id": "mbti_q032",
       "type": "single",
       "text": {
-        "ru": "I am helpful to the people around me",
-        "kk": "I am helpful to the people around me",
+        "ru": "Я помогаю людям вокруг себя",
+        "kk": "Айналамдағы адамдарға көмектесемін",
         "en": "I am helpful to the people around me"
       }
     },
@@ -506,8 +506,8 @@
       "id": "mbti_q033",
       "type": "single",
       "text": {
-        "ru": "It is important to me to understand the bigger picture",
-        "kk": "It is important to me to understand the bigger picture",
+        "ru": "Для меня важно понимать общую картину",
+        "kk": "Маған жалпы көріністі түсіну маңызды",
         "en": "It is important to me to understand the bigger picture"
       }
     },
@@ -515,8 +515,8 @@
       "id": "mbti_q034",
       "type": "single",
       "text": {
-        "ru": "It is easy for me to talk to strangers",
-        "kk": "It is easy for me to talk to strangers",
+        "ru": "Мне легко разговаривать с незнакомцами",
+        "kk": "Маған бейтаныс адамдармен сөйлесу оңай",
         "en": "It is easy for me to talk to strangers"
       }
     },
@@ -524,8 +524,8 @@
       "id": "mbti_q035",
       "type": "single",
       "text": {
-        "ru": "I believe in the importance of art",
-        "kk": "I believe in the importance of art",
+        "ru": "Я верю в важность искусства",
+        "kk": "Өнердің маңыздылығына сенемін",
         "en": "I believe in the importance of art"
       }
     },
@@ -533,8 +533,8 @@
       "id": "mbti_q036",
       "type": "single",
       "text": {
-        "ru": "I work hard to please others",
-        "kk": "I work hard to please others",
+        "ru": "Я усердно стараюсь угодить другим",
+        "kk": "Басқаларға ұнау үшін көп тырысамын",
         "en": "I work hard to please others"
       }
     },
@@ -542,8 +542,8 @@
       "id": "mbti_q037",
       "type": "single",
       "text": {
-        "ru": "I like to help others with their personal problems",
-        "kk": "I like to help others with their personal problems",
+        "ru": "Мне нравится помогать другим с их личными проблемами",
+        "kk": "Басқаларға жеке мәселелерінде көмектескен ұнайды",
         "en": "I like to help others with their personal problems"
       }
     },
@@ -551,8 +551,8 @@
       "id": "mbti_q038",
       "type": "single",
       "text": {
-        "ru": "I like thinking about the mysteries of the universe",
-        "kk": "I like thinking about the mysteries of the universe",
+        "ru": "Мне нравится размышлять о тайнах Вселенной",
+        "kk": "Ғаламның құпиялары туралы ойланған ұнайды",
         "en": "I like thinking about the mysteries of the universe"
       }
     },
@@ -560,8 +560,8 @@
       "id": "mbti_q039",
       "type": "single",
       "text": {
-        "ru": "I make plans and stick to them",
-        "kk": "I make plans and stick to them",
+        "ru": "Я строю планы и придерживаюсь их",
+        "kk": "Жоспар құрып, соны ұстанамын",
         "en": "I make plans and stick to them"
       }
     },
@@ -569,8 +569,8 @@
       "id": "mbti_q040",
       "type": "single",
       "text": {
-        "ru": "I spend time trying to understand myself",
-        "kk": "I spend time trying to understand myself",
+        "ru": "Я трачу время на попытки понять себя",
+        "kk": "Өзімді түсінуге уақыт бөлемін",
         "en": "I spend time trying to understand myself"
       }
     },
@@ -578,8 +578,8 @@
       "id": "mbti_q041",
       "type": "single",
       "text": {
-        "ru": "I get a thrill out of meeting new people",
-        "kk": "I get a thrill out of meeting new people",
+        "ru": "Я получаю заряд от знакомства с новыми людьми",
+        "kk": "Жаңа адамдармен танысудан шабыт аламын",
         "en": "I get a thrill out of meeting new people"
       }
     },
@@ -587,8 +587,8 @@
       "id": "mbti_q042",
       "type": "single",
       "text": {
-        "ru": "I am sensitive to the feelings of others",
-        "kk": "I am sensitive to the feelings of others",
+        "ru": "Я чувствителен к чувствам других",
+        "kk": "Басқалардың сезіміне сезімталмын",
         "en": "I am sensitive to the feelings of others"
       }
     },
@@ -596,8 +596,8 @@
       "id": "mbti_q043",
       "type": "single",
       "text": {
-        "ru": "I enjoy learning about scientific theories",
-        "kk": "I enjoy learning about scientific theories",
+        "ru": "Мне нравится изучать научные теории",
+        "kk": "Ғылыми теорияларды үйренген ұнайды",
         "en": "I enjoy learning about scientific theories"
       }
     },
@@ -605,8 +605,8 @@
       "id": "mbti_q044",
       "type": "single",
       "text": {
-        "ru": "I start tasks in advance, so that I have plenty of time to finish",
-        "kk": "I start tasks in advance, so that I have plenty of time to finish",
+        "ru": "Я начинаю задачи заранее, чтобы было достаточно времени завершить их",
+        "kk": "Тапсырмаларды алдын ала бастап, аяқтауға жеткілікті уақыт қалдырамын",
         "en": "I start tasks in advance, so that I have plenty of time to finish"
       }
     },
@@ -614,8 +614,8 @@
       "id": "mbti_q045",
       "type": "single",
       "text": {
-        "ru": "I love to make new friends",
-        "kk": "I love to make new friends",
+        "ru": "Я люблю заводить новых друзей",
+        "kk": "Жаңа достар тапқанды жақсы көремін",
         "en": "I love to make new friends"
       }
     },
@@ -623,8 +623,8 @@
       "id": "mbti_q046",
       "type": "single",
       "text": {
-        "ru": "I like to have a detailed plan before starting a task",
-        "kk": "I like to have a detailed plan before starting a task",
+        "ru": "Перед началом задачи мне нравится иметь подробный план",
+        "kk": "Тапсырманы бастамас бұрын егжей-тегжейлі жоспар болғанын ұнатамын",
         "en": "I like to have a detailed plan before starting a task"
       }
     },
@@ -632,8 +632,8 @@
       "id": "mbti_q047",
       "type": "single",
       "text": {
-        "ru": "People tell me I am too quiet",
-        "kk": "People tell me I am too quiet",
+        "ru": "Люди говорят, что я слишком тихий",
+        "kk": "Адамдар мені тым тұйық дейді",
         "en": "People tell me I am too quiet"
       }
     },
@@ -641,8 +641,8 @@
       "id": "mbti_q048",
       "type": "single",
       "text": {
-        "ru": "I am concerned about others",
-        "kk": "I am concerned about others",
+        "ru": "Меня заботят другие люди",
+        "kk": "Басқалар үшін алаңдаймын",
         "en": "I am concerned about others"
       }
     },
@@ -650,8 +650,8 @@
       "id": "mbti_q049",
       "type": "single",
       "text": {
-        "ru": "I would prefer to come up with an original solution to a problem",
-        "kk": "I would prefer to come up with an original solution to a problem",
+        "ru": "Я предпочел бы придумать оригинальное решение проблемы",
+        "kk": "Мәселенің түпнұсқа шешімін тапқанды жөн көремін",
         "en": "I would prefer to come up with an original solution to a problem"
       }
     },
@@ -659,8 +659,8 @@
       "id": "mbti_q050",
       "type": "single",
       "text": {
-        "ru": "Being around lots of people energizes me",
-        "kk": "Being around lots of people energizes me",
+        "ru": "Нахождение среди множества людей заряжает меня",
+        "kk": "Көп адамның ортасында болу маған қуат береді",
         "en": "Being around lots of people energizes me"
       }
     },
@@ -668,8 +668,8 @@
       "id": "mbti_q051",
       "type": "single",
       "text": {
-        "ru": "I have trouble sticking to a routine",
-        "kk": "I have trouble sticking to a routine",
+        "ru": "Мне трудно придерживаться распорядка",
+        "kk": "Күн тәртібін ұстану маған қиын",
         "en": "I have trouble sticking to a routine"
       }
     },
@@ -677,8 +677,8 @@
       "id": "mbti_q052",
       "type": "single",
       "text": {
-        "ru": "It is important to me to be of service to others",
-        "kk": "It is important to me to be of service to others",
+        "ru": "Для меня важно быть полезным другим",
+        "kk": "Басқаларға қызмет ету мен үшін маңызды",
         "en": "It is important to me to be of service to others"
       }
     },
@@ -686,8 +686,8 @@
       "id": "mbti_q053",
       "type": "single",
       "text": {
-        "ru": "I enjoy examining myself and my life",
-        "kk": "I enjoy examining myself and my life",
+        "ru": "Мне нравится анализировать себя и свою жизнь",
+        "kk": "Өзімді және өмірімді талдаған ұнайды",
         "en": "I enjoy examining myself and my life"
       }
     },
@@ -695,8 +695,8 @@
       "id": "mbti_q054",
       "type": "single",
       "text": {
-        "ru": "I find it challenging to make new friends",
-        "kk": "I find it challenging to make new friends",
+        "ru": "Мне трудно заводить новых друзей",
+        "kk": "Жаңа достар табу маған қиын",
         "en": "I find it challenging to make new friends"
       }
     },
@@ -704,8 +704,8 @@
       "id": "mbti_q055",
       "type": "single",
       "text": {
-        "ru": "I am a private person",
-        "kk": "I am a private person",
+        "ru": "Я закрытый человек",
+        "kk": "Мен жеке кеңістікті ұнататын адаммын",
         "en": "I am a private person"
       }
     },
@@ -713,8 +713,8 @@
       "id": "mbti_q056",
       "type": "single",
       "text": {
-        "ru": "I let others know that I care about their feelings",
-        "kk": "I let others know that I care about their feelings",
+        "ru": "Я даю другим понять, что мне небезразличны их чувства",
+        "kk": "Басқаларға олардың сезімі маған маңызды екенін білдіремін",
         "en": "I let others know that I care about their feelings"
       }
     },
@@ -722,8 +722,8 @@
       "id": "mbti_q057",
       "type": "single",
       "text": {
-        "ru": "I am full of new ideas",
-        "kk": "I am full of new ideas",
+        "ru": "Я полон новых идей",
+        "kk": "Мен жаңа идеяларға толымын",
         "en": "I am full of new ideas"
       }
     },
@@ -732,15 +732,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I spend my time pursuing my goals",
-          "kk": "I spend my time pursuing my goals",
+          "ru": "Я трачу свое время на достижение своих целей",
+          "kk": "Мен уақытымды мақсаттарыма жетуге жұмсаймын",
           "en": "I spend my time pursuing my goals"
         }
       },
       "right": {
         "text": {
-          "ru": "I spend my time enjoying life",
-          "kk": "I spend my time enjoying life",
+          "ru": "Я провожу время, наслаждаясь жизнью",
+          "kk": "Мен уақытымды өмірден ләззат алумен өткіземін",
           "en": "I spend my time enjoying life"
         }
       }
@@ -750,15 +750,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I focus on real life",
-          "kk": "I focus on real life",
+          "ru": "Я сосредотачиваюсь на реальной жизни",
+          "kk": "Мен нақты өмірге назар аударамын",
           "en": "I focus on real life"
         }
       },
       "right": {
         "text": {
-          "ru": "I use my imagination",
-          "kk": "I use my imagination",
+          "ru": "Я использую свое воображение",
+          "kk": "Мен өз қиялымды қолданамын",
           "en": "I use my imagination"
         }
       }
@@ -768,15 +768,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I trust traditional values",
-          "kk": "I trust traditional values",
+          "ru": "Я доверяю традиционным ценностям",
+          "kk": "Мен дәстүрлі құндылықтарға сенемін",
           "en": "I trust traditional values"
         }
       },
       "right": {
         "text": {
-          "ru": "I question traditional values",
-          "kk": "I question traditional values",
+          "ru": "Я подвергаю сомнению традиционные ценности",
+          "kk": "Мен дәстүрлі құндылықтарға күмән келтіремін",
           "en": "I question traditional values"
         }
       }
@@ -786,15 +786,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I enjoy activities that are familiar",
-          "kk": "I enjoy activities that are familiar",
+          "ru": "Мне нравятся знакомые занятия",
+          "kk": "Маған таныс әрекеттер ұнайды",
           "en": "I enjoy activities that are familiar"
         }
       },
       "right": {
         "text": {
-          "ru": "I enjoy experiencing new things",
-          "kk": "I enjoy experiencing new things",
+          "ru": "Мне нравится испытывать что-то новое",
+          "kk": "Мен жаңа нәрселерді бастан кешіргенді ұнатамын",
           "en": "I enjoy experiencing new things"
         }
       }
@@ -804,15 +804,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I am more interested in what is possible",
-          "kk": "I am more interested in what is possible",
+          "ru": "меня больше интересует то, что возможно",
+          "kk": "Мені мүмкін нәрсе қызықтырады",
           "en": "I am more interested in what is possible"
         }
       },
       "right": {
         "text": {
-          "ru": "I am more interested in what is real",
-          "kk": "I am more interested in what is real",
+          "ru": "меня больше интересует то, что реально",
+          "kk": "Мені шын мәніндегі нәрсе қызықтырады",
           "en": "I am more interested in what is real"
         }
       }
@@ -822,15 +822,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I like to cooperate",
-          "kk": "I like to cooperate",
+          "ru": "мне нравится сотрудничать",
+          "kk": "Мен ынтымақтастықты ұнатамын",
           "en": "I like to cooperate"
         }
       },
       "right": {
         "text": {
-          "ru": "I like to compete",
-          "kk": "I like to compete",
+          "ru": "мне нравится соревноваться",
+          "kk": "Маған жарысқан ұнайды",
           "en": "I like to compete"
         }
       }
@@ -840,15 +840,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I prefer to follow a clear procedure",
-          "kk": "I prefer to follow a clear procedure",
+          "ru": "Я предпочитаю следовать четкой процедуре",
+          "kk": "Мен нақты процедураны ұстанғым келеді",
           "en": "I prefer to follow a clear procedure"
         }
       },
       "right": {
         "text": {
-          "ru": "I prefer to improvise",
-          "kk": "I prefer to improvise",
+          "ru": "Я предпочитаю импровизировать",
+          "kk": "Мен импровизация жасағанды ​​жөн көремін",
           "en": "I prefer to improvise"
         }
       }
@@ -858,15 +858,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I prefer to work in an active, bustling office",
-          "kk": "I prefer to work in an active, bustling office",
+          "ru": "Предпочитаю работать в активном, шумном офисе",
+          "kk": "Мен белсенді, қайнаған кеңседе жұмыс істегенді жөн көремін",
           "en": "I prefer to work in an active, bustling office"
         }
       },
       "right": {
         "text": {
-          "ru": "I prefer to work in a calm, quiet office",
-          "kk": "I prefer to work in a calm, quiet office",
+          "ru": "Я предпочитаю работать в спокойном и тихом офисе",
+          "kk": "Мен тыныш, тыныш кеңседе жұмыс істегенді ұнатамын",
           "en": "I prefer to work in a calm, quiet office"
         }
       }
@@ -876,15 +876,15 @@
       "type": "pair",
       "left": {
         "text": {
-          "ru": "I do things step-by-step",
-          "kk": "I do things step-by-step",
+          "ru": "Я делаю все шаг за шагом",
+          "kk": "Мен әрекеттерді кезең-кезеңімен жасаймын",
           "en": "I do things step-by-step"
         }
       },
       "right": {
         "text": {
-          "ru": "I jump in and figure things out as I go",
-          "kk": "I jump in and figure things out as I go",
+          "ru": "Я прыгаю и разбираюсь во всем по ходу дела.",
+          "kk": "Мен секіріп, барған сайын бәрін түсінемін",
           "en": "I jump in and figure things out as I go"
         }
       }
@@ -893,8 +893,8 @@
       "id": "mbti_q067",
       "type": "single",
       "text": {
-        "ru": "I like to finish all my chores before I do something fun",
-        "kk": "I like to finish all my chores before I do something fun",
+        "ru": "Мне нравится сначала завершать все дела, а потом заниматься чем-то приятным",
+        "kk": "Көңілді іске кіріспей тұрып, барлық шаруаны аяқтаған ұнайды",
         "en": "I like to finish all my chores before I do something fun"
       }
     },
@@ -902,8 +902,8 @@
       "id": "mbti_q068",
       "type": "single",
       "text": {
-        "ru": "I question why things are the way they are",
-        "kk": "I question why things are the way they are",
+        "ru": "Я задаюсь вопросом, почему всё именно так",
+        "kk": "Неліктен бәрі осылай екенін жиі ойлаймын",
         "en": "I question why things are the way they are"
       }
     },
@@ -911,8 +911,8 @@
       "id": "mbti_q069",
       "type": "single",
       "text": {
-        "ru": "I carry out my plans",
-        "kk": "I carry out my plans",
+        "ru": "Я выполняю свои планы",
+        "kk": "Жоспарларымды жүзеге асырамын",
         "en": "I carry out my plans"
       }
     },
@@ -920,8 +920,8 @@
       "id": "mbti_q070",
       "type": "single",
       "text": {
-        "ru": "It is important to me to make decisions without being swayed by emotions",
-        "kk": "It is important to me to make decisions without being swayed by emotions",
+        "ru": "Для меня важно принимать решения, не поддаваясь эмоциям",
+        "kk": "Эмоцияға берілмей шешім қабылдау мен үшін маңызды",
         "en": "It is important to me to make decisions without being swayed by emotions"
       }
     },
@@ -929,8 +929,8 @@
       "id": "mbti_q071",
       "type": "single",
       "text": {
-        "ru": "I lose my belongings",
-        "kk": "I lose my belongings",
+        "ru": "Я теряю свои вещи",
+        "kk": "Заттарымды жиі жоғалтамын",
         "en": "I lose my belongings"
       }
     },
@@ -938,8 +938,8 @@
       "id": "mbti_q072",
       "type": "single",
       "text": {
-        "ru": "It is important to me to follow traditions",
-        "kk": "It is important to me to follow traditions",
+        "ru": "Для меня важно следовать традициям",
+        "kk": "Дәстүрді ұстану мен үшін маңызды",
         "en": "It is important to me to follow traditions"
       }
     },
@@ -947,8 +947,8 @@
       "id": "mbti_q073",
       "type": "single",
       "text": {
-        "ru": "I let other people know what I think",
-        "kk": "I let other people know what I think",
+        "ru": "Я даю другим понять, что думаю",
+        "kk": "Басқаларға не ойлайтынымды айтамын",
         "en": "I let other people know what I think"
       }
     },
@@ -956,8 +956,8 @@
       "id": "mbti_q074",
       "type": "single",
       "text": {
-        "ru": "I try to avoid conflict",
-        "kk": "I try to avoid conflict",
+        "ru": "Я стараюсь избегать конфликтов",
+        "kk": "Қақтығыстан аулақ болуға тырысамын",
         "en": "I try to avoid conflict"
       }
     },
@@ -965,8 +965,8 @@
       "id": "mbti_q075",
       "type": "single",
       "text": {
-        "ru": "I have trouble controlling my impulses",
-        "kk": "I have trouble controlling my impulses",
+        "ru": "Мне трудно контролировать свои импульсы",
+        "kk": "Импульстарымды бақылау маған қиын",
         "en": "I have trouble controlling my impulses"
       }
     },
@@ -974,8 +974,8 @@
       "id": "mbti_q076",
       "type": "single",
       "text": {
-        "ru": "I love life",
-        "kk": "I love life",
+        "ru": "Я люблю жизнь",
+        "kk": "Өмірді жақсы көремін",
         "en": "I love life"
       }
     },
@@ -983,8 +983,8 @@
       "id": "mbti_q077",
       "type": "single",
       "text": {
-        "ru": "I am ambitious",
-        "kk": "I am ambitious",
+        "ru": "Я амбициозен",
+        "kk": "Мен өршілмін",
         "en": "I am ambitious"
       }
     },
@@ -992,8 +992,8 @@
       "id": "mbti_q078",
       "type": "single",
       "text": {
-        "ru": "I would like to play a musical instrument",
-        "kk": "I would like to play a musical instrument",
+        "ru": "Я хотел бы играть на музыкальном инструменте",
+        "kk": "Музыкалық аспапта ойнағым келеді",
         "en": "I would like to play a musical instrument"
       }
     },
@@ -1001,8 +1001,8 @@
       "id": "mbti_q079",
       "type": "single",
       "text": {
-        "ru": "I like to be needed by other people",
-        "kk": "I like to be needed by other people",
+        "ru": "Мне нравится быть нужным другим людям",
+        "kk": "Басқаларға қажет болған ұнайды",
         "en": "I like to be needed by other people"
       }
     },
@@ -1010,8 +1010,8 @@
       "id": "mbti_q080",
       "type": "single",
       "text": {
-        "ru": "I avoid being alone",
-        "kk": "I avoid being alone",
+        "ru": "Я избегаю одиночества",
+        "kk": "Жалғыз қалудан қашамын",
         "en": "I avoid being alone"
       }
     },
@@ -1019,8 +1019,8 @@
       "id": "mbti_q081",
       "type": "single",
       "text": {
-        "ru": "I forgive easily",
-        "kk": "I forgive easily",
+        "ru": "Я легко прощаю",
+        "kk": "Оңай кешіремін",
         "en": "I forgive easily"
       }
     },
@@ -1028,8 +1028,8 @@
       "id": "mbti_q082",
       "type": "single",
       "text": {
-        "ru": "I like trying out new hobbies",
-        "kk": "I like trying out new hobbies",
+        "ru": "Мне нравится пробовать новые хобби",
+        "kk": "Жаңа хоббилерді байқап көрген ұнайды",
         "en": "I like trying out new hobbies"
       }
     },
@@ -1037,8 +1037,8 @@
       "id": "mbti_q083",
       "type": "single",
       "text": {
-        "ru": "I like to stay active",
-        "kk": "I like to stay active",
+        "ru": "Мне нравится быть активным",
+        "kk": "Белсенді болған ұнайды",
         "en": "I like to stay active"
       }
     },
@@ -1046,8 +1046,8 @@
       "id": "mbti_q084",
       "type": "single",
       "text": {
-        "ru": "It is best to be totally objective when making a decision",
-        "kk": "It is best to be totally objective when making a decision",
+        "ru": "При принятии решения лучше быть полностью объективным",
+        "kk": "Шешім қабылдағанда толық объектив болған дұрыс",
         "en": "It is best to be totally objective when making a decision"
       }
     },
@@ -1055,8 +1055,8 @@
       "id": "mbti_q085",
       "type": "single",
       "text": {
-        "ru": "I have a rich fantasy life",
-        "kk": "I have a rich fantasy life",
+        "ru": "У меня богатая фантазия",
+        "kk": "Менің қиял әлемім бай",
         "en": "I have a rich fantasy life"
       }
     },
@@ -1064,8 +1064,8 @@
       "id": "mbti_q086",
       "type": "single",
       "text": {
-        "ru": "I have little to say",
-        "kk": "I have little to say",
+        "ru": "Мне мало что сказать",
+        "kk": "Айтарым аз",
         "en": "I have little to say"
       }
     },
@@ -1073,8 +1073,8 @@
       "id": "mbti_q087",
       "type": "single",
       "text": {
-        "ru": "I like to do things as they were done in the past",
-        "kk": "I like to do things as they were done in the past",
+        "ru": "Мне нравится делать вещи так, как делали раньше",
+        "kk": "Істерді бұрынғыдай істеген ұнайды",
         "en": "I like to do things as they were done in the past"
       }
     },
@@ -1082,8 +1082,8 @@
       "id": "mbti_q088",
       "type": "single",
       "text": {
-        "ru": "I avoid arguing, even when I disagree",
-        "kk": "I avoid arguing, even when I disagree",
+        "ru": "Я избегаю споров, даже когда не согласен",
+        "kk": "Келіспесем де, даудан қашамын",
         "en": "I avoid arguing, even when I disagree"
       }
     },
@@ -1091,8 +1091,8 @@
       "id": "mbti_q089",
       "type": "single",
       "text": {
-        "ru": "I have a lot of fun",
-        "kk": "I have a lot of fun",
+        "ru": "Я часто весело провожу время",
+        "kk": "Көңілді уақытты жиі өткіземін",
         "en": "I have a lot of fun"
       }
     },
@@ -1100,8 +1100,8 @@
       "id": "mbti_q090",
       "type": "single",
       "text": {
-        "ru": "I resist temptations",
-        "kk": "I resist temptations",
+        "ru": "Я сопротивляюсь соблазнам",
+        "kk": "Азғыруларға қарсы тұрамын",
         "en": "I resist temptations"
       }
     },
@@ -1109,8 +1109,8 @@
       "id": "mbti_q091",
       "type": "single",
       "text": {
-        "ru": "I am determined to achieve success in life",
-        "kk": "I am determined to achieve success in life",
+        "ru": "Я решительно настроен достичь успеха в жизни",
+        "kk": "Өмірде табысқа жетуге нық бекінгенмін",
         "en": "I am determined to achieve success in life"
       }
     },
@@ -1118,8 +1118,8 @@
       "id": "mbti_q092",
       "type": "single",
       "text": {
-        "ru": "I like to spend my free time alone",
-        "kk": "I like to spend my free time alone",
+        "ru": "Мне нравится проводить свободное время в одиночестве",
+        "kk": "Бос уақытымды жалғыз өткізген ұнайды",
         "en": "I like to spend my free time alone"
       }
     },
@@ -1127,8 +1127,8 @@
       "id": "mbti_q093",
       "type": "single",
       "text": {
-        "ru": "I believe people should be punished for their mistakes",
-        "kk": "I believe people should be punished for their mistakes",
+        "ru": "Я считаю, что люди должны быть наказаны за свои ошибки",
+        "kk": "Адамдар қателігі үшін жазалануы керек деп санаймын",
         "en": "I believe people should be punished for their mistakes"
       }
     },
@@ -1136,8 +1136,8 @@
       "id": "mbti_q094",
       "type": "single",
       "text": {
-        "ru": "I spend time seeking out new experiences",
-        "kk": "I spend time seeking out new experiences",
+        "ru": "Я трачу время на поиск новых впечатлений",
+        "kk": "Жаңа әсерлер іздеуге уақыт бөлемін",
         "en": "I spend time seeking out new experiences"
       }
     },
@@ -1145,8 +1145,8 @@
       "id": "mbti_q095",
       "type": "single",
       "text": {
-        "ru": "I am on the go",
-        "kk": "I am on the go",
+        "ru": "Я постоянно в движении",
+        "kk": "Мен үнемі қозғалыстамын",
         "en": "I am on the go"
       }
     },
@@ -1154,8 +1154,8 @@
       "id": "mbti_q096",
       "type": "single",
       "text": {
-        "ru": "I wish other people would be more logical",
-        "kk": "I wish other people would be more logical",
+        "ru": "Я хотел бы, чтобы другие люди были более логичными",
+        "kk": "Басқа адамдар логикалырақ болса екен деймін",
         "en": "I wish other people would be more logical"
       }
     },
@@ -1163,8 +1163,8 @@
       "id": "mbti_q097",
       "type": "single",
       "text": {
-        "ru": "I like to tidy up",
-        "kk": "I like to tidy up",
+        "ru": "Мне нравится наводить порядок",
+        "kk": "Тазалық пен тәртіп орнатқан ұнайды",
         "en": "I like to tidy up"
       }
     },
@@ -1172,8 +1172,8 @@
       "id": "mbti_q098",
       "type": "single",
       "text": {
-        "ru": "I enjoy imagining the future",
-        "kk": "I enjoy imagining the future",
+        "ru": "Мне нравится представлять будущее",
+        "kk": "Болашақты елестеткен ұнайды",
         "en": "I enjoy imagining the future"
       }
     },
@@ -1181,8 +1181,8 @@
       "id": "mbti_q099",
       "type": "single",
       "text": {
-        "ru": "I find it difficult to express my opinions",
-        "kk": "I find it difficult to express my opinions",
+        "ru": "Мне трудно выражать свое мнение",
+        "kk": "Өз пікірімді айту маған қиын",
         "en": "I find it difficult to express my opinions"
       }
     },
@@ -1190,8 +1190,8 @@
       "id": "mbti_q100",
       "type": "single",
       "text": {
-        "ru": "I try not to draw attention to myself",
-        "kk": "I try not to draw attention to myself",
+        "ru": "Я стараюсь не привлекать к себе внимание",
+        "kk": "Өзіме назар аудартпауға тырысамын",
         "en": "I try not to draw attention to myself"
       }
     },
@@ -1199,8 +1199,8 @@
       "id": "mbti_q101",
       "type": "single",
       "text": {
-        "ru": "I dislike being in competition with others",
-        "kk": "I dislike being in competition with others",
+        "ru": "Мне не нравится конкурировать с другими",
+        "kk": "Басқалармен бәсекелескенді ұнатпаймын",
         "en": "I dislike being in competition with others"
       }
     },
@@ -1208,8 +1208,8 @@
       "id": "mbti_q102",
       "type": "single",
       "text": {
-        "ru": "I question the wisdom of my elders",
-        "kk": "I question the wisdom of my elders",
+        "ru": "Я ставлю под сомнение мудрость старших",
+        "kk": "Үлкендердің даналығына күмән келтіремін",
         "en": "I question the wisdom of my elders"
       }
     },
@@ -1217,8 +1217,8 @@
       "id": "mbti_q103",
       "type": "single",
       "text": {
-        "ru": "I finish assignments before they are due",
-        "kk": "I finish assignments before they are due",
+        "ru": "Я выполняю задания до наступления срока",
+        "kk": "Тапсырмаларды мерзімінен бұрын аяқтаймын",
         "en": "I finish assignments before they are due"
       }
     },
@@ -1226,8 +1226,8 @@
       "id": "mbti_q104",
       "type": "single",
       "text": {
-        "ru": "I am concerned for the welfare of elderly people",
-        "kk": "I am concerned for the welfare of elderly people",
+        "ru": "Меня заботит благополучие пожилых людей",
+        "kk": "Қарт адамдардың амандығы мені алаңдатады",
         "en": "I am concerned for the welfare of elderly people"
       }
     },
@@ -1235,8 +1235,8 @@
       "id": "mbti_q105",
       "type": "single",
       "text": {
-        "ru": "I follow my impulses",
-        "kk": "I follow my impulses",
+        "ru": "Я следую своим импульсам",
+        "kk": "Ішкі импульстарыма еріп кетемін",
         "en": "I follow my impulses"
       }
     },
@@ -1244,8 +1244,8 @@
       "id": "mbti_q106",
       "type": "single",
       "text": {
-        "ru": "I feel very happy",
-        "kk": "I feel very happy",
+        "ru": "Я чувствую себя очень счастливым",
+        "kk": "Өзімді өте бақытты сезінемін",
         "en": "I feel very happy"
       }
     },
@@ -1253,8 +1253,8 @@
       "id": "mbti_q107",
       "type": "single",
       "text": {
-        "ru": "I need support from other people",
-        "kk": "I need support from other people",
+        "ru": "Мне нужна поддержка других людей",
+        "kk": "Маған басқа адамдардың қолдауы керек",
         "en": "I need support from other people"
       }
     },
@@ -1262,8 +1262,8 @@
       "id": "mbti_q108",
       "type": "single",
       "text": {
-        "ru": "I enjoy going to museums",
-        "kk": "I enjoy going to museums",
+        "ru": "Мне нравится ходить в музеи",
+        "kk": "Мұражайға барған ұнайды",
         "en": "I enjoy going to museums"
       }
     },
@@ -1271,8 +1271,8 @@
       "id": "mbti_q109",
       "type": "single",
       "text": {
-        "ru": "I avoid noisy crowds",
-        "kk": "I avoid noisy crowds",
+        "ru": "Я избегаю шумных толп",
+        "kk": "Шулы көпшіліктен қашамын",
         "en": "I avoid noisy crowds"
       }
     },
@@ -1280,8 +1280,8 @@
       "id": "mbti_q110",
       "type": "single",
       "text": {
-        "ru": "I forgive others’ mistakes, even when they harm me personally",
-        "kk": "I forgive others’ mistakes, even when they harm me personally",
+        "ru": "Я прощаю ошибки других, даже когда они лично мне вредят",
+        "kk": "Басқалардың қателігін, тіпті маған зиян келтірсе де, кешіремін",
         "en": "I forgive others’ mistakes, even when they harm me personally"
       }
     },
@@ -1289,8 +1289,8 @@
       "id": "mbti_q111",
       "type": "single",
       "text": {
-        "ru": "I like to do things differently, even if I am not sure it will work",
-        "kk": "I like to do things differently, even if I am not sure it will work",
+        "ru": "Мне нравится делать вещи по-другому, даже если не уверен, что это сработает",
+        "kk": "Істің нәтиже беретініне сенімді болмасам да, басқаша істеген ұнайды",
         "en": "I like to do things differently, even if I am not sure it will work"
       }
     },
@@ -1298,8 +1298,8 @@
       "id": "mbti_q112",
       "type": "single",
       "text": {
-        "ru": "I am not bothered by disorder",
-        "kk": "I am not bothered by disorder",
+        "ru": "Беспорядок меня не беспокоит",
+        "kk": "Ретсіздік мені мазаламайды",
         "en": "I am not bothered by disorder"
       }
     },
@@ -1307,8 +1307,8 @@
       "id": "mbti_q113",
       "type": "single",
       "text": {
-        "ru": "I do not like to sit still for long",
-        "kk": "I do not like to sit still for long",
+        "ru": "Мне не нравится долго сидеть без движения",
+        "kk": "Ұзақ уақыт қимылсыз отырғанды ұнатпаймын",
         "en": "I do not like to sit still for long"
       }
     },
@@ -1316,8 +1316,8 @@
       "id": "mbti_q114",
       "type": "single",
       "text": {
-        "ru": "I make important decisions based on my gut feelings",
-        "kk": "I make important decisions based on my gut feelings",
+        "ru": "Важные решения я принимаю, опираясь на интуицию",
+        "kk": "Маңызды шешімдерді ішкі түйсігіме сүйеніп қабылдаймын",
         "en": "I make important decisions based on my gut feelings"
       }
     },
@@ -1325,8 +1325,8 @@
       "id": "mbti_q115",
       "type": "single",
       "text": {
-        "ru": "I enjoy having a daily routine",
-        "kk": "I enjoy having a daily routine",
+        "ru": "Мне нравится иметь распорядок дня",
+        "kk": "Күн тәртібінің болғаны ұнайды",
         "en": "I enjoy having a daily routine"
       }
     },
@@ -1334,8 +1334,8 @@
       "id": "mbti_q116",
       "type": "single",
       "text": {
-        "ru": "I hold back my opinions",
-        "kk": "I hold back my opinions",
+        "ru": "Я сдерживаю свое мнение",
+        "kk": "Өз пікірімді ішімде ұстаймын",
         "en": "I hold back my opinions"
       }
     },
@@ -1343,8 +1343,8 @@
       "id": "mbti_q117",
       "type": "single",
       "text": {
-        "ru": "I feel uncomfortable when I disagree with someone",
-        "kk": "I feel uncomfortable when I disagree with someone",
+        "ru": "Мне некомфортно, когда я с кем-то не согласен",
+        "kk": "Біреумен келіспесем, өзімді жайсыз сезінемін",
         "en": "I feel uncomfortable when I disagree with someone"
       }
     },
@@ -1352,8 +1352,8 @@
       "id": "mbti_q118",
       "type": "single",
       "text": {
-        "ru": "I make an effort to be popular",
-        "kk": "I make an effort to be popular",
+        "ru": "Я стараюсь быть популярным",
+        "kk": "Танымал болуға күш саламын",
         "en": "I make an effort to be popular"
       }
     },
@@ -1361,8 +1361,8 @@
       "id": "mbti_q119",
       "type": "single",
       "text": {
-        "ru": "I am easily distracted",
-        "kk": "I am easily distracted",
+        "ru": "Я легко отвлекаюсь",
+        "kk": "Оңай алаңдаймын",
         "en": "I am easily distracted"
       }
     },
@@ -1370,8 +1370,8 @@
       "id": "mbti_q120",
       "type": "single",
       "text": {
-        "ru": "I have a zest for life",
-        "kk": "I have a zest for life",
+        "ru": "У меня есть вкус к жизни",
+        "kk": "Өмірге деген құштарлығым бар",
         "en": "I have a zest for life"
       }
     },
@@ -1379,8 +1379,8 @@
       "id": "mbti_q121",
       "type": "single",
       "text": {
-        "ru": "I give to people who are less fortunate than I",
-        "kk": "I give to people who are less fortunate than I",
+        "ru": "Я помогаю людям, которым повезло меньше, чем мне",
+        "kk": "Маған қарағанда жағдайы төмен адамдарға көмектесемін",
         "en": "I give to people who are less fortunate than I"
       }
     },
@@ -1388,8 +1388,8 @@
       "id": "mbti_q122",
       "type": "single",
       "text": {
-        "ru": "I wonder why I am the way I am",
-        "kk": "I wonder why I am the way I am",
+        "ru": "Я задумываюсь, почему я именно такой",
+        "kk": "Неліктен дәл осындай екенімді ойлаймын",
         "en": "I wonder why I am the way I am"
       }
     },
@@ -1397,8 +1397,8 @@
       "id": "mbti_q123",
       "type": "single",
       "text": {
-        "ru": "It’s important to me that other people like me",
-        "kk": "It’s important to me that other people like me",
+        "ru": "Мне важно, чтобы я нравился другим людям",
+        "kk": "Басқа адамдардың мені ұнатқаны мен үшін маңызды",
         "en": "It’s important to me that other people like me"
       }
     },
@@ -1406,8 +1406,8 @@
       "id": "mbti_q124",
       "type": "single",
       "text": {
-        "ru": "I appreciate the beauty of nature",
-        "kk": "I appreciate the beauty of nature",
+        "ru": "Я ценю красоту природы",
+        "kk": "Табиғаттың сұлулығын бағалаймын",
         "en": "I appreciate the beauty of nature"
       }
     },
@@ -1415,8 +1415,8 @@
       "id": "mbti_q125",
       "type": "single",
       "text": {
-        "ru": "I prefer quiet surroundings",
-        "kk": "I prefer quiet surroundings",
+        "ru": "Я предпочитаю тихую обстановку",
+        "kk": "Тыныш ортаны қалаймын",
         "en": "I prefer quiet surroundings"
       }
     },
@@ -1424,8 +1424,8 @@
       "id": "mbti_q126",
       "type": "single",
       "text": {
-        "ru": "I find it difficult to get down to work",
-        "kk": "I find it difficult to get down to work",
+        "ru": "Мне трудно взяться за работу",
+        "kk": "Жұмысқа кірісу маған қиын",
         "en": "I find it difficult to get down to work"
       }
     },
@@ -1433,8 +1433,8 @@
       "id": "mbti_q127",
       "type": "single",
       "text": {
-        "ru": "I can't stand when someone doesn't like me",
-        "kk": "I can't stand when someone doesn't like me",
+        "ru": "Я не выношу, когда кому-то не нравлюсь",
+        "kk": "Біреуге ұнамай қалсам, соны көтере алмаймын",
         "en": "I can't stand when someone doesn't like me"
       }
     },
@@ -1442,8 +1442,8 @@
       "id": "mbti_q128",
       "type": "single",
       "text": {
-        "ru": "I like poetry",
-        "kk": "I like poetry",
+        "ru": "Мне нравится поэзия",
+        "kk": "Поэзия ұнайды",
         "en": "I like poetry"
       }
     },
@@ -1451,8 +1451,8 @@
       "id": "mbti_q129",
       "type": "single",
       "text": {
-        "ru": "Emotional people make me uncomfortable",
-        "kk": "Emotional people make me uncomfortable",
+        "ru": "Эмоциональные люди вызывают у меня дискомфорт",
+        "kk": "Эмоциясы басым адамдар мені жайсыздандырады",
         "en": "Emotional people make me uncomfortable"
       }
     }

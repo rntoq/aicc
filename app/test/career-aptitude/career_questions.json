@@ -5,7 +5,7 @@
     "part": 1,
     "text": {
       "ru": "Проверить крышу на наличие протечек",
-      "kk": "Inspect a roof for leaks",
+      "kk": "Шатырдың су ағуын тексеру",
       "en": "Inspect a roof for leaks"
     },
     "category": "R",
@@ -19,7 +19,7 @@
     "part": 1,
     "text": {
       "ru": "Использовать точные станки для изготовления металлических деталей",
-      "kk": "Use precision machines to build custom metal parts",
+      "kk": "Металл бөлшектерін жасау үшін дәлме-дәл станоктарды қолдану",
       "en": "Use precision machines to build custom metal parts"
     },
     "category": "R",
@@ -33,7 +33,7 @@
     "part": 1,
     "text": {
       "ru": "Анализировать структуру молекул",
-      "kk": "Analyze the structure of molecules",
+      "kk": "Молекулалардың құрылымын талдау",
       "en": "Analyze the structure of molecules"
     },
     "category": "I",
@@ -47,7 +47,7 @@
     "part": 1,
     "text": {
       "ru": "Проводить научные эксперименты",
-      "kk": "Do scientific experiments",
+      "kk": "Ғылыми тәжірибелер жүргізу",
       "en": "Do scientific experiments"
     },
     "category": "I",
@@ -61,7 +61,7 @@
     "part": 1,
     "text": {
       "ru": "Разработать обложку журнала",
-      "kk": "Design a magazine cover",
+      "kk": "Журнал мұқабасының дизайнын әзірлеу",
       "en": "Design a magazine cover"
     },
     "category": "A",
@@ -75,7 +75,7 @@
     "part": 1,
     "text": {
       "ru": "Написать портрет",
-      "kk": "Paint a portrait",
+      "kk": "Портрет салу",
       "en": "Paint a portrait"
     },
     "category": "A",
@@ -89,7 +89,7 @@
     "part": 1,
     "text": {
       "ru": "Обучать социальным навыкам детей с ограниченными возможностями",
-      "kk": "Teach social skills to disabled children",
+      "kk": "Мүмкіндігі шектеулі балаларға әлеуметтік дағдыларды үйрету",
       "en": "Teach social skills to disabled children"
     },
     "category": "S",
@@ -103,7 +103,7 @@
     "part": 1,
     "text": {
       "ru": "Обучать взрослых чтению",
-      "kk": "Teach adults to read",
+      "kk": "Ересектерге оқуды үйрету",
       "en": "Teach adults to read"
     },
     "category": "S",
@@ -117,7 +117,7 @@
     "part": 1,
     "text": {
       "ru": "Организовать бизнес-конференцию",
-      "kk": "Coordinate a business conference",
+      "kk": "Бизнес-конференция ұйымдастыру",
       "en": "Coordinate a business conference"
     },
     "category": "E",
@@ -131,7 +131,7 @@
     "part": 1,
     "text": {
       "ru": "Разработать маркетинговую стратегию для новой компании",
-      "kk": "Plan a marketing strategy for a new company",
+      "kk": "Жаңа компания үшін маркетинг стратегиясын жоспарлау",
       "en": "Plan a marketing strategy for a new company"
     },
     "category": "E",
@@ -145,7 +145,7 @@
     "part": 1,
     "text": {
       "ru": "Отслеживать ежемесячные расходы компании",
-      "kk": "Track monthly expenses for a company",
+      "kk": "Компанияның ай сайынғы шығындарын бақылау",
       "en": "Track monthly expenses for a company"
     },
     "category": "C",
@@ -159,7 +159,7 @@
     "part": 1,
     "text": {
       "ru": "Проверять финансовую отчётность на точность",
-      "kk": "Review financial records for accuracy",
+      "kk": "Қаржылық есептіліктің дәлдігін тексеру",
       "en": "Review financial records for accuracy"
     },
     "category": "C",
@@ -173,7 +173,7 @@
     "part": 1,
     "text": {
       "ru": "Укладывать паркетный пол",
-      "kk": "Install a hardwood floor",
+      "kk": "Паркет еден төсеу",
       "en": "Install a hardwood floor"
     },
     "category": "R",
@@ -187,7 +187,7 @@
     "part": 1,
     "text": {
       "ru": "Ремонтировать систему кондиционирования воздуха",
-      "kk": "Repair an air conditioning system",
+      "kk": "Кондиционер жүйесін жөндеу",
       "en": "Repair an air conditioning system"
     },
     "category": "R",
@@ -201,7 +201,7 @@
     "part": 1,
     "text": {
       "ru": "Исследовать свойства ядерной энергии",
-      "kk": "Research the properties of nuclear energy",
+      "kk": "Ядролық энергия қасиеттерін зерттеу",
       "en": "Research the properties of nuclear energy"
     },
     "category": "I",
@@ -215,7 +215,7 @@
     "part": 1,
     "text": {
       "ru": "Исследовать новое лекарство",
-      "kk": "Research a new medicine",
+      "kk": "Жаңа дәріні зерттеу",
       "en": "Research a new medicine"
     },
     "category": "I",
@@ -229,7 +229,7 @@
     "part": 1,
     "text": {
       "ru": "Разработать дизайн поздравительной открытки",
-      "kk": "Design a greeting card",
+      "kk": "Құттықтау ашықхатының дизайнын әзірлеу",
       "en": "Design a greeting card"
     },
     "category": "A",
@@ -243,7 +243,7 @@
     "part": 1,
     "text": {
       "ru": "Иллюстрировать детскую книгу",
-      "kk": "Illustrate a children's book",
+      "kk": "Балалар кітабына иллюстрация жасау",
       "en": "Illustrate a children's book"
     },
     "category": "A",
@@ -257,7 +257,7 @@
     "part": 1,
     "text": {
       "ru": "Помогать человеку с ограниченными возможностями в повседневных делах",
-      "kk": "Help a disabled person with their daily routine",
+      "kk": "Мүмкіндігі шектеулі адамға күнделікті істерде көмектесу",
       "en": "Help a disabled person with their daily routine"
     },
     "category": "S",
@@ -271,7 +271,7 @@
     "part": 1,
     "text": {
       "ru": "Заниматься репетиторством с ребёнком с трудностями в обучении",
-      "kk": "Tutor a child with a learning disability",
+      "kk": "Оқуында қиындығы бар балаға репетитор болу",
       "en": "Tutor a child with a learning disability"
     },
     "category": "S",
@@ -285,7 +285,7 @@
     "part": 1,
     "text": {
       "ru": "Вести переговоры о деловом партнёрстве",
-      "kk": "Negotiate business partnerships",
+      "kk": "Іскерлік серіктестік туралы келіссөз жүргізу",
       "en": "Negotiate business partnerships"
     },
     "category": "E",
@@ -299,7 +299,7 @@
     "part": 1,
     "text": {
       "ru": "Убеждать других в своей точке зрения",
-      "kk": "Persuade others to my point of view",
+      "kk": "Өз көзқарасыма өзгелерді сендіру",
       "en": "Persuade others to my point of view"
     },
     "category": "E",
@@ -313,7 +313,7 @@
     "part": 1,
     "text": {
       "ru": "Вести платёжные ведомости",
-      "kk": "Keep payroll records",
+      "kk": "Жалақы бойынша есеп жүргізу",
       "en": "Keep payroll records"
     },
     "category": "C",
@@ -327,7 +327,7 @@
     "part": 1,
     "text": {
       "ru": "Использовать таблицы для организации финансовых данных",
-      "kk": "Use spreadsheets to organize financial data",
+      "kk": "Қаржылық деректерді ұйымдастыру үшін кестелерді пайдалану",
       "en": "Use spreadsheets to organize financial data"
     },
     "category": "C",
@@ -341,7 +341,7 @@
     "part": 1,
     "text": {
       "ru": "Устанавливать охранную систему в здании",
-      "kk": "Install an alarm system in a building",
+      "kk": "Ғимаратқа дабыл жүйесін орнату",
       "en": "Install an alarm system in a building"
     },
     "category": "R",
@@ -355,7 +355,7 @@
     "part": 1,
     "text": {
       "ru": "Устанавливать кухонные шкафы",
-      "kk": "Install kitchen cabinets",
+      "kk": "Ас үй шкафтары орнату",
       "en": "Install kitchen cabinets"
     },
     "category": "R",
@@ -369,7 +369,7 @@
     "part": 1,
     "text": {
       "ru": "Рассматривать клетки под микроскопом",
-      "kk": "Look at cells through a microscope",
+      "kk": "Жасушаларды микроскоп арқылы қарау",
       "en": "Look at cells through a microscope"
     },
     "category": "I",
@@ -383,7 +383,7 @@
     "part": 1,
     "text": {
       "ru": "Работать в химической лаборатории",
-      "kk": "Work in a chemistry lab",
+      "kk": "Химия зертханасында жұмыс істеу",
       "en": "Work in a chemistry lab"
     },
     "category": "I",
@@ -397,7 +397,7 @@
     "part": 1,
     "text": {
       "ru": "Написать стихотворение",
-      "kk": "Write a poem",
+      "kk": "Өлең жазу",
       "en": "Write a poem"
     },
     "category": "A",
@@ -411,7 +411,7 @@
     "part": 1,
     "text": {
       "ru": "Написать сценарий для телешоу",
-      "kk": "Write a script for a television show",
+      "kk": "Телешоуға сценарий жазу",
       "en": "Write a script for a television show"
     },
     "category": "A",
@@ -425,7 +425,7 @@
     "part": 1,
     "text": {
       "ru": "Консультировать человека, выздоравливающего от наркотической зависимости",
-      "kk": "Counsel a person recovering from drug addiction",
+      "kk": "Есірткіге тәуелділіктен айығып жатқан адамға кеңес беру",
       "en": "Counsel a person recovering from drug addiction"
     },
     "category": "S",
@@ -439,7 +439,7 @@
     "part": 1,
     "text": {
       "ru": "Консультировать человека с депрессией",
-      "kk": "Counsel a person with depression",
+      "kk": "Депрессиясы бар адамға кеңес беру",
       "en": "Counsel a person with depression"
     },
     "category": "S",
@@ -453,7 +453,7 @@
     "part": 1,
     "text": {
       "ru": "Нанимать и увольнять сотрудников",
-      "kk": "Hire and fire employees",
+      "kk": "Қызметкерлерді жұмысқа қабылдау және жұмыстан шығару",
       "en": "Hire and fire employees"
     },
     "category": "E",
@@ -467,7 +467,7 @@
     "part": 1,
     "text": {
       "ru": "Заключить важную деловую сделку",
-      "kk": "Close an important business deal",
+      "kk": "Маңызды іскерлік келісімді аяқтау",
       "en": "Close an important business deal"
     },
     "category": "E",
@@ -481,7 +481,7 @@
     "part": 1,
     "text": {
       "ru": "Проверять налоговые декларации на ошибки",
-      "kk": "Check tax returns for errors",
+      "kk": "Салық декларацияларындағы қателерді тексеру",
       "en": "Check tax returns for errors"
     },
     "category": "C",
@@ -495,7 +495,7 @@
     "part": 1,
     "text": {
       "ru": "Рассчитывать стоимость страхового требования",
-      "kk": "Calculate the cost of an insurance claim",
+      "kk": "Сақтандыру төлемі құнын есептеу",
       "en": "Calculate the cost of an insurance claim"
     },
     "category": "C",
@@ -509,7 +509,7 @@
     "part": 1,
     "text": {
       "ru": "Строить каменную стену",
-      "kk": "Build a stone wall",
+      "kk": "Тас қабырға тұрғызу",
       "en": "Build a stone wall"
     },
     "category": "R",
@@ -523,7 +523,7 @@
     "part": 1,
     "text": {
       "ru": "Управлять бульдозером",
-      "kk": "Operate a bulldozer",
+      "kk": "Бульдозерді басқару",
       "en": "Operate a bulldozer"
     },
     "category": "R",
@@ -537,7 +537,7 @@
     "part": 1,
     "text": {
       "ru": "Анализировать образцы почвы на загрязнение",
-      "kk": "Analyze soil samples for pollution",
+      "kk": "Топырақ үлгілерін ластану бойынша талдау",
       "en": "Analyze soil samples for pollution"
     },
     "category": "I",
@@ -551,7 +551,7 @@
     "part": 1,
     "text": {
       "ru": "Изучать разломы для предсказания землетрясений",
-      "kk": "Study a fault line to predict earthquakes",
+      "kk": "Жер сілкінісін болжау үшін жарылым сызықтарын зерттеу",
       "en": "Study a fault line to predict earthquakes"
     },
     "category": "I",
@@ -565,7 +565,7 @@
     "part": 1,
     "text": {
       "ru": "Разработать дизайн рекламного щита",
-      "kk": "Design a billboard advertisement",
+      "kk": "Билборд жарнамасының дизайнын әзірлеу",
       "en": "Design a billboard advertisement"
     },
     "category": "A",
@@ -579,7 +579,7 @@
     "part": 1,
     "text": {
       "ru": "Монтировать фильм",
-      "kk": "Edit a movie",
+      "kk": "Фильмді монтаждау",
       "en": "Edit a movie"
     },
     "category": "A",
@@ -593,7 +593,7 @@
     "part": 1,
     "text": {
       "ru": "Планировать образовательные игры для дошкольников",
-      "kk": "Plan educational games for preschool children",
+      "kk": "Мектепке дейінгі балаларға арналған білім беру ойындарын жоспарлау",
       "en": "Plan educational games for preschool children"
     },
     "category": "S",
@@ -607,7 +607,7 @@
     "part": 1,
     "text": {
       "ru": "Планировать мероприятия для пожилых людей",
-      "kk": "Plan activities for elderly people",
+      "kk": "Қарт адамдарға арналған іс-шараларды жоспарлау",
       "en": "Plan activities for elderly people"
     },
     "category": "S",
@@ -621,7 +621,7 @@
     "part": 1,
     "text": {
       "ru": "Руководить командой",
-      "kk": "Lead a team",
+      "kk": "Команданы басқару",
       "en": "Lead a team"
     },
     "category": "E",
@@ -635,7 +635,7 @@
     "part": 1,
     "text": {
       "ru": "Открыть новый бизнес",
-      "kk": "Start a new business",
+      "kk": "Жаңа бизнес ашу",
       "en": "Start a new business"
     },
     "category": "E",
@@ -649,7 +649,7 @@
     "part": 1,
     "text": {
       "ru": "Рассчитывать стоимость строительного проекта",
-      "kk": "Calculate the cost of a construction project",
+      "kk": "Құрылыс жобасының құнын есептеу",
       "en": "Calculate the cost of a construction project"
     },
     "category": "C",
@@ -663,7 +663,7 @@
     "part": 1,
     "text": {
       "ru": "Помогать клиентам заполнять заявки на кредит",
-      "kk": "Help customers fill out loan applications",
+      "kk": "Клиенттерге несие өтінімдерін толтыруға көмектесу",
       "en": "Help customers fill out loan applications"
     },
     "category": "C",
@@ -677,7 +677,7 @@
     "part": 1,
     "text": {
       "ru": "Разбирать автомобильный двигатель",
-      "kk": "Take apart a car engine",
+      "kk": "Көлік қозғалтқышын бөлшектеу",
       "en": "Take apart a car engine"
     },
     "category": "R",
@@ -691,7 +691,7 @@
     "part": 1,
     "text": {
       "ru": "Проводить лабораторные анализы для диагностики заболеваний",
-      "kk": "Do laboratory tests to diagnose diseases",
+      "kk": "Ауруларды анықтау үшін зертханалық талдаулар жасау",
       "en": "Do laboratory tests to diagnose diseases"
     },
     "category": "I",
@@ -705,7 +705,7 @@
     "part": 1,
     "text": {
       "ru": "Сочинять песню",
-      "kk": "Compose a song",
+      "kk": "Ән шығару",
       "en": "Compose a song"
     },
     "category": "A",
@@ -719,7 +719,7 @@
     "part": 1,
     "text": {
       "ru": "Помочь нуждающейся семье найти подходящее жильё",
-      "kk": "Help a needy family find appropriate housing",
+      "kk": "Мұқтаж отбасыға қолайлы баспана табуға көмектесу",
       "en": "Help a needy family find appropriate housing"
     },
     "category": "S",
@@ -733,7 +733,7 @@
     "part": 1,
     "text": {
       "ru": "Выступить с речью перед большой аудиторией",
-      "kk": "Give a speech in front of many people",
+      "kk": "Көпшілік алдында сөз сөйлеу",
       "en": "Give a speech in front of many people"
     },
     "category": "E",
@@ -747,7 +747,7 @@
     "part": 1,
     "text": {
       "ru": "Разрабатывать бюджет для городской администрации",
-      "kk": "Develop a budget for a city government",
+      "kk": "Қала әкімшілігі үшін бюджет әзірлеу",
       "en": "Develop a budget for a city government"
     },
     "category": "C",
@@ -761,7 +761,7 @@
     "part": 2,
     "text": {
       "ru": "Я отношусь ко всем с добротой и сочувствием.",
-      "kk": "I treat everyone with kindness and sympathy",
+      "kk": "Мен барлығына мейіріммен және жанашырлықпен қараймын.",
       "en": "I treat everyone with kindness and sympathy"
     },
     "dimension": "A",
@@ -776,7 +776,7 @@
     "part": 2,
     "text": {
       "ru": "Я всегда готов.",
-      "kk": "I am always prepared",
+      "kk": "Мен әрқашан дайынмын.",
       "en": "I am always prepared"
     },
     "dimension": "C",
@@ -791,7 +791,7 @@
     "part": 2,
     "text": {
       "ru": "Я не очень разговорчив.",
-      "kk": "I don't talk a lot",
+      "kk": "Мен көп сөйлей бермеймін.",
       "en": "I don't talk a lot"
     },
     "dimension": "E",
@@ -806,7 +806,7 @@
     "part": 2,
     "text": {
       "ru": "Меня часто беспокоят негативные мысли.",
-      "kk": "I am often troubled by negative thoughts",
+      "kk": "Мені жиі жағымсыз ойлар мазалайды.",
       "en": "I am often troubled by negative thoughts"
     },
     "dimension": "N",
@@ -821,7 +821,7 @@
     "part": 2,
     "text": {
       "ru": "Я верю в важность искусства.",
-      "kk": "I believe in the importance of art",
+      "kk": "Өнердің маңыздылығына сенемін.",
       "en": "I believe in the importance of art"
     },
     "dimension": "O",
@@ -836,7 +836,7 @@
     "part": 2,
     "text": {
       "ru": "У меня есть доброе слово для каждого.",
-      "kk": "I have a kind word for everyone",
+      "kk": "Әркімге айтар жақсы сөзім бар.",
       "en": "I have a kind word for everyone"
     },
     "dimension": "A",
@@ -851,7 +851,7 @@
     "part": 2,
     "text": {
       "ru": "Я составляю планы и придерживаюсь их.",
-      "kk": "I make plans and stick to them",
+      "kk": "Мен жоспар құрып, соны ұстанамын.",
       "en": "I make plans and stick to them"
     },
     "dimension": "C",
@@ -866,7 +866,7 @@
     "part": 2,
     "text": {
       "ru": "Я держусь в тени.",
-      "kk": "I stay in the background",
+      "kk": "Мен көбіне көзге түспеймін.",
       "en": "I stay in the background"
     },
     "dimension": "E",
@@ -881,7 +881,7 @@
     "part": 2,
     "text": {
       "ru": "Я часто чувствую уныние.",
-      "kk": "I often feel blue",
+      "kk": "Мен жиі көңілсіз боламын.",
       "en": "I often feel blue"
     },
     "dimension": "N",
@@ -896,7 +896,7 @@
     "part": 2,
     "text": {
       "ru": "У меня яркое воображение.",
-      "kk": "I have a vivid imagination",
+      "kk": "Менің қиялым бай.",
       "en": "I have a vivid imagination"
     },
     "dimension": "O",
@@ -911,7 +911,7 @@
     "part": 2,
     "text": {
       "ru": "Я критикую других людей.",
-      "kk": "I criticize other people",
+      "kk": "Мен басқа адамдарды сынаймын.",
       "en": "I criticize other people"
     },
     "dimension": "A",
@@ -926,7 +926,7 @@
     "part": 2,
     "text": {
       "ru": "Я выполняю домашние дела сразу.",
-      "kk": "I get chores done right away",
+      "kk": "Мен үй шаруасын бірден орындаймын.",
       "en": "I get chores done right away"
     },
     "dimension": "C",
@@ -941,7 +941,7 @@
     "part": 2,
     "text": {
       "ru": "Я душа компании.",
-      "kk": "I am the life of the party",
+      "kk": "Мен көпшіліктің ортасында жүремін.",
       "en": "I am the life of the party"
     },
     "dimension": "E",
@@ -956,7 +956,7 @@
     "part": 2,
     "text": {
       "ru": "Я часто беспокоюсь, что недостаточно хорош.",
-      "kk": "I often worry that I am not good enough",
+      "kk": "Мен жиі өзімді жеткілікті жақсы емеспін деп уайымдаймын.",
       "en": "I often worry that I am not good enough"
     },
     "dimension": "N",
@@ -971,7 +971,7 @@
     "part": 2,
     "text": {
       "ru": "Мне не интересны абстрактные идеи.",
-      "kk": "I am not interested in abstract ideas",
+      "kk": "Маған абстрактілі идеялар қызық емес.",
       "en": "I am not interested in abstract ideas"
     },
     "dimension": "O",
@@ -986,7 +986,7 @@
     "part": 2,
     "text": {
       "ru": "Я прерываю свои дела, чтобы помочь другим.",
-      "kk": "I stop what I am doing to help other people",
+      "kk": "Мен басқаларға көмектесу үшін өз ісімді тоқтатамын.",
       "en": "I stop what I am doing to help other people"
     },
     "dimension": "A",
@@ -1001,7 +1001,7 @@
     "part": 2,
     "text": {
       "ru": "Я всегда хорошо использую своё время.",
-      "kk": "I always make good use of my time",
+      "kk": "Мен уақытымды әрқашан тиімді пайдаланамын.",
       "en": "I always make good use of my time"
     },
     "dimension": "C",
@@ -1016,7 +1016,7 @@
     "part": 2,
     "text": {
       "ru": "Я умею справляться с социальными ситуациями.",
-      "kk": "I am skilled in handling social situations",
+      "kk": "Мен әлеуметтік жағдайларда өзімді жақсы ұстай аламын.",
       "en": "I am skilled in handling social situations"
     },
     "dimension": "E",
@@ -1031,7 +1031,7 @@
     "part": 2,
     "text": {
       "ru": "Я часто тревожусь о том, что может пойти не так.",
-      "kk": "I often feel anxious about what could go wrong",
+      "kk": "Не дұрыс болмай қалуы мүмкін деп жиі алаңдаймын.",
       "en": "I often feel anxious about what could go wrong"
     },
     "dimension": "N",
@@ -1046,7 +1046,7 @@
     "part": 2,
     "text": {
       "ru": "Меня интересует смысл вещей.",
-      "kk": "I am interested in the meaning of things",
+      "kk": "Маған заттардың мәні қызық.",
       "en": "I am interested in the meaning of things"
     },
     "dimension": "O",

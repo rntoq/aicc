@@ -30,28 +30,35 @@ const UniversitySpecialitiesPage = () => {
   const params = useParams();
   const idParam = typeof params.id === "string" ? params.id : "";
   const id = Number.parseInt(idParam, 10);
+  const universities = useMemo(
+    () => UNIVERSITIES_JSON as Array<PublicUniversity & { slug?: string }>,
+    []
+  );
+  const institutionSlug = useMemo(() => {
+    const current = universities.find((u) => u.id === id);
+    return current?.slug ?? null;
+  }, [universities, id]);
 
   useInstitutions();
   useQuery({
     queryKey: ["institutions", "detail", idParam],
     queryFn: async () => {
-      const { body, error } = await institutionServices.getInstitution("uni-302");
+      const { body, error } = await institutionServices.getInstitution(institutionSlug as string);
       if (error) throw error;
       return body;
     },
-    enabled: !!idParam,
+    enabled: !!idParam && !!institutionSlug,
   });
   useQuery({
     queryKey: ["institutions", "programs", idParam],
     queryFn: async () => {
-      const { body, error } = await institutionServices.listInstitutionPrograms("uni-302");
+      const { body, error } = await institutionServices.listInstitutionPrograms(institutionSlug as string);
       if (error) throw error;
       return body;
     },
-    enabled: !!idParam,
+    enabled: !!idParam && !!institutionSlug,
   });
 
-  const universities = useMemo(() => UNIVERSITIES_JSON as PublicUniversity[], []);
   const university = useMemo(
     () => universities.find((u) => u.id === id) ?? null,
     [universities, id]

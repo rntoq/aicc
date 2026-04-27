@@ -3,8 +3,8 @@
     "id": "test_009",
     "code": "emotional-intelligence-eq",
     "title": {
-      "ru": "Emotional Intelligence Assessment",
-      "kk": "Emotional Intelligence Assessment",
+      "ru": "Оценка эмоционального интеллекта",
+      "kk": "Эмоционалдық интеллектті бағалау",
       "en": "Emotional Intelligence Assessment"
     },
     "version": 1
@@ -16,28 +16,28 @@
     "max": 5,
     "labels": {
       "1": {
-        "ru": "Inaccurate",
-        "kk": "Inaccurate",
+        "ru": "Не похоже на меня",
+        "kk": "Маған ұқсамайды",
         "en": "Inaccurate"
       },
       "2": {
-        "ru": "Mostly Inaccurate",
-        "kk": "Mostly Inaccurate",
+        "ru": "Скорее не похоже на меня",
+        "kk": "Көбіне маған ұқсамайды",
         "en": "Mostly Inaccurate"
       },
       "3": {
-        "ru": "Neutral",
-        "kk": "Neutral",
+        "ru": "Нейтрально",
+        "kk": "Бейтарап",
         "en": "Neutral"
       },
       "4": {
-        "ru": "Mostly Accurate",
-        "kk": "Mostly Accurate",
+        "ru": "Скорее похоже на меня",
+        "kk": "Көбіне маған ұқсайды",
         "en": "Mostly Accurate"
       },
       "5": {
-        "ru": "Accurate",
-        "kk": "Accurate",
+        "ru": "Похоже на меня",
+        "kk": "Маған ұқсайды",
         "en": "Accurate"
       }
     }
@@ -46,8 +46,8 @@
     {
       "id": 1,
       "text": {
-        "ru": "I am very good at identifying the emotions I am feeling",
-        "kk": "I am very good at identifying the emotions I am feeling",
+        "ru": "Я очень хорошо определяю, какие эмоции испытываю",
+        "kk": "Мен қандай эмоция сезініп тұрғанымды өте жақсы анықтаймын",
         "en": "I am very good at identifying the emotions I am feeling"
       },
       "dimension": null,
@@ -56,8 +56,8 @@
     {
       "id": 2,
       "text": {
-        "ru": "I sometimes find it hard to figure out how people around me are feeling.",
-        "kk": "I sometimes find it hard to figure out how people around me are feeling.",
+        "ru": "Иногда мне трудно понять, что чувствуют люди вокруг меня",
+        "kk": "Кейде айналамдағы адамдардың не сезінетінін түсіну маған қиын",
         "en": "I sometimes find it hard to figure out how people around me are feeling."
       },
       "dimension": null,
@@ -66,8 +66,8 @@
     {
       "id": 3,
       "text": {
-        "ru": "I have control over my emotions.",
-        "kk": "I have control over my emotions.",
+        "ru": "Я контролирую свои эмоции",
+        "kk": "Мен эмоцияларымды бақылаймын",
         "en": "I have control over my emotions."
       },
       "dimension": null,
@@ -76,8 +76,8 @@
     {
       "id": 4,
       "text": {
-        "ru": "I regularly donate to charities that help people in need.",
-        "kk": "I regularly donate to charities that help people in need.",
+        "ru": "Я регулярно жертвую благотворительным организациям, которые помогают нуждающимся",
+        "kk": "Мен мұқтаж жандарға көмектесетін қайырымдылық ұйымдарына тұрақты түрде қайырымдылық жасаймын",
         "en": "I regularly donate to charities that help people in need."
       },
       "dimension": null,
@@ -86,8 +86,8 @@
     {
       "id": 5,
       "text": {
-        "ru": "I really enjoy socializing.",
-        "kk": "I really enjoy socializing.",
+        "ru": "Мне очень нравится общаться с людьми",
+        "kk": "Маған адамдармен араласу өте ұнайды",
         "en": "I really enjoy socializing."
       },
       "dimension": null,
@@ -96,8 +96,8 @@
     {
       "id": 6,
       "text": {
-        "ru": "I get things done, regardless of how I am feeling.",
-        "kk": "I get things done, regardless of how I am feeling.",
+        "ru": "Я довожу дела до конца, независимо от своего настроения",
+        "kk": "Көңіл күйіме қарамастан, істерімді аяқтаймын",
         "en": "I get things done, regardless of how I am feeling."
       },
       "dimension": null,
@@ -106,8 +106,8 @@
     {
       "id": 7,
       "text": {
-        "ru": "I am highly aware of how I am feeling (my moods, emotions, etc.)",
-        "kk": "I am highly aware of how I am feeling (my moods, emotions, etc.)",
+        "ru": "Я очень хорошо осознаю, как я себя чувствую (мое настроение, эмоции и т.д.)",
+        "kk": "Мен өзімді қалай сезініп тұрғанымды (көңіл күйім, эмоцияларым және т.б.) өте жақсы аңғарамын",
         "en": "I am highly aware of how I am feeling (my moods, emotions, etc.)"
       },
       "dimension": null,
@@ -116,8 +116,8 @@
     {
       "id": 8,
       "text": {
-        "ru": "I am very good at reading body language.",
-        "kk": "I am very good at reading body language.",
+        "ru": "Я очень хорошо считываю язык тела",
+        "kk": "Мен дене қимылын өте жақсы оқи аламын",
         "en": "I am very good at reading body language."
       },
       "dimension": null,
@@ -126,8 +126,8 @@
     {
       "id": 9,
       "text": {
-        "ru": "My emotions are under control.",
-        "kk": "My emotions are under control.",
+        "ru": "Мои эмоции под контролем",
+        "kk": "Эмоцияларым бақылауда",
         "en": "My emotions are under control."
       },
       "dimension": null,
@@ -136,8 +136,8 @@
     {
       "id": 10,
       "text": {
-        "ru": "I am very affected by advertisements about animal cruelty.",
-        "kk": "I am very affected by advertisements about animal cruelty.",
+        "ru": "Меня очень трогают рекламы о жестоком обращении с животными",
+        "kk": "Мен жануарларға қатыгездік туралы жарнамалардан қатты әсер аламын",
         "en": "I am very affected by advertisements about animal cruelty."
       },
       "dimension": null,
@@ -146,8 +146,8 @@
     {
       "id": 11,
       "text": {
-        "ru": "I am confident in social situations.",
-        "kk": "I am confident in social situations.",
+        "ru": "Я уверен в социальных ситуациях",
+        "kk": "Әлеуметтік жағдайларда өзіме сенімдімін",
         "en": "I am confident in social situations."
       },
       "dimension": null,
@@ -156,8 +156,8 @@
     {
       "id": 12,
       "text": {
-        "ru": "I don't burden other people with my emotions.",
-        "kk": "I don't burden other people with my emotions.",
+        "ru": "Я не перекладываю свои эмоции на других людей",
+        "kk": "Эмоцияларыммен басқа адамдарды жүктемеймін",
         "en": "I don't burden other people with my emotions."
       },
       "dimension": null,
@@ -166,8 +166,8 @@
     {
       "id": 13,
       "text": {
-        "ru": "I use very specific words to talk about how I am feeling.",
-        "kk": "I use very specific words to talk about how I am feeling.",
+        "ru": "Я подбираю очень точные слова, чтобы описать свои чувства",
+        "kk": "Қандай күйде екенімді айту үшін өте нақты сөздерді қолданамын",
         "en": "I use very specific words to talk about how I am feeling."
       },
       "dimension": null,
@@ -176,8 +176,8 @@
     {
       "id": 14,
       "text": {
-        "ru": "I have an acute sense of how people around me are feeling.",
-        "kk": "I have an acute sense of how people around me are feeling.",
+        "ru": "Я очень тонко чувствую, что переживают люди вокруг меня",
+        "kk": "Айналамдағы адамдардың не сезінетінін өте нәзік сеземін",
         "en": "I have an acute sense of how people around me are feeling."
       },
       "dimension": null,
@@ -186,8 +186,8 @@
     {
       "id": 15,
       "text": {
-        "ru": "I often get caught up in the heat of the moment.",
-        "kk": "I often get caught up in the heat of the moment.",
+        "ru": "Я часто поддаюсь эмоциям в пылу момента",
+        "kk": "Қызу сәтте эмоцияға жиі беріліп кетемін",
         "en": "I often get caught up in the heat of the moment."
       },
       "dimension": null,
@@ -196,8 +196,8 @@
     {
       "id": 16,
       "text": {
-        "ru": "I am easily upset by the pain of other people.",
-        "kk": "I am easily upset by the pain of other people.",
+        "ru": "Я легко расстраиваюсь, когда вижу страдания других людей",
+        "kk": "Басқа адамдардың қиналғанын көргенде тез күйзелемін",
         "en": "I am easily upset by the pain of other people."
       },
       "dimension": null,
@@ -206,8 +206,8 @@
     {
       "id": 17,
       "text": {
-        "ru": "I consider myself to be charming.",
-        "kk": "I consider myself to be charming.",
+        "ru": "Я считаю себя обаятельным человеком",
+        "kk": "Өзімді тартымды адаммын деп есептеймін",
         "en": "I consider myself to be charming."
       },
       "dimension": null,
@@ -216,8 +216,8 @@
     {
       "id": 18,
       "text": {
-        "ru": "Other people tell me that I am hard to read.",
-        "kk": "Other people tell me that I am hard to read.",
+        "ru": "Другие люди говорят мне, что меня трудно понять по лицу",
+        "kk": "Басқалар мені жүзімнен түсіну қиын екенін айтады",
         "en": "Other people tell me that I am hard to read."
       },
       "dimension": null,
@@ -226,8 +226,8 @@
     {
       "id": 19,
       "text": {
-        "ru": "I recognize emotions the moment I feel them.",
-        "kk": "I recognize emotions the moment I feel them.",
+        "ru": "Я распознаю эмоции в тот же момент, когда их чувствую",
+        "kk": "Эмоцияларымды сезген сәтте бірден танимын",
         "en": "I recognize emotions the moment I feel them."
       },
       "dimension": null,
@@ -236,8 +236,8 @@
     {
       "id": 20,
       "text": {
-        "ru": "I am very good at reading nonverbal cues.",
-        "kk": "I am very good at reading nonverbal cues.",
+        "ru": "Я очень хорошо считываю невербальные сигналы",
+        "kk": "Мен вербалды емес белгілерді өте жақсы оқимын",
         "en": "I am very good at reading nonverbal cues."
       },
       "dimension": null,
@@ -246,8 +246,8 @@
     {
       "id": 21,
       "text": {
-        "ru": "I move on very quickly from negative emotions and bad moods.",
-        "kk": "I move on very quickly from negative emotions and bad moods.",
+        "ru": "Я очень быстро восстанавливаюсь после негативных эмоций и плохого настроения",
+        "kk": "Жағымсыз эмоциялар мен нашар көңіл күйден тез шығамын",
         "en": "I move on very quickly from negative emotions and bad moods."
       },
       "dimension": null,
@@ -256,8 +256,8 @@
     {
       "id": 22,
       "text": {
-        "ru": "I often feel compelled to act when I see someone suffering.",
-        "kk": "I often feel compelled to act when I see someone suffering.",
+        "ru": "Я часто чувствую потребность действовать, когда вижу чьи-то страдания",
+        "kk": "Біреудің қиналғанын көрсем, әрекет еткім келіп тұрады",
         "en": "I often feel compelled to act when I see someone suffering."
       },
       "dimension": null,
@@ -266,8 +266,8 @@
     {
       "id": 23,
       "text": {
-        "ru": "I am very good at getting people to laugh.",
-        "kk": "I am very good at getting people to laugh.",
+        "ru": "Я очень хорошо умею рассмешить людей",
+        "kk": "Мен адамдарды күлдіруді өте жақсы білемін",
         "en": "I am very good at getting people to laugh."
       },
       "dimension": null,
@@ -276,8 +276,8 @@
     {
       "id": 24,
       "text": {
-        "ru": "I pay little attention to my emotions when there is a job to be done.",
-        "kk": "I pay little attention to my emotions when there is a job to be done.",
+        "ru": "Когда есть работа, я почти не обращаю внимания на свои эмоции",
+        "kk": "Іс бар кезде эмоцияларыма көп мән бермеймін",
         "en": "I pay little attention to my emotions when there is a job to be done."
       },
       "dimension": null,
@@ -286,8 +286,8 @@
     {
       "id": 25,
       "text": {
-        "ru": "I find it hard to put how I am feeling into words.",
-        "kk": "I find it hard to put how I am feeling into words.",
+        "ru": "Мне трудно выразить словами то, что я чувствую",
+        "kk": "Не сезінетінімді сөзбен жеткізу маған қиын",
         "en": "I find it hard to put how I am feeling into words."
       },
       "dimension": null,
@@ -296,8 +296,8 @@
     {
       "id": 26,
       "text": {
-        "ru": "I can often tell how people feel just by looking at them.",
-        "kk": "I can often tell how people feel just by looking at them.",
+        "ru": "Я часто могу понять чувства человека, просто посмотрев на него",
+        "kk": "Адамның көңіл күйін оған қарап-ақ жиі түсіне аламын",
         "en": "I can often tell how people feel just by looking at them."
       },
       "dimension": null,
@@ -306,8 +306,8 @@
     {
       "id": 27,
       "text": {
-        "ru": "Once something upsets me, I find it hard to calm myself back down.",
-        "kk": "Once something upsets me, I find it hard to calm myself back down.",
+        "ru": "Если что-то меня расстроит, мне трудно снова успокоиться",
+        "kk": "Бірдеңе ренжітсе, қайта сабырға келу маған қиын",
         "en": "Once something upsets me, I find it hard to calm myself back down."
       },
       "dimension": null,
@@ -316,8 +316,8 @@
     {
       "id": 28,
       "text": {
-        "ru": "I am a very empathetic person.",
-        "kk": "I am a very empathetic person.",
+        "ru": "Я очень эмпатичный человек",
+        "kk": "Мен өте эмпатиялы адаммын",
         "en": "I am a very empathetic person."
       },
       "dimension": null,
@@ -326,8 +326,8 @@
     {
       "id": 29,
       "text": {
-        "ru": "I have very good social skills.",
-        "kk": "I have very good social skills.",
+        "ru": "У меня очень хорошие социальные навыки",
+        "kk": "Менің әлеуметтік дағдыларым өте жақсы",
         "en": "I have very good social skills."
       },
       "dimension": null,
@@ -336,8 +336,8 @@
     {
       "id": 30,
       "text": {
-        "ru": "My moods rarely affect my decisions.",
-        "kk": "My moods rarely affect my decisions.",
+        "ru": "Мое настроение редко влияет на мои решения",
+        "kk": "Көңіл күйім шешімдеріме сирек әсер етеді",
         "en": "My moods rarely affect my decisions."
       },
       "dimension": null,
@@ -346,8 +346,8 @@
     {
       "id": 31,
       "text": {
-        "ru": "I describe my emotional experiences vividly.",
-        "kk": "I describe my emotional experiences vividly.",
+        "ru": "Я ярко описываю свои эмоциональные переживания",
+        "kk": "Эмоциялық тәжірибемді анық әрі әсерлі сипаттаймын",
         "en": "I describe my emotional experiences vividly."
       },
       "dimension": null,
@@ -356,8 +356,8 @@
     {
       "id": 32,
       "text": {
-        "ru": "I understand a lot just from other people's facial expressions.",
-        "kk": "I understand a lot just from other people's facial expressions.",
+        "ru": "Я многое понимаю только по выражению лица других людей",
+        "kk": "Басқалардың бет-әлпетіне қарап-ақ көп нәрсені түсінемін",
         "en": "I understand a lot just from other people's facial expressions."
       },
       "dimension": null,
@@ -366,8 +366,8 @@
     {
       "id": 33,
       "text": {
-        "ru": "I am sometimes overwhelmed by my emotions.",
-        "kk": "I am sometimes overwhelmed by my emotions.",
+        "ru": "Иногда меня переполняют эмоции",
+        "kk": "Кейде эмоцияларым тасып кетеді",
         "en": "I am sometimes overwhelmed by my emotions."
       },
       "dimension": null,
@@ -376,8 +376,8 @@
     {
       "id": 34,
       "text": {
-        "ru": "I constantly think about how much I care about the people in my life.",
-        "kk": "I constantly think about how much I care about the people in my life.",
+        "ru": "Я постоянно думаю о том, насколько мне дороги люди в моей жизни",
+        "kk": "Өмірімдегі адамдардың маған қаншалықты қымбат екенін үнемі ойлаймын",
         "en": "I constantly think about how much I care about the people in my life."
       },
       "dimension": null,
@@ -386,8 +386,8 @@
     {
       "id": 35,
       "text": {
-        "ru": "I am a very persuasive person.",
-        "kk": "I am a very persuasive person.",
+        "ru": "Я очень убедительный человек",
+        "kk": "Мен өте иландыра алатын адаммын",
         "en": "I am a very persuasive person."
       },
       "dimension": null,
@@ -396,8 +396,8 @@
     {
       "id": 36,
       "text": {
-        "ru": "I make decisions based on logic, not emotions.",
-        "kk": "I make decisions based on logic, not emotions.",
+        "ru": "Я принимаю решения логикой, а не эмоциями",
+        "kk": "Шешімдерді эмоциямен емес, логикамен қабылдаймын",
         "en": "I make decisions based on logic, not emotions."
       },
       "dimension": null,
@@ -406,8 +406,8 @@
     {
       "id": 37,
       "text": {
-        "ru": "I have a rich emotional vocabulary.",
-        "kk": "I have a rich emotional vocabulary.",
+        "ru": "У меня богатый эмоциональный словарный запас",
+        "kk": "Менің эмоцияны сипаттайтын сөздік қорым бай",
         "en": "I have a rich emotional vocabulary."
       },
       "dimension": null,
@@ -416,8 +416,8 @@
     {
       "id": 38,
       "text": {
-        "ru": "I can tell if someone is upset without them having to say anything.",
-        "kk": "I can tell if someone is upset without them having to say anything.",
+        "ru": "Я могу понять, что человек расстроен, даже если он ничего не говорит",
+        "kk": "Адам ештеңе айтпаса да, оның ренжігенін түсіне аламын",
         "en": "I can tell if someone is upset without them having to say anything."
       },
       "dimension": null,
@@ -426,8 +426,8 @@
     {
       "id": 39,
       "text": {
-        "ru": "I often can't go about my day because of the emotions I am feeling.",
-        "kk": "I often can't go about my day because of the emotions I am feeling.",
+        "ru": "Из-за своих эмоций я часто не могу нормально провести день",
+        "kk": "Эмоцияларымның кесірінен күнделікті істерімді жиі атқара алмай қаламын",
         "en": "I often can't go about my day because of the emotions I am feeling."
       },
       "dimension": null,
@@ -436,8 +436,8 @@
     {
       "id": 40,
       "text": {
-        "ru": "I am very concerned about poverty and injustice in the world.",
-        "kk": "I am very concerned about poverty and injustice in the world.",
+        "ru": "Меня очень волнуют бедность и несправедливость в мире",
+        "kk": "Әлемдегі кедейлік пен әділетсіздік мені қатты алаңдатады",
         "en": "I am very concerned about poverty and injustice in the world."
       },
       "dimension": null,
@@ -446,8 +446,8 @@
     {
       "id": 41,
       "text": {
-        "ru": "I don't really like networking.",
-        "kk": "I don't really like networking.",
+        "ru": "Мне не очень нравится нетворкинг",
+        "kk": "Маған нетворкинг аса ұнай бермейді",
         "en": "I don't really like networking."
       },
       "dimension": null,
@@ -456,8 +456,8 @@
     {
       "id": 42,
       "text": {
-        "ru": "I find it difficult to deal with people who get emotional about things.",
-        "kk": "I find it difficult to deal with people who get emotional about things.",
+        "ru": "Мне сложно взаимодействовать с людьми, которые слишком эмоционально реагируют",
+        "kk": "Эмоцияға қатты берілетін адамдармен қарым-қатынас жасау маған қиын",
         "en": "I find it difficult to deal with people who get emotional about things."
       },
       "dimension": null,
@@ -466,8 +466,8 @@
     {
       "id": 43,
       "text": {
-        "ru": "I am consistently aware of what kind of mood I'm in.",
-        "kk": "I am consistently aware of what kind of mood I'm in.",
+        "ru": "Я постоянно осознаю, в каком настроении нахожусь",
+        "kk": "Қандай көңіл күйде екенімді үнемі аңғарып жүремін",
         "en": "I am consistently aware of what kind of mood I'm in."
       },
       "dimension": null,
@@ -476,8 +476,8 @@
     {
       "id": 44,
       "text": {
-        "ru": "I am good at understanding how people feel, even when they don't say so out loud.",
-        "kk": "I am good at understanding how people feel, even when they don't say so out loud.",
+        "ru": "Я хорошо понимаю чувства людей, даже когда они не говорят о них вслух",
+        "kk": "Адамдар ашық айтпаса да, олардың не сезінетінін жақсы түсінемін",
         "en": "I am good at understanding how people feel, even when they don't say so out loud."
       },
       "dimension": null,
@@ -486,8 +486,8 @@
     {
       "id": 45,
       "text": {
-        "ru": "I find it easy to cheer myself up when I am feeling sad or unmotivated.",
-        "kk": "I find it easy to cheer myself up when I am feeling sad or unmotivated.",
+        "ru": "Мне легко поднять себе настроение, когда мне грустно или нет мотивации",
+        "kk": "Қапалы не жігерсіз кезде өз көңіл күйімді көтеру маған оңай",
         "en": "I find it easy to cheer myself up when I am feeling sad or unmotivated."
       },
       "dimension": null,
@@ -496,8 +496,8 @@
     {
       "id": 46,
       "text": {
-        "ru": "I consider myself extremely lucky to have the life I do.",
-        "kk": "I consider myself extremely lucky to have the life I do.",
+        "ru": "Я считаю, что мне очень повезло с моей жизнью",
+        "kk": "Мен өз өмірім үшін өзімді өте бақытты санаймын",
         "en": "I consider myself extremely lucky to have the life I do."
       },
       "dimension": null,
@@ -506,8 +506,8 @@
     {
       "id": 47,
       "text": {
-        "ru": "I try not to draw attention to myself.",
-        "kk": "I try not to draw attention to myself.",
+        "ru": "Я стараюсь не привлекать к себе внимание",
+        "kk": "Өзіме көп назар аудартпауға тырысамын",
         "en": "I try not to draw attention to myself."
       },
       "dimension": null,
@@ -516,8 +516,8 @@
     {
       "id": 48,
       "text": {
-        "ru": "I don't let myself get carried away with my feelings.",
-        "kk": "I don't let myself get carried away with my feelings.",
+        "ru": "Я не позволяю чувствам полностью унести меня",
+        "kk": "Сезімдеріме толық беріліп кетуге жол бермеймін",
         "en": "I don't let myself get carried away with my feelings."
       },
       "dimension": null,
@@ -526,8 +526,8 @@
     {
       "id": 49,
       "text": {
-        "ru": "I am good at keeping track of how I'm feeling throughout the day.",
-        "kk": "I am good at keeping track of how I'm feeling throughout the day.",
+        "ru": "Я хорошо отслеживаю, как себя чувствую в течение дня",
+        "kk": "Күні бойы өзімді қалай сезінетінімді жақсы бақылап жүремін",
         "en": "I am good at keeping track of how I'm feeling throughout the day."
       },
       "dimension": null,
@@ -536,8 +536,8 @@
     {
       "id": 50,
       "text": {
-        "ru": "I sometimes find other people hard to read.",
-        "kk": "I sometimes find other people hard to read.",
+        "ru": "Иногда мне сложно понять других людей",
+        "kk": "Кейде басқа адамдарды түсіну маған қиын",
         "en": "I sometimes find other people hard to read."
       },
       "dimension": null,
@@ -546,8 +546,8 @@
     {
       "id": 51,
       "text": {
-        "ru": "I control my emotions; my emotions don't control me.",
-        "kk": "I control my emotions; my emotions don't control me.",
+        "ru": "Я контролирую свои эмоции, а не они меня",
+        "kk": "Мен эмоцияларымды басқарамын, эмоциялар мені емес",
         "en": "I control my emotions; my emotions don't control me."
       },
       "dimension": null,
@@ -556,8 +556,8 @@
     {
       "id": 52,
       "text": {
-        "ru": "I do not feel responsible for rescuing people from their own problems.",
-        "kk": "I do not feel responsible for rescuing people from their own problems.",
+        "ru": "Я не считаю себя ответственным за то, чтобы спасать людей от их собственных проблем",
+        "kk": "Адамдарды өз мәселелерінен құтқаруға өзімді жауапты сезінбеймін",
         "en": "I do not feel responsible for rescuing people from their own problems."
       },
       "dimension": null,
@@ -566,8 +566,8 @@
     {
       "id": 53,
       "text": {
-        "ru": "I bring fun and excitement to social gatherings.",
-        "kk": "I bring fun and excitement to social gatherings.",
+        "ru": "Я приношу веселье и азарт в социальные встречи",
+        "kk": "Әлеуметтік кездесулерге көңілділік пен серпін әкелемін",
         "en": "I bring fun and excitement to social gatherings."
       },
       "dimension": null,
@@ -576,8 +576,8 @@
     {
       "id": 54,
       "text": {
-        "ru": "I don't share a lot with other people.",
-        "kk": "I don't share a lot with other people.",
+        "ru": "Я не слишком много делюсь с другими людьми",
+        "kk": "Басқалармен көп бөлісе бермеймін",
         "en": "I don't share a lot with other people."
       },
       "dimension": null,
@@ -586,8 +586,8 @@
     {
       "id": 55,
       "text": {
-        "ru": "Talking about how I am feeling usually improves my mood.",
-        "kk": "Talking about how I am feeling usually improves my mood.",
+        "ru": "Разговор о моих чувствах обычно улучшает мое настроение",
+        "kk": "Өз сезімдерім туралы сөйлесу әдетте көңіл күйімді жақсартады",
         "en": "Talking about how I am feeling usually improves my mood."
       },
       "dimension": null,
@@ -596,8 +596,8 @@
     {
       "id": 56,
       "text": {
-        "ru": "I am often surprised by other people’s reactions to things.",
-        "kk": "I am often surprised by other people’s reactions to things.",
+        "ru": "Я часто удивляюсь реакциям других людей на разные вещи",
+        "kk": "Басқа адамдардың кей нәрсеге реакциясына жиі таңғаламын",
         "en": "I am often surprised by other people’s reactions to things."
       },
       "dimension": null,
@@ -606,8 +606,8 @@
     {
       "id": 57,
       "text": {
-        "ru": "I often raise my voice to show other people that I am serious.",
-        "kk": "I often raise my voice to show other people that I am serious.",
+        "ru": "Я часто повышаю голос, чтобы показать людям, что говорю серьезно",
+        "kk": "Басқаларға шындап тұрғанымды көрсету үшін жиі дауысымды көтеремін",
         "en": "I often raise my voice to show other people that I am serious."
       },
       "dimension": null,
@@ -616,8 +616,8 @@
     {
       "id": 58,
       "text": {
-        "ru": "I rarely get angry.",
-        "kk": "I rarely get angry.",
+        "ru": "Я редко злюсь",
+        "kk": "Мен сирек ашуланамын",
         "en": "I rarely get angry."
       },
       "dimension": null,
@@ -626,8 +626,8 @@
     {
       "id": 59,
       "text": {
-        "ru": "I am not moved by other people’s tragic stories.",
-        "kk": "I am not moved by other people’s tragic stories.",
+        "ru": "Меня не трогают трагические истории других людей",
+        "kk": "Басқа адамдардың қайғылы оқиғалары мені көп толқытпайды",
         "en": "I am not moved by other people’s tragic stories."
       },
       "dimension": null,
@@ -636,8 +636,8 @@
     {
       "id": 60,
       "text": {
-        "ru": "I can be very forceful when I feel strongly about something.",
-        "kk": "I can be very forceful when I feel strongly about something.",
+        "ru": "Я могу быть очень напористым, когда что-то для меня действительно важно",
+        "kk": "Бір нәрсе мен үшін өте маңызды болса, өте табанды бола аламын",
         "en": "I can be very forceful when I feel strongly about something."
       },
       "dimension": null,
@@ -646,8 +646,8 @@
     {
       "id": 61,
       "text": {
-        "ru": "I really enjoy getting to know people better.",
-        "kk": "I really enjoy getting to know people better.",
+        "ru": "Мне очень нравится узнавать людей ближе",
+        "kk": "Адамдарды жақынырақ таныған маған өте ұнайды",
         "en": "I really enjoy getting to know people better."
       },
       "dimension": null,
@@ -656,8 +656,8 @@
     {
       "id": 62,
       "text": {
-        "ru": "I don't really like talking about the way I feel.",
-        "kk": "I don't really like talking about the way I feel.",
+        "ru": "Мне не очень нравится говорить о своих чувствах",
+        "kk": "Сезімдерім туралы сөйлескенді аса ұнатпаймын",
         "en": "I don't really like talking about the way I feel."
       },
       "dimension": null,
@@ -666,8 +666,8 @@
     {
       "id": 63,
       "text": {
-        "ru": "It’s important to me to show other people that I am strong and powerful.",
-        "kk": "It’s important to me to show other people that I am strong and powerful.",
+        "ru": "Мне важно показывать другим людям, что я сильный и влиятельный",
+        "kk": "Басқаларға өзімнің мықты әрі ықпалды екенімді көрсету мен үшін маңызды",
         "en": "It’s important to me to show other people that I am strong and powerful."
       },
       "dimension": null,

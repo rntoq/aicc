@@ -3,8 +3,8 @@
     "id": "test_010",
     "code": "personal-strengths",
     "title": {
-      "ru": "Personal Strengths Assessment (Character Strengths)",
-      "kk": "Personal Strengths Assessment (Character Strengths)",
+      "ru": "Оценка личных сильных сторон (сильные стороны характера)",
+      "kk": "Жеке күшті жақтарды бағалау (мінездің күшті жақтары)",
       "en": "Personal Strengths Assessment (Character Strengths)"
     },
     "version": 1
@@ -15,113 +15,1033 @@
     "min": 1,
     "max": 5,
     "labels": {
-      "1": { "ru": "Inaccurate", "kk": "Inaccurate", "en": "Inaccurate" },
-      "2": { "ru": "Mostly Inaccurate", "kk": "Mostly Inaccurate", "en": "Mostly Inaccurate" },
-      "3": { "ru": "Neutral", "kk": "Neutral", "en": "Neutral" },
-      "4": { "ru": "Mostly Accurate", "kk": "Mostly Accurate", "en": "Mostly Accurate" },
-      "5": { "ru": "Accurate", "kk": "Accurate", "en": "Accurate" }
+      "1": {
+        "ru": "Не похоже на меня",
+        "kk": "Маған ұқсамайды",
+        "en": "Inaccurate"
+      },
+      "2": {
+        "ru": "Скорее не похоже на меня",
+        "kk": "Көбіне маған ұқсамайды",
+        "en": "Mostly Inaccurate"
+      },
+      "3": {
+        "ru": "Нейтрально",
+        "kk": "Бейтарап",
+        "en": "Neutral"
+      },
+      "4": {
+        "ru": "Скорее похоже на меня",
+        "kk": "Көбіне маған ұқсайды",
+        "en": "Mostly Accurate"
+      },
+      "5": {
+        "ru": "Похоже на меня",
+        "kk": "Маған ұқсайды",
+        "en": "Accurate"
+      }
     }
   },
   "questions": [
-    { "id": 1, "text": { "ru": "I am welcoming to friends and acquaintances.", "kk": "I am welcoming to friends and acquaintances.", "en": "I am welcoming to friends and acquaintances." }, "strengths": [], "reverse_scored": false },
-    { "id": 2, "text": { "ru": "I understand how today’s decisions may evolve into future results.", "kk": "I understand how today’s decisions may evolve into future results.", "en": "I understand how today’s decisions may evolve into future results." }, "strengths": [], "reverse_scored": false },
-    { "id": 3, "text": { "ru": "I feel connected to a larger force or power in the world around me.", "kk": "I feel connected to a larger force or power in the world around me.", "en": "I feel connected to a larger force or power in the world around me." }, "strengths": [], "reverse_scored": false },
-    { "id": 4, "text": { "ru": "I often look to the past for solutions to my problems.", "kk": "I often look to the past for solutions to my problems.", "en": "I often look to the past for solutions to my problems." }, "strengths": [], "reverse_scored": false },
-    { "id": 5, "text": { "ru": "I do not mind being in the spotlight.", "kk": "I do not mind being in the spotlight.", "en": "I do not mind being in the spotlight." }, "strengths": [], "reverse_scored": false },
-    { "id": 6, "text": { "ru": "I always look for the positive in any situation.", "kk": "I always look for the positive in any situation.", "en": "I always look for the positive in any situation." }, "strengths": [], "reverse_scored": false },
-    { "id": 7, "text": { "ru": "I am good at directing other people in group projects.", "kk": "I am good at directing other people in group projects.", "en": "I am good at directing other people in group projects." }, "strengths": [], "reverse_scored": false },
-    { "id": 8, "text": { "ru": "I enjoy reading to learn about new topics and ideas.", "kk": "I enjoy reading to learn about new topics and ideas.", "en": "I enjoy reading to learn about new topics and ideas." }, "strengths": [], "reverse_scored": false },
-    { "id": 9, "text": { "ru": "I am good at getting things done.", "kk": "I am good at getting things done.", "en": "I am good at getting things done." }, "strengths": [], "reverse_scored": false },
-    { "id": 10, "text": { "ru": "I believe all people are created equal.", "kk": "I believe all people are created equal.", "en": "I believe all people are created equal." }, "strengths": [], "reverse_scored": false },
-    { "id": 11, "text": { "ru": "I can often lighten a difficult situation with a joke or playful comment.", "kk": "I can often lighten a difficult situation with a joke or playful comment.", "en": "I can often lighten a difficult situation with a joke or playful comment." }, "strengths": [], "reverse_scored": false },
-    { "id": 12, "text": { "ru": "I try hard to do the right thing in difficult situations.", "kk": "I try hard to do the right thing in difficult situations.", "en": "I try hard to do the right thing in difficult situations." }, "strengths": [], "reverse_scored": false },
-    { "id": 13, "text": { "ru": "I rarely feel overwhelmed.", "kk": "I rarely feel overwhelmed.", "en": "I rarely feel overwhelmed." }, "strengths": [], "reverse_scored": false },
-    { "id": 14, "text": { "ru": "I love my life.", "kk": "I love my life.", "en": "I love my life." }, "strengths": [], "reverse_scored": false },
-    { "id": 15, "text": { "ru": "I set big goals for myself.", "kk": "I set big goals for myself.", "en": "I set big goals for myself." }, "strengths": [], "reverse_scored": false },
-    { "id": 16, "text": { "ru": "I stick to healthy habits, even when I’m tempted.", "kk": "I stick to healthy habits, even when I’m tempted.", "en": "I stick to healthy habits, even when I’m tempted." }, "strengths": [], "reverse_scored": false },
-    { "id": 17, "text": { "ru": "I often come up with a new way of doing things.", "kk": "I often come up with a new way of doing things.", "en": "I often come up with a new way of doing things." }, "strengths": [], "reverse_scored": false },
-    { "id": 18, "text": { "ru": "I am good at understanding how others feel in difficult times.", "kk": "I am good at understanding how others feel in difficult times.", "en": "I am good at understanding how others feel in difficult times." }, "strengths": [], "reverse_scored": false },
-    { "id": 19, "text": { "ru": "I do my best work alone.", "kk": "I do my best work alone.", "en": "I do my best work alone." }, "strengths": [], "reverse_scored": false },
-    { "id": 20, "text": { "ru": "Before making a decision, I think carefully about the consequences.", "kk": "Before making a decision, I think carefully about the consequences.", "en": "Before making a decision, I think carefully about the consequences." }, "strengths": [], "reverse_scored": false },
-    { "id": 21, "text": { "ru": "I avoid situations that cause me fear or anxiety.", "kk": "I avoid situations that cause me fear or anxiety.", "en": "I avoid situations that cause me fear or anxiety." }, "strengths": [], "reverse_scored": false },
-    { "id": 22, "text": { "ru": "I experience profound emotions in response to great beauty.", "kk": "I experience profound emotions in response to great beauty.", "en": "I experience profound emotions in response to great beauty." }, "strengths": [], "reverse_scored": false },
-    { "id": 23, "text": { "ru": "I am honest about my thoughts and feelings.", "kk": "I am honest about my thoughts and feelings.", "en": "I am honest about my thoughts and feelings." }, "strengths": [], "reverse_scored": false },
-    { "id": 24, "text": { "ru": "I often make an effort to make someone else’s day a little better.", "kk": "I often make an effort to make someone else’s day a little better.", "en": "I often make an effort to make someone else’s day a little better." }, "strengths": [], "reverse_scored": false },
-    { "id": 25, "text": { "ru": "I love experiencing different forms of art.", "kk": "I love experiencing different forms of art.", "en": "I love experiencing different forms of art." }, "strengths": [], "reverse_scored": false },
-    { "id": 26, "text": { "ru": "I show other people that I like and appreciate them.", "kk": "I show other people that I like and appreciate them.", "en": "I show other people that I like and appreciate them." }, "strengths": [], "reverse_scored": false },
-    { "id": 27, "text": { "ru": "I think about how my decisions will play out in the future.", "kk": "I think about how my decisions will play out in the future.", "en": "I think about how my decisions will play out in the future." }, "strengths": [], "reverse_scored": false },
-    { "id": 28, "text": { "ru": "I believe my life has a purpose.", "kk": "I believe my life has a purpose.", "en": "I believe my life has a purpose." }, "strengths": [], "reverse_scored": false },
-    { "id": 29, "text": { "ru": "History has many important lessons to teach us.", "kk": "History has many important lessons to teach us.", "en": "History has many important lessons to teach us." }, "strengths": [], "reverse_scored": false },
-    { "id": 30, "text": { "ru": "I often take on tasks and projects that I know will bring me attention from others.", "kk": "I often take on tasks and projects that I know will bring me attention from others.", "en": "I often take on tasks and projects that I know will bring me attention from others." }, "strengths": [], "reverse_scored": false },
-    { "id": 31, "text": { "ru": "I believe things usually work out for the best.", "kk": "I believe things usually work out for the best.", "en": "I believe things usually work out for the best." }, "strengths": [], "reverse_scored": false },
-    { "id": 32, "text": { "ru": "When working with a group, I often have a clear sense of what we should do next.", "kk": "When working with a group, I often have a clear sense of what we should do next.", "en": "When working with a group, I often have a clear sense of what we should do next." }, "strengths": [], "reverse_scored": false },
-    { "id": 33, "text": { "ru": "I often spend time researching ideas that intrigue me.", "kk": "I often spend time researching ideas that intrigue me.", "en": "I often spend time researching ideas that intrigue me." }, "strengths": [], "reverse_scored": false },
-    { "id": 34, "text": { "ru": "I do what has to be done to accomplish my goals.", "kk": "I do what has to be done to accomplish my goals.", "en": "I do what has to be done to accomplish my goals." }, "strengths": [], "reverse_scored": false },
-    { "id": 35, "text": { "ru": "My accomplishments are no more important that anyone else’s.", "kk": "My accomplishments are no more important that anyone else’s.", "en": "My accomplishments are no more important that anyone else’s." }, "strengths": [], "reverse_scored": false },
-    { "id": 36, "text": { "ru": "I find the fun in everyday tasks.", "kk": "I find the fun in everyday tasks.", "en": "I find the fun in everyday tasks." }, "strengths": [], "reverse_scored": false },
-    { "id": 37, "text": { "ru": "When I have a moral dilemma, I think carefully about the right choice.", "kk": "When I have a moral dilemma, I think carefully about the right choice.", "en": "When I have a moral dilemma, I think carefully about the right choice." }, "strengths": [], "reverse_scored": false },
-    { "id": 38, "text": { "ru": "I need a lot of time to recover when I experience stress.", "kk": "I need a lot of time to recover when I experience stress.", "en": "I need a lot of time to recover when I experience stress." }, "strengths": [], "reverse_scored": false },
-    { "id": 39, "text": { "ru": "I feel great energy when thinking about my plans and projects.", "kk": "I feel great energy when thinking about my plans and projects.", "en": "I feel great energy when thinking about my plans and projects." }, "strengths": [], "reverse_scored": false },
-    { "id": 40, "text": { "ru": "I want to achieve great things.", "kk": "I want to achieve great things.", "en": "I want to achieve great things." }, "strengths": [], "reverse_scored": false },
-    { "id": 41, "text": { "ru": "I have a lot of willpower.", "kk": "I have a lot of willpower.", "en": "I have a lot of willpower." }, "strengths": [], "reverse_scored": false },
-    { "id": 42, "text": { "ru": "My ideas are often unexpected and surprising.", "kk": "My ideas are often unexpected and surprising.", "en": "My ideas are often unexpected and surprising." }, "strengths": [], "reverse_scored": false },
-    { "id": 43, "text": { "ru": "Other people tell me I am an excellent listener.", "kk": "Other people tell me I am an excellent listener.", "en": "Other people tell me I am an excellent listener." }, "strengths": [], "reverse_scored": false },
-    { "id": 44, "text": { "ru": "I enjoy the support and camaraderie of a team.", "kk": "I enjoy the support and camaraderie of a team.", "en": "I enjoy the support and camaraderie of a team." }, "strengths": [], "reverse_scored": false },
-    { "id": 45, "text": { "ru": "I consider all angles before making a decision.", "kk": "I consider all angles before making a decision.", "en": "I consider all angles before making a decision." }, "strengths": [], "reverse_scored": false },
-    { "id": 46, "text": { "ru": "I make a conscious effort to face and overcome my fears.", "kk": "I make a conscious effort to face and overcome my fears.", "en": "I make a conscious effort to face and overcome my fears." }, "strengths": [], "reverse_scored": false },
-    { "id": 47, "text": { "ru": "Beautiful music moves me deeply.", "kk": "Beautiful music moves me deeply.", "en": "Beautiful music moves me deeply." }, "strengths": [], "reverse_scored": false },
-    { "id": 48, "text": { "ru": "I do not try to hide who I am.", "kk": "I do not try to hide who I am.", "en": "I do not try to hide who I am." }, "strengths": [], "reverse_scored": false },
-    { "id": 49, "text": { "ru": "I give what I can to charitable causes.", "kk": "I give what I can to charitable causes.", "en": "I give what I can to charitable causes." }, "strengths": [], "reverse_scored": false },
-    { "id": 50, "text": { "ru": "I like visiting art museums.", "kk": "I like visiting art museums.", "en": "I like visiting art museums." }, "strengths": [], "reverse_scored": false },
-    { "id": 51, "text": { "ru": "I make an effort to include others.", "kk": "I make an effort to include others.", "en": "I make an effort to include others." }, "strengths": [], "reverse_scored": false },
-    { "id": 52, "text": { "ru": "I can clearly see where I will be in five years.", "kk": "I can clearly see where I will be in five years.", "en": "I can clearly see where I will be in five years." }, "strengths": [], "reverse_scored": false },
-    { "id": 53, "text": { "ru": "I see universal or spiritual forces at work in my life.", "kk": "I see universal or spiritual forces at work in my life.", "en": "I see universal or spiritual forces at work in my life." }, "strengths": [], "reverse_scored": false },
-    { "id": 54, "text": { "ru": "I find great value in the wisdom and advice of previous generations.", "kk": "I find great value in the wisdom and advice of previous generations.", "en": "I find great value in the wisdom and advice of previous generations." }, "strengths": [], "reverse_scored": false },
-    { "id": 55, "text": { "ru": "I enjoy receiving awards and accolades.", "kk": "I enjoy receiving awards and accolades.", "en": "I enjoy receiving awards and accolades." }, "strengths": [], "reverse_scored": false },
-    { "id": 56, "text": { "ru": "Even when things are not going my way, I see a way forward.", "kk": "Even when things are not going my way, I see a way forward.", "en": "Even when things are not going my way, I see a way forward." }, "strengths": [], "reverse_scored": false },
-    { "id": 57, "text": { "ru": "I tend to be the most decisive person in a group.", "kk": "I tend to be the most decisive person in a group.", "en": "I tend to be the most decisive person in a group." }, "strengths": [], "reverse_scored": false },
-    { "id": 58, "text": { "ru": "I want to know how things work.", "kk": "I want to know how things work.", "en": "I want to know how things work." }, "strengths": [], "reverse_scored": false },
-    { "id": 59, "text": { "ru": "I do not let anything stop me when I have decided to do something.", "kk": "I do not let anything stop me when I have decided to do something.", "en": "I do not let anything stop me when I have decided to do something." }, "strengths": [], "reverse_scored": false },
-    { "id": 60, "text": { "ru": "I feel that I can accomplish more than the average person.", "kk": "I feel that I can accomplish more than the average person.", "en": "I feel that I can accomplish more than the average person." }, "strengths": [], "reverse_scored": false },
-    { "id": 61, "text": { "ru": "I am a serious person.", "kk": "I am a serious person.", "en": "I am a serious person." }, "strengths": [], "reverse_scored": false },
-    { "id": 62, "text": { "ru": "I sometimes do things that I know are wrong.", "kk": "I sometimes do things that I know are wrong.", "en": "I sometimes do things that I know are wrong." }, "strengths": [], "reverse_scored": false },
-    { "id": 63, "text": { "ru": "I know how to calm myself down in stressful situations.", "kk": "I know how to calm myself down in stressful situations.", "en": "I know how to calm myself down in stressful situations." }, "strengths": [], "reverse_scored": false },
-    { "id": 64, "text": { "ru": "I often can’t wait to get started with my day.", "kk": "I often can’t wait to get started with my day.", "en": "I often can’t wait to get started with my day." }, "strengths": [], "reverse_scored": false },
-    { "id": 65, "text": { "ru": "I am willing to put in the work to become very successful.", "kk": "I am willing to put in the work to become very successful.", "en": "I am willing to put in the work to become very successful." }, "strengths": [], "reverse_scored": false },
-    { "id": 66, "text": { "ru": "I make good choices and stick with them.", "kk": "I make good choices and stick with them.", "en": "I make good choices and stick with them." }, "strengths": [], "reverse_scored": false },
-    { "id": 67, "text": { "ru": "I tend to come up with better alternatives to established procedures.", "kk": "I tend to come up with better alternatives to established procedures.", "en": "I tend to come up with better alternatives to established procedures." }, "strengths": [], "reverse_scored": false },
-    { "id": 68, "text": { "ru": "I can often read people very accurately.", "kk": "I can often read people very accurately.", "en": "I can often read people very accurately." }, "strengths": [], "reverse_scored": false },
-    { "id": 69, "text": { "ru": "I feel most satisfied by projects where I am working alongside other people.", "kk": "I feel most satisfied by projects where I am working alongside other people.", "en": "I feel most satisfied by projects where I am working alongside other people." }, "strengths": [], "reverse_scored": false },
-    { "id": 70, "text": { "ru": "I make careful choices.", "kk": "I make careful choices.", "en": "I make careful choices." }, "strengths": [], "reverse_scored": false },
-    { "id": 71, "text": { "ru": "When a situation is difficult, I face it head on.", "kk": "When a situation is difficult, I face it head on.", "en": "When a situation is difficult, I face it head on." }, "strengths": [], "reverse_scored": false },
-    { "id": 72, "text": { "ru": "I am often deeply moved by a story of great emotion or drama.", "kk": "I am often deeply moved by a story of great emotion or drama.", "en": "I am often deeply moved by a story of great emotion or drama." }, "strengths": [], "reverse_scored": false },
-    { "id": 73, "text": { "ru": "I share how I really feel, even when it is difficult.", "kk": "I share how I really feel, even when it is difficult.", "en": "I share how I really feel, even when it is difficult." }, "strengths": [], "reverse_scored": false },
-    { "id": 74, "text": { "ru": "I give my time to help those who need it.", "kk": "I give my time to help those who need it.", "en": "I give my time to help those who need it." }, "strengths": [], "reverse_scored": false },
-    { "id": 75, "text": { "ru": "Music is an important part of my life.", "kk": "Music is an important part of my life.", "en": "Music is an important part of my life." }, "strengths": [], "reverse_scored": false },
-    { "id": 76, "text": { "ru": "I find ways to show people that I enjoy being around them.", "kk": "I find ways to show people that I enjoy being around them.", "en": "I find ways to show people that I enjoy being around them." }, "strengths": [], "reverse_scored": false },
-    { "id": 77, "text": { "ru": "I am interested in innovations that will profoundly change our future.", "kk": "I am interested in innovations that will profoundly change our future.", "en": "I am interested in innovations that will profoundly change our future." }, "strengths": [], "reverse_scored": false },
-    { "id": 78, "text": { "ru": "I believe the universe holds powerful mysteries that we cannot fully understand.", "kk": "I believe the universe holds powerful mysteries that we cannot fully understand.", "en": "I believe the universe holds powerful mysteries that we cannot fully understand." }, "strengths": [], "reverse_scored": false },
-    { "id": 79, "text": { "ru": "I appreciate following in the footsteps of others who have come before me.", "kk": "I appreciate following in the footsteps of others who have come before me.", "en": "I appreciate following in the footsteps of others who have come before me." }, "strengths": [], "reverse_scored": false },
-    { "id": 80, "text": { "ru": "I would love to be the guest of honor at an event.", "kk": "I would love to be the guest of honor at an event.", "en": "I would love to be the guest of honor at an event." }, "strengths": [], "reverse_scored": false },
-    { "id": 81, "text": { "ru": "I see a bright future for myself.", "kk": "I see a bright future for myself.", "en": "I see a bright future for myself." }, "strengths": [], "reverse_scored": false },
-    { "id": 82, "text": { "ru": "People often look to me to guide and direct them.", "kk": "People often look to me to guide and direct them.", "en": "People often look to me to guide and direct them." }, "strengths": [], "reverse_scored": false },
-    { "id": 83, "text": { "ru": "I often study unfamiliar subjects just for the fun of it.", "kk": "I often study unfamiliar subjects just for the fun of it.", "en": "I often study unfamiliar subjects just for the fun of it." }, "strengths": [], "reverse_scored": false },
-    { "id": 84, "text": { "ru": "Others know they can count on me to make things happen.", "kk": "Others know they can count on me to make things happen.", "en": "Others know they can count on me to make things happen." }, "strengths": [], "reverse_scored": false },
-    { "id": 85, "text": { "ru": "My achievements set me apart from other people.", "kk": "My achievements set me apart from other people.", "en": "My achievements set me apart from other people." }, "strengths": [], "reverse_scored": false },
-    { "id": 86, "text": { "ru": "I am often in a playful or even silly mood.", "kk": "I am often in a playful or even silly mood.", "en": "I am often in a playful or even silly mood." }, "strengths": [], "reverse_scored": false },
-    { "id": 87, "text": { "ru": "It’s important to me that my actions are consistent with my values.", "kk": "It’s important to me that my actions are consistent with my values.", "en": "It’s important to me that my actions are consistent with my values." }, "strengths": [], "reverse_scored": false },
-    { "id": 88, "text": { "ru": "I know how to keep my cool in difficult times.", "kk": "I know how to keep my cool in difficult times.", "en": "I know how to keep my cool in difficult times." }, "strengths": [], "reverse_scored": false },
-    { "id": 89, "text": { "ru": "I am excited about the possibilities that life has to offer.", "kk": "I am excited about the possibilities that life has to offer.", "en": "I am excited about the possibilities that life has to offer." }, "strengths": [], "reverse_scored": false },
-    { "id": 90, "text": { "ru": "I am known to be an ambitious person.", "kk": "I am known to be an ambitious person.", "en": "I am known to be an ambitious person." }, "strengths": [], "reverse_scored": false },
-    { "id": 91, "text": { "ru": "I am often distracted by impulses.", "kk": "I am often distracted by impulses.", "en": "I am often distracted by impulses." }, "strengths": [], "reverse_scored": false },
-    { "id": 92, "text": { "ru": "I often imagine things as I’d like them to be.", "kk": "I often imagine things as I’d like them to be.", "en": "I often imagine things as I’d like them to be." }, "strengths": [], "reverse_scored": false },
-    { "id": 93, "text": { "ru": "Other people know they can trust me to understand their problems.", "kk": "Other people know they can trust me to understand their problems.", "en": "Other people know they can trust me to understand their problems." }, "strengths": [], "reverse_scored": false },
-    { "id": 94, "text": { "ru": "I feel that working with other people only holds me back.", "kk": "I feel that working with other people only holds me back.", "en": "I feel that working with other people only holds me back." }, "strengths": [], "reverse_scored": false },
-    { "id": 95, "text": { "ru": "I never rush into an important decision.", "kk": "I never rush into an important decision.", "en": "I never rush into an important decision." }, "strengths": [], "reverse_scored": false },
-    { "id": 96, "text": { "ru": "I believe that with great risk, comes great reward.", "kk": "I believe that with great risk, comes great reward.", "en": "I believe that with great risk, comes great reward." }, "strengths": [], "reverse_scored": false },
-    { "id": 97, "text": { "ru": "I am in awe of the beauty and power of nature.", "kk": "I am in awe of the beauty and power of nature.", "en": "I am in awe of the beauty and power of nature." }, "strengths": [], "reverse_scored": false },
-    { "id": 98, "text": { "ru": "I would say that I am very true to myself.", "kk": "I would say that I am very true to myself.", "en": "I would say that I am very true to myself." }, "strengths": [], "reverse_scored": false },
-    { "id": 99, "text": { "ru": "I like to make others happy.", "kk": "I like to make others happy.", "en": "I like to make others happy." }, "strengths": [], "reverse_scored": false },
-    { "id": 100, "text": { "ru": "I seek out beautiful surrounding", "kk": "I seek out beautiful surrounding", "en": "I seek out beautiful surrounding" }, "strengths": [], "reverse_scored": false }
+    {
+      "id": 1,
+      "text": {
+        "ru": "Я приветлив с друзьями и знакомыми.",
+        "kk": "Мен достарым мен таныстарыма жылы шырай танытамын.",
+        "en": "I am welcoming to friends and acquaintances."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 2,
+      "text": {
+        "ru": "Я понимаю, как сегодняшние решения могут повлиять на будущие результаты.",
+        "kk": "Бүгінгі шешімдердің болашақ нәтижеге қалай әсер ететінін түсінемін.",
+        "en": "I understand how today’s decisions may evolve into future results."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 3,
+      "text": {
+        "ru": "Я чувствую связь с более великой силой в окружающем мире.",
+        "kk": "Өзімді айналамдағы әлемдегі үлкен күшпен байланысты сезінемін.",
+        "en": "I feel connected to a larger force or power in the world around me."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 4,
+      "text": {
+        "ru": "Я часто обращаюсь к прошлому в поиске решений своих проблем.",
+        "kk": "Мәселелерімнің шешімін табу үшін өткенге жиі жүгінемін.",
+        "en": "I often look to the past for solutions to my problems."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 5,
+      "text": {
+        "ru": "Мне комфортно быть в центре внимания.",
+        "kk": "Назардың ортасында болу маған ыңғайлы.",
+        "en": "I do not mind being in the spotlight."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 6,
+      "text": {
+        "ru": "Я всегда ищу положительное в любой ситуации.",
+        "kk": "Кез келген жағдайда жағымды жақты іздеймін.",
+        "en": "I always look for the positive in any situation."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 7,
+      "text": {
+        "ru": "Я хорошо умею направлять других людей в групповых проектах.",
+        "kk": "Топтық жобаларда басқа адамдарды жақсы бағыттай аламын.",
+        "en": "I am good at directing other people in group projects."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 8,
+      "text": {
+        "ru": "Мне нравится читать, чтобы узнавать новые темы и идеи.",
+        "kk": "Жаңа тақырыптар мен идеяларды білу үшін оқығанды ұнатамын.",
+        "en": "I enjoy reading to learn about new topics and ideas."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 9,
+      "text": {
+        "ru": "Я хорошо довожу дела до конца.",
+        "kk": "Істерді жақсы аяқтаймын.",
+        "en": "I am good at getting things done."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 10,
+      "text": {
+        "ru": "Я верю, что все люди созданы равными.",
+        "kk": "Барлық адамдар тең жаратылған деп сенемін.",
+        "en": "I believe all people are created equal."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 11,
+      "text": {
+        "ru": "Я часто могу разрядить сложную ситуацию шуткой или игривым комментарием.",
+        "kk": "Күрделі жағдайды әзілмен не жеңіл пікірмен жиі жұмсарта аламын.",
+        "en": "I can often lighten a difficult situation with a joke or playful comment."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 12,
+      "text": {
+        "ru": "Я очень стараюсь поступать правильно в трудных ситуациях.",
+        "kk": "Қиын жағдайларда дұрыс әрекет етуге барынша тырысамын.",
+        "en": "I try hard to do the right thing in difficult situations."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 13,
+      "text": {
+        "ru": "Я редко чувствую себя перегруженным.",
+        "kk": "Өзімді сирек шамадан тыс қысымда сезінемін.",
+        "en": "I rarely feel overwhelmed."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 14,
+      "text": {
+        "ru": "Я люблю свою жизнь.",
+        "kk": "Өз өмірімді жақсы көремін.",
+        "en": "I love my life."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 15,
+      "text": {
+        "ru": "Я ставлю перед собой большие цели.",
+        "kk": "Өзіме үлкен мақсаттар қоямын.",
+        "en": "I set big goals for myself."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 16,
+      "text": {
+        "ru": "Я придерживаюсь полезных привычек, даже когда есть искушение.",
+        "kk": "Азғырылсам да, пайдалы әдеттерді сақтаймын.",
+        "en": "I stick to healthy habits, even when I’m tempted."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 17,
+      "text": {
+        "ru": "Я часто придумываю новый способ делать вещи.",
+        "kk": "Істерді жасаудың жаңа жолын жиі табамын.",
+        "en": "I often come up with a new way of doing things."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 18,
+      "text": {
+        "ru": "Я хорошо понимаю, что чувствуют другие в трудные времена.",
+        "kk": "Қиын сәттерде басқалардың не сезінетінін жақсы түсінемін.",
+        "en": "I am good at understanding how others feel in difficult times."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 19,
+      "text": {
+        "ru": "Лучше всего я работаю в одиночку.",
+        "kk": "Мен жалғыз жұмыс істегенде ең жақсы нәтижеге жетемін.",
+        "en": "I do my best work alone."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 20,
+      "text": {
+        "ru": "Перед принятием решения я тщательно думаю о последствиях.",
+        "kk": "Шешім қабылдамас бұрын салдарын мұқият ойлаймын.",
+        "en": "Before making a decision, I think carefully about the consequences."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 21,
+      "text": {
+        "ru": "Я избегаю ситуаций, которые вызывают у меня страх или тревогу.",
+        "kk": "Қорқыныш не мазасыздық тудыратын жағдайлардан қашамын.",
+        "en": "I avoid situations that cause me fear or anxiety."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 22,
+      "text": {
+        "ru": "Я испытываю глубокие эмоции в ответ на великую красоту.",
+        "kk": "Үлкен сұлулықты көргенде терең эмоция сезінемін.",
+        "en": "I experience profound emotions in response to great beauty."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 23,
+      "text": {
+        "ru": "Я честен в своих мыслях и чувствах.",
+        "kk": "Ойым мен сезімімде адалмын.",
+        "en": "I am honest about my thoughts and feelings."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 24,
+      "text": {
+        "ru": "Я часто стараюсь сделать чей-то день немного лучше.",
+        "kk": "Біреудің күнін сәл жақсырақ етуге жиі тырысамын.",
+        "en": "I often make an effort to make someone else’s day a little better."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 25,
+      "text": {
+        "ru": "Мне нравится знакомиться с разными формами искусства.",
+        "kk": "Өнердің түрлі түрлерін тамашалаған ұнайды.",
+        "en": "I love experiencing different forms of art."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 26,
+      "text": {
+        "ru": "Я показываю людям, что они мне нравятся и что я их ценю.",
+        "kk": "Адамдарға оларды ұнататынымды және бағалайтынымды көрсетемін.",
+        "en": "I show other people that I like and appreciate them."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 27,
+      "text": {
+        "ru": "Я думаю о том, как мои решения отразятся в будущем.",
+        "kk": "Шешімдерімнің болашақта қалай іске асатынын ойлаймын.",
+        "en": "I think about how my decisions will play out in the future."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 28,
+      "text": {
+        "ru": "Я верю, что у моей жизни есть цель.",
+        "kk": "Өмірімнің мәні бар деп сенемін.",
+        "en": "I believe my life has a purpose."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 29,
+      "text": {
+        "ru": "История может преподать нам много важных уроков.",
+        "kk": "Тарих бізге көптеген маңызды сабақ бере алады.",
+        "en": "History has many important lessons to teach us."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 30,
+      "text": {
+        "ru": "Я часто беру на себя задачи и проекты, которые привлекут ко мне внимание других.",
+        "kk": "Басқалардың назарын аударатын тапсырмалар мен жобаларды жиі аламын.",
+        "en": "I often take on tasks and projects that I know will bring me attention from others."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 31,
+      "text": {
+        "ru": "Я верю, что обычно всё складывается к лучшему.",
+        "kk": "Әдетте бәрі жақсы жағына шешіледі деп сенемін.",
+        "en": "I believe things usually work out for the best."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 32,
+      "text": {
+        "ru": "Работая в группе, я часто ясно понимаю, что нам делать дальше.",
+        "kk": "Топпен жұмыс істегенде келесі қадамды жиі анық түсінемін.",
+        "en": "When working with a group, I often have a clear sense of what we should do next."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 33,
+      "text": {
+        "ru": "Я часто трачу время на изучение идей, которые меня увлекают.",
+        "kk": "Мені қызықтыратын идеяларды зерттеуге жиі уақыт бөлемін.",
+        "en": "I often spend time researching ideas that intrigue me."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 34,
+      "text": {
+        "ru": "Я делаю то, что необходимо для достижения своих целей.",
+        "kk": "Мақсаттарыма жету үшін қажет нәрсені орындаймын.",
+        "en": "I do what has to be done to accomplish my goals."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 35,
+      "text": {
+        "ru": "Мои достижения не важнее достижений других людей.",
+        "kk": "Жетістіктерім басқа адамдардың жетістігінен маңызды емес.",
+        "en": "My accomplishments are no more important that anyone else’s."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 36,
+      "text": {
+        "ru": "Я нахожу радость в повседневных задачах.",
+        "kk": "Күнделікті тапсырмалардан қызық таба аламын.",
+        "en": "I find the fun in everyday tasks."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 37,
+      "text": {
+        "ru": "Когда передо мной моральная дилемма, я тщательно обдумываю правильный выбор.",
+        "kk": "Моральдық дилеммада дұрыс таңдауды мұқият ойлаймын.",
+        "en": "When I have a moral dilemma, I think carefully about the right choice."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 38,
+      "text": {
+        "ru": "После стресса мне нужно много времени, чтобы восстановиться.",
+        "kk": "Күйзелістен кейін қалпыма келу үшін маған көп уақыт керек.",
+        "en": "I need a lot of time to recover when I experience stress."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 39,
+      "text": {
+        "ru": "Я чувствую сильный прилив энергии, когда думаю о своих планах и проектах.",
+        "kk": "Жоспарларым мен жобаларым туралы ойласам, өзімді өте қуатты сезінемін.",
+        "en": "I feel great energy when thinking about my plans and projects."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 40,
+      "text": {
+        "ru": "Я хочу добиться великих вещей.",
+        "kk": "Үлкен жетістіктерге жеткім келеді.",
+        "en": "I want to achieve great things."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 41,
+      "text": {
+        "ru": "У меня сильная сила воли.",
+        "kk": "Менің ерік-жігерім мықты.",
+        "en": "I have a lot of willpower."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 42,
+      "text": {
+        "ru": "Мои идеи часто бывают неожиданными и удивительными.",
+        "kk": "Идеяларым жиі күтпеген әрі таңғаларлық болады.",
+        "en": "My ideas are often unexpected and surprising."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 43,
+      "text": {
+        "ru": "Другие люди говорят, что я отличный слушатель.",
+        "kk": "Басқалар мені өте жақсы тыңдай алады деп айтады.",
+        "en": "Other people tell me I am an excellent listener."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 44,
+      "text": {
+        "ru": "Мне нравится поддержка и командный дух в команде.",
+        "kk": "Командадағы қолдау мен бірлікті ұнатамын.",
+        "en": "I enjoy the support and camaraderie of a team."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 45,
+      "text": {
+        "ru": "Перед принятием решения я рассматриваю все стороны.",
+        "kk": "Шешім қабылдарда барлық қырын қарастырамын.",
+        "en": "I consider all angles before making a decision."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 46,
+      "text": {
+        "ru": "Я осознанно стараюсь встретиться со своими страхами и преодолеть их.",
+        "kk": "Қорқыныштарыммен бетпе-бет келіп, оларды жеңуге саналы түрде тырысамын.",
+        "en": "I make a conscious effort to face and overcome my fears."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 47,
+      "text": {
+        "ru": "Прекрасная музыка глубоко меня трогает.",
+        "kk": "Әдемі музыка мені терең толғандырады.",
+        "en": "Beautiful music moves me deeply."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 48,
+      "text": {
+        "ru": "Я не пытаюсь скрывать, кто я есть.",
+        "kk": "Кім екенімді жасыруға тырыспаймын.",
+        "en": "I do not try to hide who I am."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 49,
+      "text": {
+        "ru": "Я отдаю столько, сколько могу, на благотворительность.",
+        "kk": "Қайырымдылыққа қолымнан келгенше үлес қосамын.",
+        "en": "I give what I can to charitable causes."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 50,
+      "text": {
+        "ru": "Мне нравится посещать художественные музеи.",
+        "kk": "Өнер мұражайларына барғанды ұнатамын.",
+        "en": "I like visiting art museums."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 51,
+      "text": {
+        "ru": "Я стараюсь вовлекать других.",
+        "kk": "Басқаларды қосудың жолын іздеймін.",
+        "en": "I make an effort to include others."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 52,
+      "text": {
+        "ru": "Я ясно вижу, где буду через пять лет.",
+        "kk": "Бес жылдан кейін қай жерде болатынымды анық көремін.",
+        "en": "I can clearly see where I will be in five years."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 53,
+      "text": {
+        "ru": "Я вижу, как в моей жизни действуют универсальные или духовные силы.",
+        "kk": "Өмірімде әмбебап не рухани күштердің әрекетін көремін.",
+        "en": "I see universal or spiritual forces at work in my life."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 54,
+      "text": {
+        "ru": "Я вижу большую ценность в мудрости и советах предыдущих поколений.",
+        "kk": "Алдыңғы буынның даналығы мен кеңесін өте құнды деп санаймын.",
+        "en": "I find great value in the wisdom and advice of previous generations."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 55,
+      "text": {
+        "ru": "Мне нравится получать награды и признание.",
+        "kk": "Марапат пен мойындау алған ұнайды.",
+        "en": "I enjoy receiving awards and accolades."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 56,
+      "text": {
+        "ru": "Даже когда всё идет не по-моему, я вижу путь вперед.",
+        "kk": "Іс ойымдағыдай болмаса да, алға апарар жолды көремін.",
+        "en": "Even when things are not going my way, I see a way forward."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 57,
+      "text": {
+        "ru": "В группе я обычно самый решительный человек.",
+        "kk": "Топта көбіне ең батыл шешім қабылдайтын адам мен боламын.",
+        "en": "I tend to be the most decisive person in a group."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 58,
+      "text": {
+        "ru": "Я хочу понимать, как всё устроено.",
+        "kk": "Нәрселердің қалай жұмыс істейтінін білгім келеді.",
+        "en": "I want to know how things work."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 59,
+      "text": {
+        "ru": "Если я решил что-то сделать, ничто меня не остановит.",
+        "kk": "Бір нәрсені істеуге шешім қабылдасам, мені ештеңе тоқтатпайды.",
+        "en": "I do not let anything stop me when I have decided to do something."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 60,
+      "text": {
+        "ru": "Я чувствую, что могу достичь большего, чем средний человек.",
+        "kk": "Орташа адамнан көбірек жетістікке жете аламын деп сезінемін.",
+        "en": "I feel that I can accomplish more than the average person."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 61,
+      "text": {
+        "ru": "Я серьёзный человек.",
+        "kk": "Мен байсалды адаммын.",
+        "en": "I am a serious person."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 62,
+      "text": {
+        "ru": "Иногда я делаю то, что, как знаю, неправильно.",
+        "kk": "Кейде қате екенін біле тұра солай істеймін.",
+        "en": "I sometimes do things that I know are wrong."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 63,
+      "text": {
+        "ru": "Я знаю, как успокоить себя в стрессовых ситуациях.",
+        "kk": "Күйзелісті жағдайда өзімді қалай сабырға келтіруді білемін.",
+        "en": "I know how to calm myself down in stressful situations."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 64,
+      "text": {
+        "ru": "Я часто не могу дождаться начала нового дня.",
+        "kk": "Күнді бастауға жиі асығып тұрамын.",
+        "en": "I often can’t wait to get started with my day."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 65,
+      "text": {
+        "ru": "Я готов усердно работать, чтобы стать очень успешным.",
+        "kk": "Өте табысты болу үшін көп еңбек етуге дайынмын.",
+        "en": "I am willing to put in the work to become very successful."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 66,
+      "text": {
+        "ru": "Я принимаю хорошие решения и придерживаюсь их.",
+        "kk": "Жақсы шешім қабылдап, соны ұстанамын.",
+        "en": "I make good choices and stick with them."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 67,
+      "text": {
+        "ru": "Я часто нахожу лучшие баламалар вместо устоявшихся процедур.",
+        "kk": "Қалыптасқан рәсімдерге қарағанда жиі жақсы балама табамын.",
+        "en": "I tend to come up with better alternatives to established procedures."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 68,
+      "text": {
+        "ru": "Я часто очень точно понимаю людей.",
+        "kk": "Адамдарды жиі өте дәл түсінемін.",
+        "en": "I can often read people very accurately."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 69,
+      "text": {
+        "ru": "Больше всего мне нравятся проекты, где я работаю вместе с другими людьми.",
+        "kk": "Басқалармен қатар жұмыс істейтін жобалар маған көбірек қанағат сыйлайды.",
+        "en": "I feel most satisfied by projects where I am working alongside other people."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 70,
+      "text": {
+        "ru": "Я делаю обдуманный выбор.",
+        "kk": "Ойланып таңдау жасаймын.",
+        "en": "I make careful choices."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 71,
+      "text": {
+        "ru": "Если ситуация сложная, я встречаю её лицом к лицу.",
+        "kk": "Жағдай қиын болса, соған тіке беттеймін.",
+        "en": "When a situation is difficult, I face it head on."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 72,
+      "text": {
+        "ru": "Меня часто глубоко трогают истории, полные сильных эмоций и драмы.",
+        "kk": "Күшті эмоция мен драмасы бар оқиғалар мені жиі терең толғандырады.",
+        "en": "I am often deeply moved by a story of great emotion or drama."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 73,
+      "text": {
+        "ru": "Я делюсь тем, что действительно чувствую, даже когда это трудно.",
+        "kk": "Қиын болса да, шын сезімімді бөлісемін.",
+        "en": "I share how I really feel, even when it is difficult."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 74,
+      "text": {
+        "ru": "Я уделяю своё время помощи тем, кто в этом нуждается.",
+        "kk": "Мұқтаж адамдарға көмектесуге өз уақытымды бөлемін.",
+        "en": "I give my time to help those who need it."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 75,
+      "text": {
+        "ru": "Музыка — важная часть моей жизни.",
+        "kk": "Музыка – өмірімнің маңызды бөлігі.",
+        "en": "Music is an important part of my life."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 76,
+      "text": {
+        "ru": "Я нахожу способы показать людям, что мне приятно быть рядом с ними.",
+        "kk": "Адамдарға олардың жанында болу маған ұнайтынын көрсетудің жолын табамын.",
+        "en": "I find ways to show people that I enjoy being around them."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 77,
+      "text": {
+        "ru": "Меня интересуют инновации, которые могут кардинально изменить наше будущее.",
+        "kk": "Болашағымызды түбегейлі өзгертетін инновацияларға қызығамын.",
+        "en": "I am interested in innovations that will profoundly change our future."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 78,
+      "text": {
+        "ru": "Я верю, что Вселенная хранит великие тайны, которые мы не можем полностью понять.",
+        "kk": "Ғаламда біз толық түсіне алмайтын құдіретті құпиялар бар деп сенемін.",
+        "en": "I believe the universe holds powerful mysteries that we cannot fully understand."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 79,
+      "text": {
+        "ru": "Я ценю возможность идти по следам тех, кто был до меня.",
+        "kk": "Менен бұрынғылардың ізімен жүруді құнды санаймын.",
+        "en": "I appreciate following in the footsteps of others who have come before me."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 80,
+      "text": {
+        "ru": "Я бы с радостью стал почетным гостем на мероприятии.",
+        "kk": "Іс-шарада құрметті қонақ болсам деймін.",
+        "en": "I would love to be the guest of honor at an event."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 81,
+      "text": {
+        "ru": "Я вижу для себя светлое будущее.",
+        "kk": "Өзім үшін жарқын болашақты көремін.",
+        "en": "I see a bright future for myself."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 82,
+      "text": {
+        "ru": "Люди часто обращаются ко мне за руководством и направлением.",
+        "kk": "Адамдар меннен жиі бағыт пен басшылық күтеді.",
+        "en": "People often look to me to guide and direct them."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 83,
+      "text": {
+        "ru": "Я часто изучаю незнакомые темы просто ради удовольствия.",
+        "kk": "Таныс емес тақырыптарды тек қызық үшін жиі оқып-зерттеймін.",
+        "en": "I often study unfamiliar subjects just for the fun of it."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 84,
+      "text": {
+        "ru": "Другие знают, что на меня можно положиться, если нужно довести дело до результата.",
+        "kk": "Істі нәтижеге жеткізу қажет болса, басқалар маған сенуге болатынын біледі.",
+        "en": "Others know they can count on me to make things happen."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 85,
+      "text": {
+        "ru": "Мои достижения выделяют меня среди других.",
+        "kk": "Жетістіктерім мені басқалардан ерекшелейді.",
+        "en": "My achievements set me apart from other people."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 86,
+      "text": {
+        "ru": "Я часто в игривом, иногда даже шутливом настроении.",
+        "kk": "Көбіне ойнақы, кейде тіпті еркелеу көңіл күйде боламын.",
+        "en": "I am often in a playful or even silly mood."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 87,
+      "text": {
+        "ru": "Для меня важно, чтобы мои действия соответствовали моим ценностям.",
+        "kk": "Іс-әрекетім құндылықтарыма сай болуы мен үшін маңызды.",
+        "en": "It’s important to me that my actions are consistent with my values."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 88,
+      "text": {
+        "ru": "Я умею сохранять хладнокровие в трудные времена.",
+        "kk": "Қиын кезеңде сабыр сақтай аламын.",
+        "en": "I know how to keep my cool in difficult times."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 89,
+      "text": {
+        "ru": "Меня вдохновляют возможности, которые предлагает жизнь.",
+        "kk": "Өмір беретін мүмкіндіктер мені шабыттандырады.",
+        "en": "I am excited about the possibilities that life has to offer."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 90,
+      "text": {
+        "ru": "амбициозный человек деп танимын",
+        "kk": "Мені өршіл адам ретінде таниды.",
+        "en": "I am known to be an ambitious person."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 91,
+      "text": {
+        "ru": "Я часто отвлекаюсь на импульсивные порывы.",
+        "kk": "Импульсивті ниеттерге жиі алаңдап кетемін.",
+        "en": "I am often distracted by impulses."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 92,
+      "text": {
+        "ru": "Я часто представляю, какими бы хотел видеть вещи.",
+        "kk": "Заттардың өзім қалағандай болғанын жиі елестетемін.",
+        "en": "I often imagine things as I’d like them to be."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 93,
+      "text": {
+        "ru": "Другие люди знают, что могут доверить мне понимание своих проблем.",
+        "kk": "Басқалар өз мәселелерін түсінуге маған сенуге болатынын біледі.",
+        "en": "Other people know they can trust me to understand their problems."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 94,
+      "text": {
+        "ru": "Мне кажется, что работа с другими людьми меня только сдерживает.",
+        "kk": "Басқалармен жұмыс істеу мені тек тежейді деп сезінемін.",
+        "en": "I feel that working with other people only holds me back."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 95,
+      "text": {
+        "ru": "Я никогда не тороплюсь с важным решением.",
+        "kk": "Маңызды шешімде ешқашан асықпаймын.",
+        "en": "I never rush into an important decision."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 96,
+      "text": {
+        "ru": "Я верю, что большой риск приносит большую награду.",
+        "kk": "Үлкен тәуекел үлкен марапат әкеледі деп сенемін.",
+        "en": "I believe that with great risk, comes great reward."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 97,
+      "text": {
+        "ru": "Я испытываю благоговение перед красотой и мощью природы.",
+        "kk": "Табиғаттың сұлулығы мен қуатына таңданамын.",
+        "en": "I am in awe of the beauty and power of nature."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 98,
+      "text": {
+        "ru": "Я бы сказал, что остаюсь очень верным самому себе.",
+        "kk": "Өзіме өте адалмын деп айтар едім.",
+        "en": "I would say that I am very true to myself."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 99,
+      "text": {
+        "ru": "Мне нравится делать других счастливыми.",
+        "kk": "Басқаларды бақытты еткен ұнайды.",
+        "en": "I like to make others happy."
+      },
+      "strengths": [],
+      "reverse_scored": false
+    },
+    {
+      "id": 100,
+      "text": {
+        "ru": "Я стремлюсь находить вокруг себя красивое окружение.",
+        "kk": "Әдемі ортаны іздеп жүремін.",
+        "en": "I seek out beautiful surrounding"
+      },
+      "strengths": [],
+      "reverse_scored": false
+    }
   ]
 }

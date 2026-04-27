@@ -2,7 +2,11 @@
   "test": {
     "id": "test_007",
     "code": "enneagram",
-    "title": { "ru": "Enneagram Personality Test", "kk": "Enneagram Personality Test", "en": "Enneagram Personality Test" },
+    "title": {
+      "ru": "Тест личности Эннеаграмма",
+      "kk": "Эннеаграмма тұлғалық тесті",
+      "en": "Enneagram Personality Test"
+    },
     "version": 1
   },
   "question_type": "scale",
@@ -10,118 +14,1293 @@
     "min": 1,
     "max": 5,
     "labels": {
-      "1": { "ru": "Inaccurate", "kk": "Inaccurate", "en": "Inaccurate" },
-      "2": { "ru": "Mostly Inaccurate", "kk": "Mostly Inaccurate", "en": "Mostly Inaccurate" },
-      "3": { "ru": "Neutral", "kk": "Neutral", "en": "Neutral" },
-      "4": { "ru": "Mostly Accurate", "kk": "Mostly Accurate", "en": "Mostly Accurate" },
-      "5": { "ru": "Accurate", "kk": "Accurate", "en": "Accurate" }
+      "1": {
+        "ru": "Не похоже на меня",
+        "kk": "Маған ұқсамайды",
+        "en": "Inaccurate"
+      },
+      "2": {
+        "ru": "Скорее не похоже на меня",
+        "kk": "Көбіне маған ұқсамайды",
+        "en": "Mostly Inaccurate"
+      },
+      "3": {
+        "ru": "Нейтрально",
+        "kk": "Бейтарап",
+        "en": "Neutral"
+      },
+      "4": {
+        "ru": "Скорее похоже на меня",
+        "kk": "Көбіне маған ұқсайды",
+        "en": "Mostly Accurate"
+      },
+      "5": {
+        "ru": "Похоже на меня",
+        "kk": "Маған ұқсайды",
+        "en": "Accurate"
+      }
     }
   },
   "questions": [
-    { "id": 1, "text": { "ru": "I strive for perfection", "kk": "I strive for perfection", "en": "I strive for perfection" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 2, "text": { "ru": "I work hard to be helpful to others", "kk": "I work hard to be helpful to others", "en": "I work hard to be helpful to others" }, "scoring": { "type": "type_2", "reverse_scored": false } },
-    { "id": 3, "text": { "ru": "It is important to me that other people like me", "kk": "It is important to me that other people like me", "en": "It is important to me that other people like me" }, "scoring": { "type": "type_2", "reverse_scored": false } },
-    { "id": 4, "text": { "ru": "It is important to me to achieve great things", "kk": "It is important to me to achieve great things", "en": "It is important to me to achieve great things" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 5, "text": { "ru": "I make more significant contributions than the average person", "kk": "I make more significant contributions than the average person", "en": "I make more significant contributions than the average person" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 6, "text": { "ru": "I feel my emotions very deeply", "kk": "I feel my emotions very deeply", "en": "I feel my emotions very deeply" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 7, "text": { "ru": "I have a sense that other people will never truly understand me", "kk": "I have a sense that other people will never truly understand me", "en": "I have a sense that other people will never truly understand me" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 8, "text": { "ru": "I think deeply about things", "kk": "I think deeply about things", "en": "I think deeply about things" }, "scoring": { "type": "type_5", "reverse_scored": false } },
-    { "id": 9, "text": { "ru": "I am prepared for any disaster", "kk": "I am prepared for any disaster", "en": "I am prepared for any disaster" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 10, "text": { "ru": "It is important to me to avoid pain and suffering at all times", "kk": "It is important to me to avoid pain and suffering at all times", "en": "It is important to me to avoid pain and suffering at all times" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 11, "text": { "ru": "I seek out experiences that I know will make me feel happy or excited", "kk": "I seek out experiences that I know will make me feel happy or excited", "en": "I seek out experiences that I know will make me feel happy or excited" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 12, "text": { "ru": "I see the positive in every situation", "kk": "I see the positive in every situation", "en": "I see the positive in every situation" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 13, "text": { "ru": "I am not afraid to tell someone when I think they are wrong", "kk": "I am not afraid to tell someone when I think they are wrong", "en": "I am not afraid to tell someone when I think they are wrong" }, "scoring": { "type": "type_8", "reverse_scored": false } },
-    { "id": 14, "text": { "ru": "I let other people make the decisions", "kk": "I let other people make the decisions", "en": "I let other people make the decisions" }, "scoring": { "type": "type_9", "reverse_scored": false } },
-    { "id": 15, "text": { "ru": "I appreciate having rules that people are expected to follow", "kk": "I appreciate having rules that people are expected to follow", "en": "I appreciate having rules that people are expected to follow" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 16, "text": { "ru": "I am concerned about security more than anything else", "kk": "I am concerned about security more than anything else", "en": "I am concerned about security more than anything else" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 17, "text": { "ru": "I think a lot about what will happen in the future", "kk": "I think a lot about what will happen in the future", "en": "I think a lot about what will happen in the future" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 18, "text": { "ru": "I don’t fit in with ordinary people", "kk": "I don’t fit in with ordinary people", "en": "I don’t fit in with ordinary people" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 19, "text": { "ru": "There is rarely a good reason for changing how things are done", "kk": "There is rarely a good reason for changing how things are done", "en": "There is rarely a good reason for changing how things are done" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 20, "text": { "ru": "I always finish my chores", "kk": "I always finish my chores", "en": "I always finish my chores" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 21, "text": { "ru": "I am always trying to be a better person", "kk": "I am always trying to be a better person", "en": "I am always trying to be a better person" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 22, "text": { "ru": "I check carefully for mistakes and errors", "kk": "I check carefully for mistakes and errors", "en": "I check carefully for mistakes and errors" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 23, "text": { "ru": "I like to be around people who I can help", "kk": "I like to be around people who I can help", "en": "I like to be around people who I can help" }, "scoring": { "type": "type_2", "reverse_scored": false } },
-    { "id": 24, "text": { "ru": "I like to feel that I am an important person in my social groups", "kk": "I like to feel that I am an important person in my social groups", "en": "I like to feel that I am an important person in my social groups" }, "scoring": { "type": "type_2", "reverse_scored": false } },
-    { "id": 25, "text": { "ru": "It is important to me to be successful", "kk": "It is important to me to be successful", "en": "It is important to me to be successful" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 26, "text": { "ru": "The organizations I belong to would not function well without me", "kk": "The organizations I belong to would not function well without me", "en": "The organizations I belong to would not function well without me" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 27, "text": { "ru": "I often feel overtaken by my emotions", "kk": "I often feel overtaken by my emotions", "en": "I often feel overtaken by my emotions" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 28, "text": { "ru": "I have always felt different from other people", "kk": "I have always felt different from other people", "en": "I have always felt different from other people" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 29, "text": { "ru": "I like to analyze things from every angle", "kk": "I like to analyze things from every angle", "en": "I like to analyze things from every angle" }, "scoring": { "type": "type_5", "reverse_scored": false } },
-    { "id": 30, "text": { "ru": "I always have a plan for what I would do if things go wrong", "kk": "I always have a plan for what I would do if things go wrong", "en": "I always have a plan for what I would do if things go wrong" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 31, "text": { "ru": "I avoid situations that bring up negative feelings", "kk": "I avoid situations that bring up negative feelings", "en": "I avoid situations that bring up negative feelings" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 32, "text": { "ru": "I seek excitement", "kk": "I seek excitement", "en": "I seek excitement" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 33, "text": { "ru": "I am good at seeing the bright side of things when others complain", "kk": "I am good at seeing the bright side of things when others complain", "en": "I am good at seeing the bright side of things when others complain" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 34, "text": { "ru": "I do not hesitate to call people out when they are behaving badly", "kk": "I do not hesitate to call people out when they are behaving badly", "en": "I do not hesitate to call people out when they are behaving badly" }, "scoring": { "type": "type_8", "reverse_scored": false } },
-    { "id": 35, "text": { "ru": "I go along with what other people want", "kk": "I go along with what other people want", "en": "I go along with what other people want" }, "scoring": { "type": "type_9", "reverse_scored": false } },
-    { "id": 36, "text": { "ru": "People should follow the rules instead of doing what they feel like doing", "kk": "People should follow the rules instead of doing what they feel like doing", "en": "People should follow the rules instead of doing what they feel like doing" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 37, "text": { "ru": "I seek out relationships that offer me some type of protection", "kk": "I seek out relationships that offer me some type of protection", "en": "I seek out relationships that offer me some type of protection" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 38, "text": { "ru": "I can clearly visualize what could happen in the future", "kk": "I can clearly visualize what could happen in the future", "en": "I can clearly visualize what could happen in the future" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 39, "text": { "ru": "Average people often find me a bit weird", "kk": "Average people often find me a bit weird", "en": "Average people often find me a bit weird" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 40, "text": { "ru": "I like to do things as I’ve always done them", "kk": "I like to do things as I’ve always done them", "en": "I like to do things as I’ve always done them" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 41, "text": { "ru": "I persist until a task is done", "kk": "I persist until a task is done", "en": "I persist until a task is done" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 42, "text": { "ru": "I spend time trying to discover and correct my faults and weaknesses", "kk": "I spend time trying to discover and correct my faults and weaknesses", "en": "I spend time trying to discover and correct my faults and weaknesses" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 43, "text": { "ru": "I hold myself to very high standards", "kk": "I hold myself to very high standards", "en": "I hold myself to very high standards" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 44, "text": { "ru": "I am a natural caretaker", "kk": "I am a natural caretaker", "en": "I am a natural caretaker" }, "scoring": { "type": "type_2", "reverse_scored": false } },
-    { "id": 45, "text": { "ru": "I want people to admire me", "kk": "I want people to admire me", "en": "I want people to admire me" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 46, "text": { "ru": "I want to achieve a lot in my life", "kk": "I want to achieve a lot in my life", "en": "I want to achieve a lot in my life" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 47, "text": { "ru": "If I am honest, I feel that I am a bit better than other people", "kk": "If I am honest, I feel that I am a bit better than other people", "en": "If I am honest, I feel that I am a bit better than other people" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 48, "text": { "ru": "I feel a deep sense of grief for what I have lost", "kk": "I feel a deep sense of grief for what I have lost", "en": "I feel a deep sense of grief for what I have lost" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 49, "text": { "ru": "I am an unusual sort of person", "kk": "I am an unusual sort of person", "en": "I am an unusual sort of person" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 50, "text": { "ru": "I take time to understand things more deeply than most people do", "kk": "I take time to understand things more deeply than most people do", "en": "I take time to understand things more deeply than most people do" }, "scoring": { "type": "type_5", "reverse_scored": false } },
-    { "id": 51, "text": { "ru": "It is important to me to be prepared for any emergency", "kk": "It is important to me to be prepared for any emergency", "en": "It is important to me to be prepared for any emergency" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 52, "text": { "ru": "I distract myself from any sad feelings that arise", "kk": "I distract myself from any sad feelings that arise", "en": "I distract myself from any sad feelings that arise" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 53, "text": { "ru": "I often make changes in my life when things get boring", "kk": "I often make changes in my life when things get boring", "en": "I often make changes in my life when things get boring" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 54, "text": { "ru": "I tend to be more optimistic than most people", "kk": "I tend to be more optimistic than most people", "en": "I tend to be more optimistic than most people" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 55, "text": { "ru": "I tell people what I think, even if it is hard to hear", "kk": "I tell people what I think, even if it is hard to hear", "en": "I tell people what I think, even if it is hard to hear" }, "scoring": { "type": "type_8", "reverse_scored": false } },
-    { "id": 56, "text": { "ru": "I would rather follow the group than push for what I want", "kk": "I would rather follow the group than push for what I want", "en": "I would rather follow the group than push for what I want" }, "scoring": { "type": "type_9", "reverse_scored": false } },
-    { "id": 57, "text": { "ru": "I feel most comfortable in organizations with a clear hierarchy", "kk": "I feel most comfortable in organizations with a clear hierarchy", "en": "I feel most comfortable in organizations with a clear hierarchy" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 58, "text": { "ru": "I take measures to protect myself and my loved ones from harm", "kk": "I take measures to protect myself and my loved ones from harm", "en": "I take measures to protect myself and my loved ones from harm" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 59, "text": { "ru": "I make plans for many years into the future", "kk": "I make plans for many years into the future", "en": "I make plans for many years into the future" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 60, "text": { "ru": "I am an unusually unique person", "kk": "I am an unusually unique person", "en": "I am an unusually unique person" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 61, "text": { "ru": "I dislike trying new methods or procedures", "kk": "I dislike trying new methods or procedures", "en": "I dislike trying new methods or procedures" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 62, "text": { "ru": "I focus on my responsibilities and duties", "kk": "I focus on my responsibilities and duties", "en": "I focus on my responsibilities and duties" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 63, "text": { "ru": "I read books that help me be more productive or better at what I do", "kk": "I read books that help me be more productive or better at what I do", "en": "I read books that help me be more productive or better at what I do" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 64, "text": { "ru": "I put a lot of pressure on myself to do things right", "kk": "I put a lot of pressure on myself to do things right", "en": "I put a lot of pressure on myself to do things right" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 65, "text": { "ru": "I take the initiative to help other people and make their lives easier", "kk": "I take the initiative to help other people and make their lives easier", "en": "I take the initiative to help other people and make their lives easier" }, "scoring": { "type": "type_2", "reverse_scored": false } },
-    { "id": 66, "text": { "ru": "I put in the effort to make a good impression on other people", "kk": "I put in the effort to make a good impression on other people", "en": "I put in the effort to make a good impression on other people" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 67, "text": { "ru": "I set ambitious goals for myself", "kk": "I set ambitious goals for myself", "en": "I set ambitious goals for myself" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 68, "text": { "ru": "I am an important member of my social groups", "kk": "I am an important member of my social groups", "en": "I am an important member of my social groups" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 69, "text": { "ru": "I can describe my emotions in a lot of depth and detail", "kk": "I can describe my emotions in a lot of depth and detail", "en": "I can describe my emotions in a lot of depth and detail" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 70, "text": { "ru": "I often feel like an outsider", "kk": "I often feel like an outsider", "en": "I often feel like an outsider" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 71, "text": { "ru": "I find my mind to be a very interesting place", "kk": "I find my mind to be a very interesting place", "en": "I find my mind to be a very interesting place" }, "scoring": { "type": "type_5", "reverse_scored": false } },
-    { "id": 72, "text": { "ru": "I am always aware of what can go wrong in a situation", "kk": "I am always aware of what can go wrong in a situation", "en": "I am always aware of what can go wrong in a situation" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 73, "text": { "ru": "I have many ways of avoiding situations that get me down", "kk": "I have many ways of avoiding situations that get me down", "en": "I have many ways of avoiding situations that get me down" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 74, "text": { "ru": "I am always up for a new adventure", "kk": "I am always up for a new adventure", "en": "I am always up for a new adventure" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 75, "text": { "ru": "I believe that things usually work out for the best", "kk": "I believe that things usually work out for the best", "en": "I believe that things usually work out for the best" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 76, "text": { "ru": "I stand up for what I believe in, even if it upsets other people", "kk": "I stand up for what I believe in, even if it upsets other people", "en": "I stand up for what I believe in, even if it upsets other people" }, "scoring": { "type": "type_8", "reverse_scored": false } },
-    { "id": 77, "text": { "ru": "I let other people take the lead", "kk": "I let other people take the lead", "en": "I let other people take the lead" }, "scoring": { "type": "type_9", "reverse_scored": false } },
-    { "id": 78, "text": { "ru": "I dislike people who disrupt things by breaking the rules", "kk": "I dislike people who disrupt things by breaking the rules", "en": "I dislike people who disrupt things by breaking the rules" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 79, "text": { "ru": "I make alliances with people who can help me stay safe and secure", "kk": "I make alliances with people who can help me stay safe and secure", "en": "I make alliances with people who can help me stay safe and secure" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 80, "text": { "ru": "I am often looking ahead, toward what is coming next", "kk": "I am often looking ahead, toward what is coming next", "en": "I am often looking ahead, toward what is coming next" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 81, "text": { "ru": "I have different interests than most people", "kk": "I have different interests than most people", "en": "I have different interests than most people" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 82, "text": { "ru": "The traditional way of doing things is the best way", "kk": "The traditional way of doing things is the best way", "en": "The traditional way of doing things is the best way" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 83, "text": { "ru": "I am a responsible and reliable person", "kk": "I am a responsible and reliable person", "en": "I am a responsible and reliable person" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 84, "text": { "ru": "I have a lot of plans for how I can improve myself", "kk": "I have a lot of plans for how I can improve myself", "en": "I have a lot of plans for how I can improve myself" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 85, "text": { "ru": "I make sure that even small details are correct", "kk": "I make sure that even small details are correct", "en": "I make sure that even small details are correct" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 86, "text": { "ru": "I enjoy caring for others and their needs", "kk": "I enjoy caring for others and their needs", "en": "I enjoy caring for others and their needs" }, "scoring": { "type": "type_2", "reverse_scored": false } },
-    { "id": 87, "text": { "ru": "I want to be a person that others can look up to", "kk": "I want to be a person that others can look up to", "en": "I want to be a person that others can look up to" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 88, "text": { "ru": "I push myself to succeed", "kk": "I push myself to succeed", "en": "I push myself to succeed" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 89, "text": { "ru": "I make important contributions to my community", "kk": "I make important contributions to my community", "en": "I make important contributions to my community" }, "scoring": { "type": "type_3", "reverse_scored": false } },
-    { "id": 90, "text": { "ru": "I rarely have strong emotions", "kk": "I rarely have strong emotions", "en": "I rarely have strong emotions" }, "scoring": { "type": "type_4", "reverse_scored": true } },
-    { "id": 91, "text": { "ru": "I feel I never truly belong in social groups", "kk": "I feel I never truly belong in social groups", "en": "I feel I never truly belong in social groups" }, "scoring": { "type": "type_4", "reverse_scored": false } },
-    { "id": 92, "text": { "ru": "I want to learn as much as I can about how the world works", "kk": "I want to learn as much as I can about how the world works", "en": "I want to learn as much as I can about how the world works" }, "scoring": { "type": "type_5", "reverse_scored": false } },
-    { "id": 93, "text": { "ru": "It is important for me to understand what can go wrong in a situation", "kk": "It is important for me to understand what can go wrong in a situation", "en": "It is important for me to understand what can go wrong in a situation" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 94, "text": { "ru": "I take steps to ensure I don't feel sad or lonely", "kk": "I take steps to ensure I don't feel sad or lonely", "en": "I take steps to ensure I don't feel sad or lonely" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 95, "text": { "ru": "Trying new things keeps life interesting", "kk": "Trying new things keeps life interesting", "en": "Trying new things keeps life interesting" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 96, "text": { "ru": "I am an upbeat person", "kk": "I am an upbeat person", "en": "I am an upbeat person" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 97, "text": { "ru": "I am usually the one to take a stand when others won’t", "kk": "I am usually the one to take a stand when others won’t", "en": "I am usually the one to take a stand when others won’t" }, "scoring": { "type": "type_8", "reverse_scored": false } },
-    { "id": 98, "text": { "ru": "Other people have stronger opinions than I do", "kk": "Other people have stronger opinions than I do", "en": "Other people have stronger opinions than I do" }, "scoring": { "type": "type_9", "reverse_scored": false } },
-    { "id": 99, "text": { "ru": "Everyone has a role to play in society and a duty to do their best", "kk": "Everyone has a role to play in society and a duty to do their best", "en": "Everyone has a role to play in society and a duty to do their best" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 100, "text": { "ru": "I am concerned with protecting what I have", "kk": "I am concerned with protecting what I have", "en": "I am concerned with protecting what I have" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 101, "text": { "ru": "I have a good sense of what my future holds", "kk": "I have a good sense of what my future holds", "en": "I have a good sense of what my future holds" }, "scoring": { "type": "type_6", "reverse_scored": false } },
-    { "id": 102, "text": { "ru": "I am an average person with ordinary likes and dislikes", "kk": "I am an average person with ordinary likes and dislikes", "en": "I am an average person with ordinary likes and dislikes" }, "scoring": { "type": "type_4", "reverse_scored": true } },
-    { "id": 103, "text": { "ru": "I try new ways of doing things just to see if they will work", "kk": "I try new ways of doing things just to see if they will work", "en": "I try new ways of doing things just to see if they will work" }, "scoring": { "type": "type_7", "reverse_scored": false } },
-    { "id": 104, "text": { "ru": "I have a great deal of willpower", "kk": "I have a great deal of willpower", "en": "I have a great deal of willpower" }, "scoring": { "type": "type_1", "reverse_scored": false } },
-    { "id": 105, "text": { "ru": "Self improvement is a major interest of mine", "kk": "Self improvement is a major interest of mine", "en": "Self improvement is a major interest of mine" }, "scoring": { "type": "type_1", "reverse_scored": false } }
+    {
+      "id": 1,
+      "text": {
+        "ru": "Я стремлюсь к совершенству",
+        "kk": "Мен мінсіздікке ұмтыламын",
+        "en": "I strive for perfection"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 2,
+      "text": {
+        "ru": "Я много стараюсь, чтобы быть полезным другим",
+        "kk": "Басқаларға пайдалы болу үшін көп күш саламын",
+        "en": "I work hard to be helpful to others"
+      },
+      "scoring": {
+        "type": "type_2",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 3,
+      "text": {
+        "ru": "Для меня важно, чтобы я нравился другим людям",
+        "kk": "Маған басқа адамдардың мені ұнатқаны маңызды",
+        "en": "It is important to me that other people like me"
+      },
+      "scoring": {
+        "type": "type_2",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 4,
+      "text": {
+        "ru": "Для меня важно достигать больших результатов",
+        "kk": "Маған үлкен жетістіктерге жету маңызды",
+        "en": "It is important to me to achieve great things"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 5,
+      "text": {
+        "ru": "Я вношу более значимый вклад, чем средний человек",
+        "kk": "Мен орташа адамға қарағанда елеулі үлес қосамын",
+        "en": "I make more significant contributions than the average person"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 6,
+      "text": {
+        "ru": "Я очень глубоко переживаю свои эмоции",
+        "kk": "Мен эмоцияларымды өте терең сезінемін",
+        "en": "I feel my emotions very deeply"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 7,
+      "text": {
+        "ru": "У меня есть ощущение, что другие люди никогда по-настоящему меня не поймут",
+        "kk": "Басқа адамдар мені ешқашан шын түсінбейтіндей сезінемін",
+        "en": "I have a sense that other people will never truly understand me"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 8,
+      "text": {
+        "ru": "Я глубоко размышляю о вещах",
+        "kk": "Мен нәрселер туралы терең ойланамын",
+        "en": "I think deeply about things"
+      },
+      "scoring": {
+        "type": "type_5",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 9,
+      "text": {
+        "ru": "Я готов к любой катастрофе",
+        "kk": "Кез келген апатқа дайынмын",
+        "en": "I am prepared for any disaster"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 10,
+      "text": {
+        "ru": "Для меня важно любой ценой избегать боли и страданий",
+        "kk": "Маған әрдайым ауырсыну мен азаптан аулақ болу маңызды",
+        "en": "It is important to me to avoid pain and suffering at all times"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 11,
+      "text": {
+        "ru": "Я ищу занятия, которые, как я знаю, сделают меня счастливым или воодушевленным",
+        "kk": "Мені бақытты не шабыттандыратынын білетін істерді іздеймін",
+        "en": "I seek out experiences that I know will make me feel happy or excited"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 12,
+      "text": {
+        "ru": "Я вижу позитив в любой ситуации",
+        "kk": "Кез келген жағдайда жақсы жағын көремін",
+        "en": "I see the positive in every situation"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 13,
+      "text": {
+        "ru": "Я не боюсь сказать человеку, когда считаю, что он неправ",
+        "kk": "Біреудің қателескенін ойласам, соны айтуға қорықпаймын",
+        "en": "I am not afraid to tell someone when I think they are wrong"
+      },
+      "scoring": {
+        "type": "type_8",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 14,
+      "text": {
+        "ru": "Я позволяю другим людям принимать решения",
+        "kk": "Шешімді басқа адамдардың қабылдауына жол беремін",
+        "en": "I let other people make the decisions"
+      },
+      "scoring": {
+        "type": "type_9",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 15,
+      "text": {
+        "ru": "Мне нравится, когда есть правила, которым должны следовать люди",
+        "kk": "Адамдар ұстануы тиіс ережелердің болғанын бағалаймын",
+        "en": "I appreciate having rules that people are expected to follow"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 16,
+      "text": {
+        "ru": "Меня больше всего волнует безопасность",
+        "kk": "Маған бәрінен де қауіпсіздік маңызды",
+        "en": "I am concerned about security more than anything else"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 17,
+      "text": {
+        "ru": "Я много думаю о том, что произойдет в будущем",
+        "kk": "Болашақта не болатыны туралы көп ойлаймын",
+        "en": "I think a lot about what will happen in the future"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 18,
+      "text": {
+        "ru": "Я не вписываюсь в обычных людей",
+        "kk": "Мен қарапайым адамдардың ортасына сіңісе бермеймін",
+        "en": "I don’t fit in with ordinary people"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 19,
+      "text": {
+        "ru": "Редко есть веская причина менять то, как делаются вещи",
+        "kk": "Істердің жасалу тәсілін өзгертуге сирек жақсы себеп болады",
+        "en": "There is rarely a good reason for changing how things are done"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 20,
+      "text": {
+        "ru": "Я всегда заканчиваю свои обязанности",
+        "kk": "Мен міндеттерімді әрқашан аяқтаймын",
+        "en": "I always finish my chores"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 21,
+      "text": {
+        "ru": "Я всегда стараюсь стать лучше",
+        "kk": "Мен әрдайым жақсырақ адам болуға тырысамын",
+        "en": "I am always trying to be a better person"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 22,
+      "text": {
+        "ru": "Я тщательно проверяю ошибки и неточности",
+        "kk": "Қателер мен кемшіліктерді мұқият тексеремін",
+        "en": "I check carefully for mistakes and errors"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 23,
+      "text": {
+        "ru": "Мне нравится быть рядом с людьми, которым я могу помочь",
+        "kk": "Мен көмектесе алатын адамдардың жанында болғанды ұнатамын",
+        "en": "I like to be around people who I can help"
+      },
+      "scoring": {
+        "type": "type_2",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 24,
+      "text": {
+        "ru": "Мне нравится чувствовать, что я важный человек в своих социальных группах",
+        "kk": "Өз әлеуметтік топтарымда маңызды адам екенімді сезінгенді ұнатамын",
+        "en": "I like to feel that I am an important person in my social groups"
+      },
+      "scoring": {
+        "type": "type_2",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 25,
+      "text": {
+        "ru": "Для меня важно быть успешным",
+        "kk": "Маған табысты болу маңызды",
+        "en": "It is important to me to be successful"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 26,
+      "text": {
+        "ru": "Организации, в которых я состою, плохо работали бы без меня",
+        "kk": "Менсіз мүше болған ұйымдарым жақсы жұмыс істемес еді",
+        "en": "The organizations I belong to would not function well without me"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 27,
+      "text": {
+        "ru": "Я часто чувствую, что эмоции захлестывают меня",
+        "kk": "Эмоцияларым мені жиі билеп кететіндей болады",
+        "en": "I often feel overtaken by my emotions"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 28,
+      "text": {
+        "ru": "Я всегда чувствовал себя отличающимся от других людей",
+        "kk": "Мен өзімді әрдайым басқалардан өзгеше сезінгенмін",
+        "en": "I have always felt different from other people"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 29,
+      "text": {
+        "ru": "Мне нравится анализировать вещи со всех сторон",
+        "kk": "Нәрселерді барлық қырынан талдағанды ұнатамын",
+        "en": "I like to analyze things from every angle"
+      },
+      "scoring": {
+        "type": "type_5",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 30,
+      "text": {
+        "ru": "У меня всегда есть план на случай, если что-то пойдет не так",
+        "kk": "Бірдеңе дұрыс болмаса не істейтініме әрқашан жоспарым бар",
+        "en": "I always have a plan for what I would do if things go wrong"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 31,
+      "text": {
+        "ru": "Я избегаю ситуаций, вызывающих негативные чувства",
+        "kk": "Жағымсыз сезім тудыратын жағдайлардан аулақ жүремін",
+        "en": "I avoid situations that bring up negative feelings"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 32,
+      "text": {
+        "ru": "Я ищу яркие впечатления",
+        "kk": "Қызықты әсерлерді іздеймін",
+        "en": "I seek excitement"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 33,
+      "text": {
+        "ru": "Я хорошо умею видеть светлую сторону, когда другие жалуются",
+        "kk": "Басқалар шағымданғанда, жақсы жағын көре аламын",
+        "en": "I am good at seeing the bright side of things when others complain"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 34,
+      "text": {
+        "ru": "Я не колеблюсь указывать людям на плохое поведение",
+        "kk": "Адамдар өзін нашар ұстағанда, оны бетіне айтуға тартынбаймын",
+        "en": "I do not hesitate to call people out when they are behaving badly"
+      },
+      "scoring": {
+        "type": "type_8",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 35,
+      "text": {
+        "ru": "Я обычно соглашаюсь с тем, чего хотят другие",
+        "kk": "Әдетте басқалардың қалауына еріп кетемін",
+        "en": "I go along with what other people want"
+      },
+      "scoring": {
+        "type": "type_9",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 36,
+      "text": {
+        "ru": "Люди должны следовать правилам, а не делать только то, что им хочется",
+        "kk": "Адамдар өз қалауымен емес, ережеге сай әрекет етуі керек",
+        "en": "People should follow the rules instead of doing what they feel like doing"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 37,
+      "text": {
+        "ru": "Я стремлюсь к отношениям, которые дают мне определенную защиту",
+        "kk": "Маған белгілі бір қорғаныс беретін қарым-қатынастарды іздеймін",
+        "en": "I seek out relationships that offer me some type of protection"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 38,
+      "text": {
+        "ru": "Я ясно представляю, что может произойти в будущем",
+        "kk": "Болашақта не болуы мүмкін екенін анық елестете аламын",
+        "en": "I can clearly visualize what could happen in the future"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 39,
+      "text": {
+        "ru": "Обычные люди часто считают меня немного странным",
+        "kk": "Қарапайым адамдар мені жиі сәл оғаш көреді",
+        "en": "Average people often find me a bit weird"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 40,
+      "text": {
+        "ru": "Мне нравится делать все так, как я всегда это делал",
+        "kk": "Істерді бұрыннан істеп жүргенімдей істегенді ұнатамын",
+        "en": "I like to do things as I’ve always done them"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 41,
+      "text": {
+        "ru": "Я настойчиво довожу задачу до конца",
+        "kk": "Тапсырма біткенше табандылық танытамын",
+        "en": "I persist until a task is done"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 42,
+      "text": {
+        "ru": "Я уделяю время тому, чтобы находить и исправлять свои недостатки и слабости",
+        "kk": "Өз кемшіліктерім мен әлсіз тұстарымды тауып, түзетуге уақыт бөлемін",
+        "en": "I spend time trying to discover and correct my faults and weaknesses"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 43,
+      "text": {
+        "ru": "Я предъявляю к себе очень высокие требования",
+        "kk": "Өзіме өте жоғары талап қоямын",
+        "en": "I hold myself to very high standards"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 44,
+      "text": {
+        "ru": "Я по натуре заботливый человек",
+        "kk": "Мен табиғатымнан қамқор адаммын",
+        "en": "I am a natural caretaker"
+      },
+      "scoring": {
+        "type": "type_2",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 45,
+      "text": {
+        "ru": "Я хочу, чтобы люди мной восхищались",
+        "kk": "Адамдардың маған сүйсінгенін қалаймын",
+        "en": "I want people to admire me"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 46,
+      "text": {
+        "ru": "Я хочу многого достичь в жизни",
+        "kk": "Өмірде көп жетістікке жеткім келеді",
+        "en": "I want to achieve a lot in my life"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 47,
+      "text": {
+        "ru": "Если честно, я чувствую, что немного лучше других",
+        "kk": "Шынымды айтсам, өзімді кейде басқалардан сәл жақсырақ сезінемін",
+        "en": "If I am honest, I feel that I am a bit better than other people"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 48,
+      "text": {
+        "ru": "Я глубоко скорблю о том, что потерял",
+        "kk": "Жоғалтқаным үшін қатты қайғырамын",
+        "en": "I feel a deep sense of grief for what I have lost"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 49,
+      "text": {
+        "ru": "Я необычный человек",
+        "kk": "Мен өзгеше адаммын",
+        "en": "I am an unusual sort of person"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 50,
+      "text": {
+        "ru": "Я трачу время, чтобы понимать вещи глубже, чем большинство людей",
+        "kk": "Көпшілікке қарағанда нәрселерді тереңірек түсінуге уақыт бөлемін",
+        "en": "I take time to understand things more deeply than most people do"
+      },
+      "scoring": {
+        "type": "type_5",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 51,
+      "text": {
+        "ru": "Для меня важно быть готовым к любой чрезвычайной ситуации",
+        "kk": "Кез келген төтенше жағдайға дайын болу мен үшін маңызды",
+        "en": "It is important to me to be prepared for any emergency"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 52,
+      "text": {
+        "ru": "Я отвлекаю себя от возникающих грустных чувств",
+        "kk": "Пайда болған мұңды сезімдерден өзімді басқаға аударамын",
+        "en": "I distract myself from any sad feelings that arise"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 53,
+      "text": {
+        "ru": "Я часто меняю что-то в своей жизни, когда становится скучно",
+        "kk": "Іш пысқанда өмірімде жиі өзгеріс жасаймын",
+        "en": "I often make changes in my life when things get boring"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 54,
+      "text": {
+        "ru": "Я обычно более оптимистичен, чем большинство людей",
+        "kk": "Көпшілікке қарағанда мен оптимистікпін",
+        "en": "I tend to be more optimistic than most people"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 55,
+      "text": {
+        "ru": "Я говорю людям, что думаю, даже если это трудно услышать",
+        "kk": "Айтуы қиын болса да, ойымды адамдарға айтамын",
+        "en": "I tell people what I think, even if it is hard to hear"
+      },
+      "scoring": {
+        "type": "type_8",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 56,
+      "text": {
+        "ru": "Я скорее последую за группой, чем буду настаивать на своем",
+        "kk": "Өзімдікін талап еткеннен гөрі топқа ергенді жөн көремін",
+        "en": "I would rather follow the group than push for what I want"
+      },
+      "scoring": {
+        "type": "type_9",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 57,
+      "text": {
+        "ru": "Мне комфортнее всего в организациях с четкой иерархией",
+        "kk": "Айқын иерархиясы бар ұйымдарда өзімді жайлы сезінемін",
+        "en": "I feel most comfortable in organizations with a clear hierarchy"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 58,
+      "text": {
+        "ru": "Я принимаю меры, чтобы защитить себя и близких от вреда",
+        "kk": "Өзімді және жақындарымды зияннан қорғау үшін шаралар қабылдаймын",
+        "en": "I take measures to protect myself and my loved ones from harm"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 59,
+      "text": {
+        "ru": "Я строю планы на много лет вперед",
+        "kk": "Көп жылға алға жоспар құрамын",
+        "en": "I make plans for many years into the future"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 60,
+      "text": {
+        "ru": "Я необычайно уникальный человек",
+        "kk": "Мен әдеттен тыс ерекше адаммын",
+        "en": "I am an unusually unique person"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 61,
+      "text": {
+        "ru": "Мне не нравится пробовать новые методы или процедуры",
+        "kk": "Жаңа әдістер мен рәсімдерді сынап көруді ұнатпаймын",
+        "en": "I dislike trying new methods or procedures"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 62,
+      "text": {
+        "ru": "Я сосредоточен на своих обязанностях и долге",
+        "kk": "Жауапкершілік пен міндеттеріме ден қоямын",
+        "en": "I focus on my responsibilities and duties"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 63,
+      "text": {
+        "ru": "Я читаю книги, которые помогают мне быть продуктивнее и лучше в том, что я делаю",
+        "kk": "Өнімдірек болуға және ісімді жақсартуға көмектесетін кітаптар оқимын",
+        "en": "I read books that help me be more productive or better at what I do"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 64,
+      "text": {
+        "ru": "Я сильно давлю на себя, чтобы делать все правильно",
+        "kk": "Істерді дұрыс жасау үшін өзіме қатты қысым жасаймын",
+        "en": "I put a lot of pressure on myself to do things right"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 65,
+      "text": {
+        "ru": "Я сам проявляю инициативу помогать другим и облегчать им жизнь",
+        "kk": "Басқаларға көмектесіп, өмірін жеңілдетуге өзім бастама көтеремін",
+        "en": "I take the initiative to help other people and make their lives easier"
+      },
+      "scoring": {
+        "type": "type_2",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 66,
+      "text": {
+        "ru": "Я прикладываю усилия, чтобы произвести хорошее впечатление на других",
+        "kk": "Басқаларға жақсы әсер қалдыру үшін күш саламын",
+        "en": "I put in the effort to make a good impression on other people"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 67,
+      "text": {
+        "ru": "Я ставлю перед собой амбициозные цели",
+        "kk": "Өзіме өршіл мақсаттар қоямын",
+        "en": "I set ambitious goals for myself"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 68,
+      "text": {
+        "ru": "Я важный участник своих социальных групп",
+        "kk": "Өз әлеуметтік топтарымның маңызды мүшесімін",
+        "en": "I am an important member of my social groups"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 69,
+      "text": {
+        "ru": "Я могу подробно и глубоко описывать свои эмоции",
+        "kk": "Эмоцияларымды терең әрі егжей-тегжейлі сипаттай аламын",
+        "en": "I can describe my emotions in a lot of depth and detail"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 70,
+      "text": {
+        "ru": "Я часто чувствую себя чужим",
+        "kk": "Өзімді жиі бөтен адамдай сезінемін",
+        "en": "I often feel like an outsider"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 71,
+      "text": {
+        "ru": "Я считаю свой внутренний мир очень интересным",
+        "kk": "Өз ой әлемімді өте қызықты деп санаймын",
+        "en": "I find my mind to be a very interesting place"
+      },
+      "scoring": {
+        "type": "type_5",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 72,
+      "text": {
+        "ru": "Я всегда замечаю, что может пойти не так в любой ситуации",
+        "kk": "Кез келген жағдайда не дұрыс болмай қалуы мүмкін екенін әрдайым байқаймын",
+        "en": "I am always aware of what can go wrong in a situation"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 73,
+      "text": {
+        "ru": "У меня много способов избегать ситуаций, которые меня расстраивают",
+        "kk": "Көңілімді түсіретін жағдайлардан қашудың көптеген тәсілдері бар",
+        "en": "I have many ways of avoiding situations that get me down"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 74,
+      "text": {
+        "ru": "Я всегда готов к новому приключению",
+        "kk": "Мен әрдайым жаңа шытырманға дайынмын",
+        "en": "I am always up for a new adventure"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 75,
+      "text": {
+        "ru": "Я верю, что обычно все складывается к лучшему",
+        "kk": "Әдетте бәрі жақсы жаққа шешіледі деп сенемін",
+        "en": "I believe that things usually work out for the best"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 76,
+      "text": {
+        "ru": "Я отстаиваю свои убеждения, даже если это расстраивает других",
+        "kk": "Басқаларды ренжітсе де, сенімімді қорғаймын",
+        "en": "I stand up for what I believe in, even if it upsets other people"
+      },
+      "scoring": {
+        "type": "type_8",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 77,
+      "text": {
+        "ru": "Я позволяю другим людям быть лидерами",
+        "kk": "Жетекшілікті басқа адамдарға беремін",
+        "en": "I let other people take the lead"
+      },
+      "scoring": {
+        "type": "type_9",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 78,
+      "text": {
+        "ru": "Мне не нравятся люди, которые нарушают порядок, нарушая правила",
+        "kk": "Ережені бұзып тәртіпті бұзатын адамдар ұнамайды",
+        "en": "I dislike people who disrupt things by breaking the rules"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 79,
+      "text": {
+        "ru": "Я создаю союзы с людьми, которые могут помочь мне оставаться в безопасности",
+        "kk": "Қауіпсіздікте болуға көмектесетін адамдармен одақ құрамын",
+        "en": "I make alliances with people who can help me stay safe and secure"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 80,
+      "text": {
+        "ru": "Я часто смотрю вперед, к тому, что будет дальше",
+        "kk": "Мен жиі алға, келесі не болатынына қараймын",
+        "en": "I am often looking ahead, toward what is coming next"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 81,
+      "text": {
+        "ru": "У меня другие интересы, чем у большинства людей",
+        "kk": "Менің қызығушылықтарым көпшіліктен өзгеше",
+        "en": "I have different interests than most people"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 82,
+      "text": {
+        "ru": "Традиционный способ делать вещи — лучший",
+        "kk": "Істі дәстүрлі түрде істеу — ең дұрыс жол",
+        "en": "The traditional way of doing things is the best way"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 83,
+      "text": {
+        "ru": "Я ответственный и надежный человек",
+        "kk": "Мен жауапты әрі сенімді адаммын",
+        "en": "I am a responsible and reliable person"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 84,
+      "text": {
+        "ru": "У меня много планов, как стать лучше",
+        "kk": "Өзімді қалай жақсартуға болатыны туралы жоспарым көп",
+        "en": "I have a lot of plans for how I can improve myself"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 85,
+      "text": {
+        "ru": "Я слежу, чтобы даже мелкие детали были правильными",
+        "kk": "Тіпті ұсақ-түйек бөлшектердің де дұрыс болуын қадағалаймын",
+        "en": "I make sure that even small details are correct"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 86,
+      "text": {
+        "ru": "Мне нравится заботиться о других и об их потребностях",
+        "kk": "Басқаларға және олардың қажеттіліктеріне қамқор болуды ұнатамын",
+        "en": "I enjoy caring for others and their needs"
+      },
+      "scoring": {
+        "type": "type_2",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 87,
+      "text": {
+        "ru": "Я хочу быть человеком, на которого другие могут равняться",
+        "kk": "Басқалар үлгі тұта алатын адам болғым келеді",
+        "en": "I want to be a person that others can look up to"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 88,
+      "text": {
+        "ru": "Я подталкиваю себя к успеху",
+        "kk": "Табысты болу үшін өзімді итермелеймін",
+        "en": "I push myself to succeed"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 89,
+      "text": {
+        "ru": "Я вношу важный вклад в свое сообщество",
+        "kk": "Қауымдастығыма маңызды үлес қосамын",
+        "en": "I make important contributions to my community"
+      },
+      "scoring": {
+        "type": "type_3",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 90,
+      "text": {
+        "ru": "У меня редко бывают сильные эмоции",
+        "kk": "Менде күшті эмоциялар сирек болады",
+        "en": "I rarely have strong emotions"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": true
+      }
+    },
+    {
+      "id": 91,
+      "text": {
+        "ru": "Я чувствую, что никогда по-настоящему не принадлежу к социальным группам",
+        "kk": "Өзімді әлеуметтік топтарға ешқашан толық тиесілі сезінбеймін",
+        "en": "I feel I never truly belong in social groups"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 92,
+      "text": {
+        "ru": "Я хочу как можно больше узнать о том, как устроен мир",
+        "kk": "Әлемнің қалай жұмыс істейтінін мүмкіндігінше көбірек білгім келеді",
+        "en": "I want to learn as much as I can about how the world works"
+      },
+      "scoring": {
+        "type": "type_5",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 93,
+      "text": {
+        "ru": "Для меня важно понимать, что может пойти не так в любой ситуации",
+        "kk": "Кез келген жағдайда не дұрыс болмай қалуы мүмкін екенін түсіну мен үшін маңызды",
+        "en": "It is important for me to understand what can go wrong in a situation"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 94,
+      "text": {
+        "ru": "Я предпринимаю шаги, чтобы не чувствовать грусть или одиночество",
+        "kk": "Мұңаймау не жалғыздық сезінбеу үшін қадамдар жасаймын",
+        "en": "I take steps to ensure I don't feel sad or lonely"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 95,
+      "text": {
+        "ru": "Пробовать новое делает жизнь интересной",
+        "kk": "Жаңа нәрселерді сынау өмірді қызықты етеді",
+        "en": "Trying new things keeps life interesting"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 96,
+      "text": {
+        "ru": "Я жизнерадостный человек",
+        "kk": "Мен сергек, көтеріңкі көңілді адаммын",
+        "en": "I am an upbeat person"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 97,
+      "text": {
+        "ru": "Обычно именно я занимаю твердую позицию, когда другие не решаются",
+        "kk": "Басқалар батылы бармағанда, көбіне мен ұстаным білдіремін",
+        "en": "I am usually the one to take a stand when others won’t"
+      },
+      "scoring": {
+        "type": "type_8",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 98,
+      "text": {
+        "ru": "У других людей мнения обычно сильнее, чем у меня",
+        "kk": "Басқа адамдардың пікірі менікінен күштірек болады",
+        "en": "Other people have stronger opinions than I do"
+      },
+      "scoring": {
+        "type": "type_9",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 99,
+      "text": {
+        "ru": "У каждого есть своя роль в обществе и обязанность делать все как можно лучше",
+        "kk": "Әркімнің қоғамда өз рөлі бар және қолынан келгенше жақсы істеуге міндетті",
+        "en": "Everyone has a role to play in society and a duty to do their best"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 100,
+      "text": {
+        "ru": "Я озабочен сохранением того, что у меня есть",
+        "kk": "Мен қолымдағыны қорғауға алаңдаймын",
+        "en": "I am concerned with protecting what I have"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 101,
+      "text": {
+        "ru": "Я хорошо понимаю, каким будет мое будущее",
+        "kk": "Болашағымда не күтіп тұрғанын жақсы сезінемін",
+        "en": "I have a good sense of what my future holds"
+      },
+      "scoring": {
+        "type": "type_6",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 102,
+      "text": {
+        "ru": "Я обычный человек с обычными симпатиями и антипатиями",
+        "kk": "Мен әдеттегі ұнатулары мен ұнатпаулары бар қарапайым адаммын",
+        "en": "I am an average person with ordinary likes and dislikes"
+      },
+      "scoring": {
+        "type": "type_4",
+        "reverse_scored": true
+      }
+    },
+    {
+      "id": 103,
+      "text": {
+        "ru": "Я пробую новые способы делать что-то, просто чтобы проверить, сработают ли они",
+        "kk": "Жаңа тәсілдер жұмыс істей ме деп көру үшін оларды сынап көремін",
+        "en": "I try new ways of doing things just to see if they will work"
+      },
+      "scoring": {
+        "type": "type_7",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 104,
+      "text": {
+        "ru": "У меня очень сильная сила воли",
+        "kk": "Менің ерік-жігерім өте күшті",
+        "en": "I have a great deal of willpower"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    },
+    {
+      "id": 105,
+      "text": {
+        "ru": "Саморазвитие — один из моих главных интересов",
+        "kk": "Өзін-өзі дамыту — менің негізгі қызығушылықтарымның бірі",
+        "en": "Self improvement is a major interest of mine"
+      },
+      "scoring": {
+        "type": "type_1",
+        "reverse_scored": false
+      }
+    }
   ]
 }

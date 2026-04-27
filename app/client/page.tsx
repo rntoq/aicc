@@ -24,9 +24,6 @@ import Image from "next/image";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import type { PublicProfession, PublicUniversity } from "@/lib/types";
 import { ALL_TESTS, type TestItem } from "@/utils/constants";
-import { useAnalysisDashboard, analyseServices } from "@/lib/services/analyseServices";
-import { useCareerRecommendations, useInstitutions } from "@/lib/services/careerServices";
-import { useQuery } from "@tanstack/react-query";
 
 const dashboardPalette = {
   primaryLight: "#86a8e7",
@@ -177,19 +174,6 @@ const DashboardPage = () => {
   const locale = useLocale() as keyof PublicProfession["name"];
   const router = useRouter();
   const [professionIndex, setProfessionIndex] = useState(0);
-
-  // Keep UI on local preview data, but warm up real backend dashboard/report/recommendation/institution endpoints.
-  useAnalysisDashboard();
-  useCareerRecommendations();
-  useInstitutions();
-  useQuery({
-    queryKey: ["analysis", "reports", "dashboard-preview"],
-    queryFn: async () => {
-      const { body, error } = await analyseServices.listReports();
-      if (error) throw error;
-      return body;
-    },
-  });
 
   const data = DASHBOARD_DATA;
   const selectedProfession = data.recommendedProfessions[professionIndex] ?? null;

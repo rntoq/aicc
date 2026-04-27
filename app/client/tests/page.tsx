@@ -114,6 +114,7 @@ const styles = {
   button: (mode: "active" | "inactive") => ({
     px: 2.5,
     borderRadius: 0,
+    fontSize: { xs: "0.75rem", md: "1rem" },
     color: mode === "active" ? "primary.light" : "text.secondary",
     borderBottomWidth: 2,
     borderBottomStyle: "solid",

@@ -3,25 +3,52 @@
     "id": "test_011",
     "code": "leadership-style-boss",
     "title": {
-      "ru": "Leadership Style Assessment (What Type of Boss Are You?)",
-      "kk": "Leadership Style Assessment (What Type of Boss Are You?)",
+      "ru": "Оценка стиля лидерства (Какой вы руководитель?)",
+      "kk": "Көшбасшылық стилін бағалау (Сіз қандай басшысыз?)",
       "en": "Leadership Style Assessment (What Type of Boss Are You?)"
     },
     "version": 1
   },
   "questions_total": 36,
-  "question_types": { "pair": 24, "frequency": 12 },
-  "dimensions": ["openness", "conscientiousness", "agreeableness"],
+  "question_types": {
+    "pair": 24,
+    "frequency": 12
+  },
+  "dimensions": [
+    "openness",
+    "conscientiousness",
+    "agreeableness"
+  ],
   "scales": {
     "frequency": {
       "min": 1,
       "max": 5,
       "labels": {
-        "1": { "ru": "Never", "kk": "Never", "en": "Never" },
-        "2": { "ru": "Rarely", "kk": "Rarely", "en": "Rarely" },
-        "3": { "ru": "Sometimes", "kk": "Sometimes", "en": "Sometimes" },
-        "4": { "ru": "Usually", "kk": "Usually", "en": "Usually" },
-        "5": { "ru": "Always", "kk": "Always", "en": "Always" }
+        "1": {
+          "ru": "Никогда",
+          "kk": "Ешқашан",
+          "en": "Never"
+        },
+        "2": {
+          "ru": "Редко",
+          "kk": "Сирек",
+          "en": "Rarely"
+        },
+        "3": {
+          "ru": "Иногда",
+          "kk": "Кейде",
+          "en": "Sometimes"
+        },
+        "4": {
+          "ru": "Обычно",
+          "kk": "Әдетте",
+          "en": "Usually"
+        },
+        "5": {
+          "ru": "Всегда",
+          "kk": "Әрқашан",
+          "en": "Always"
+        }
       }
     }
   },
@@ -31,244 +58,720 @@
       "number": 1,
       "type": "pair",
       "option_a": {
-        "ru": "I like to discuss complex ideas with my team",
-        "kk": "I like to discuss complex ideas with my team",
+        "ru": "Мне нравится обсуждать с командой сложные идеи",
+        "kk": "Маған командаммен күрделі идеяларды талқылау ұнайды",
         "en": "I like to discuss complex ideas with my team"
       },
       "option_b": {
-        "ru": "I like to discuss details with my team",
-        "kk": "I like to discuss details with my team",
+        "ru": "Мне нравится обсуждать с командой детали",
+        "kk": "Маған командаммен егжей-тегжейлерді талқылау ұнайды",
         "en": "I like to discuss details with my team"
       },
       "dimension": "openness",
-      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+      "scoring": {
+        "a": {
+          "openness": 1
+        },
+        "b": {
+          "openness": -1
+        }
+      }
     },
     {
       "id": "leadership_q002",
       "number": 2,
       "type": "pair",
-      "option_a": { "ru": "I follow established procedures", "kk": "I follow established procedures", "en": "I follow established procedures" },
-      "option_b": { "ru": "I try new ways of doing things", "kk": "I try new ways of doing things", "en": "I try new ways of doing things" },
+      "option_a": {
+        "ru": "Я следую установленным процедурам",
+        "kk": "Мен белгіленген рәсімдерді ұстанамын",
+        "en": "I follow established procedures"
+      },
+      "option_b": {
+        "ru": "Я пробую новые способы делать вещи",
+        "kk": "Мен істерді жасаудың жаңа тәсілдерін қолданып көремін",
+        "en": "I try new ways of doing things"
+      },
       "dimension": "openness",
-      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+      "scoring": {
+        "a": {
+          "openness": 1
+        },
+        "b": {
+          "openness": -1
+        }
+      }
     },
     {
       "id": "leadership_q003",
       "number": 3,
       "type": "pair",
-      "option_a": { "ru": "I like to use trusted methods", "kk": "I like to use trusted methods", "en": "I like to use trusted methods" },
-      "option_b": { "ru": "I like to try to innovate", "kk": "I like to try to innovate", "en": "I like to try to innovate" },
+      "option_a": {
+        "ru": "Мне нравится использовать проверенные методы",
+        "kk": "Маған сенімді, тексерілген әдістерді қолдану ұнайды",
+        "en": "I like to use trusted methods"
+      },
+      "option_b": {
+        "ru": "Мне нравится пробовать инновации",
+        "kk": "Маған жаңашылдық енгізіп көру ұнайды",
+        "en": "I like to try to innovate"
+      },
       "dimension": "openness",
-      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+      "scoring": {
+        "a": {
+          "openness": 1
+        },
+        "b": {
+          "openness": -1
+        }
+      }
     },
     {
       "id": "leadership_q004",
       "number": 4,
       "type": "pair",
-      "option_a": { "ru": "I like learning practical skills", "kk": "I like learning practical skills", "en": "I like learning practical skills" },
-      "option_b": { "ru": "I like learning about ideas and theories", "kk": "I like learning about ideas and theories", "en": "I like learning about ideas and theories" },
+      "option_a": {
+        "ru": "Мне нравится осваивать практические навыки",
+        "kk": "Маған практикалық дағдыларды үйрену ұнайды",
+        "en": "I like learning practical skills"
+      },
+      "option_b": {
+        "ru": "Мне нравится изучать идеи и теории",
+        "kk": "Маған идеялар мен теорияларды зерттеу ұнайды",
+        "en": "I like learning about ideas and theories"
+      },
       "dimension": "openness",
-      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+      "scoring": {
+        "a": {
+          "openness": 1
+        },
+        "b": {
+          "openness": -1
+        }
+      }
     },
-
     {
       "id": "leadership_q005",
       "number": 5,
       "type": "pair",
-      "option_a": { "ru": "I like a workplace that’s full of surprises", "kk": "I like a workplace that’s full of surprises", "en": "I like a workplace that’s full of surprises" },
-      "option_b": { "ru": "I like a workplace where things go according to plan", "kk": "I like a workplace where things go according to plan", "en": "I like a workplace where things go according to plan" },
+      "option_a": {
+        "ru": "Мне нравится рабочая среда, полная сюрпризов",
+        "kk": "Маған тосынсыйға толы жұмыс ортасы ұнайды",
+        "en": "I like a workplace that’s full of surprises"
+      },
+      "option_b": {
+        "ru": "Мне нравится рабочая среда, где всё идет по плану",
+        "kk": "Маған бәрі жоспар бойынша жүретін жұмыс ортасы ұнайды",
+        "en": "I like a workplace where things go according to plan"
+      },
       "dimension": "conscientiousness",
-      "scoring": { "a": { "conscientiousness": -1 }, "b": { "conscientiousness": 1 } }
+      "scoring": {
+        "a": {
+          "conscientiousness": -1
+        },
+        "b": {
+          "conscientiousness": 1
+        }
+      }
     },
     {
       "id": "leadership_q006",
       "number": 6,
       "type": "pair",
-      "option_a": { "ru": "I prefer to work according to a schedule", "kk": "I prefer to work according to a schedule", "en": "I prefer to work according to a schedule" },
-      "option_b": { "ru": "I prefer to work on whatever needs to be done", "kk": "I prefer to work on whatever needs to be done", "en": "I prefer to work on whatever needs to be done" },
+      "option_a": {
+        "ru": "Я предпочитаю работать по графику",
+        "kk": "Мен кесте бойынша жұмыс істегенді қалаймын",
+        "en": "I prefer to work according to a schedule"
+      },
+      "option_b": {
+        "ru": "Я предпочитаю работать над тем, что нужно сделать в данный момент",
+        "kk": "Мен дәл қазір қажет істі істегенді қалаймын",
+        "en": "I prefer to work on whatever needs to be done"
+      },
       "dimension": "conscientiousness",
-      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+      "scoring": {
+        "a": {
+          "conscientiousness": 1
+        },
+        "b": {
+          "conscientiousness": -1
+        }
+      }
     },
     {
       "id": "leadership_q007",
       "number": 7,
       "type": "pair",
-      "option_a": { "ru": "I am good at working steadily according to the plan", "kk": "I am good at working steadily according to the plan", "en": "I am good at working steadily according to the plan" },
-      "option_b": { "ru": "I am good at adapting to last-minute changes", "kk": "I am good at adapting to last-minute changes", "en": "I am good at adapting to last-minute changes" },
+      "option_a": {
+        "ru": "Я хорошо умею стабильно работать по плану",
+        "kk": "Мен жоспар бойынша тұрақты жұмыс істеуді жақсы білемін",
+        "en": "I am good at working steadily according to the plan"
+      },
+      "option_b": {
+        "ru": "Я хорошо адаптируюсь к изменениям в последнюю минуту",
+        "kk": "Мен соңғы сәттегі өзгерістерге жақсы бейімделемін",
+        "en": "I am good at adapting to last-minute changes"
+      },
       "dimension": "conscientiousness",
-      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+      "scoring": {
+        "a": {
+          "conscientiousness": 1
+        },
+        "b": {
+          "conscientiousness": -1
+        }
+      }
     },
     {
       "id": "leadership_q008",
       "number": 8,
       "type": "pair",
-      "option_a": { "ru": "I like to be notified of projects well in advance", "kk": "I like to be notified of projects well in advance", "en": "I like to be notified of projects well in advance" },
-      "option_b": { "ru": "I like to adapt quickly to changing demands", "kk": "I like to adapt quickly to changing demands", "en": "I like to adapt quickly to changing demands" },
+      "option_a": {
+        "ru": "Мне нравится, когда о проектах сообщают заранее",
+        "kk": "Маған жобалар туралы алдын ала хабарлаған ұнайды",
+        "en": "I like to be notified of projects well in advance"
+      },
+      "option_b": {
+        "ru": "Мне нравится быстро подстраиваться под меняющиеся требования",
+        "kk": "Маған өзгеретін талаптарға тез бейімделу ұнайды",
+        "en": "I like to adapt quickly to changing demands"
+      },
       "dimension": "conscientiousness",
-      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+      "scoring": {
+        "a": {
+          "conscientiousness": 1
+        },
+        "b": {
+          "conscientiousness": -1
+        }
+      }
     },
-
     {
       "id": "leadership_q009",
       "number": 9,
       "type": "pair",
-      "option_a": { "ru": "I choose the most rational option", "kk": "I choose the most rational option", "en": "I choose the most rational option" },
-      "option_b": { "ru": "I choose the kindest option", "kk": "I choose the kindest option", "en": "I choose the kindest option" },
+      "option_a": {
+        "ru": "Я выбираю самый рациональный вариант",
+        "kk": "Мен ең ұтымды нұсқаны таңдаймын",
+        "en": "I choose the most rational option"
+      },
+      "option_b": {
+        "ru": "Я выбираю самый доброжелательный вариант",
+        "kk": "Мен ең мейірімді нұсқаны таңдаймын",
+        "en": "I choose the kindest option"
+      },
       "dimension": "agreeableness",
-      "scoring": { "a": { "agreeableness": -1 }, "b": { "agreeableness": 1 } }
+      "scoring": {
+        "a": {
+          "agreeableness": -1
+        },
+        "b": {
+          "agreeableness": 1
+        }
+      }
     },
     {
       "id": "leadership_q010",
       "number": 10,
       "type": "pair",
-      "option_a": { "ru": "I like to cooperate", "kk": "I like to cooperate", "en": "I like to cooperate" },
-      "option_b": { "ru": "I like to compete", "kk": "I like to compete", "en": "I like to compete" },
+      "option_a": {
+        "ru": "Мне нравится сотрудничать",
+        "kk": "Маған ынтымақтасу ұнайды",
+        "en": "I like to cooperate"
+      },
+      "option_b": {
+        "ru": "Мне нравится соревноваться",
+        "kk": "Маған бәсекелесу ұнайды",
+        "en": "I like to compete"
+      },
       "dimension": "agreeableness",
-      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+      "scoring": {
+        "a": {
+          "agreeableness": 1
+        },
+        "b": {
+          "agreeableness": -1
+        }
+      }
     },
     {
       "id": "leadership_q011",
       "number": 11,
       "type": "pair",
-      "option_a": { "ru": "I trust others", "kk": "I trust others", "en": "I trust others" },
-      "option_b": { "ru": "I am skeptical of others", "kk": "I am skeptical of others", "en": "I am skeptical of others" },
+      "option_a": {
+        "ru": "Я доверяю другим",
+        "kk": "Мен басқаларға сенемін",
+        "en": "I trust others"
+      },
+      "option_b": {
+        "ru": "Я отношусь к другим скептически",
+        "kk": "Мен басқаларға күдікпен қараймын",
+        "en": "I am skeptical of others"
+      },
       "dimension": "agreeableness",
-      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+      "scoring": {
+        "a": {
+          "agreeableness": 1
+        },
+        "b": {
+          "agreeableness": -1
+        }
+      }
     },
     {
       "id": "leadership_q012",
       "number": 12,
       "type": "pair",
-      "option_a": { "ru": "I try to get ahead at work", "kk": "I try to get ahead at work", "en": "I try to get ahead at work" },
-      "option_b": { "ru": "I try to please others at work", "kk": "I try to please others at work", "en": "I try to please others at work" },
+      "option_a": {
+        "ru": "Я стараюсь продвигаться в работе",
+        "kk": "Мен жұмыста алға жылжуға тырысамын",
+        "en": "I try to get ahead at work"
+      },
+      "option_b": {
+        "ru": "Я стараюсь угодить другим на работе",
+        "kk": "Мен жұмыста басқаларға ұнауға тырысамын",
+        "en": "I try to please others at work"
+      },
       "dimension": "agreeableness",
-      "scoring": { "a": { "agreeableness": -1 }, "b": { "agreeableness": 1 } }
+      "scoring": {
+        "a": {
+          "agreeableness": -1
+        },
+        "b": {
+          "agreeableness": 1
+        }
+      }
     },
-
-    { "id": "leadership_q013", "number": 13, "type": "frequency", "statement": { "ru": "I would rather try something new than do things the same old way", "kk": "I would rather try something new than do things the same old way", "en": "I would rather try something new than do things the same old way" }, "dimension": "openness", "reverse_scored": false },
-    { "id": "leadership_q014", "number": 14, "type": "frequency", "statement": { "ru": "I like to do things differently, even if I am not sure it will work", "kk": "I like to do things differently, even if I am not sure it will work", "en": "I like to do things differently, even if I am not sure it will work" }, "dimension": "openness", "reverse_scored": false },
-    { "id": "leadership_q015", "number": 15, "type": "frequency", "statement": { "ru": "My hobbies and interests are somewhat unusual", "kk": "My hobbies and interests are somewhat unusual", "en": "My hobbies and interests are somewhat unusual" }, "dimension": "openness", "reverse_scored": false },
-    { "id": "leadership_q016", "number": 16, "type": "frequency", "statement": { "ru": "I have a rich fantasy life", "kk": "I have a rich fantasy life", "en": "I have a rich fantasy life" }, "dimension": "openness", "reverse_scored": false },
-
-    { "id": "leadership_q017", "number": 17, "type": "frequency", "statement": { "ru": "I would rather go with the flow than have a set schedule", "kk": "I would rather go with the flow than have a set schedule", "en": "I would rather go with the flow than have a set schedule" }, "dimension": "conscientiousness", "reverse_scored": true },
-    { "id": "leadership_q018", "number": 18, "type": "frequency", "statement": { "ru": "I have trouble sticking to a routine", "kk": "I have trouble sticking to a routine", "en": "I have trouble sticking to a routine" }, "dimension": "conscientiousness", "reverse_scored": true },
-    { "id": "leadership_q019", "number": 19, "type": "frequency", "statement": { "ru": "I like to finish all my tasks for the day before I do something fun", "kk": "I like to finish all my tasks for the day before I do something fun", "en": "I like to finish all my tasks for the day before I do something fun" }, "dimension": "conscientiousness", "reverse_scored": false },
-    { "id": "leadership_q020", "number": 20, "type": "frequency", "statement": { "ru": "I like to start projects well in advance, so that I have plenty of time to finish", "kk": "I like to start projects well in advance, so that I have plenty of time to finish", "en": "I like to start projects well in advance, so that I have plenty of time to finish" }, "dimension": "conscientiousness", "reverse_scored": false },
-
-    { "id": "leadership_q021", "number": 21, "type": "frequency", "statement": { "ru": "I am sensitive to feedback at work", "kk": "I am sensitive to feedback at work", "en": "I am sensitive to feedback at work" }, "dimension": "agreeableness", "reverse_scored": false },
-    { "id": "leadership_q022", "number": 22, "type": "frequency", "statement": { "ru": "I enjoy being there for my team members when they're upset", "kk": "I enjoy being there for my team members when they're upset", "en": "I enjoy being there for my team members when they're upset" }, "dimension": "agreeableness", "reverse_scored": false },
-    { "id": "leadership_q023", "number": 23, "type": "frequency", "statement": { "ru": "I like to help my team members with their personal problems", "kk": "I like to help my team members with their personal problems", "en": "I like to help my team members with their personal problems" }, "dimension": "agreeableness", "reverse_scored": false },
-    { "id": "leadership_q024", "number": 24, "type": "frequency", "statement": { "ru": "I go out of my way to make my team members feel at ease", "kk": "I go out of my way to make my team members feel at ease", "en": "I go out of my way to make my team members feel at ease" }, "dimension": "agreeableness", "reverse_scored": false },
-
+    {
+      "id": "leadership_q013",
+      "number": 13,
+      "type": "frequency",
+      "statement": {
+        "ru": "Я скорее попробую что-то новое, чем буду делать всё по-старому",
+        "kk": "Мен бәрін бұрынғыша істегенше, жаңа нәрсені байқап көргенді қалаймын",
+        "en": "I would rather try something new than do things the same old way"
+      },
+      "dimension": "openness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q014",
+      "number": 14,
+      "type": "frequency",
+      "statement": {
+        "ru": "Мне нравится делать вещи иначе, даже если не уверен, что это сработает",
+        "kk": "Мұның жұмыс істейтініне сенімді болмасам да, істерді басқаша жасаған ұнайды",
+        "en": "I like to do things differently, even if I am not sure it will work"
+      },
+      "dimension": "openness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q015",
+      "number": 15,
+      "type": "frequency",
+      "statement": {
+        "ru": "Мои хобби и интересы довольно необычны",
+        "kk": "Менің хоббиім мен қызығушылықтарым біршама ерекше",
+        "en": "My hobbies and interests are somewhat unusual"
+      },
+      "dimension": "openness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q016",
+      "number": 16,
+      "type": "frequency",
+      "statement": {
+        "ru": "У меня богатая фантазия",
+        "kk": "Менің қиялым бай",
+        "en": "I have a rich fantasy life"
+      },
+      "dimension": "openness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q017",
+      "number": 17,
+      "type": "frequency",
+      "statement": {
+        "ru": "Я лучше буду действовать по ситуации, чем придерживаться жесткого графика",
+        "kk": "Қатаң кестені ұстанғаннан гөрі, жағдайға қарай әрекет еткенді жөн көремін",
+        "en": "I would rather go with the flow than have a set schedule"
+      },
+      "dimension": "conscientiousness",
+      "reverse_scored": true
+    },
+    {
+      "id": "leadership_q018",
+      "number": 18,
+      "type": "frequency",
+      "statement": {
+        "ru": "Мне трудно придерживаться распорядка",
+        "kk": "Маған тәртіпке тұрақты бағыну қиын",
+        "en": "I have trouble sticking to a routine"
+      },
+      "dimension": "conscientiousness",
+      "reverse_scored": true
+    },
+    {
+      "id": "leadership_q019",
+      "number": 19,
+      "type": "frequency",
+      "statement": {
+        "ru": "Мне нравится сначала закончить все задачи на день, а потом заниматься чем-то приятным",
+        "kk": "Маған алдымен күндік тапсырмаларды аяқтап, содан кейін ғана көңілді іспен айналысқан ұнайды",
+        "en": "I like to finish all my tasks for the day before I do something fun"
+      },
+      "dimension": "conscientiousness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q020",
+      "number": 20,
+      "type": "frequency",
+      "statement": {
+        "ru": "Мне нравится начинать проекты заранее, чтобы у меня было достаточно времени на завершение",
+        "kk": "Мен жобаларды алдын ала бастағанды ұнатамын, сонда аяқтауға уақытым жеткілікті болады",
+        "en": "I like to start projects well in advance, so that I have plenty of time to finish"
+      },
+      "dimension": "conscientiousness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q021",
+      "number": 21,
+      "type": "frequency",
+      "statement": {
+        "ru": "Я чувствителен к обратной связи на работе",
+        "kk": "Жұмыстағы кері байланысқа сезімталмын",
+        "en": "I am sensitive to feedback at work"
+      },
+      "dimension": "agreeableness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q022",
+      "number": 22,
+      "type": "frequency",
+      "statement": {
+        "ru": "Мне нравится быть рядом с членами команды, когда они расстроены",
+        "kk": "Команда мүшелері ренжігенде жанында болу маған ұнайды",
+        "en": "I enjoy being there for my team members when they're upset"
+      },
+      "dimension": "agreeableness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q023",
+      "number": 23,
+      "type": "frequency",
+      "statement": {
+        "ru": "Мне нравится помогать членам команды с их личными проблемами",
+        "kk": "Маған команда мүшелеріне жеке мәселелерінде көмектесу ұнайды",
+        "en": "I like to help my team members with their personal problems"
+      },
+      "dimension": "agreeableness",
+      "reverse_scored": false
+    },
+    {
+      "id": "leadership_q024",
+      "number": 24,
+      "type": "frequency",
+      "statement": {
+        "ru": "Я стараюсь делать всё, чтобы члены команды чувствовали себя комфортно",
+        "kk": "Команда мүшелері өздерін жайлы сезінуі үшін барымды саламын",
+        "en": "I go out of my way to make my team members feel at ease"
+      },
+      "dimension": "agreeableness",
+      "reverse_scored": false
+    },
     {
       "id": "leadership_q025",
       "number": 25,
       "type": "pair",
-      "option_a": { "ru": "I trust tried and true methods", "kk": "I trust tried and true methods", "en": "I trust tried and true methods" },
-      "option_b": { "ru": "I question tried and true methods", "kk": "I question tried and true methods", "en": "I question tried and true methods" },
+      "option_a": {
+        "ru": "Я доверяю проверенным временем методам",
+        "kk": "Мен уақыт сынынан өткен әдістерге сенемін",
+        "en": "I trust tried and true methods"
+      },
+      "option_b": {
+        "ru": "Я ставлю под сомнение проверенные временем методы",
+        "kk": "Мен уақыт сынынан өткен әдістерге күмән келтіремін",
+        "en": "I question tried and true methods"
+      },
       "dimension": "openness",
-      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+      "scoring": {
+        "a": {
+          "openness": 1
+        },
+        "b": {
+          "openness": -1
+        }
+      }
     },
     {
       "id": "leadership_q026",
       "number": 26,
       "type": "pair",
-      "option_a": { "ru": "I focus on real life", "kk": "I focus on real life", "en": "I focus on real life" },
-      "option_b": { "ru": "I use my imagination", "kk": "I use my imagination", "en": "I use my imagination" },
+      "option_a": {
+        "ru": "Я сосредоточен на реальной жизни",
+        "kk": "Мен шынайы өмірге назар аударамын",
+        "en": "I focus on real life"
+      },
+      "option_b": {
+        "ru": "Я использую воображение",
+        "kk": "Мен қиялымды қолданамын",
+        "en": "I use my imagination"
+      },
       "dimension": "openness",
-      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+      "scoring": {
+        "a": {
+          "openness": 1
+        },
+        "b": {
+          "openness": -1
+        }
+      }
     },
     {
       "id": "leadership_q027",
       "number": 27,
       "type": "pair",
-      "option_a": { "ru": "I like to practice familiar skills", "kk": "I like to practice familiar skills", "en": "I like to practice familiar skills" },
-      "option_b": { "ru": "I like to constantly learn new things", "kk": "I like to constantly learn new things", "en": "I like to constantly learn new things" },
+      "option_a": {
+        "ru": "Мне нравится оттачивать знакомые навыки",
+        "kk": "Маған таныс дағдыларды жетілдіру ұнайды",
+        "en": "I like to practice familiar skills"
+      },
+      "option_b": {
+        "ru": "Мне нравится постоянно учиться новому",
+        "kk": "Маған үнемі жаңа нәрсе үйрену ұнайды",
+        "en": "I like to constantly learn new things"
+      },
       "dimension": "openness",
-      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+      "scoring": {
+        "a": {
+          "openness": 1
+        },
+        "b": {
+          "openness": -1
+        }
+      }
     },
     {
       "id": "leadership_q028",
       "number": 28,
       "type": "pair",
-      "option_a": { "ru": "I notice small details", "kk": "I notice small details", "en": "I notice small details" },
-      "option_b": { "ru": "I see the big picture", "kk": "I see the big picture", "en": "I see the big picture" },
+      "option_a": {
+        "ru": "Я замечаю мелкие детали",
+        "kk": "Мен ұсақ бөлшектерді байқаймын",
+        "en": "I notice small details"
+      },
+      "option_b": {
+        "ru": "Я вижу общую картину",
+        "kk": "Мен үлкен көріністі көремін",
+        "en": "I see the big picture"
+      },
       "dimension": "openness",
-      "scoring": { "a": { "openness": 1 }, "b": { "openness": -1 } }
+      "scoring": {
+        "a": {
+          "openness": 1
+        },
+        "b": {
+          "openness": -1
+        }
+      }
     },
-
     {
       "id": "leadership_q029",
       "number": 29,
       "type": "pair",
-      "option_a": { "ru": "I prefer working toward long-term goals", "kk": "I prefer working toward long-term goals", "en": "I prefer working toward long-term goals" },
-      "option_b": { "ru": "I prefer to work on tasks that must be done immediately", "kk": "I prefer to work on tasks that must be done immediately", "en": "I prefer to work on tasks that must be done immediately" },
+      "option_a": {
+        "ru": "Я предпочитаю работать на долгосрочные цели",
+        "kk": "Мен ұзақ мерзімді мақсаттарға жұмыс істегенді қалаймын",
+        "en": "I prefer working toward long-term goals"
+      },
+      "option_b": {
+        "ru": "Я предпочитаю работать над задачами, которые нужно выполнить немедленно",
+        "kk": "Мен дереу орындауды қажет ететін тапсырмалармен жұмыс істегенді қалаймын",
+        "en": "I prefer to work on tasks that must be done immediately"
+      },
       "dimension": "conscientiousness",
-      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+      "scoring": {
+        "a": {
+          "conscientiousness": 1
+        },
+        "b": {
+          "conscientiousness": -1
+        }
+      }
     },
     {
       "id": "leadership_q030",
       "number": 30,
       "type": "pair",
-      "option_a": { "ru": "I like to complete tasks well in advance of deadlines", "kk": "I like to complete tasks well in advance of deadlines", "en": "I like to complete tasks well in advance of deadlines" },
-      "option_b": { "ru": "I enjoy working under pressure", "kk": "I enjoy working under pressure", "en": "I enjoy working under pressure" },
+      "option_a": {
+        "ru": "Мне нравится завершать задачи задолго до дедлайна",
+        "kk": "Маған тапсырмаларды дедлайннан әлдеқайда бұрын аяқтау ұнайды",
+        "en": "I like to complete tasks well in advance of deadlines"
+      },
+      "option_b": {
+        "ru": "Мне нравится работать под давлением",
+        "kk": "Маған қысыммен жұмыс істеу ұнайды",
+        "en": "I enjoy working under pressure"
+      },
       "dimension": "conscientiousness",
-      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+      "scoring": {
+        "a": {
+          "conscientiousness": 1
+        },
+        "b": {
+          "conscientiousness": -1
+        }
+      }
     },
     {
       "id": "leadership_q031",
       "number": 31,
       "type": "pair",
-      "option_a": { "ru": "I persist in my goals", "kk": "I persist in my goals", "en": "I persist in my goals" },
-      "option_b": { "ru": "I adapt to my environment", "kk": "I adapt to my environment", "en": "I adapt to my environment" },
+      "option_a": {
+        "ru": "Я настойчиво иду к своим целям",
+        "kk": "Мен мақсаттарыма табандылықпен ұмтыламын",
+        "en": "I persist in my goals"
+      },
+      "option_b": {
+        "ru": "Я адаптируюсь к окружающей среде",
+        "kk": "Мен қоршаған ортаға бейімделемін",
+        "en": "I adapt to my environment"
+      },
       "dimension": "conscientiousness",
-      "scoring": { "a": { "conscientiousness": 1 }, "b": { "conscientiousness": -1 } }
+      "scoring": {
+        "a": {
+          "conscientiousness": 1
+        },
+        "b": {
+          "conscientiousness": -1
+        }
+      }
     },
     {
       "id": "leadership_q032",
       "number": 32,
       "type": "pair",
-      "option_a": { "ru": "I thrive in chaotic work environments", "kk": "I thrive in chaotic work environments", "en": "I thrive in chaotic work environments" },
-      "option_b": { "ru": "I thrive within a clear structure", "kk": "I thrive within a clear structure", "en": "I thrive within a clear structure" },
+      "option_a": {
+        "ru": "Я отлично чувствую себя в хаотичной рабочей среде",
+        "kk": "Мен ретсіз жұмыс ортасында өзімді жақсы сезінемін",
+        "en": "I thrive in chaotic work environments"
+      },
+      "option_b": {
+        "ru": "Я хорошо работаю в условиях четкой структуры",
+        "kk": "Мен айқын құрылым жағдайында жақсы жұмыс істеймін",
+        "en": "I thrive within a clear structure"
+      },
       "dimension": "conscientiousness",
-      "scoring": { "a": { "conscientiousness": -1 }, "b": { "conscientiousness": 1 } }
+      "scoring": {
+        "a": {
+          "conscientiousness": -1
+        },
+        "b": {
+          "conscientiousness": 1
+        }
+      }
     },
-
     {
       "id": "leadership_q033",
       "number": 33,
       "type": "pair",
-      "option_a": { "ru": "I'm good at negotiating personal issues", "kk": "I'm good at negotiating personal issues", "en": "I'm good at negotiating personal issues" },
-      "option_b": { "ru": "I'm good at navigating logical systems", "kk": "I'm good at navigating logical systems", "en": "I'm good at navigating logical systems" },
+      "option_a": {
+        "ru": "Я хорошо умею договариваться по личным вопросам",
+        "kk": "Мен жеке мәселелер бойынша жақсы келіссөз жүргізе аламын",
+        "en": "I'm good at negotiating personal issues"
+      },
+      "option_b": {
+        "ru": "Я хорошо ориентируюсь в логических системах",
+        "kk": "Мен логикалық жүйелерде жақсы бағдар табамын",
+        "en": "I'm good at navigating logical systems"
+      },
       "dimension": "agreeableness",
-      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+      "scoring": {
+        "a": {
+          "agreeableness": 1
+        },
+        "b": {
+          "agreeableness": -1
+        }
+      }
     },
     {
       "id": "leadership_q034",
       "number": 34,
       "type": "pair",
-      "option_a": { "ru": "I like solving logical problems", "kk": "I like solving logical problems", "en": "I like solving logical problems" },
-      "option_b": { "ru": "I like solving relational problems", "kk": "I like solving relational problems", "en": "I like solving relational problems" },
+      "option_a": {
+        "ru": "Мне нравится решать логические задачи",
+        "kk": "Маған логикалық мәселелерді шешу ұнайды",
+        "en": "I like solving logical problems"
+      },
+      "option_b": {
+        "ru": "Мне нравится решать проблемы в отношениях",
+        "kk": "Маған қарым-қатынасқа қатысты мәселелерді шешу ұнайды",
+        "en": "I like solving relational problems"
+      },
       "dimension": "agreeableness",
-      "scoring": { "a": { "agreeableness": -1 }, "b": { "agreeableness": 1 } }
+      "scoring": {
+        "a": {
+          "agreeableness": -1
+        },
+        "b": {
+          "agreeableness": 1
+        }
+      }
     },
     {
       "id": "leadership_q035",
       "number": 35,
       "type": "pair",
-      "option_a": { "ru": "I like building relationships at work", "kk": "I like building relationships at work", "en": "I like building relationships at work" },
-      "option_b": { "ru": "I like demonstrating my competence at work", "kk": "I like demonstrating my competence at work", "en": "I like demonstrating my competence at work" },
+      "option_a": {
+        "ru": "Мне нравится выстраивать отношения на работе",
+        "kk": "Маған жұмыста қарым-қатынас орнату ұнайды",
+        "en": "I like building relationships at work"
+      },
+      "option_b": {
+        "ru": "Мне нравится демонстрировать свою компетентность на работе",
+        "kk": "Маған жұмыста өз құзыретімді көрсету ұнайды",
+        "en": "I like demonstrating my competence at work"
+      },
       "dimension": "agreeableness",
-      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+      "scoring": {
+        "a": {
+          "agreeableness": 1
+        },
+        "b": {
+          "agreeableness": -1
+        }
+      }
     },
     {
       "id": "leadership_q036",
       "number": 36,
       "type": "pair",
-      "option_a": { "ru": "I like to be friends with my coworkers", "kk": "I like to be friends with my coworkers", "en": "I like to be friends with my coworkers" },
-      "option_b": { "ru": "I prefer to be businesslike in my work relationships", "kk": "I prefer to be businesslike in my work relationships", "en": "I prefer to be businesslike in my work relationships" },
+      "option_a": {
+        "ru": "Мне нравится дружить с коллегами",
+        "kk": "Маған әріптестеріммен дос болған ұнайды",
+        "en": "I like to be friends with my coworkers"
+      },
+      "option_b": {
+        "ru": "Я предпочитаю деловой стиль в рабочих отношениях",
+        "kk": "Мен жұмыс қатынастарында іскерлік стильді қалаймын",
+        "en": "I prefer to be businesslike in my work relationships"
+      },
       "dimension": "agreeableness",
-      "scoring": { "a": { "agreeableness": 1 }, "b": { "agreeableness": -1 } }
+      "scoring": {
+        "a": {
+          "agreeableness": 1
+        },
+        "b": {
+          "agreeableness": -1
+        }
+      }
     }
   ]
 }

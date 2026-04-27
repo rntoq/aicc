@@ -1,6 +1,7 @@
 [
-    {
-    "id": "agriculture_environment",
+  {
+    "id": 1,
+    "code": "agriculture_environment",
     "name": {
       "ru": "Сельское хозяйство и экология",
       "kk": "Ауыл шаруашылығы және экология",
@@ -9,7 +10,8 @@
     "professions_count": 7
   },
   {
-    "id": "arts_entertainment",
+    "id": 2,
+    "code": "arts_entertainment",
     "name": {
       "ru": "Искусство и развлечения",
       "kk": "Өнер және ойын-сауық",
@@ -18,7 +20,8 @@
     "professions_count": 5
   },
   {
-    "id": "business_management",
+    "id": 3,
+    "code": "business_management",
     "name": {
       "ru": "Бизнес и менеджмент",
       "kk": "Бизнес және менеджмент",
@@ -27,16 +30,18 @@
     "professions_count": 7
   },
   {
-    "id": "design_creative",
+    "id": 4,
+    "code": "design_creative",
     "name": {
-      "ru": "Дизайн и креатив",
-      "kk": "Дизайн және креатив",
+      "ru": "Дизайн и творчество",
+      "kk": "Дизайн және шығармашылық",
       "en": "Design & Creative"
     },
     "professions_count": 8
   },
   {
-    "id": "education_training",
+    "id": 5,
+    "code": "education_training",
     "name": {
       "ru": "Образование и обучение",
       "kk": "Білім беру және оқыту",
@@ -45,7 +50,8 @@
     "professions_count": 7
   },
   {
-    "id": "engineering_manufacturing",
+    "id": 6,
+    "code": "engineering_manufacturing",
     "name": {
       "ru": "Инженерия и производство",
       "kk": "Инженерия және өндіріс",
@@ -54,7 +60,8 @@
     "professions_count": 12
   },
   {
-    "id": "finance_accounting",
+    "id": 7,
+    "code": "finance_accounting",
     "name": {
       "ru": "Финансы и бухгалтерия",
       "kk": "Қаржы және бухгалтерия",
@@ -63,7 +70,8 @@
     "professions_count": 7
   },
   {
-    "id": "healthcare_medicine",
+    "id": 8,
+    "code": "healthcare_medicine",
     "name": {
       "ru": "Здравоохранение и медицина",
       "kk": "Денсаулық сақтау және медицина",
@@ -72,7 +80,8 @@
     "professions_count": 10
   },
   {
-    "id": "hospitality_tourism",
+    "id": 9,
+    "code": "hospitality_tourism",
     "name": {
       "ru": "Гостеприимство и туризм",
       "kk": "Қонақжайлылық және туризм",
@@ -81,52 +90,38 @@
     "professions_count": 6
   },
   {
-    "id": "human_resources",
+    "id": 10,
+    "code": "it_technology",
     "name": {
-      "ru": "HR и управление персоналом",
-      "kk": "HR және персоналды басқару",
-      "en": "Human Resources"
-    },
-    "professions_count": 6
-  },
-  {
-    "id": "it_technology",
-    "name": {
-      "ru": "IT и технологии",
-      "kk": "IT және технологиялар",
+      "ru": "Информационные технологии",
+      "kk": "Ақпараттық технологиялар",
       "en": "IT & Technology"
     },
     "professions_count": 12
   },
   {
-    "id": "law_enforcement_security",
+    "id": 11,
+    "code": "law_enforcement_security",
     "name": {
-      "ru": "Правоохранительные органы и безопасность",
-      "kk": "Құқық қорғау және қауіпсіздік",
+      "ru": "Правоохранит. деятельность",
+      "kk": "Құқық қорғау органдары",
       "en": "Law Enforcement & Security"
     },
     "professions_count": 2
   },
   {
-    "id": "law_legal",
+    "id": 12,
+    "code": "law_legal",
     "name": {
-      "ru": "Юриспруденция",
-      "kk": "Құқықтану",
+      "ru": "Право и юриспруденция",
+      "kk": "Құқық және заңтану",
       "en": "Law & Legal"
     },
     "professions_count": 3
   },
   {
-    "id": "marketing_sales",
-    "name": {
-      "ru": "Маркетинг и продажи",
-      "kk": "Маркетинг және сату",
-      "en": "Marketing & Sales"
-    },
-    "professions_count": 7
-  },
-  {
-    "id": "media_communications",
+    "id": 13,
+    "code": "media_communications",
     "name": {
       "ru": "Медиа и коммуникации",
       "kk": "Медиа және коммуникациялар",
@@ -135,16 +130,28 @@
     "professions_count": 7
   },
   {
-    "id": "skilled_trades_services",
+    "id": 14,
+    "code": "human_resources",
     "name": {
-      "ru": "Рабочие специальности и сервис",
-      "kk": "Жұмысшы мамандықтар және сервис",
+      "ru": "HR и управление персоналом",
+      "kk": "HR және персоналды басқару",
+      "en": "Human Resources"
+    },
+    "professions_count": 6
+  },
+  {
+    "id": 15,
+    "code": "skilled_trades_services",
+    "name": {
+      "ru": "Рабочие специальности",
+      "kk": "Жұмысшы мамандықтары",
       "en": "Skilled Trades & Services"
     },
     "professions_count": 6
   },
   {
-    "id": "sports_fitness",
+    "id": 16,
+    "code": "sports_fitness",
     "name": {
       "ru": "Спорт и фитнес",
       "kk": "Спорт және фитнес",
@@ -153,12 +160,23 @@
     "professions_count": 3
   },
   {
-    "id": "transportation_logistics",
+    "id": 17,
+    "code": "transportation_logistics",
     "name": {
       "ru": "Транспорт и логистика",
       "kk": "Көлік және логистика",
       "en": "Transportation & Logistics"
     },
     "professions_count": 5
-    }
-  ]
+  },
+  {
+    "id": 18,
+    "code": "media_communications",
+    "name": {
+      "ru": "Медиа и коммуникации",
+      "kk": "Медиа және коммуникациялар",
+      "en": "Media & Communications"
+    },
+    "professions_count": 7
+  }
+]
