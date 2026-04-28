@@ -77,6 +77,16 @@ export interface PasswordResetConfirmPayload {
   new_password_confirm: string;
 }
 
+/** POST /api/v1/auth/email-verify/request/ */
+export interface EmailVerifyRequestPayload {
+  email: string;
+}
+
+/** POST /api/v1/auth/email-verify/confirm/ */
+export interface EmailVerifyConfirmPayload {
+  token: string;
+}
+
 // ===== Analysis — GET /api/v1/analysis/dashboard/ =====
 
 export interface AnalysisDashboardUser {

@@ -3,6 +3,8 @@ import { useMutation, type UseMutationResult } from "@tanstack/react-query";
 import type {
   AuthResponse,
   ChangePasswordPayload,
+  EmailVerifyConfirmPayload,
+  EmailVerifyRequestPayload,
   LoginPayload,
   PasswordResetConfirmPayload,
   PasswordResetRequestPayload,
@@ -73,6 +75,22 @@ export const authServices = {
   async confirmPasswordReset(payload: PasswordResetConfirmPayload): Promise<ServiceResult<Record<string, string>>> {
     const { body, error } = await api.post<Record<string, string>, PasswordResetConfirmPayload>(
       "/api/v1/auth/password-reset/confirm/",
+      payload
+    );
+    return { body: body ?? null, error };
+  },
+
+  async requestEmailVerify(payload: EmailVerifyRequestPayload): Promise<ServiceResult<Record<string, string>>> {
+    const { body, error } = await api.post<Record<string, string>, EmailVerifyRequestPayload>(
+      "/api/v1/auth/email-verify/request/",
+      payload
+    );
+    return { body: body ?? null, error };
+  },
+
+  async confirmEmailVerify(payload: EmailVerifyConfirmPayload): Promise<ServiceResult<Record<string, string>>> {
+    const { body, error } = await api.post<Record<string, string>, EmailVerifyConfirmPayload>(
+      "/api/v1/auth/email-verify/confirm/",
       payload
     );
     return { body: body ?? null, error };

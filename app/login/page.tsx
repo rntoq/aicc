@@ -124,6 +124,11 @@ const LoginPage = () => {
                   {t("forgot_password")}
                 </Button>
               </Box>
+              <Box sx={styles.actionsRow}>
+                <Button sx={styles.forgotPasswordButton} component={Link} href="/verify-email" size="small" variant="text">
+                  {t("verify_email_request_submit")}
+                </Button>
+              </Box>
             </Box>
           </Paper>
         </Container>

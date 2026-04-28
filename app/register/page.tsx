@@ -62,7 +62,7 @@ const RegisterPage = () => {
         first_name: form.firstName,
         last_name: form.lastName,
       });
-      router.push("/client");
+      router.push(`/verify-email?email=${encodeURIComponent(form.email.trim())}`);
     } catch {
       // ошибка уже есть в authStore.error
     }
