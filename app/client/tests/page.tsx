@@ -55,10 +55,52 @@ function getReportsCount(payload: unknown): number {
 }
 
 function normalizeSessionKey(testSlug: string, testType: string): string {
-  if (testSlug === "big-five" || testType === "big_five") return "bigfive";
-  if (testSlug === "photo" || testType === "photo") return "photo-career";
-  if (testSlug) return testSlug;
-  return testType.replace(/_/g, "-");
+  const slug = (testSlug ?? "").toLowerCase();
+  const type = (testType ?? "").toLowerCase();
+
+  if (type === "holland") return "holland";
+  if (type === "photo") return "photo-career";
+  if (type === "disc") return "disc";
+  if (type === "career_aptitude") return "career-aptitude";
+  if (type === "big_five") return "bigfive";
+  if (type === "leadership") return "leadership";
+  if (type === "eq5") return "eq";
+  if (type === "enneagram") return "enneagram";
+  if (type === "mbti") return "typefinder-16";
+  if (type === "personal_strengths") return "strengths";
+
+  if (slug.includes("holland")) return "holland";
+  if (slug.includes("photo")) return "photo-career";
+  if (slug.includes("disc")) return "disc";
+  if (slug.includes("career-aptitude")) return "career-aptitude";
+  if (slug.includes("big-five")) return "bigfive";
+  if (slug.includes("leadership")) return "leadership";
+  if (slug.includes("emotional-intelligence") || slug.includes("eq")) return "eq";
+  if (slug.includes("enneagram")) return "enneagram";
+  if (slug.includes("mbti") || slug.includes("typefinder")) return "typefinder-16";
+  if (slug.includes("strength")) return "strengths";
+
+  return slug || type.replace(/_/g, "-");
+}
+
+type CompletedSession = {
+  id: number;
+  is_completed?: boolean;
+  test_slug?: string;
+  test_type?: string;
+  completed_at?: string;
+  created_at?: string;
+  result?: unknown;
+};
+
+function getSessionSortTimestamp(session: CompletedSession): number {
+  const completedMs = session.completed_at ? Date.parse(session.completed_at) : Number.NaN;
+  if (Number.isFinite(completedMs)) return completedMs;
+
+  const createdMs = session.created_at ? Date.parse(session.created_at) : Number.NaN;
+  if (Number.isFinite(createdMs)) return createdMs;
+
+  return 0;
 }
 
 function ReportDownloadBanner({ reports }: { reports: ReportListItem[] }) {
@@ -205,16 +247,35 @@ const TestsPage = () => {
   const reports = extractReports(reportsQuery.data);
 
   useEffect(() => {
+    if (!completedSessionsQuery.isSuccess) return;
+
+    const { clearAll, setSession, setResult } = useQuizSessionStore.getState();
+    clearAll();
+
     if (!completedSessionsQuery.data?.length) return;
 
-    const { setSession, setResult } = useQuizSessionStore.getState();
-    completedSessionsQuery.data.forEach((session) => {
+    const latestByTest = new Map<string, CompletedSession>();
+    completedSessionsQuery.data.forEach((rawSession) => {
+      const session = rawSession as CompletedSession;
       if (!session.is_completed) return;
-      const sessionKey = normalizeSessionKey(session.test_slug, String(session.test_type ?? ""));
+      const sessionKey = normalizeSessionKey(String(session.test_slug ?? ""), String(session.test_type ?? ""));
+      const prev = latestByTest.get(sessionKey);
+      if (!prev) {
+        latestByTest.set(sessionKey, session);
+        return;
+      }
+      const currentTs = getSessionSortTimestamp(session);
+      const prevTs = getSessionSortTimestamp(prev);
+      if (currentTs > prevTs || (currentTs === prevTs && session.id > prev.id)) {
+        latestByTest.set(sessionKey, session);
+      }
+    });
+
+    latestByTest.forEach((session, sessionKey) => {
       setSession(sessionKey, session.id);
       setResult(sessionKey, session.result ?? {});
     });
-  }, [completedSessionsQuery.data]);
+  }, [completedSessionsQuery.data, completedSessionsQuery.isSuccess]);
 
   const showReportBanner = reportsQuery.isSuccess && reportsCount > 0;
   const showCtaSkeleton = reportsQuery.isLoading;
