@@ -22,11 +22,23 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BANNER_IMAGE from "../../public/icons/user.svg";
 
+const isUnverifiedEmailError = (message: string): boolean => {
+  const normalized = message.toLowerCase();
+  return (
+    normalized.includes("verify") ||
+    normalized.includes("verified") ||
+    normalized.includes("confirmation") ||
+    normalized.includes("подтверж") ||
+    normalized.includes("вериф")
+  );
+};
+
 const LoginPage = () => {
   const t = useTranslations();
   const { login, loading, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showVerifyCta, setShowVerifyCta] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/client";
@@ -44,6 +56,7 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password || loading) return;
+    setShowVerifyCta(false);
 
     try {
       await login({ email, password });
@@ -60,10 +73,13 @@ const LoginPage = () => {
           : undefined;
       if (detail) {
         toast.error(detail);
+        setShowVerifyCta(isUnverifiedEmailError(detail));
       } else if (typeof maybeAxiosLike?.message === "string") {
         toast.error(maybeAxiosLike.message);
+        setShowVerifyCta(isUnverifiedEmailError(maybeAxiosLike.message));
       } else if (error) {
         toast.error(error);
+        setShowVerifyCta(isUnverifiedEmailError(error));
       }
     }
   };
@@ -124,11 +140,19 @@ const LoginPage = () => {
                   {t("forgot_password")}
                 </Button>
               </Box>
-              <Box sx={styles.actionsRow}>
-                <Button sx={styles.forgotPasswordButton} component={Link} href="/verify-email" size="small" variant="text">
-                  {t("verify_email_request_submit")}
-                </Button>
-              </Box>
+              {showVerifyCta && (
+                <Box sx={styles.actionsRow}>
+                  <Button
+                    sx={styles.forgotPasswordButton}
+                    component={Link}
+                    href={`/verify-email?email=${encodeURIComponent(email.trim())}`}
+                    size="small"
+                    variant="text"
+                  >
+                    {t("verify_email_request_submit")}
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Paper>
         </Container>
