@@ -506,7 +506,7 @@
   "dashboard_completed_at": "Завершено",
   "dashboard_done_tests_now": "Пройдено тестов сейчас",
   "dashboard_no_test_results": "Пока нет результатов тестов. Начните любой тест, и последний результат появится здесь.",
-  "dashboard_university_title": "🏫 University Suggestions",
+  "dashboard_university_title": "🏫 Рекомендации по университету",
   "dashboard_city": "Город",
   "dashboard_universities_more": "Больше университетов",
   "dashboard_no_university": "Пока нет рекомендации по университету. Завершите анализ, чтобы получить подходящие вузы.",
@@ -532,5 +532,9 @@
   "dashboard_report_downloading": "Скачиваем...",
   "dashboard_report_pdf_hint": "Для полного досье скачайте PDF 📄",
   "dashboard_download_error": "Не удалось скачать отчет",
-  "dashboard_download_success": "PDF скачан"
+  "dashboard_download_success": "PDF скачан",
+  "ai_chat_chats": "Чаты",
+  "ai_chat_new": "Новый",
+  "ai_chat_loading": "Загрузка…",
+  "ai_chat_no_chats": "Пока нет чатов"
 }

@@ -3,7 +3,7 @@
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { TestHeader } from "../../components/tests/TestHeader";
 import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
@@ -18,6 +18,7 @@ import type {
 } from "@/lib/types";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import StrengthsResultPanel from "./strengthsResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import STRENGTHS_DATA from "./personal_strength_questions.json";
@@ -60,12 +61,32 @@ export default function StrengthsTestPage() {
   const t = useTranslations();
   const locale = useLocale() as "ru" | "kk" | "en";
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as QuizResult | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
-
   const data = STRENGTHS_DATA as unknown as StrengthsData;
   const questions = data.questions ?? [];
+  const expectedCount = questions.length;
+  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const preferredSlug = "personal-strengths-character";
+      let slug: string | null = preferredSlug;
+      const { error: preflightErr } = await quizServices.getTestDetail(preferredSlug);
+      if (preflightErr) {
+        const { body: testsPrimary } = await quizServices.listTests({ type: "personal_strengths" });
+        slug = testsPrimary?.[0]?.slug ?? null;
+        if (!slug) {
+          const { body: testsFallback } = await quizServices.listTests({ type: "strengths" });
+          slug = testsFallback?.[0]?.slug ?? null;
+        }
+      }
+      return slug;
+    },
+    mapQuestionIds: (ids) => (ids.length === expectedCount ? ids : []),
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
+
 
   const labels = (data.scale?.labels ?? {}) as Record<string, LocalizedText>;
   const emptyLabel: LocalizedText = { ru: "", kk: "", en: "" };
@@ -79,77 +100,12 @@ export default function StrengthsTestPage() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const [initializing, setInitializing] = useState(true);
   const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
-
-  const expectedCount = questions.length;
-
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = questions.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
   const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
 
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-
-    const initSession = async () => {
-      setInitializing(true);
-      // Backend test: category_type = "personal_strengths", slug = "personal-strengths-character"
-      const preferredSlug = "personal-strengths-character";
-
-      // Try direct slug first (most stable).
-      let slug: string | null = preferredSlug;
-
-      // If backend slug changes, fallback to list by type.
-      const { error: preflightErr } = await quizServices.getTestDetail(preferredSlug);
-      if (preflightErr) {
-        const { body: testsPrimary } = await quizServices.listTests({ type: "personal_strengths" });
-        slug = testsPrimary?.[0]?.slug ?? null;
-
-        if (!slug) {
-          const { body: testsFallback } = await quizServices.listTests({ type: "strengths" });
-          slug = testsFallback?.[0]?.slug ?? null;
-        }
-      }
-
-      if (!slug) return;
-
-      const { body: session } = await quizServices.startSession({ test_slug: slug });
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const allBackendIds = (testDetail.questions ?? []).map((q) => q.id);
-
-      if (!cancelled && allBackendIds.length === expectedCount) {
-        setSessionId(session.id);
-        setSession(SESSION_KEY, session.id);
-        setBackendQuestionIds(allBackendIds);
-      }
-
-      if (!cancelled) setInitializing(false);
-    };
-
-    void initSession();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, expectedCount, setSession]);
 
   const handlePrev = () => {
     if (step <= 1 || submitting) return;
@@ -220,7 +176,9 @@ export default function StrengthsTestPage() {
             <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <StrengthsResultPanel result={result} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

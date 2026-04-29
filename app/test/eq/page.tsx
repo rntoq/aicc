@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import { EqResultPanel, type EqLocalResult } from "./eqResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import { TestHeader } from "../../components/tests/TestHeader";
@@ -132,72 +133,27 @@ export default function EqTestPage() {
   const t = useTranslations();
   const locale = useLocale() as "ru" | "kk" | "en";
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as EqLocalResult | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
-
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
-  const [initializing, setInitializing] = useState(true);
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-    const initSession = async () => {
-      setInitializing(true);
-      // Backend test: category_type = "eq5", slug = "emotional-intelligence-eq5"
+  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
       const preferredSlug = "emotional-intelligence-eq5";
-
-      // Try direct slug first (most stable).
       let slug: string | null = preferredSlug;
-
-      // If backend slug changes, fallback to list by type.
       const { error: preflightErr } = await quizServices.getTestDetail(preferredSlug);
       if (preflightErr) {
         const { body: testsPrimary } = await quizServices.listTests({ type: "eq5" });
         slug = testsPrimary?.[0]?.slug ?? null;
-
         if (!slug) {
           const { body: testsFallback } = await quizServices.listTests({ type: "eq" });
           slug = testsFallback?.[0]?.slug ?? null;
         }
       }
-
-      if (!slug) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const { body: session } = await quizServices.startSession({ test_slug: slug });
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const ids = (testDetail.questions ?? []).map((q) => q.id);
-      if (!cancelled) {
-        setSessionId(session.id);
-        setSession(SESSION_KEY, session.id);
-        setBackendQuestionIds(ids);
-      }
-      if (!cancelled) setInitializing(false);
-    };
-    void initSession();
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
+      return slug;
+    },
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
 
   type EqJson = {
     test?: { title?: LocalizedText };
@@ -354,7 +310,9 @@ export default function EqTestPage() {
             <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <EqResultPanel result={result} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

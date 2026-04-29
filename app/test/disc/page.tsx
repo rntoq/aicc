@@ -3,9 +3,10 @@
 import { Box, Button, Container } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import DiscResultPanel from "./discResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import DISC_DATA from "./disk_questions.json";
@@ -21,7 +22,6 @@ import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
   QuizResult,
-  StartQuizSessionVariables,
 } from "@/lib/types";
 
 type DiscPair = {
@@ -64,68 +64,25 @@ const DiscPage = () => {
   const t = useTranslations();
   const locale = useLocale();
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as QuizResult | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
+  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const { body: tests } = await quizServices.listTests({ type: "disc" });
+      return tests?.[0]?.slug ?? null;
+    },
+    mapQuestionIds: (ids) => ids.filter((id): id is number => typeof id === "number" && id > 0),
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
-  const [initializing, setInitializing] = useState(true);
   const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
   const [pairValues, setPairValues] = useState<Record<string, number>>({});
   const [singleValues, setSingleValues] = useState<Record<string, number>>({});
   const [scenarioValues, setScenarioValues] = useState<Record<string, number>>({});
 
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-
-    const initSession = async () => {
-      setInitializing(true);
-      const { body: tests } = await quizServices.listTests({ type: "disc" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const { body: session } = await quizServices.startSession({ test_slug: slug } as StartQuizSessionVariables);
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const questionIds = (testDetail.questions ?? [])
-        .map((q) => q.id)
-        .filter((id): id is number => typeof id === "number" && id > 0);
-
-      if (!cancelled && questionIds.length > 0) {
-        setSessionId(session.id);
-        setSession(SESSION_KEY, session.id);
-        setBackendQuestionIds(questionIds);
-      }
-      if (!cancelled) setInitializing(false);
-    };
-
-    void initSession();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
 
   const leftTitleEmpty = { ru: "", kk: "", en: "" } as const;
 
@@ -259,7 +216,9 @@ const DiscPage = () => {
             <Box sx={styles.pageTitle}>{t("disc_title")}</Box>
           </Box>
           <DiscResultPanel result={panelResult} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

@@ -1,9 +1,11 @@
 import { create } from "zustand";
 import { authServices } from "@/lib/services/authServices";
-import { quizServices } from "@/lib/services/quizServices";
 import { getCookie, setCookie, removeCookie } from "@/lib/cookies/cookieClient";
-import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import type { AuthResponse, LoginPayload, QuizSessionsListItem, RegisterPayload, User } from "@/lib/types";
+import { useQuizSessionStore, QUIZ_SESSIONS_STORAGE_KEY_V1 } from "@/lib/store/useQuizStore";
+import type { AuthResponse, LoginPayload, RegisterPayload, User } from "@/lib/types";
+import {
+  QUIZ_SESSION_IDS_LEGACY_KEY,
+} from "@/lib/utils/syncCompletedQuizSessions";
 
 interface AuthState {
   user: User | null;
@@ -56,12 +58,26 @@ function persistTokens(access: string | null, refresh: string | null) {
   }
 }
 
-const SESSION_IDS_STORAGE_KEY = "quiz-session-ids";
-
-function readGuestSessionIdsFromStorage(): number[] {
+function readGuestSessionIdsFromQuizSessionsPersist(): number[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = localStorage.getItem(SESSION_IDS_STORAGE_KEY);
+    const raw = localStorage.getItem(QUIZ_SESSIONS_STORAGE_KEY_V1);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as { state?: { sessions?: Record<string, { sessionId?: number }> } };
+    const sessions = parsed?.state?.sessions;
+    if (!sessions) return [];
+    return Object.values(sessions)
+      .map((e) => e?.sessionId)
+      .filter((id): id is number => typeof id === "number" && Number.isInteger(id) && id > 0);
+  } catch {
+    return [];
+  }
+}
+
+function readGuestSessionIdsFromLegacyArray(): number[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(QUIZ_SESSION_IDS_LEGACY_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
@@ -73,47 +89,25 @@ function readGuestSessionIdsFromStorage(): number[] {
   }
 }
 
-function normalizeQuizSessionKey(session: QuizSessionsListItem): string {
-  const slug = session.test_slug?.toLowerCase();
-  if (slug === "big-five") return "bigfive";
-  if (slug === "photo") return "photo-career";
-  if (slug) return slug;
-
-  const type = String(session.test_type ?? "").toLowerCase();
-  if (type === "big_five") return "bigfive";
-  if (type === "career_aptitude") return "career-aptitude";
-  return type.replace(/_/g, "-");
+/** Guest `sessionId` values from localStorage only (no in-memory/API sources). */
+function readGuestSessionIdsFromStorage(): number[] {
+  const ids = new Set<number>();
+  for (const id of readGuestSessionIdsFromQuizSessionsPersist()) ids.add(id);
+  for (const id of readGuestSessionIdsFromLegacyArray()) ids.add(id);
+  return Array.from(ids);
 }
 
-async function syncQuizSessionIdsToLocalStorage() {
+async function afterAuthSuccessMergeGuestProgress(sentGuestSessionIds: boolean): Promise<void> {
   if (typeof window === "undefined") return;
-
-  try {
-    const { body, error } = await quizServices.listSessions();
-    if (error || !body?.length) {
-      localStorage.setItem(SESSION_IDS_STORAGE_KEY, JSON.stringify([]));
-      return;
+  if (sentGuestSessionIds) {
+    try {
+      localStorage.removeItem(QUIZ_SESSIONS_STORAGE_KEY_V1);
+      localStorage.removeItem(QUIZ_SESSION_IDS_LEGACY_KEY);
+    } catch {
+      /* ignore */
     }
-
-    const uniqueSessionIds = Array.from(new Set(body.map((s) => s.id)));
-    localStorage.setItem(SESSION_IDS_STORAGE_KEY, JSON.stringify(uniqueSessionIds));
-
-    const latestByTest = new Map<string, QuizSessionsListItem>();
-    body.forEach((session) => {
-      const key = normalizeQuizSessionKey(session);
-      const prev = latestByTest.get(key);
-      if (!prev || prev.id < session.id) {
-        latestByTest.set(key, session);
-      }
-    });
-
-    const quizState = useQuizSessionStore.getState();
-    latestByTest.forEach((session, key) => {
-      quizState.setSession(key, session.id);
-    });
-  } catch {
-    // ignore sync failures: auth should still complete successfully
   }
+  useQuizSessionStore.getState().clearAll();
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -156,10 +150,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ loading: true, error: null });
     try {
       const guestSessionIds = readGuestSessionIdsFromStorage();
-      const loginPayload: LoginPayload =
-        guestSessionIds.length > 0
-          ? { ...payload, guest_session_ids: guestSessionIds }
-          : payload;
+      const loginPayload: LoginPayload = {
+        ...payload,
+        ...(guestSessionIds.length > 0 ? { guest_session_ids: guestSessionIds } : {}),
+      };
       const { body: resp, error } = await authServices.login(loginPayload);
       if (error || !resp) {
         const message = messageFromUnknown(error, "Не удалось выполнить вход");
@@ -167,7 +161,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw error ?? new Error(message);
       }
       get().setFromResponse(resp);
-      await syncQuizSessionIdsToLocalStorage();
+      await afterAuthSuccessMergeGuestProgress(guestSessionIds.length > 0);
     } catch (e) {
       const message = messageFromUnknown(e, "Не удалось выполнить вход");
       set({ error: message });
@@ -181,10 +175,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ loading: true, error: null });
     try {
       const guestSessionIds = readGuestSessionIdsFromStorage();
-      const registerPayload: RegisterPayload =
-        guestSessionIds.length > 0
-          ? { ...payload, guest_session_ids: guestSessionIds }
-          : payload;
+      const registerPayload: RegisterPayload = {
+        ...payload,
+        ...(guestSessionIds.length > 0 ? { guest_session_ids: guestSessionIds } : {}),
+      };
       const { body: resp, error } = await authServices.register(registerPayload);
       if (error || !resp) {
         const message = messageFromUnknown(error, "Не удалось выполнить регистрацию");
@@ -192,7 +186,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw error ?? new Error(message);
       }
       get().setFromResponse(resp);
-      await syncQuizSessionIdsToLocalStorage();
+      await afterAuthSuccessMergeGuestProgress(guestSessionIds.length > 0);
     } catch (e) {
       const message = messageFromUnknown(e, "Не удалось выполнить регистрацию");
       set({ error: message });

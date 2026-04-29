@@ -532,5 +532,9 @@
   "dashboard_report_downloading": "Downloading...",
   "dashboard_report_pdf_hint": "Download PDF for a full career report 📄",
   "dashboard_download_error": "Failed to download report",
-  "dashboard_download_success": "PDF downloaded"
+  "dashboard_download_success": "PDF downloaded",
+  "ai_chat_chats": "Chats",
+  "ai_chat_new": "New",
+  "ai_chat_loading": "Loading…",
+  "ai_chat_no_chats": "No chats yet"
 }

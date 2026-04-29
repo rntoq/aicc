@@ -163,6 +163,7 @@ export type AiReportGeneratePayload =
 /** POST /api/v1/analysis/ai-chat/ */
 export type AiChatPayload = {
   message: string;
+  chat_id?: number;
 };
 
 export type AiChatResponse = Record<string, unknown>;

@@ -8,127 +8,30 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
-import { analyseServices } from "@/lib/services/analyseServices";
-import { useQuery } from "@tanstack/react-query";
+import {
+  useLatestAnalysisReport,
+  flattenAnalysisScores,
+  buildDashboardReportView,
+} from "@/lib/services/analyseServices";
 import DiamondIcon from "@mui/icons-material/Diamond";
-import { useMemo, useState } from "react";
 import { ReportDownloadCart } from "@/app/components/clientLayout/ReportContainer";
 import { CareerReportCart } from "@/app/components/clientLayout/ProfessionContainer";
 import { UniversityReportCart } from "@/app/components/clientLayout/UniversityContainer";
 import { IndustryReportCart } from "@/app/components/clientLayout/IndustryContainer";
 import { TestReportCart } from "@/app/components/clientLayout/TestContainer";
 import { SkillReportCart } from "@/app/components/clientLayout/SkillContainer";
-import { toast } from "react-toastify";
-
-type SuggestionCareer = { name: string; reasoning?: string; match_score?: number; growth_path?: string; salary_range?: string };
-type SuggestionUniversity = { name: string; city?: string; reasoning?: string; recommended_programs?: string[] };
-type SuggestionIndustry = { industry: string; fit_score?: number; reasoning?: string; growth_outlook?: string };
-type Insight = { test_name?: string; insight?: string };
-type NamedItem = { title?: string; skill?: string };
-type ReportDataSection = {
-  primary_type?: string;
-  test_name?: string;
-  summary?: string;
-  scores?: Record<string, number | Record<string, number>>;
-};
-
-type ReportItem = {
-  id: number;
-  title: string;
-  summary?: string;
-  created_at: string;
-  report_data?: {
-    photo?: ReportDataSection;
-    holland?: ReportDataSection;
-    big_five?: ReportDataSection;
-    career_aptitude?: ReportDataSection;
-    ai_analysis?: {
-      career_suggestions?: SuggestionCareer[];
-      university_suggestions?: SuggestionUniversity[];
-      industry_recommendations?: SuggestionIndustry[];
-      test_insights?: Insight[];
-      strengths?: NamedItem[];
-      top_skills?: NamedItem[];
-      weaknesses?: NamedItem[];
-    };
-  };
-};
-
-const flattenScores = (scores?: Record<string, number | Record<string, number>>) => {
-  if (!scores) return [];
-  return Object.entries(scores).flatMap(([k, v]) => {
-    if (typeof v === "number") return [{ key: k, value: v }];
-    return Object.entries(v).map(([nestedKey, nestedValue]) => ({
-      key: `${k}:${nestedKey}`,
-      value: typeof nestedValue === "number" ? nestedValue : 0,
-    }));
-  });
-};
+import { useReportPdfDownload } from "@/lib/hooks/useReportPdfDownload";
 
 const DashboardPage = () => {
   const t = useTranslations();
-  const [downloadingId, setDownloadingId] = useState<number | null>(null);
-  const reportsQuery = useQuery({
-    queryKey: ["analysis", "reports", "dashboard-page"],
-    queryFn: async () => {
-      const { body, error } = await analyseServices.listReports();
-      if (error) throw error;
-      return body;
-    },
+  const { downloadingId, downloadReport } = useReportPdfDownload({
+    downloadError: t("dashboard_download_error"),
+    downloadSuccess: t("dashboard_download_success"),
   });
-
-  const reports = useMemo<ReportItem[]>(() => {
-    const payload = reportsQuery.data;
-    if (Array.isArray(payload)) return payload as ReportItem[];
-    if (payload && typeof payload === "object" && Array.isArray((payload as { results?: unknown[] }).results)) {
-      return (payload as { results: ReportItem[] }).results;
-    }
-    return [];
-  }, [reportsQuery.data]);
-
-  const latestReport = useMemo(() => {
-    return [...reports].sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))[0];
-  }, [reports]);
-
-  const analysis = latestReport?.report_data?.ai_analysis;
-  const careers = analysis?.career_suggestions ?? [];
-  const universities = analysis?.university_suggestions ?? [];
-  const industries = analysis?.industry_recommendations ?? [];
-  const insights = analysis?.test_insights ?? [];
-
-  const tests = [
-    latestReport?.report_data?.photo,
-    latestReport?.report_data?.holland,
-    latestReport?.report_data?.big_five,
-    latestReport?.report_data?.career_aptitude,
-  ].filter(Boolean) as ReportDataSection[];
-
-  const strengths = (analysis?.strengths ?? []).map((x) => x.title).filter(Boolean) as string[];
-  const topSkills = (analysis?.top_skills ?? []).map((x) => x.skill).filter(Boolean) as string[];
-  const weaknesses = (analysis?.weaknesses ?? []).map((x) => x.title).filter(Boolean) as string[];
-
-  const handleDownload = async (reportId: number, title: string) => {
-    setDownloadingId(reportId);
-    try {
-      const { body, error } = await analyseServices.downloadReportPdf(reportId);
-      if (error || !body) {
-        toast.error(t("dashboard_download_error"));
-        return;
-      }
-      const blob = new Blob([body], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${title}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      toast.success(t("dashboard_download_success"));
-    } finally {
-      setDownloadingId(null);
-    }
-  };
+  const latestReportQuery = useLatestAnalysisReport();
+  const latestReport = latestReportQuery.data;
+  const { careers, universities, industries, insights, strengths, topSkills, weaknesses, tests } =
+    buildDashboardReportView(latestReport ?? null);
 
   return (
     <AppLayout title={t("sidebar_dashboard")}>
@@ -149,7 +52,7 @@ const DashboardPage = () => {
           </Box>
         </Box>
 
-        {reportsQuery.isLoading ? (
+        {latestReportQuery.isLoading ? (
           <Paper sx={styles.loadingCard}>
             <CircularProgress size={26} />
           </Paper>
@@ -161,7 +64,7 @@ const DashboardPage = () => {
                   title={latestReport.title}
                   summary={latestReport.summary}
                   downloading={downloadingId === latestReport.id}
-                  onDownload={() => handleDownload(latestReport.id, latestReport.title)}
+                  onDownload={() => downloadReport(latestReport.id, latestReport.title)}
                 />
               ) : (
                 <ReportDownloadCart
@@ -212,7 +115,7 @@ const DashboardPage = () => {
                   testName: test?.test_name ?? `Test ${idx + 1}`,
                   primaryType: test?.primary_type,
                   summary: test?.summary,
-                  scores: flattenScores(test?.scores),
+                  scores: flattenAnalysisScores(test?.scores),
                   insight: insights[idx]?.insight,
                 }))}
               />

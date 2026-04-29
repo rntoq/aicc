@@ -1,35 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { Box, Button, CircularProgress, Container, Paper, Stack, TextField, Typography } from "@mui/material";
-import { toast } from "react-toastify";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Header } from "../components/layout/Header";
 import { authServices } from "@/lib/services/authServices";
+import { useEmailActionPageState } from "@/lib/hooks/useAuthPages";
 
 const ForgotPasswordPage = () => {
   const t = useTranslations();
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || loading) return;
-
-    setLoading(true);
-    const { body, error } = await authServices.requestPasswordReset({ email: email.trim() });
-    setLoading(false);
-
-    if (error) {
-      toast.error(t("forgot_password_error"));
-      return;
-    }
-
-    toast.success(
-      (body as { detail?: string } | null)?.detail || t("forgot_password_success")
-    );
-  };
+  const { email, setEmail, loading, handleSubmit } = useEmailActionPageState({
+    successFallbackText: t("forgot_password_success"),
+    errorText: t("forgot_password_error"),
+    request: (email) => authServices.requestPasswordReset({ email }),
+  });
 
   return (
     <>

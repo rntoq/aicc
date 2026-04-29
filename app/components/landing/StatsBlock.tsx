@@ -7,8 +7,9 @@ import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import BANNER_IMAGE from "../../../public/images/stats_banner.jpg";
+import { useCountUpOnView } from "@/lib/hooks/useCountUpOnView";
 
 const STATS = [
   { icon: SchoolOutlinedIcon, value: 118, labelKey: "stats_unis", descKey: "stats_unis_desc" },
@@ -24,25 +25,7 @@ const CARD_ANIMATION = {
 };
 
 const CountUp = ({ value, inView }: { value: number; inView: boolean }) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-
-    const step = Math.max(1, Math.floor(value / 40));
-    const timer = setInterval(() => {
-      setCount((c) => {
-        const next = Math.min(c + step, value);
-        if (next >= value) {
-          clearInterval(timer);
-          return value;
-        }
-        return next;
-      });
-    }, 30);
-
-    return () => clearInterval(timer);
-  }, [inView, value]);
+  const count = useCountUpOnView({ value, inView });
 
   return (
     <Typography variant="h3" sx={styles.value} component="span" display="block">

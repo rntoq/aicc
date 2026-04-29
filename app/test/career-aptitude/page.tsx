@@ -3,10 +3,11 @@
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import { CareerResultPanel, type CareerAptitudeResult } from "./careerResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import { TestHeader } from "../../components/tests/TestHeader";
@@ -18,7 +19,6 @@ import QUESTIONS_JSON from "./career_questions.json";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
-  StartQuizSessionVariables,
 } from "@/lib/types";
 
 const QUESTIONS_PER_STEP = 10;
@@ -44,9 +44,17 @@ const PERSONALITY_OPTIONS = [
 const CareerAptitudeTestPage = () => {
   const t = useTranslations();
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as CareerAptitudeResult | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
+  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const { body: tests } = await quizServices.listTests({ type: "career_aptitude" });
+      return tests?.[0]?.slug ?? null;
+    },
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
 
   const stepChunks = useMemo(() => {
     const chunks: (typeof QUESTIONS_JSON)[] = [];
@@ -83,57 +91,10 @@ const CareerAptitudeTestPage = () => {
 
   const TOTAL_STEPS = stepChunks.length || 1;
 
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
-  const [initializing, setInitializing] = useState(true);
   const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-
-    const initSession = async () => {
-      setInitializing(true);
-      const { body: tests } = await quizServices.listTests({ type: "career_aptitude" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const { body: session } = await quizServices.startSession({ test_slug: slug } as StartQuizSessionVariables);
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      if (!cancelled) {
-        setSessionId(session.id);
-        setSession(SESSION_KEY, session.id);
-        setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
-      }
-      if (!cancelled) setInitializing(false);
-    };
-
-    void initSession();
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
 
   const stepQuestions =
     stepChunks[Math.max(0, Math.min(step - 1, stepChunks.length - 1))] ?? [];
@@ -202,6 +163,7 @@ const CareerAptitudeTestPage = () => {
     const interestScores: Record<string, number> = {};
     for (const cat of RIASEC_ORDER) {
       const qs = part1.filter((q) => q.category === cat);
+      if (qs.length === 0) continue;
       const raw = qs.reduce((sum, q) => sum + (answers[q.id] ?? 2), 0);
       interestScores[cat] = Math.round(((raw - qs.length) / (qs.length * 2)) * 100);
     }
@@ -209,6 +171,7 @@ const CareerAptitudeTestPage = () => {
     const personalityScores: Record<string, number> = {};
     for (const dim of ["A", "C", "E", "N", "O"]) {
       const qs = part2.filter((q) => q.category === dim);
+      if (qs.length === 0) continue;
       const raw = qs.reduce((sum, q) => {
         const v = answers[q.id] ?? 3;
         return sum + (q.reverse_scored ? 6 - v : v);
@@ -246,7 +209,9 @@ const CareerAptitudeTestPage = () => {
             <Box sx={styles.pageTitle}>{t("career_title")}</Box>
           </Box>
           <CareerResultPanel result={result} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

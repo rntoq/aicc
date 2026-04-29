@@ -3,10 +3,11 @@
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import LeadershipResultPanel, { type LeadershipLocalResult } from "./leadershipResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import { TestHeader } from "../../components/tests/TestHeader";
@@ -90,14 +91,17 @@ export default function LeadershipTestPage() {
   const t = useTranslations();
   const locale = useLocale() as "ru" | "kk" | "en";
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as LeadershipLocalResult | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
-
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestions, setBackendQuestions] = useState<
-    { id: number; questionType: string; answers: { code: string }[] }[]
-  >([]);
+  const { phase, setPhase, sessionId, backendQuestions, initializing, retake } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const { body: tests } = await quizServices.listTests({ type: "leadership" });
+      return tests?.[0]?.slug ?? null;
+    },
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
 
   type LeadershipQuestion =
     | {
@@ -150,55 +154,7 @@ export default function LeadershipTestPage() {
   }, [step, pairQuestions, frequencyQuestions]);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const [initializing, setInitializing] = useState(true);
   const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-    const initSession = async () => {
-      setInitializing(true);
-      const { body: tests } = await quizServices.listTests({ type: "leadership" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const { body: session } = await quizServices.startSession({ test_slug: slug });
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const bqs = (testDetail.questions ?? []).map((q) => ({
-        id: q.id,
-        questionType: q.question_type ?? "",
-        answers: (q.answers ?? []).map((a) => ({ code: a.code })),
-      }));
-      if (!cancelled) {
-        setSessionId(session.id);
-        setSession(SESSION_KEY, session.id);
-        setBackendQuestions(bqs);
-      }
-      if (!cancelled) setInitializing(false);
-    };
-    void initSession();
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
 
   const frequencyScaleOptions = useMemo<LocalizedText[]>(
     () => [1, 2, 3, 4, 5].map((v) => scaleLabels[String(v)] ?? emptyLabel),
@@ -348,7 +304,9 @@ export default function LeadershipTestPage() {
             <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <LeadershipResultPanel result={result} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

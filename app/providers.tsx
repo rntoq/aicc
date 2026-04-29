@@ -8,7 +8,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { NextIntlClientProvider, useTranslations } from "next-intl";
+import { NextIntlClientProvider, createTranslator } from "next-intl";
 import { ToastContainer, toast } from "react-toastify";
 import { muiTheme } from "@/ui/theme/muiTheme";
 import { LocaleProvider, useLocale, type Locale } from "@/app/context/LocaleContext";
@@ -23,25 +23,30 @@ const messages: Record<string, Record<string, unknown>> = { ru, kk, en };
 
 function IntlProvider({ children }: { children: React.ReactNode }) {
   const { locale } = useLocale();
+  const msgs = messages[locale] ?? ru;
   return (
-    <NextIntlClientProvider
-      key={locale}
-      locale={locale}
-      messages={messages[locale] ?? ru}
-      timeZone="Asia/Almaty"
-    >
+    <NextIntlClientProvider locale={locale} messages={msgs} timeZone="Asia/Almaty">
       {children}
     </NextIntlClientProvider>
   );
 }
 
 /**
- * QueryClient живёт внутри IntlProvider, чтобы toast-сообщения об ошибках
- * отображались на языке пользователя. Ref гарантирует, что функция t
- * всегда актуальна даже после смены локали.
+ * TanStack Query must wrap routes that use useQuery, but must sit *above*
+ * NextIntlClientProvider — otherwise this hook’s useTranslations() ran without
+ * intl context and broke all child useTranslations() (e.g. /client dashboard).
+ * createTranslator + LocaleContext does not require NextIntlClientProvider.
  */
 function QueryProvider({ children }: { children: React.ReactNode }) {
-  const t = useTranslations();
+  const { locale } = useLocale();
+  const t = useMemo(
+    () =>
+      createTranslator({
+        locale,
+        messages: messages[locale] ?? ru,
+      }) as (key: string) => string,
+    [locale]
+  );
 
   const queryClient = useMemo(() => {
     return new QueryClient({
@@ -102,14 +107,14 @@ export const Providers = ({
   return (
     <ThemeProvider theme={muiTheme}>
       <LocaleProvider initialLocale={initialLocale}>
-        <IntlProvider>
-          <QueryProvider>
+        <QueryProvider>
+          <IntlProvider>
             <AuthBootstrap initialUser={initialUser}>
               {children}
             </AuthBootstrap>
             <ToastContainer position="top-right" />
-          </QueryProvider>
-        </IntlProvider>
+          </IntlProvider>
+        </QueryProvider>
       </LocaleProvider>
     </ThemeProvider>
   );

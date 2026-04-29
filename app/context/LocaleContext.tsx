@@ -23,19 +23,12 @@ const Ctx = createContext<{ locale: Locale; setLocale: (l: Locale) => void } | n
 
 export const LocaleProvider = ({ children, initialLocale }: { children: React.ReactNode; initialLocale?: Locale }) => {
   const [locale, set] = useState<Locale>(() => initialLocale ?? getStored());
-
   useEffect(() => {
-    const stored = getStored();
-    if (stored !== locale) {
-      set(stored);
-      persist(stored);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    persist(locale);
+  }, [locale]);
 
   const setLocale = useCallback((next: Locale) => {
     set(next);
-    persist(next);
   }, []);
 
   return <Ctx.Provider value={{ locale, setLocale }}>{children}</Ctx.Provider>;

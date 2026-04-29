@@ -1,36 +1,24 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Box, Button, CircularProgress, Container, Paper, Stack, TextField, Typography } from "@mui/material";
-import { toast } from "react-toastify";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Header } from "../components/layout/Header";
 import { authServices } from "@/lib/services/authServices";
+import { useEmailActionPageState } from "@/lib/hooks/useAuthPages";
 
 const VerifyEmailRequestPage = () => {
   const t = useTranslations();
   const searchParams = useSearchParams();
   const initialEmail = useMemo(() => searchParams.get("email") ?? "", [searchParams]);
-  const [email, setEmail] = useState(initialEmail);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim() || loading) return;
-
-    setLoading(true);
-    const { body, error } = await authServices.requestEmailVerify({ email: email.trim() });
-    setLoading(false);
-
-    if (error) {
-      toast.error(t("verify_email_request_error"));
-      return;
-    }
-
-    toast.success((body as { detail?: string } | null)?.detail || t("verify_email_request_success"));
-  };
+  const { email, setEmail, loading, handleSubmit } = useEmailActionPageState({
+    initialEmail,
+    successFallbackText: t("verify_email_request_success"),
+    errorText: t("verify_email_request_error"),
+    request: (email) => authServices.requestEmailVerify({ email }),
+  });
 
   return (
     <>

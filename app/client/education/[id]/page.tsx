@@ -1,81 +1,26 @@
 "use client";
 
-import { useMemo } from "react";
 import { Box, Button, Divider, Icon, Link, Typography } from "@mui/material";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import NextLink from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import type { PublicSpeciality, PublicUniversity } from "@/lib/types";
-import SPECIALITIES_JSON from "@/public/jsons/specialities.json";
-import UNIVERSITIES_JSON from "@/public/jsons/universities.json";
-import { useInstitutions } from "@/lib/services/careerServices";
 import Image from "next/image";
 import { BANNER_PLACEHOLDER_IMAGE } from "@/utils/constants";
 import { AttachMoneyOutlined, BedOutlined, LocationOnOutlined, MilitaryTechOutlined } from "@mui/icons-material";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import { useQuery } from "@tanstack/react-query";
-import { institutionServices } from "@/lib/services/careerServices";
-
-const listsUniversity = (s: PublicSpeciality, u: PublicUniversity) => {
-  const shortEn = (u.short_name?.en ?? "").trim();
-  if (!shortEn) return false;
-  return (s.Universities ?? []).some((name) => name.trim() === shortEn);
-};
+import { useUniversitySpecialitiesPageData } from "@/lib/hooks/useEducationPagesData";
 
 const UniversitySpecialitiesPage = () => {
   const t = useTranslations();
   const locale = useLocale();
-  const params = useParams();
-  const idParam = typeof params.id === "string" ? params.id : "";
-  const id = Number.parseInt(idParam, 10);
-  const universities = useMemo(
-    () => UNIVERSITIES_JSON as Array<PublicUniversity & { slug?: string }>,
-    []
-  );
-  const institutionSlug = useMemo(() => {
-    const current = universities.find((u) => u.id === id);
-    return current?.slug ?? null;
-  }, [universities, id]);
-
-  useInstitutions();
-  useQuery({
-    queryKey: ["institutions", "detail", idParam],
-    queryFn: async () => {
-      const { body, error } = await institutionServices.getInstitution(institutionSlug as string);
-      if (error) throw error;
-      return body;
-    },
-    enabled: !!idParam && !!institutionSlug,
-  });
-  useQuery({
-    queryKey: ["institutions", "programs", idParam],
-    queryFn: async () => {
-      const { body, error } = await institutionServices.listInstitutionPrograms(institutionSlug as string);
-      if (error) throw error;
-      return body;
-    },
-    enabled: !!idParam && !!institutionSlug,
-  });
-
-  const university = useMemo(
-    () => universities.find((u) => u.id === id) ?? null,
-    [universities, id]
-  );
-
-  const specialities = useMemo(() => SPECIALITIES_JSON as PublicSpeciality[], []);
+  const { idParam, university, filteredSpecialities } = useUniversitySpecialitiesPageData();
 
   const universityTitle =
     university?.short_name?.[locale as keyof PublicUniversity["short_name"]] ??
     university?.name?.[locale as keyof PublicUniversity["name"]] ??
     idParam;
-
-  const filteredSpecialities = useMemo(() => {
-    if (!university) return [];
-
-    return specialities.filter((s) => listsUniversity(s, university));
-  }, [specialities, university]);
 
   const localeKey = locale as keyof PublicUniversity["name"];
   const title = university?.short_name?.[localeKey] ?? "";

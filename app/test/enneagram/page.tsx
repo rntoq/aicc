@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import EnneagramResultPanel, { type EnneagramLocalResult } from "./enneagramResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import { TestHeader } from "../../components/tests/TestHeader";
@@ -97,13 +98,17 @@ export default function EnneagramTestPage() {
   const t = useTranslations();
   const locale = useLocale() as "ru" | "kk" | "en";
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as EnneagramLocalResult | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
-
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
-  const [initializing, setInitializing] = useState(true);
+  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const { body: tests } = await quizServices.listTests({ type: "enneagram" });
+      return tests?.[0]?.slug ?? null;
+    },
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
 
   type EnneagramJson = {
     test?: { title?: LocalizedText };
@@ -135,48 +140,6 @@ export default function EnneagramTestPage() {
   const [submitting, setSubmitting] = useState(false);
   const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
 
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-    const initSession = async () => {
-      setInitializing(true);
-      const { body: tests } = await quizServices.listTests({ type: "enneagram" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const { body: session } = await quizServices.startSession({ test_slug: slug });
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const ids = (testDetail.questions ?? []).map((q) => q.id);
-      if (!cancelled) {
-        setSessionId(session.id);
-        setSession(SESSION_KEY, session.id);
-        setBackendQuestionIds(ids);
-      }
-      if (!cancelled) setInitializing(false);
-    };
-    void initSession();
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = QUESTIONS.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -316,7 +279,9 @@ export default function EnneagramTestPage() {
             <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <EnneagramResultPanel result={result} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

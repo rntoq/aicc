@@ -1,5 +1,27 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { getCookie } from "@/lib/cookies/cookieClient";
+
+/** Must match `persist({ name })` — also used to clear guest blob on login. */
+export const QUIZ_SESSIONS_STORAGE_KEY_V1 = "quiz-sessions";
+
+/**
+ * When logged in, do not persist heavy `result` payloads to localStorage.
+ * Keep `sessionId` / `completedAt` for badges; hydrate full `result` from API via
+ * `syncCompletedQuizSessionsFromApi`.
+ */
+function stripQuizResultsFromPersistValue(value: string): string {
+  if (!getCookie("access")) return value;
+  try {
+    const parsed = JSON.parse(value) as { state?: { sessions?: Record<string, unknown> }; version?: number };
+    return JSON.stringify({
+      ...parsed,
+      state: { ...parsed.state, sessions: {} },
+    });
+  } catch {
+    return value;
+  }
+}
 
 /**
  * Единый стор для всех тестов с персистентностью в localStorage.
@@ -83,8 +105,14 @@ export const useQuizSessionStore = create<QuizSessionStoreState>()(
       clearAll: () => set({ sessions: {} }),
     }),
     {
-      name: "quiz-sessions",
-      storage: createJSONStorage(() => localStorage),
+      name: QUIZ_SESSIONS_STORAGE_KEY_V1,
+      storage: createJSONStorage(() => ({
+        getItem: (name) => localStorage.getItem(name),
+        setItem: (name, value) => {
+          localStorage.setItem(name, stripQuizResultsFromPersistValue(value));
+        },
+        removeItem: (name) => localStorage.removeItem(name),
+      })),
     }
   )
 );

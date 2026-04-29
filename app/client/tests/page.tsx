@@ -15,97 +15,30 @@ import { useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { ALL_TESTS, getRecommendedTests } from "@/utils/constants";
 import { TestCard } from "@/app/components/tests/TestCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiAnalysisCta } from "@/app/components/layout/AiAnalysisCta";
-import { useQuizSessions } from "@/lib/services/quizServices";
-import { useQuizSessionStore } from "@/lib/store/useQuizStore";
-import { analyseServices } from "@/lib/services/analyseServices";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import {
+  useAnalysisReports,
+  getAnalysisReportsCount,
+  type AnalysisReportItem,
+} from "@/lib/services/analyseServices";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import ArticleRoundedIcon from "@mui/icons-material/ArticleRounded";
+import { useReportPdfDownload } from "@/lib/hooks/useReportPdfDownload";
 
 // ─── types ───────────────────────────────────────────────────────────────────
 
-interface ReportListItem {
-  id: number;
-  title: string;
-  summary: string;
-  created_at: string;
-}
-
-// ─── helpers ─────────────────────────────────────────────────────────────────
-
-function extractReports(payload: unknown): ReportListItem[] {
-  if (Array.isArray(payload)) return payload as ReportListItem[];
-  if (payload && typeof payload === "object") {
-    const p = payload as { results?: unknown };
-    if (Array.isArray(p.results)) return p.results as ReportListItem[];
-  }
-  return [];
-}
-
-function getReportsCount(payload: unknown): number {
-  if (Array.isArray(payload)) return payload.length;
-  if (payload && typeof payload === "object") {
-    const p = payload as { count?: number; results?: unknown[] };
-    if (typeof p.count === "number") return p.count;
-    if (Array.isArray(p.results)) return p.results.length;
-  }
-  return 0;
-}
-
-function normalizeKey(slug: string, type: string): string {
-  const t = type.toLowerCase();
-  if (t === "holland") return "holland";
-  if (t === "photo") return "photo-career";
-  if (t === "disc") return "disc";
-  if (t === "career_aptitude") return "career-aptitude";
-  if (t === "big_five") return "bigfive";
-  if (t === "leadership") return "leadership";
-  if (t === "eq5") return "eq";
-  if (t === "enneagram") return "enneagram";
-  if (t === "mbti") return "typefinder-16";
-  if (t === "personal_strengths") return "strengths";
-  const sl = slug.toLowerCase();
-  if (sl.includes("holland")) return "holland";
-  if (sl.includes("photo")) return "photo-career";
-  if (sl.includes("disc")) return "disc";
-  if (sl.includes("career-aptitude")) return "career-aptitude";
-  if (sl.includes("big-five")) return "bigfive";
-  if (sl.includes("leadership")) return "leadership";
-  if (sl.includes("enneagram")) return "enneagram";
-  if (sl.includes("mbti") || sl.includes("typefinder")) return "typefinder-16";
-  if (sl.includes("strength")) return "strengths";
-  if (sl.includes("emotional") || sl.includes("eq")) return "eq";
-  return sl || t.replace(/_/g, "-");
-}
-
 // ─── ReportDownloadBanner ─────────────────────────────────────────────────────
 
-function ReportDownloadBanner({ reports }: { reports: ReportListItem[] }) {
-  const [downloadingId, setDownloadingId] = useState<number | null>(null);
+function ReportDownloadBanner({ reports }: { reports: AnalysisReportItem[] }) {
+  const { downloadingId, downloadReport } = useReportPdfDownload({
+    downloadError: "Не удалось скачать PDF",
+    downloadSuccess: "PDF успешно скачан!",
+  });
   const latest = reports[0];
-
-  const handleDownload = async (report: ReportListItem) => {
-    if (downloadingId !== null) return;
-    setDownloadingId(report.id);
-    try {
-      const { body, error } = await analyseServices.downloadReportPdf(report.id);
-      if (error || !body) { toast.error("Не удалось скачать PDF"); return; }
-      const blob = new Blob([body], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url; a.download = `${report.title}.pdf`;
-      document.body.appendChild(a); a.click();
-      document.body.removeChild(a); URL.revokeObjectURL(url);
-      toast.success("PDF успешно скачан!");
-    } finally {
-      setDownloadingId(null);
-    }
-  };
 
   const fmt = (iso: string) =>
     new Date(iso).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
@@ -150,7 +83,7 @@ function ReportDownloadBanner({ reports }: { reports: ReportListItem[] }) {
             <Button
               variant={i === 0 ? "contained" : "outlined"} size="small"
               disabled={downloadingId === report.id}
-              onClick={() => void handleDownload(report)}
+              onClick={() => void downloadReport(report.id, report.title)}
               startIcon={downloadingId === report.id ? <CircularProgress size={14} color="inherit" /> : <DownloadRoundedIcon sx={{ fontSize: 16 }} />}
               sx={i === 0 ? s.downloadBtnPrimary : s.downloadBtnSecondary}
             >
@@ -170,39 +103,12 @@ const TestsPage = () => {
   const recommended = getRecommendedTests();
   const [mode, setMode] = useState<"recommended" | "all">("recommended");
 
-  const sessionsQuery = useQuizSessions({ completed: true });
+  /** Rehydrates guest store from LS, then syncs completed sessions from API when logged in. */
+  useQuizSessionHydrated();
 
-  const reportsQuery = useQuery({
-    queryKey: ["analysis", "reports", "tests-page"],
-    queryFn: async () => {
-      const { body, error } = await analyseServices.listReports();
-      if (error) throw error;
-      return body;
-    },
-  });
-
-  // Sync API sessions → localStorage store (for TestCard "completed" badge)
-  useEffect(() => {
-    if (!sessionsQuery.isSuccess || !sessionsQuery.data?.length) return;
-    const { clearAll, setSession, setResult } = useQuizSessionStore.getState();
-    clearAll();
-
-    const latest = new Map<string, { id: number; ts: number; result: unknown }>();
-    for (const raw of sessionsQuery.data) {
-      const s = raw as { id: number; is_completed?: boolean; test_slug?: string; test_type?: string; completed_at?: string; created_at?: string; result?: unknown };
-      if (!s.is_completed) continue;
-      const key = normalizeKey(String(s.test_slug ?? ""), String(s.test_type ?? ""));
-      const ts = Date.parse(s.completed_at ?? s.created_at ?? "") || 0;
-      const prev = latest.get(key);
-      if (!prev || ts > prev.ts || (ts === prev.ts && s.id > prev.id)) {
-        latest.set(key, { id: s.id, ts, result: s.result ?? {} });
-      }
-    }
-    latest.forEach(({ id, result }, key) => { setSession(key, id); setResult(key, result); });
-  }, [sessionsQuery.data, sessionsQuery.isSuccess]);
-
-  const reports = extractReports(reportsQuery.data);
-  const hasReports = getReportsCount(reportsQuery.data) > 0;
+  const reportsQuery = useAnalysisReports();
+  const reports = reportsQuery.data ?? [];
+  const hasReports = getAnalysisReportsCount(reports) > 0;
   const loading = reportsQuery.isLoading;
 
   return (

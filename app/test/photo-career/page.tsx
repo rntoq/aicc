@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import { PhotoResultPanel } from "./photoResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import PHOTO_DATA from "./photo_questions.json";
@@ -25,16 +26,26 @@ const SESSION_KEY = "photo-career";
 const PhotoCareerQuizPage = () => {
   const t = useTranslations();
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as QuizResult | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
+  const {
+    phase,
+    setPhase,
+    sessionId,
+    backendQuestions,
+    initializing,
+    retake,
+  } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const { body: tests } = await quizServices.listTests({ type: "photo" });
+      return tests?.[0]?.slug ?? null;
+    },
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [initializing, setInitializing] = useState(true);
   const showLoading = useDelayedFlag(phase === "quiz" && (initializing || isSubmitting));
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestions, setBackendQuestions] = useState<
-    { id: number; answers: { code: string }[] }[]
-  >([]);
 
   const PHOTO_QUESTIONS: PhotoQuestion[] =
     (PHOTO_DATA as { PHOTO_QUESTIONS?: PhotoQuestion[] }).PHOTO_QUESTIONS ?? [];
@@ -90,56 +101,6 @@ const PhotoCareerQuizPage = () => {
       created_at: new Date().toISOString(),
     };
   };
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-
-    const initSession = async () => {
-      setInitializing(true);
-      const { body: tests } = await quizServices.listTests({ type: "photo" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const { body: session } = await quizServices.startSession({ test_slug: slug });
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const questions = (testDetail.questions ?? []).map((q) => ({
-        id: q.id,
-        answers: (q.answers ?? []).map((a) => ({ code: a.code })),
-      }));
-
-      if (!cancelled && questions.length > 0) {
-        setSessionId(session.id);
-        setSession(SESSION_KEY, session.id);
-        setBackendQuestions(questions);
-      }
-      if (!cancelled) setInitializing(false);
-    };
-
-    void initSession();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
 
   const handleSubmit = () => {
     if (!allAnswered) return;
@@ -210,7 +171,9 @@ const PhotoCareerQuizPage = () => {
           </Box>
           <Box sx={styles.resultWrapper}>
             <PhotoResultPanel result={result} />
-            <TestResultActions />
+            <TestResultActions
+              onRetake={retake}
+            />
           </Box>
         </Container>
       </Box>

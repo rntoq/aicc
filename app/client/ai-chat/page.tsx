@@ -1,150 +1,131 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Avatar,
   Box,
-  Chip,
+  Button,
   CardContent,
   IconButton,
   InputBase,
+  Menu,
+  MenuItem,
   Paper,
   Typography,
 } from "@mui/material";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { analyseServices } from "@/lib/services/analyseServices";
 import { useTranslations } from "next-intl";
-import {
-  classifyAiChatResponseRole,
-  extractTextFromResponse,
-  type ChatRole,
-} from "@/utils/functions";
-
-type ChatMessage = { role: ChatRole; text: string; at: number; kind?: "info" | "warning" };
+import { useAiChat } from "@/lib/hooks/useAiChat";
 
 const AIChatPage = () => {
   const t = useTranslations();
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "ai" as const,
-      text: t("ai_chat_welcome"),
-      at: Date.now(),
-    },
-  ]);
-  const [input, setInput] = useState("");
-  const [sending, setSending] = useState(false);
+  const [chatMenuAnchorEl, setChatMenuAnchorEl] = useState<null | HTMLElement>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
-
-  const canSend = useMemo(() => input.trim().length > 0 && !sending, [input, sending]);
+  const chatMenuOpen = Boolean(chatMenuAnchorEl);
+  const {
+    sessions,
+    activeChatId,
+    setActiveChatId,
+    activeChat,
+    messages,
+    input,
+    setInput,
+    loadingSessions,
+    loadingMessages,
+    sending,
+    deletingId,
+    canSend,
+    startNewChat,
+    handleDeleteSession,
+    handleSend,
+  } = useAiChat({
+    welcome: t("ai_chat_welcome"),
+    sendError: t("ai_chat_send_error"),
+    quotaExceeded: t("ai_chat_quota_exceeded"),
+    quotaExceededWithRetry: (seconds) => t("ai_chat_quota_exceeded_with_retry", { seconds }),
+  });
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages.length]);
-
-  const clearChat = () => {
-    setMessages([
-      {
-        role: "ai",
-        text: t("ai_chat_welcome"),
-        at: Date.now(),
-      },
-    ]);
-    setInput("");
-  };
-
-  const handleSend = async () => {
-    if (!canSend) return;
-    const msg = input.trim();
-    setInput("");
-    setMessages((prev) => [...prev, { role: "user", text: msg, at: Date.now() }]);
-    setSending(true);
-
-    const { body, error } = await analyseServices.aiChat({ message: msg });
-    if (error) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "system", text: t("ai_chat_send_error"), at: Date.now() },
-      ]);
-      setSending(false);
-      return;
-    }
-
-    const role = classifyAiChatResponseRole(body);
-    const outOfScope =
-      body != null &&
-      typeof body === "object" &&
-      (body as Record<string, unknown>).in_scope === false;
-    const outOfScopeAnswer =
-      body != null && typeof body === "object" && typeof (body as Record<string, unknown>).answer === "string"
-        ? String((body as Record<string, unknown>).answer)
-        : "";
-    let text = extractTextFromResponse(body);
-    const quotaOrRateLimited = text.includes("RESOURCE_EXHAUSTED") || text.includes("429");
-    const providerError =
-      /openrouter/i.test(outOfScopeAnswer) ||
-      /ошибка/i.test(outOfScopeAnswer) ||
-      /\berror\b/i.test(outOfScopeAnswer) ||
-      /expecting value/i.test(outOfScopeAnswer);
-    if (role === "system") {
-      // Make quota/rate-limit failures more readable (backend may still return 200 OK).
-      if (quotaOrRateLimited) {
-        const retryMatch = text.match(/retry in\\s+([0-9.]+)s/i) ?? text.match(/retryDelay'?\\s*:\\s*'?([0-9.]+)s'?/i);
-        const retrySeconds = retryMatch ? Math.ceil(Number(retryMatch[1])) : null;
-        text =
-          retrySeconds != null
-            ? t("ai_chat_quota_exceeded_with_retry", { seconds: retrySeconds })
-            : t("ai_chat_quota_exceeded");
-      }
-    }
-
-    const kind: ChatMessage["kind"] =
-      role !== "system"
-        ? undefined
-        : outOfScope
-          ? providerError
-            ? "warning"
-            : "info"
-          : quotaOrRateLimited
-            ? "warning"
-            : "warning";
-    setMessages((prev) => [...prev, { role, text, at: Date.now(), kind }]);
-    setSending(false);
-  };
 
   return (
     <AppLayout title={t("sidebar_ai_chat")}>
       <Box>
         <Box sx={styles.chatContainer}>
           <Box sx={styles.toolbar}>
-            {/* <Chip
-              avatar={<Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />}
-              label={sending ? "Thinking…" : "AI Counsellor"}
+            <Button
               variant="outlined"
-              sx={styles.assistantChip}
-            /> */}
-            <IconButton onClick={clearChat} aria-label={t("ai_chat_clear")} size="small" disabled={sending}>
-              <DeleteOutlineRoundedIcon />
-            </IconButton>
+              size="small"
+              endIcon={<ArrowDropDownRoundedIcon />}
+              onClick={(e) => setChatMenuAnchorEl(e.currentTarget)}
+              disabled={loadingSessions}
+              sx={styles.chatSelectBtn}
+            >
+              {activeChat?.title || t("ai_chat_chats")}
+            </Button>
+            <Button size="small" startIcon={<AddRoundedIcon />} onClick={startNewChat}>
+              {t("ai_chat_new")}
+            </Button>
           </Box>
+
+          <Menu
+            anchorEl={chatMenuAnchorEl}
+            open={chatMenuOpen}
+            onClose={() => setChatMenuAnchorEl(null)}
+            PaperProps={{ sx: styles.chatMenuPaper }}
+          >
+            {loadingSessions && (
+              <MenuItem disabled>
+                <Typography variant="body2" color="text.secondary">{t("ai_chat_loading")}</Typography>
+              </MenuItem>
+            )}
+            {!loadingSessions && sessions.length === 0 && (
+              <MenuItem disabled>
+                <Typography variant="body2" color="text.secondary">{t("ai_chat_no_chats")}</Typography>
+              </MenuItem>
+            )}
+            {sessions.map((s) => (
+              <MenuItem
+                key={s.id}
+                selected={activeChatId === s.id}
+                onClick={() => {
+                  setActiveChatId(s.id);
+                  setChatMenuAnchorEl(null);
+                }}
+                sx={styles.chatMenuItem}
+              >
+                <Box sx={{ minWidth: 0, flex: 1 }}>
+                  <Typography variant="body2" sx={{ fontWeight: 700 }} noWrap>{s.title}</Typography>
+                  <Typography variant="caption" color="text.secondary" noWrap>{s.last_message}</Typography>
+                </Box>
+                <IconButton
+                  size="small"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    void handleDeleteSession(s.id);
+                  }}
+                  disabled={deletingId === s.id || sending}
+                >
+                  <DeleteOutlineRoundedIcon fontSize="small" />
+                </IconButton>
+              </MenuItem>
+            ))}
+          </Menu>
 
           <Paper elevation={0} sx={styles.chatCard}>
             <CardContent sx={{ p: { xs: 2, md: 2.5 }, height: "100%", display: "flex", flexDirection: "column" }}>
               <Box sx={styles.messagesArea}>
+                {loadingMessages && <Typography variant="body2" color="text.secondary">{t("ai_chat_loading")}</Typography>}
                 {messages.map((msg, idx) => (
-                  // "system" can be informational (out-of-scope) or warning (quota/errors)
-                  // We style "info" system messages to avoid looking like an error.
-                  <Box
-                    key={idx}
-                    sx={{
-                      display: "flex",
-                      justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
-                    }}
-                  >
+                  <Box key={idx} sx={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
                     <Paper
                       sx={{
                         ...styles.messageBubble,
@@ -177,11 +158,7 @@ const AIChatPage = () => {
                       {(msg.role === "ai" || msg.role === "system") && (
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                           {msg.role === "system" ? (
-                            msg.kind === "info" ? (
-                              <InfoOutlinedIcon fontSize="small" />
-                            ) : (
-                              <ReportProblemOutlinedIcon fontSize="small" />
-                            )
+                            msg.kind === "info" ? <InfoOutlinedIcon fontSize="small" /> : <ReportProblemOutlinedIcon fontSize="small" />
                           ) : (
                             <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
                           )}
@@ -198,9 +175,7 @@ const AIChatPage = () => {
                           <PersonOutlineRoundedIcon fontSize="small" />
                         </Box>
                       )}
-                      <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
-                        {msg.text}
-                      </Typography>
+                      <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>{msg.text}</Typography>
                     </Paper>
                   </Box>
                 ))}
@@ -209,9 +184,7 @@ const AIChatPage = () => {
                     <Paper sx={{ ...styles.messageBubble, bgcolor: "grey.50", borderColor: "grey.200" }}>
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
-                        <Typography variant="body2" color="text.secondary">
-                          {t("ai_chat_typing")}
-                        </Typography>
+                        <Typography variant="body2" color="text.secondary">{t("ai_chat_typing")}</Typography>
                       </Box>
                     </Paper>
                   </Box>
@@ -258,6 +231,25 @@ const AIChatPage = () => {
 export default AIChatPage;
 
 const styles = {
+  toolbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    px: 0.5,
+  },
+  chatSelectBtn: {
+    maxWidth: { xs: "72vw", md: 420 },
+    justifyContent: "space-between",
+    textTransform: "none" as const,
+  },
+  chatMenuPaper: {
+    width: { xs: "86vw", sm: 420 },
+    maxHeight: 360,
+  },
+  chatMenuItem: {
+    gap: 1,
+    alignItems: "flex-start",
+  },
   chatContainer: {
     display: "flex",
     flexDirection: "column",
@@ -265,18 +257,6 @@ const styles = {
     minHeight: { xs: 420, md: 500 },
     maxHeight: { xs: "none", md: 800 },
     gap: 1.25,
-  },
-  toolbar: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    px: 0.5,
-  },
-  assistantChip: {
-    borderRadius: 999,
-    bgcolor: "rgba(255,255,255,0.78)",
-    backdropFilter: "blur(1.5px)",
-    borderColor: "rgba(27, 46, 94, 0.18)",
   },
   aiAvatarTiny: {
     width: 22,

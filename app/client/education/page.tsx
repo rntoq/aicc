@@ -1,125 +1,19 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Box, Grid, MenuItem, Skeleton, TextField, Typography } from "@mui/material";
 import { useTranslations, useLocale } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { UniversityCard } from "@/app/components/clientLayout";
 import type { PublicSpeciality, PublicUniversity } from "@/lib/types";
-import SPECIALITIES_JSON from "@/public/jsons/specialities.json";
-import UNIVERSITIES_JSON from "@/public/jsons/universities.json";
-import REGIONS_JSON from "@/public/jsons/regions.json";
-import { useInstitutions } from "@/lib/services/careerServices";
-import { useLatestAnalysisReport } from "@/lib/services/analyseServices";
-
-const normalizeName = (s: string) =>
-  s
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .replace(/[«»\"“”]/g, "");
-
-const universitiesData = UNIVERSITIES_JSON as PublicUniversity[];
-const specialitiesData = SPECIALITIES_JSON as PublicSpeciality[];
+import { useEducationPageData } from "@/lib/hooks/useEducationPagesData";
 type RegionOption = { id: number; name: { ru: string; kk: string; en: string } };
-const regionsData = REGIONS_JSON as RegionOption[];
 
 const EducationPage = () => {
   const t = useTranslations();
   const locale = useLocale();
-  const searchParams = useSearchParams();
-  const [q, setQ] = useState("");
-  const [regionId, setRegionId] = useState<string>("all");
-
-  useInstitutions({
-    search: q.trim() || undefined,
-    city: regionId !== "all" ? regionId : undefined,
-  });
-
-  // GET /api/v1/analysis/reports/ → берём только `id` из `recommended_institutions`
-  // и хайдрейтим карточки из `universities.json` по совпадающему `id`.
-  const reportQuery = useLatestAnalysisReport();
-  const recommendedUniversities = useMemo<PublicUniversity[]>(() => {
-    const ids = reportQuery.data?.recommended_institutions?.map((r) => r.id) ?? [];
-    const seen = new Set<number>();
-    const out: PublicUniversity[] = [];
-    for (const id of ids) {
-      const u = universitiesData.find((x) => x.id === id);
-      if (u && !seen.has(u.id)) {
-        seen.add(u.id);
-        out.push(u);
-      }
-    }
-    return out;
-  }, [reportQuery.data]);
-
-  const specialityId = Number(searchParams.get("speciality"));
-  const hasSpecialityQuery = searchParams.has("speciality");
-
-  const speciality = useMemo(() => {
-    if (!Number.isFinite(specialityId)) return null;
-    return specialitiesData.find((s) => s.id === specialityId) ?? null;
-  }, [specialityId]);
-
-  const universitiesForView = useMemo(() => {
-    if (hasSpecialityQuery && !speciality) return [];
-    if (!speciality) return universitiesData;
-
-    const specialityUniNames = new Set(
-      (speciality.Universities ?? []).map((n) => n.trim()).filter(Boolean)
-    );
-
-    const scoped = universitiesData.filter((u) => specialityUniNames.has(u.short_name?.en ?? ""));
-
-    const byNormName = new Map<string, PublicUniversity>();
-    for (const u of scoped) {
-      const keys = [
-        u.short_name?.en,
-        u.short_name?.ru,
-        u.short_name?.kk,
-        u.name?.en,
-        u.name?.ru,
-        u.name?.kk,
-      ]
-        .filter(Boolean)
-        .map((x) => normalizeName(x as string));
-      for (const k of keys) {
-        if (!byNormName.has(k)) byNormName.set(k, u);
-      }
-    }
-
-    const ordered = (speciality.Universities ?? [])
-      .map((su) => byNormName.get(normalizeName(su)))
-      .filter(Boolean) as PublicUniversity[];
-
-    const seenIds = new Set<number>();
-    return ordered.filter((u) => {
-      if (seenIds.has(u.id)) return false;
-      seenIds.add(u.id);
-      return true;
-    });
-  }, [speciality, hasSpecialityQuery]);
-
-  const filtered = useMemo(() => {
-    const byRegion =
-      regionId === "all"
-        ? universitiesForView
-        : universitiesForView.filter((u) => String(u.region ?? "") === regionId);
-
-    const query = q.trim().toLowerCase();
-    if (!query) return byRegion;
-
-    return byRegion.filter((u) => {
-      const name = u.name?.[locale as keyof PublicUniversity["name"]] ?? "";
-      const shortName = u.short_name?.[locale as keyof PublicUniversity["short_name"]] ?? "";
-      return (
-        u.code.toLowerCase().includes(query) ||
-        name.toLowerCase().includes(query) ||
-        shortName.toLowerCase().includes(query)
-      );
-    });
-  }, [q, universitiesForView, locale, regionId]);
+  const { q, setQ, regionId, setRegionId, regionsData, reportQuery, recommendedUniversities, speciality, filtered } =
+    useEducationPageData();
 
   const specialityTitle =
     speciality?.name?.[locale as keyof PublicSpeciality["name"]] ?? null;

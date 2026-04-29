@@ -16,7 +16,13 @@ export function TestResultActions({ onRetake, onClose }: TestResultActionsProps)
 
   return (
     <Box sx={styles.root}>
-      <Button variant="outlined" color="primary" onClick={onRetake} sx={styles.button}>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={onRetake}
+        disabled={!onRetake}
+        sx={styles.button}
+      >
         {t("test_retake")}
       </Button>
       <Button variant="contained" color="primary" onClick={handleClose} sx={styles.button}>

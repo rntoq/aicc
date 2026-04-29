@@ -1,50 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { Box, Button, CircularProgress, Container, Paper, Stack, Typography } from "@mui/material";
-import { toast } from "react-toastify";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Header } from "@/app/components/layout/Header";
 import { PasswordField } from "@/app/components/layout/PasswordField";
-import { authServices } from "@/lib/services/authServices";
+import { useResetPasswordPageState } from "@/lib/hooks/useAuthPages";
 
 const ResetPasswordPage = () => {
   const t = useTranslations();
-  const router = useRouter();
-  const params = useParams<{ token: string }>();
-  const token = params?.token || "";
-
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!token || !password || !passwordConfirm || loading) return;
-
-    if (password !== passwordConfirm) {
-      toast.error(t("settings_passwords_mismatch"));
-      return;
-    }
-
-    setLoading(true);
-    const { body, error } = await authServices.confirmPasswordReset({
-      token,
-      new_password: password,
-      new_password_confirm: passwordConfirm,
-    });
-    setLoading(false);
-
-    if (error) {
-      toast.error(t("reset_password_error"));
-      return;
-    }
-
-    toast.success((body as { detail?: string } | null)?.detail || t("reset_password_success"));
-    router.push("/login");
-  };
+  const { password, setPassword, passwordConfirm, setPasswordConfirm, loading, handleSubmit } =
+    useResetPasswordPageState(t as unknown as (key: string, values?: Record<string, unknown>) => string);
 
   return (
     <>

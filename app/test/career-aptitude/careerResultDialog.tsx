@@ -80,13 +80,22 @@ export function CareerResultPanel({ result, loading = false }: CareerResultPanel
   const interestScores: Record<string, number> = {};
   const personalityScores: Record<string, number> = {};
 
+  // Take only finite numeric values — guards against `NaN` produced by
+  // local fallback scoring (division by zero) or malformed backend data.
+  const pickNumber = (...candidates: Array<unknown>): number | null => {
+    for (const c of candidates) {
+      if (typeof c === "number" && Number.isFinite(c)) return c;
+    }
+    return null;
+  };
+
   for (const k of ["R", "I", "A", "S", "E", "C"] as const) {
-    const v = result.interest_scores?.[k] ?? nested.interests?.[k] ?? flat[k];
-    if (v != null) interestScores[k] = v as number;
+    const v = pickNumber(result.interest_scores?.[k], nested.interests?.[k], flat[k]);
+    if (v != null) interestScores[k] = v;
   }
   for (const k of ["O", "C", "E", "A", "N"] as const) {
-    const v = result.personality_scores?.[k] ?? nested.personality?.[k] ?? flat[k];
-    if (v != null) personalityScores[k] = v as number;
+    const v = pickNumber(result.personality_scores?.[k], nested.personality?.[k], flat[k]);
+    if (v != null) personalityScores[k] = v;
   }
 
   const hasInterests = Object.keys(interestScores).length > 0;

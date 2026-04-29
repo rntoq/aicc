@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Box,
   Button,
@@ -12,61 +11,16 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/lib/store/useAuthStore";
 import { Header } from "../components/layout/Header";
 import { PasswordField } from "../components/layout/PasswordField";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BANNER_IMAGE from "../../public/icons/user.svg";
-import { validateRegisterForm } from "@/utils/validators";
+import { useRegisterPageState } from "@/lib/hooks/useAuthPages";
 
 const RegisterPage = () => {
   const t = useTranslations();
-  const { register, loading, error } = useAuth();
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-  });
-  const [localError, setLocalError] = useState<string | null>(null);
-  const router = useRouter();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    setLocalError(null);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (loading) return;
-
-    const errorKey = validateRegisterForm({
-      email: form.email,
-      password: form.password,
-      passwordConfirm: form.passwordConfirm,
-    });
-    if (errorKey) {
-      setLocalError(t(errorKey));
-      return;
-    }
-
-    try {
-      await register({
-        email: form.email,
-        password: form.password,
-        password_confirm: form.passwordConfirm,
-        first_name: form.firstName,
-        last_name: form.lastName,
-      });
-      router.push(`/verify-email?email=${encodeURIComponent(form.email.trim())}`);
-    } catch {
-      // ошибка уже есть в authStore.error
-    }
-  };
+  const { loading, error, localError, form, handleChange, handleSubmit } = useRegisterPageState(t);
 
   return (
     <>

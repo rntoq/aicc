@@ -3,10 +3,11 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import QUESTIONS_JSON from "./holland_questions.json";
 import { TestHeader } from "../../components/tests/TestHeader";
 import { OptionQuestionCard } from "../../components/tests/OptionQuestionCard";
@@ -42,54 +43,26 @@ const HollandTestPage = () => {
   const t = useTranslations();
   const locale = useLocale() as "ru" | "kk" | "en";
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as HollandSessionFinishResponse | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
-  const [initializing, setInitializing] = useState(true);
+  const {
+    phase,
+    setPhase,
+    sessionId,
+    backendQuestionIds,
+    initializing,
+    retake,
+  } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const { body: tests, error } = await quizServices.listTests({ type: "holland" });
+      if (error) return null;
+      return tests?.[0]?.slug ?? null;
+    },
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
   const showLoading = useDelayedFlag(phase === "quiz" && initializing);
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-
-    const initSession = async () => {
-      setInitializing(true);
-      try {
-        const { body: tests, error: listError } = await quizServices.listTests({ type: "holland" });
-        const slug = tests?.[0]?.slug ?? null;
-        if (!slug || listError) throw new Error("listTests failed");
-
-        const { body: session, error: startError } = await quizServices.startSession({ test_slug: slug });
-        const { body: testDetail, error: detailError } = await quizServices.getTestDetail(slug);
-        if (!session || !testDetail || startError || detailError) throw new Error("start/get detail failed");
-
-        if (!cancelled) {
-          setSessionId(session.id);
-          setSession(SESSION_KEY, session.id);
-          setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
-        }
-      } catch {
-        if (!cancelled) toast.error(t("toast_test_error"));
-      } finally {
-        if (!cancelled) setInitializing(false);
-      }
-    };
-
-    void initSession();
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -189,7 +162,9 @@ const HollandTestPage = () => {
             </Typography>
           </Box>
           <HollandResultPanel result={result} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

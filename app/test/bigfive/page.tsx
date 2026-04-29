@@ -3,10 +3,11 @@
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import { TestHeader } from "../../components/tests/TestHeader";
 import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
 import { LoadingScreen } from "../../components/tests/LoadingScreen";
@@ -38,59 +39,22 @@ const BigFiveTestPage = () => {
   const t = useTranslations();
   const locale = useLocale();
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as BigFiveSessionFinishResponse | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
-
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestionIds, setBackendQuestionIds] = useState<number[]>([]);
+  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const { body: tests, error } = await quizServices.listTests({ type: "big_five" });
+      if (error) return null;
+      return tests?.[0]?.slug ?? null;
+    },
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
-  const [initializing, setInitializing] = useState(true);
   const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-
-    const initSession = async () => {
-      setInitializing(true);
-      try {
-        const { body: tests, error: listError } = await quizServices.listTests({ type: "big_five" });
-        const slug = tests?.[0]?.slug ?? null;
-        if (!slug || listError) throw new Error("listTests failed");
-
-        const { body: session, error: startError } = await quizServices.startSession({ test_slug: slug });
-        const { body: testDetail, error: detailError } = await quizServices.getTestDetail(slug);
-        if (!session || !testDetail || startError || detailError) throw new Error("start/get detail failed");
-
-        if (!cancelled) {
-          setSessionId(session.id);
-          setSession(SESSION_KEY, session.id);
-          setBackendQuestionIds((testDetail.questions ?? []).map((q) => q.id));
-        }
-      } catch {
-        if (!cancelled) toast.error(t("toast_test_error"));
-      } finally {
-        if (!cancelled) setInitializing(false);
-      }
-    };
-
-    void initSession();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = QUESTIONS_JSON.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -178,7 +142,9 @@ const BigFiveTestPage = () => {
             <Box sx={styles.pageTitle}>{t("bigfive_title")}</Box>
           </Box>
           <BigFiveResultPanel result={result} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

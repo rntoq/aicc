@@ -532,5 +532,9 @@
   "dashboard_report_downloading": "Жүктелуде...",
   "dashboard_report_pdf_hint": "Толық досьені PDF форматында жүктеңіз 📄",
   "dashboard_download_error": "Есепті жүктеу сәтсіз аяқталды",
-  "dashboard_download_success": "PDF жүктелді"
+  "dashboard_download_success": "PDF жүктелді",
+  "ai_chat_chats": "Чаттар",
+  "ai_chat_new": "Жаңа",
+  "ai_chat_loading": "Жүктелуде…",
+  "ai_chat_no_chats": "Чаттар әлі жоқ"
 }

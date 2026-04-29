@@ -1,80 +1,27 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
 import { Box, Button, CircularProgress, Container, Paper, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Header } from "@/app/components/layout/Header";
-import { authServices } from "@/lib/services/authServices";
-
-type VerifyStatus = "loading" | "success" | "error";
+import { useVerifyEmailConfirmPageState } from "@/lib/hooks/useAuthPages";
 
 const VerifyEmailConfirmPage = () => {
   const t = useTranslations();
-  const params = useParams<{ token: string }>();
-  const token = params?.token ?? "";
-  const [status, setStatus] = useState<VerifyStatus>("loading");
-  const [errorText, setErrorText] = useState("");
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const run = async () => {
-      if (!token) {
-        if (!isMounted) return;
-        setStatus("error");
-        setErrorText(t("verify_email_confirm_empty_token"));
-        return;
-      }
-
-      const { body, error } = await authServices.confirmEmailVerify({ token });
-
-      if (!isMounted) return;
-      if (error) {
-        const detail = (error as { response?: { data?: { detail?: unknown } } })?.response?.data?.detail;
-        setStatus("error");
-        setErrorText(typeof detail === "string" ? detail : t("verify_email_confirm_error"));
-        return;
-      }
-
-      const apiDetail = (body as { detail?: unknown } | null)?.detail;
-      if (typeof apiDetail === "string" && apiDetail.length > 0) {
-        setErrorText(apiDetail);
-      }
-      setStatus("success");
-    };
-
-    void run();
-    return () => {
-      isMounted = false;
-    };
-  }, [t, token]);
-
-  const ui = useMemo(() => {
-    if (status === "success") {
-      return {
-        icon: <CheckCircleOutlineIcon color="success" sx={{ fontSize: 64 }} />,
-        title: t("verify_email_confirm_success_title"),
-        message: errorText || t("verify_email_confirm_success"),
-      };
-    }
-    if (status === "error") {
-      return {
-        icon: <ErrorOutlineIcon color="error" sx={{ fontSize: 64 }} />,
-        title: t("verify_email_confirm_error_title"),
-        message: errorText || t("verify_email_confirm_error"),
-      };
-    }
-    return {
-      icon: <MarkEmailReadOutlinedIcon color="primary" sx={{ fontSize: 64 }} />,
-      title: t("verify_email_confirm_loading_title"),
-      message: t("verify_email_confirm_loading"),
-    };
-  }, [errorText, status, t]);
+  const { status, ui } = useVerifyEmailConfirmPageState(
+    t as unknown as (key: string, values?: Record<string, unknown>) => string
+  );
+  const icon =
+    status === "success" ? (
+      <CheckCircleOutlineIcon color="success" sx={{ fontSize: 64 }} />
+    ) : status === "error" ? (
+      <ErrorOutlineIcon color="error" sx={{ fontSize: 64 }} />
+    ) : (
+      <MarkEmailReadOutlinedIcon color="primary" sx={{ fontSize: 64 }} />
+    );
 
   return (
     <>
@@ -83,7 +30,7 @@ const VerifyEmailConfirmPage = () => {
         <Container maxWidth="sm">
           <Paper sx={styles.paper}>
             <Stack spacing={2} alignItems="center" textAlign="center">
-              {ui.icon}
+              {icon}
               <Typography variant="h5" sx={styles.title}>
                 {ui.title}
               </Typography>

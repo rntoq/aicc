@@ -3,7 +3,7 @@
 import { Box, Button, Container, Divider } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { TestHeader } from "../../components/tests/TestHeader";
 import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
@@ -18,6 +18,7 @@ import type {
 } from "@/lib/types";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 import { useQuizSessionHydrated } from "@/lib/hooks/useQuizSessionHydrated";
+import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import TypeFinderResultPanel from "./typefinderResultPanel";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import TYPEFINDER_DATA from "./typefinder_question.json";
@@ -72,9 +73,24 @@ export default function TypeFinder16Page() {
   const t = useTranslations();
   const locale = useLocale() as Locale;
   const hydrated = useQuizSessionHydrated();
-  const { setSession, setResult } = useQuizSessionStore();
+  const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as QuizResult | null | undefined);
-  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
+  const {
+    phase,
+    setPhase,
+    sessionId,
+    backendQuestions,
+    initializing,
+    retake,
+  } = useQuizSessionFlow({
+    hydrated,
+    sessionKey: SESSION_KEY,
+    resolveSlug: async () => {
+      const { body: tests } = await quizServices.listTests({ type: "mbti" });
+      return tests?.[0]?.slug ?? null;
+    },
+    onInitError: () => toast.error(t("toast_test_error")),
+  });
 
   const data = TYPEFINDER_DATA as unknown as TypeFinderData;
   const questions = data.questions ?? [];
@@ -135,13 +151,7 @@ export default function TypeFinder16Page() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const [initializing, setInitializing] = useState(true);
   const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
-
-  const [sessionId, setSessionId] = useState<number | null>(null);
-  const [backendQuestions, setBackendQuestions] = useState<
-    { id: number; questionType: string; answers: { code: string }[] }[]
-  >([]);
 
   const stepQuestions = stepChunks[Math.max(0, Math.min(step - 1, stepChunks.length - 1))] ?? [];
   const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
@@ -158,57 +168,6 @@ export default function TypeFinder16Page() {
     if (!q0) return undefined;
     return q0.type === "pair" ? optionsPair : optionsSingle;
   }, [stepChunks, optionsPair, optionsSingle]);
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    const st = useQuizSessionStore.getState();
-    if (st.isCompleted(SESSION_KEY) && st.getSession(SESSION_KEY)?.result != null) {
-      setPhase("result");
-      setInitializing(false);
-      return;
-    }
-
-    let cancelled = false;
-
-    const initSession = async () => {
-      setInitializing(true);
-      const { body: tests } = await quizServices.listTests({ type: "mbti" });
-      const slug = tests?.[0]?.slug ?? null;
-      if (!slug) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const { body: session } = await quizServices.startSession({ test_slug: slug });
-      const { body: testDetail } = await quizServices.getTestDetail(slug);
-      if (!session || !testDetail) {
-        if (!cancelled) toast.error(t("toast_test_error"));
-        if (!cancelled) setInitializing(false);
-        return;
-      }
-
-      const bqs = (testDetail.questions ?? []).map((q) => ({
-        id: q.id,
-        questionType: q.question_type ?? "",
-        answers: (q.answers ?? []).map((a) => ({ code: a.code })),
-      }));
-
-      if (!cancelled && bqs.length > 0) {
-        setSessionId(session.id);
-        setSession(SESSION_KEY, session.id);
-        setBackendQuestions(bqs);
-      }
-      if (!cancelled) setInitializing(false);
-    };
-
-    void initSession();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [hydrated, setSession]);
 
   const handlePrev = () => {
     if (step <= 1 || submitting) return;
@@ -292,7 +251,9 @@ export default function TypeFinder16Page() {
             <Box sx={styles.pageTitle}>{PAGE_TITLE}</Box>
           </Box>
           <TypeFinderResultPanel result={result} />
-          <TestResultActions />
+          <TestResultActions
+            onRetake={retake}
+          />
         </Container>
       </Box>
     );

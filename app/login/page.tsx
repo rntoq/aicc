@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -11,78 +10,19 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-import { toast } from "react-toastify";
-
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useAuth } from "@/lib/store/useAuthStore";
 import { Header } from "../components/layout/Header";
 import { PasswordField } from "../components/layout/PasswordField";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BANNER_IMAGE from "../../public/icons/user.svg";
-
-const isUnverifiedEmailError = (message: string): boolean => {
-  const normalized = message.toLowerCase();
-  return (
-    normalized.includes("verify") ||
-    normalized.includes("verified") ||
-    normalized.includes("confirmation") ||
-    normalized.includes("подтверж") ||
-    normalized.includes("вериф")
-  );
-};
+import { useLoginPageState } from "@/lib/hooks/useAuthPages";
 
 const LoginPage = () => {
   const t = useTranslations();
-  const { login, loading, error } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showVerifyCta, setShowVerifyCta] = useState(false);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/client";
-  const sessionExpired = searchParams.get("sessionExpired") === "1";
-
-  useEffect(() => {
-    if (!sessionExpired) return;
-    toast.info(t("session_expired_toast"));
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("sessionExpired");
-    const next = params.toString();
-    router.replace(next ? `/login?${next}` : "/login");
-  }, [router, searchParams, sessionExpired, t]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !password || loading) return;
-    setShowVerifyCta(false);
-
-    try {
-      await login({ email, password });
-      router.push(redirect);
-    } catch (err: unknown) {
-      // Пытаемся вытащить detail из ответа бэкенда (например, неподтверждённый email)
-      const maybeAxiosLike = err as {
-        response?: { data?: { detail?: unknown } };
-        message?: unknown;
-      };
-      const detail =
-        typeof maybeAxiosLike?.response?.data?.detail === "string"
-          ? maybeAxiosLike.response.data.detail
-          : undefined;
-      if (detail) {
-        toast.error(detail);
-        setShowVerifyCta(isUnverifiedEmailError(detail));
-      } else if (typeof maybeAxiosLike?.message === "string") {
-        toast.error(maybeAxiosLike.message);
-        setShowVerifyCta(isUnverifiedEmailError(maybeAxiosLike.message));
-      } else if (error) {
-        toast.error(error);
-        setShowVerifyCta(isUnverifiedEmailError(error));
-      }
-    }
-  };
+  const { loading, email, setEmail, password, setPassword, showVerifyCta, handleSubmit } = useLoginPageState(
+    t as unknown as (key: string, values?: Record<string, unknown>) => string
+  );
 
   return (
     <>

@@ -3,6 +3,7 @@
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import RocketLaunchRoundedIcon from "@mui/icons-material/RocketLaunchRounded";
 import { Box, Button, CircularProgress, Divider, Paper, Typography } from "@mui/material";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -16,69 +17,93 @@ type ReportDownloadCartProps = {
 
 export const ReportDownloadCart = ({ title, summary, onDownload, downloading }: ReportDownloadCartProps) => {
   const t = useTranslations();
+  const hasReport = Boolean(title);
+
   return (
     <Box sx={styles.breathWrapper}>
-    <Paper sx={styles.card}>
-      <Box sx={styles.orb1} />
-      <Box sx={styles.orb2} />
-      <Box sx={styles.orb3} />
-      <Box sx={styles.shimmer} />
+      <Paper sx={styles.card}>
+        <Box sx={styles.orb1} />
+        <Box sx={styles.orb2} />
+        <Box sx={styles.orb3} />
+        <Box sx={styles.shimmer} />
 
-      <Box sx={styles.content}>
-        <Box sx={styles.badge}>
-          <AutoAwesomeIcon sx={{ fontSize: 13, color: "#fff" }} />
-          <Typography variant="caption" sx={{ color: "#fff", fontWeight: 700, letterSpacing: "0.06em" }}>
-            AI REPORT
-          </Typography>
-        </Box>
-
-        {title && (
-          <Typography variant="subtitle2" sx={styles.title}>
-            {title}
-          </Typography>
-        )}
-
-        {summary && (
-          <>
-            <Divider sx={{ borderColor: "rgba(255,255,255,0.15)", my: 1 }} />
-            <Typography variant="body2" sx={styles.summary}>
-              {summary}
+        <Box sx={styles.content}>
+          <Box sx={styles.badge}>
+            <AutoAwesomeIcon sx={{ fontSize: 13, color: "#fff" }} />
+            <Typography variant="caption" sx={{ color: "#fff", fontWeight: 700, letterSpacing: "0.06em" }}>
+              AI REPORT
             </Typography>
-          </>
-        )}
+          </Box>
 
-        <Box sx={styles.spacer} />
+          {hasReport ? (
+            <>
+              <Typography variant="subtitle2" sx={styles.title}>
+                {title}
+              </Typography>
 
-        <Typography variant="caption" sx={styles.hint}>
-          {t("dashboard_report_pdf_hint")}
-        </Typography>
+              {summary && (
+                <>
+                  <Divider sx={{ borderColor: "rgba(255,255,255,0.15)", my: 1 }} />
+                  <Typography variant="body2" sx={styles.summary}>
+                    {summary}
+                  </Typography>
+                </>
+              )}
 
-        <Box sx={styles.buttonsRow}>
-          <Button
-            variant="outlined"
-            component={Link}
-            fullWidth
-            href="/client/ai-chat"
-            startIcon={<ForumRoundedIcon />}
-            size="small"
-            sx={styles.btnOutlined}
-          >
-            {t("dashboard_report_consult")}
-          </Button>
-          <Button
-            variant="contained"
-            fullWidth
-            size="small"
-            onClick={() => void onDownload()}
-            disabled={downloading}
-            startIcon={downloading ? <CircularProgress size={14} color="inherit" /> : <DownloadRoundedIcon />}
-            sx={styles.btnContained}
-          >
-            {downloading ? t("dashboard_report_downloading") : t("dashboard_report_download")}
-          </Button>
+              <Box sx={styles.spacer} />
+
+              <Typography variant="caption" sx={styles.hint}>
+                {t("dashboard_report_pdf_hint")}
+              </Typography>
+
+              <Box sx={styles.buttonsRow}>
+                <Button
+                  variant="outlined"
+                  component={Link}
+                  fullWidth
+                  href="/client/ai-chat"
+                  startIcon={<ForumRoundedIcon />}
+                  size="small"
+                  sx={styles.btnOutlined}
+                >
+                  {t("dashboard_report_consult")}
+                </Button>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  size="small"
+                  onClick={() => void onDownload()}
+                  disabled={downloading}
+                  startIcon={downloading ? <CircularProgress size={14} color="inherit" /> : <DownloadRoundedIcon />}
+                  sx={styles.btnContained}
+                >
+                  {downloading ? t("dashboard_report_downloading") : t("dashboard_report_download")}
+                </Button>
+              </Box>
+            </>
+          ) : (
+            <>
+              <Typography variant="body2" sx={styles.emptyText}>
+                {t("report_no_data")}
+              </Typography>
+
+              <Box sx={styles.spacer} />
+
+              <Button
+                variant="contained"
+                component={Link}
+                href="/client/tests"
+                fullWidth
+                size="small"
+                startIcon={<RocketLaunchRoundedIcon />}
+                sx={styles.btnContained}
+              >
+                {t("report_go_tests")}
+              </Button>
+            </>
+          )}
         </Box>
-      </Box>
-    </Paper>
+      </Paper>
     </Box>
   );
 };
@@ -178,6 +203,12 @@ const styles = {
     WebkitLineClamp: 5,
     WebkitBoxOrient: "vertical" as const,
     overflow: "hidden",
+  },
+  emptyText: {
+    color: "rgba(255,255,255,0.92)",
+    lineHeight: 1.55,
+    fontWeight: 500,
+    mt: 0.5,
   },
   spacer: { flex: 1, minHeight: 8 },
   hint: { color: "rgba(255,255,255,0.65)", display: "block", mb: 1 },

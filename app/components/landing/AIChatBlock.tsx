@@ -17,84 +17,18 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { toast } from "react-toastify";
-import { analyseServices } from "@/lib/services/analyseServices";
-import {
-  classifyAiChatResponseRole,
-  extractTextFromResponse,
-  type ChatRole,
-} from "@/utils/functions";
-import { useAuth } from "@/lib/store/useAuthStore";
+import { useLandingAiChatPreview } from "@/lib/hooks/useLandingAiChatPreview";
 import BANNER_IMAGE from "../../../public/images/aichat_banner.png";
-
-type ChatMessage = { role: ChatRole; text: string; at: number; kind?: "info" | "warning" };
 
 export const AIChatBlock = () => {
   const t = useTranslations();
-  const router = useRouter();
-  const { isAuthenticated, hydrated: authHydrated } = useAuth();
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "ai",
-      text: t("aichat_example_ai"),
-      at: Date.now(),
-    },
-  ]);
-  const [input, setInput] = useState("");
-  const [sending, setSending] = useState(false);
-  const canSend = useMemo(() => input.trim().length > 0 && !sending, [input, sending]);
-
-  const handleSend = async () => {
-    if (!canSend) return;
-    if (!authHydrated || !isAuthenticated) {
-      toast.info("Please login or register to ask AI questions.");
-      router.push("/login?redirect=/client/ai-chat");
-      return;
-    }
-    const msg = input.trim();
-    setInput("");
-    setMessages((prev) => [...prev, { role: "user", text: msg, at: Date.now() }]);
-    setSending(true);
-
-    const { body, error } = await analyseServices.aiChat({ message: msg });
-    if (error) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "system", text: "Failed to send message. Please try again.", at: Date.now(), kind: "warning" },
-      ]);
-      setSending(false);
-      return;
-    }
-
-    const role = classifyAiChatResponseRole(body);
-    const outOfScope =
-      body != null &&
-      typeof body === "object" &&
-      (body as Record<string, unknown>).in_scope === false;
-    const outOfScopeAnswer =
-      body != null && typeof body === "object" && typeof (body as Record<string, unknown>).answer === "string"
-        ? String((body as Record<string, unknown>).answer)
-        : "";
-    let text = extractTextFromResponse(body);
-    const quotaOrRateLimited = text.includes("RESOURCE_EXHAUSTED") || text.includes("429");
-    const providerError =
-      /openrouter/i.test(outOfScopeAnswer) ||
-      /ошибка/i.test(outOfScopeAnswer) ||
-      /\berror\b/i.test(outOfScopeAnswer) ||
-      /expecting value/i.test(outOfScopeAnswer);
-    if (role === "system" && quotaOrRateLimited) {
-      const retryMatch = text.match(/retry in\s+([0-9.]+)s/i) ?? text.match(/retryDelay'?\s*:\s*'?([0-9.]+)s'?/i);
-      const retrySuffix = retryMatch ? ` Try again in ~${Math.ceil(Number(retryMatch[1]))}s.` : "";
-      text = `AI limit/quota exceeded.${retrySuffix}`;
-    }
-
-    const kind: ChatMessage["kind"] =
-      role !== "system" ? undefined : outOfScope ? (providerError ? "warning" : "info") : "warning";
-    setMessages((prev) => [...prev, { role, text, at: Date.now(), kind }]);
-    setSending(false);
-  };
+  const { messages, input, setInput, sending, canSend, handleSend } = useLandingAiChatPreview({
+    initialAiText: t("aichat_example_ai"),
+    authRequiredToast: t("analysis_auth_required_body"),
+    sendErrorText: t("ai_chat_send_error"),
+    aiLimitText: t("ai_chat_quota_exceeded"),
+    aiLimitRetrySuffix: (seconds) => ` ${t("ai_chat_quota_exceeded_with_retry", { seconds })}`,
+  });
 
   return (
     <Box component="section" sx={styles.section}>
@@ -171,7 +105,7 @@ export const AIChatBlock = () => {
                           <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
                         )}
                         <Typography variant="caption" fontWeight={600}>
-                          {msg.role === "system" ? "System" : t("aichat_ai")}
+                          {msg.role === "system" ? t("ai_chat_system_label") : t("aichat_ai")}
                         </Typography>
                       </Box>
                     )}
@@ -195,7 +129,7 @@ export const AIChatBlock = () => {
                     <Box sx={styles.metaRow}>
                       <Avatar src="/images/aichat_banner.png" alt="AI avatar" sx={styles.aiAvatarTiny} />
                       <Typography variant="body2" color="text.secondary">
-                        Typing...
+                        {t("ai_chat_typing")}
                       </Typography>
                     </Box>
                   </Box>
