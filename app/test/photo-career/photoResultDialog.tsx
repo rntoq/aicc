@@ -1,68 +1,22 @@
 "use client";
 
-import { Box, Chip, CircularProgress, Divider, LinearProgress, Paper, Typography } from "@mui/material";
+import { Box, Chip, CircularProgress, Divider, Paper, Typography } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
 import type { QuizResult } from "@/lib/types";
+import { ResultDonut, type DonutSlice } from "@/app/test/_shared/ResultCharts";
 
-export type PhotoResultPanelProps = {
-  result: QuizResult | null;
-  loading?: boolean;
+export type PhotoResultPanelProps = { result: QuizResult | null; loading?: boolean };
+
+const SCALE_INFO: Record<string, { ru: string; kk: string; en: string; emoji: string; color: string }> = {
+  Building: { ru: "Физический труд", kk: "Физикалық еңбек", en: "Building", emoji: "🔧", color: "#6366f1" },
+  Thinking: { ru: "Аналитика и наука", kk: "Аналитика", en: "Thinking", emoji: "🔬", color: "#06b6d4" },
+  Creating: { ru: "Творчество", kk: "Шығармашылық", en: "Creating", emoji: "🎨", color: "#a855f7" },
+  Helping: { ru: "Помощь людям", kk: "Адамдарға көмек", en: "Helping", emoji: "🤝", color: "#22c55e" },
+  Persuading: { ru: "Переговоры", kk: "Келіссөздер", en: "Persuading", emoji: "💼", color: "#f59e0b" },
+  Organizing: { ru: "Организация и данные", kk: "Ұйымдастыру", en: "Organizing", emoji: "📊", color: "#ef4444" },
 };
 
-type RIASECKey = "R" | "I" | "A" | "S" | "E" | "C";
-
-const SCALE_TO_RIASEC: Record<string, RIASECKey> = {
-  Building: "R",
-  Thinking: "I",
-  Creating: "A",
-  Helping: "S",
-  Persuading: "E",
-  Organizing: "C",
-};
-
-const SCALE_LABELS: Record<string, Record<string, string>> = {
-  Building: { ru: "Физический труд", kk: "Физикалық еңбек", en: "Building" },
-  Thinking: { ru: "Аналитика и наука", kk: "Аналитика", en: "Thinking" },
-  Creating: { ru: "Творчество", kk: "Шығармашылық", en: "Creating" },
-  Helping: { ru: "Помощь людям", kk: "Адамдарға көмек", en: "Helping" },
-  Persuading: { ru: "Переговоры", kk: "Келіссөздер", en: "Persuading" },
-  Organizing: { ru: "Организация и данные", kk: "Ұйымдастыру", en: "Organizing" },
-  R: { ru: "Физический труд", kk: "Физикалық еңбек", en: "Building" },
-  I: { ru: "Аналитика и наука", kk: "Аналитика", en: "Thinking" },
-  A: { ru: "Творчество", kk: "Шығармашылық", en: "Creating" },
-  S: { ru: "Помощь людям", kk: "Адамдарға көмек", en: "Helping" },
-  E: { ru: "Переговоры", kk: "Келіссөздер", en: "Persuading" },
-  C: { ru: "Организация и данные", kk: "Ұйымдастыру", en: "Organizing" },
-};
-
-function toRelativePercents(raw: Record<string, unknown>): { key: string; letter: RIASECKey; pct: number }[] {
-  const entries = Object.entries(raw).map(([k, v]) => ({
-    key: k,
-    letter: (SCALE_TO_RIASEC[k] ?? k) as RIASECKey,
-    raw: typeof v === "number" ? v : Number(v) || 0,
-  }));
-
-  const total = entries.reduce((s, e) => s + e.raw, 0);
-  if (total <= 0) return entries.map((e) => ({ ...e, pct: 0 }));
-
-  const max = Math.max(...entries.map((e) => e.raw));
-  const isRawCount = max <= 30;
-
-  return entries
-    .map((e) => ({
-      key: e.key,
-      letter: e.letter,
-      pct: isRawCount ? Math.round((e.raw / total) * 100) : Math.round(Math.min(100, Math.max(0, e.raw))),
-    }))
-    .sort((a, b) => b.pct - a.pct);
-}
-
-const paperSx = {
-  p: { xs: 2, md: 2.5 },
-  borderRadius: 2,
-  border: "1px solid",
-  borderColor: "divider",
-};
+const paperSx = { p: { xs: 2, md: 2.5 }, borderRadius: 2, border: "1px solid", borderColor: "divider" };
 
 export function PhotoResultPanel({ result, loading = false }: PhotoResultPanelProps) {
   const locale = useLocale() as "ru" | "kk" | "en";
@@ -71,128 +25,129 @@ export function PhotoResultPanel({ result, loading = false }: PhotoResultPanelPr
   if (loading) {
     return (
       <Paper elevation={0} sx={paperSx}>
-        <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-          <CircularProgress />
-        </Box>
+        <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}><CircularProgress /></Box>
       </Paper>
     );
   }
-
   if (!result) {
     return (
       <Paper elevation={0} sx={paperSx}>
-        <Typography variant="body2" color="text.secondary">
-          Photo Career Quiz
-        </Typography>
+        <Typography variant="body2" color="text.secondary">Photo Career Quiz</Typography>
       </Paper>
     );
   }
 
-  const rawScores = (result.scores ?? {}) as Record<string, unknown>;
-  const scoreRows = toRelativePercents(rawScores);
-  const top3Letters = scoreRows.slice(0, 3).map((r) => r.letter).join("");
-  const primaryType = result.primary_type ?? null;
-  const secondaryType =
-    typeof (result as unknown as Record<string, unknown>)?.["secondary_type"] === "string"
-      ? ((result as unknown as Record<string, unknown>)["secondary_type"] as string)
-      : null;
+  const rawScores = (result.scores ?? {}) as Record<string, number>;
+  const entries = Object.entries(rawScores)
+    .map(([k, v]) => ({ key: k, value: typeof v === "number" ? v : Number(v) || 0 }))
+    .filter((e) => e.value > 0)
+    .sort((a, b) => b.value - a.value);
+
+  const total = entries.reduce((s, e) => s + e.value, 0);
+  const top = entries.slice(0, 3);
+
+  const donutData: DonutSlice[] = entries.map((e) => ({
+    label: SCALE_INFO[e.key]?.[locale] ?? e.key,
+    value: e.value,
+    color: SCALE_INFO[e.key]?.color,
+  }));
+
   const summary = result.summary ?? null;
   const detailed = result.detailed_report ?? null;
-
-  const getLabel = (key: string) => SCALE_LABELS[key]?.[locale] ?? SCALE_LABELS[key]?.ru ?? key;
+  const primaryLabel = result.primary_type ?? null;
 
   return (
     <Paper elevation={0} sx={paperSx}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5, mb: 2 }}>
+      <Box sx={{ mb: 2 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 1 }}>
           <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1.2 }}>
             {result.test_title ?? "Photo Career Quiz"}
           </Typography>
-          {top3Letters ? (
-            <Chip label={top3Letters} color="primary" size="small" sx={{ fontWeight: 800, letterSpacing: 2, flexShrink: 0 }} />
-          ) : null}
+          <Chip label={`Σ ${total}`} color="primary" size="small" sx={{ fontWeight: 700, flexShrink: 0 }} />
         </Box>
-        {primaryType ? (
-          <Typography variant="body2" sx={{ fontWeight: 700, color: "primary.main", mt: 0.25 }}>
-            {primaryType}
+        {primaryLabel && (
+          <Typography variant="body2" sx={{ fontWeight: 700, color: "primary.main", mt: 0.5 }}>
+            {primaryLabel}
           </Typography>
-        ) : null}
-        {secondaryType ? (
-          <Typography variant="caption" color="text.secondary">
-            {secondaryType}
-          </Typography>
-        ) : null}
-      </Box>
-
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-        {scoreRows.length > 0 && (
-          <Box>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5 }}>
-              {t("photo_by_direction")}
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-              {scoreRows.map(({ key, pct }, i) => (
-                <Box key={key}>
-                  <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.4 }}>
-                    <Typography variant="body2" sx={{ fontWeight: i < 3 ? 700 : 500 }}>
-                      {getLabel(key)}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 700 }}>
-                      {pct}%
-                    </Typography>
-                  </Box>
-                  <LinearProgress
-                    variant="determinate"
-                    value={pct}
-                    sx={{
-                      height: 8,
-                      borderRadius: 999,
-                      bgcolor: "grey.200",
-                      "& .MuiLinearProgress-bar": {
-                        borderRadius: 999,
-                        background:
-                          i === 0
-                            ? "linear-gradient(90deg, #6366f1, #10b981)"
-                            : i === 1
-                              ? "linear-gradient(90deg, #7c3aed, #06b6d4)"
-                              : "linear-gradient(90deg, #1E3A8A, #10B981)",
-                      },
-                    }}
-                  />
-                </Box>
-              ))}
-            </Box>
-          </Box>
         )}
-
-        {summary ? (
-          <>
-            <Divider />
-            <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.75 }}>
-                {t("common_summary")}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
-                {summary}
-              </Typography>
-            </Box>
-          </>
-        ) : null}
-
-        {detailed && detailed !== summary ? (
-          <>
-            <Divider />
-            <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.75 }}>
-                {t("common_detailedReport")}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
-                {detailed}
-              </Typography>
-            </Box>
-          </>
-        ) : null}
       </Box>
+
+      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 2, alignItems: "center", mb: 2 }}>
+        <ResultDonut
+          data={donutData}
+          centerLabel={top[0] ? SCALE_INFO[top[0].key]?.emoji : ""}
+          centerSubLabel={top[0] ? `${Math.round((top[0].value / total) * 100)}%` : ""}
+        />
+
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>
+            🏆 {t("photo_by_direction")}
+          </Typography>
+          {entries.map((e, i) => {
+            const info = SCALE_INFO[e.key];
+            const pct = Math.round((e.value / total) * 100);
+            return (
+              <Box
+                key={e.key}
+                sx={{
+                  display: "flex", alignItems: "center", gap: 1.2,
+                  p: 1, borderRadius: 1.5,
+                  bgcolor: i < 3 ? `${info?.color}10` : "transparent",
+                  border: i < 3 ? `1px solid ${info?.color}30` : "1px solid transparent",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: 32, height: 32, borderRadius: 1.5, display: "flex",
+                    alignItems: "center", justifyContent: "center",
+                    bgcolor: i < 3 ? info?.color : "grey.200",
+                    color: i < 3 ? "white" : "text.secondary",
+                    fontSize: 14, fontWeight: 800, flexShrink: 0,
+                  }}
+                >
+                  {i + 1}
+                </Box>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                  <Typography variant="body2" sx={{ fontWeight: i < 3 ? 700 : 500, lineHeight: 1.2 }}>
+                    {info?.emoji} {info?.[locale] ?? e.key}
+                  </Typography>
+                </Box>
+                <Typography variant="body2" sx={{ fontWeight: 800, color: i < 3 ? info?.color : "text.secondary" }}>
+                  {pct}%
+                </Typography>
+              </Box>
+            );
+          })}
+        </Box>
+      </Box>
+
+      {summary && (
+        <>
+          <Divider sx={{ my: 2 }} />
+          <Box>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.75 }}>
+              📋 {t("common_summary")}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line", lineHeight: 1.7 }}>
+              {summary}
+            </Typography>
+          </Box>
+        </>
+      )}
+
+      {detailed && detailed !== summary && (
+        <>
+          <Divider sx={{ my: 2 }} />
+          <Box>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.75 }}>
+              📊 {t("common_detailedReport")}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-line", lineHeight: 1.7 }}>
+              {detailed}
+            </Typography>
+          </Box>
+        </>
+      )}
     </Paper>
   );
 }

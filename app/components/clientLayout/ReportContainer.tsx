@@ -89,6 +89,7 @@ const styles = {
     animation: "cardBreath 3s ease-in-out infinite",
     transformOrigin: "center center",
     willChange: "transform",
+    overflow: "visible",
     background: "none",
     backgroundColor: "transparent",
     "@keyframes cardBreath": {
@@ -98,7 +99,7 @@ const styles = {
   },
   card: {
     height: "100%",
-    borderRadius: 3,
+    borderRadius: { xs: 1.5, md: 3 },
     border: "1px solid rgba(139,92,246,0.35)",
     background: "linear-gradient(145deg, #3b1d8a 0%, #5b21b6 45%, #1e40af 100%)",
     position: "relative" as const,
@@ -150,7 +151,7 @@ const styles = {
   },
   content: {
     position: "relative" as const,
-    p: 2, height: "100%",
+    p: { xs: 1.5, md: 2.5 }, height: "100%",
     display: "flex",
     flexDirection: "column" as const,
     zIndex: 1,

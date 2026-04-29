@@ -65,8 +65,8 @@ export const SkillReportCart = ({ strengths, topSkills, weaknesses }: SkillRepor
 
 const styles = {
   container: {
-    p: 2,
-    borderRadius: 3,
+    p: { xs: 1.5, md: 2.5 },
+    borderRadius: { xs: 1.5, md: 3 },
     border: "1px solid rgba(148,163,184,0.2)",
     height: "100%",
     display: "flex",

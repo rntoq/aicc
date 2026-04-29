@@ -58,19 +58,6 @@ const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue = [];
 };
 
-async function toastSessionExpiredOnce() {
-  if (typeof window === "undefined") return;
-  const w = window as unknown as { __kariera_session_expired_toast__?: boolean };
-  if (w.__kariera_session_expired_toast__) return;
-  w.__kariera_session_expired_toast__ = true;
-  try {
-    const mod = await import("react-toastify");
-    mod.toast.error("Сессия истекла. Пожалуйста, войдите снова.");
-  } catch {
-    // ignore toast failure (e.g., during early boot)
-  }
-}
-
 async function fetchMeWithAccessToken(access: string): Promise<User | null> {
   try {
     const { data } = await axiosRaw.get<User>(`/api/v1/auth/me/`, {
@@ -115,11 +102,7 @@ async function refreshAccessToken(): Promise<string> {
 
     return newToken;
   } catch (refreshError) {
-    const refreshStatus = (refreshError as AxiosError | undefined)?.response?.status;
-    if (refreshStatus === 401) {
-      await toastSessionExpiredOnce();
-    }
-
+    // Toast is shown on /login via `?sessionExpired=1` (see app/login/page.tsx) — no duplicate here.
     removeCookie("access");
     removeCookie("refresh");
     redirectToLoginIfNeeded();

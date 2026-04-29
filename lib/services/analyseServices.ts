@@ -12,6 +12,57 @@ import type {
 
 type ServiceResult<T> = { body: T | null; error: unknown | null };
 
+// --------------------------------------------------
+// /api/v1/analysis/reports/ — list shape used across pages
+// --------------------------------------------------
+
+export type AnalysisReportCareerSuggestion = {
+  /** Profession id from `public/jsons/professions.json` (e.g. "001"). */
+  id?: string | number;
+  name: string;
+  reasoning?: string;
+  match_score?: number;
+  salary_range?: string;
+  growth_path?: string;
+  key_skills?: string[];
+};
+
+export type AnalysisReportUniversitySuggestion = {
+  /** University id from `public/jsons/universities.json` (numeric). */
+  id?: string | number;
+  name: string;
+  city?: string;
+  reasoning?: string;
+  recommended_programs?: string[];
+};
+
+/**
+ * Lightweight reference returned by the backend at the top level of a report.
+ * Frontend uses only `id` to look up full data in `public/jsons/*.json`.
+ */
+export type RecommendedRef = {
+  id: number;
+  name?: string;
+  slug?: string;
+};
+
+export type AnalysisReportItem = {
+  id: number;
+  title: string;
+  summary?: string;
+  created_at: string;
+  recommended_careers?: RecommendedRef[];
+  recommended_institutions?: RecommendedRef[];
+  report_data?: {
+    ai_analysis?: {
+      career_suggestions?: AnalysisReportCareerSuggestion[];
+      university_suggestions?: AnalysisReportUniversitySuggestion[];
+      [key: string]: unknown;
+    };
+    [key: string]: unknown;
+  };
+};
+
 /**
  * Analysis endpoints (/api/v1/analysis/*)
  * Keep types generic until backend schemas are stabilized.
@@ -96,6 +147,32 @@ export const useAnalysisDashboard = (): UseQueryResult<AnalysisDashboardResponse
       const { body, error } = await analyseServices.dashboard();
       if (error) throw error;
       return body;
+    },
+  });
+};
+
+/**
+ * GET /api/v1/analysis/reports/
+ *
+ * Returns the latest report from the list (sorted by `created_at` desc).
+ * Page-level consumers (careers/education/dashboard) work with the latest AI
+ * analysis only, so we centralise the parsing/sorting here.
+ */
+export const useLatestAnalysisReport = (): UseQueryResult<AnalysisReportItem | null, unknown> => {
+  return useQuery({
+    queryKey: ["analysis", "reports", "latest"],
+    queryFn: async () => {
+      const { body, error } = await analyseServices.listReports();
+      if (error) throw error;
+      const list: AnalysisReportItem[] = Array.isArray(body)
+        ? (body as AnalysisReportItem[])
+        : body && typeof body === "object" && Array.isArray((body as { results?: unknown[] }).results)
+          ? ((body as { results: AnalysisReportItem[] }).results)
+          : [];
+      if (!list.length) return null;
+      return [...list].sort(
+        (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)
+      )[0];
     },
   });
 };

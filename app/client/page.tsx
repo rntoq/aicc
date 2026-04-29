@@ -12,12 +12,12 @@ import { analyseServices } from "@/lib/services/analyseServices";
 import { useQuery } from "@tanstack/react-query";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import { useMemo, useState } from "react";
-import { ReportDownloadCart } from "@/app/components/clientLayout/ReportDownloadCart";
-import { CareerReportCart } from "@/app/components/clientLayout/CareerReportCart";
-import { UniversityReportCart } from "@/app/components/clientLayout/UniversityReportCart";
-import { IndustryReportCart } from "@/app/components/clientLayout/IndustryReportCart";
-import { TestReportCart } from "@/app/components/clientLayout/TestReportCart";
-import { SkillReportCart } from "@/app/components/clientLayout/SkillReportCart";
+import { ReportDownloadCart } from "@/app/components/clientLayout/ReportContainer";
+import { CareerReportCart } from "@/app/components/clientLayout/ProfessionContainer";
+import { UniversityReportCart } from "@/app/components/clientLayout/UniversityContainer";
+import { IndustryReportCart } from "@/app/components/clientLayout/IndustryContainer";
+import { TestReportCart } from "@/app/components/clientLayout/TestContainer";
+import { SkillReportCart } from "@/app/components/clientLayout/SkillContainer";
 import { toast } from "react-toastify";
 
 type SuggestionCareer = { name: string; reasoning?: string; match_score?: number; growth_path?: string; salary_range?: string };
@@ -278,7 +278,8 @@ const styles = {
       sm: `
         "one two"
         "three four"
-        "five six"
+        "five five"
+        "six six"
       `,
       md: "none",
     },
@@ -287,7 +288,7 @@ const styles = {
     gridArea: { xs: "one" },
     gridColumn: { md: "span 2 / span 2" },
     gridRow: { md: "1" },
-    minWidth: 0, overflow: "hidden",
+    minWidth: 0,
   },
   div2: {
     gridArea: { xs: "two" },

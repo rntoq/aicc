@@ -416,6 +416,8 @@
   "education": "Education",
   "education_specialities_subtitle": "University specialities.",
   "education_universities_subtitle": "Universities for this speciality.",
+  "education_recommended_title": "Recommended universities",
+  "education_recommended_subtitle": "Picked based on your AI analysis results",
   "search": "Search",
   "back": "Back",
   "next": "Next",

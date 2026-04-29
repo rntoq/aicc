@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Box, Grid, MenuItem, TextField, Typography } from "@mui/material";
+import { Box, Grid, MenuItem, Skeleton, TextField, Typography } from "@mui/material";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { AppLayout } from "@/app/components/layout/AppLayout";
@@ -11,6 +11,7 @@ import SPECIALITIES_JSON from "@/public/jsons/specialities.json";
 import UNIVERSITIES_JSON from "@/public/jsons/universities.json";
 import REGIONS_JSON from "@/public/jsons/regions.json";
 import { useInstitutions } from "@/lib/services/careerServices";
+import { useLatestAnalysisReport } from "@/lib/services/analyseServices";
 
 const normalizeName = (s: string) =>
   s
@@ -35,6 +36,23 @@ const EducationPage = () => {
     search: q.trim() || undefined,
     city: regionId !== "all" ? regionId : undefined,
   });
+
+  // GET /api/v1/analysis/reports/ → берём только `id` из `recommended_institutions`
+  // и хайдрейтим карточки из `universities.json` по совпадающему `id`.
+  const reportQuery = useLatestAnalysisReport();
+  const recommendedUniversities = useMemo<PublicUniversity[]>(() => {
+    const ids = reportQuery.data?.recommended_institutions?.map((r) => r.id) ?? [];
+    const seen = new Set<number>();
+    const out: PublicUniversity[] = [];
+    for (const id of ids) {
+      const u = universitiesData.find((x) => x.id === id);
+      if (u && !seen.has(u.id)) {
+        seen.add(u.id);
+        out.push(u);
+      }
+    }
+    return out;
+  }, [reportQuery.data]);
 
   const specialityId = Number(searchParams.get("speciality"));
   const hasSpecialityQuery = searchParams.has("speciality");
@@ -118,6 +136,41 @@ const EducationPage = () => {
             </Typography>
           </Box>
         )}
+
+        {!speciality && (
+          <Box sx={styles.recommendedBlock}>
+            {reportQuery.isLoading ? (
+              <>
+                <Skeleton variant="text" width={300} height={36} />
+                <Skeleton variant="text" width={420} height={22} sx={{ mb: 1 }} />
+                <Grid container spacing={2.5}>
+                  {[0, 1, 2].map((i) => (
+                    <Grid key={i} size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 3 }}>
+                      <Skeleton variant="rounded" height={220} />
+                    </Grid>
+                  ))}
+                </Grid>
+              </>
+            ) : recommendedUniversities.length > 0 ? (
+              <>
+                <Typography variant="h3" color="text.primary">
+                  {t("education_recommended_title")}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {t("education_recommended_subtitle")}
+                </Typography>
+                <Grid container spacing={2.5}>
+                  {recommendedUniversities.map((u) => (
+                    <Grid key={u.id} size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 3 }}>
+                      <UniversityCard university={u} href={`/client/education/${u.id}`} />
+                    </Grid>
+                  ))}
+                </Grid>
+              </>
+            ) : null}
+          </Box>
+        )}
+
         <Typography variant="h3" color="text.primary" mt={2}>
           {t("universities_list_qazaqstan")}
         </Typography>
@@ -175,5 +228,11 @@ const styles = {
     flexDirection: "column", 
     gap: 1,
     mt: 2
+  },
+  recommendedBlock: {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: 1.5,
+    mt: 2,
   },
 };

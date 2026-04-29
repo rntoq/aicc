@@ -1,29 +1,47 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
+import { Box, Button, Chip, Grid, Skeleton, Typography } from "@mui/material";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { IndustryCard } from "@/app/components/clientLayout";
 import { ProfessionCard } from "@/app/components/clientLayout/ProfessionCard";
-import { useCareerRecommendations, useIndustries, useProfessions } from "@/lib/services/careerServices";
+import { useIndustries, useProfessions } from "@/lib/services/careerServices";
+import {
+  useLatestAnalysisReport,
+  type AnalysisReportCareerSuggestion,
+} from "@/lib/services/analyseServices";
 import { INDUSTRIES, FILTER_CATEGORIES } from "@/utils/constants";
-import PROFESSIONS_JSON from "@/public/jsons/professions.json";
 import type { PublicProfession } from "@/lib/types";
+import PROFESSIONS_JSON from "@/public/jsons/professions.json";
+
+const professionsData = PROFESSIONS_JSON as PublicProfession[];
+const professionById = new Map<string, PublicProfession>();
+for (const p of professionsData) professionById.set(String(p.id), p);
+
+const matchProfession = (s: AnalysisReportCareerSuggestion): PublicProfession | null => {
+  if (s?.id == null) return null;
+  return professionById.get(String(s.id)) ?? null;
+};
 
 // ─── PersonalResultSection ────────────────────────────────────────────────────
 
-function PersonalResultSection() {
+type ResolvedRecommendation = {
+  profession: PublicProfession;
+  matchScore?: number;
+};
+
+function PersonalResultSection({
+  recommendations,
+}: {
+  recommendations: ResolvedRecommendation[];
+}) {
   const t = useTranslations();
-  const professions = useMemo(
-    () => (PROFESSIONS_JSON as unknown as PublicProfession[]).slice(0, 5),
-    []
-  );
 
   return (
-    <Box sx={{}}>
+    <Box>
       <Typography variant="h4" sx={{ fontWeight: 700, mb: 0.5 }}>
         {t("careers_personal_title")}
       </Typography>
@@ -31,8 +49,18 @@ function PersonalResultSection() {
         {t("careers_personal_subtitle")}
       </Typography>
       <Box sx={styles.scrollBox}>
-        {professions.map((prof) => (
-          <ProfessionCard key={prof.id} profession={prof} t={t} compact />
+        {recommendations.map(({ profession, matchScore }) => (
+          <Box key={profession.id} sx={styles.cardSlot}>
+            {typeof matchScore === "number" && (
+              <Chip
+                size="small"
+                color="success"
+                label={t("careers_match", { percent: matchScore })}
+                sx={styles.matchChip}
+              />
+            )}
+            <ProfessionCard profession={profession} t={t} compact />
+          </Box>
         ))}
       </Box>
     </Box>
@@ -82,20 +110,52 @@ const CareersPage = () => {
   useProfessions({
     industry: activeFilter === "all" ? undefined : activeFilter,
   });
-  const { data: recommendations } = useCareerRecommendations();
 
-  const hasPersonalResult = (recommendations?.length ?? 0) > 0;
+  const reportQuery = useLatestAnalysisReport();
+
+  const recommendations = useMemo<ResolvedRecommendation[]>(() => {
+    const careerSuggestions: AnalysisReportCareerSuggestion[] =
+      reportQuery.data?.report_data?.ai_analysis?.career_suggestions ?? [];
+    const seen = new Set<string>();
+    const out: ResolvedRecommendation[] = [];
+    for (const s of careerSuggestions) {
+      const match = matchProfession(s);
+      if (!match || seen.has(match.id)) continue;
+      seen.add(match.id);
+      out.push({ profession: match, matchScore: s.match_score });
+    }
+    return out;
+  }, [reportQuery.data]);
 
   const filteredIndustries = useMemo(() => {
     if (activeFilter === "all") return INDUSTRIES;
     return INDUSTRIES.filter((ind) => ind.filterCategory === activeFilter);
   }, [activeFilter]);
 
+  const renderHeader = () => {
+    if (reportQuery.isLoading) {
+      return (
+        <Box>
+          <Skeleton variant="text" width={260} height={36} />
+          <Skeleton variant="text" width={340} height={22} sx={{ mb: 2 }} />
+          <Box sx={styles.scrollBox}>
+            {[0, 1, 2].map((i) => (
+              <Skeleton key={i} variant="rounded" width={300} height={220} sx={{ flexShrink: 0 }} />
+            ))}
+          </Box>
+        </Box>
+      );
+    }
+    if (recommendations.length > 0) {
+      return <PersonalResultSection recommendations={recommendations} />;
+    }
+    return <PassTestCtaSection />;
+  };
+
   return (
     <AppLayout title={t("header_professions")}>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
-
-        {hasPersonalResult ? <PersonalResultSection /> : <PassTestCtaSection />}
+        {renderHeader()}
 
         <Box>
           <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
@@ -139,9 +199,19 @@ const styles = {
     pb: 2,
     scrollSnapType: "x mandatory",
     "& > *": { scrollSnapAlign: "start" },
-    // Ограничиваем ширину родительским контейнером, чтобы не выходить за экран
     minWidth: 0,
     width: "100%",
+  },
+  cardSlot: {
+    position: "relative" as const,
+    flexShrink: 0,
+  },
+  matchChip: {
+    position: "absolute" as const,
+    top: 8,
+    right: 8,
+    zIndex: 1,
+    fontWeight: 700,
   },
   ctaCard: {
     p: 3,
