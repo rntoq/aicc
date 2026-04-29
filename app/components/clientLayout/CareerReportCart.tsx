@@ -135,10 +135,12 @@ const styles = {
   slideItem: {
     width: "100%",
     minWidth: "100%",
+    maxWidth: "100%",
     height: "100%",
     display: "flex",
     flexDirection: "column" as const,
     gap: 1,
+    overflow: "hidden",
   },
   careerCart: {
     p: 1.5,
@@ -146,7 +148,8 @@ const styles = {
     border: "1px solid rgba(16,185,129,0.25)",
     background: "linear-gradient(135deg, rgba(240,253,250,1) 0%, rgba(255,255,255,1) 100%)",
     flex: 1,
-    overflow: "auto",
+    overflow: "hidden",
+    wordBreak: "break-word" as const,
   },
   top: {
     display: "flex",

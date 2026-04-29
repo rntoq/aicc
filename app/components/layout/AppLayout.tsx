@@ -26,6 +26,7 @@ export const AppLayout = ({ title, children }: AppLayoutProps) => {
         display: "flex",
         minHeight: "100vh",
         bgcolor: "background.default",
+        overflowX: "hidden",
       }}
     >
       {/* Desktop sidebar (always mounted, responsive display to avoid refresh flicker) */}
@@ -74,6 +75,7 @@ export const AppLayout = ({ title, children }: AppLayoutProps) => {
       <Box
         sx={{
           flexGrow: 1,
+          minWidth: 0,
           display: "flex",
           flexDirection: "column",
           minHeight: "100vh",

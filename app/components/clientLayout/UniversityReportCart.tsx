@@ -118,10 +118,12 @@ const styles = {
   slideItem: {
     width: "100%",
     minWidth: "100%",
+    maxWidth: "100%",
     height: "100%",
     display: "flex",
     flexDirection: "column" as const,
     gap: 1,
+    overflow: "hidden",
   },
   universityCart: {
     p: 1.5,
@@ -129,7 +131,8 @@ const styles = {
     border: "1px solid rgba(37,99,235,0.2)",
     background: "linear-gradient(135deg, rgba(239,246,255,1) 0%, rgba(255,255,255,1) 100%)",
     flex: 1,
-    overflow: "auto",
+    overflow: "hidden",
+    wordBreak: "break-word" as const,
   },
   cityRow: { display: "flex", alignItems: "center", gap: 0.5 },
   programsRow: { px: 0.5, display: "flex", flexDirection: "column" as const, gap: 0.5 },

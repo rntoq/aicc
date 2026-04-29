@@ -260,6 +260,7 @@ const styles = {
   parent: {
     display: "grid",
     gap: 1,
+    minWidth: 0,
     gridTemplateColumns: {
       xs: "1fr",
       sm: "repeat(2, 1fr)",
@@ -286,34 +287,40 @@ const styles = {
     gridArea: { xs: "one" },
     gridColumn: { md: "span 2 / span 2" },
     gridRow: { md: "1" },
+    minWidth: 0, overflow: "hidden",
   },
   div2: {
     gridArea: { xs: "two" },
     gridColumn: { md: "span 3 / span 3" },
     gridColumnStart: { md: 3 },
     gridRow: { md: "1" },
+    minWidth: 0, overflow: "hidden",
   },
   div3: {
     gridArea: { xs: "three" },
     gridColumn: { md: "span 3 / span 3" },
     gridColumnStart: { md: 6 },
     gridRow: { md: "1" },
+    minWidth: 0, overflow: "hidden",
   },
   div4: {
     gridArea: { xs: "four" },
     gridColumn: { md: "span 4 / span 4" },
     gridRow: { md: "2" },
+    minWidth: 0, overflow: "hidden",
   },
   div5: {
     gridArea: { xs: "five" },
     gridColumn: { md: "span 4 / span 4" },
     gridColumnStart: { md: 5 },
     gridRow: { md: "2" },
+    minWidth: 0, overflow: "hidden",
   },
   div6: {
     gridArea: { xs: "six" },
     gridColumn: { md: "span 8 / span 8" },
     gridRow: { md: "3" },
+    minWidth: 0, overflow: "hidden",
   },
 };
 

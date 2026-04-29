@@ -103,7 +103,7 @@ const styles = {
     background: "linear-gradient(145deg, #3b1d8a 0%, #5b21b6 45%, #1e40af 100%)",
     position: "relative" as const,
     overflow: "hidden",
-    boxShadow: "0 8px 32px rgba(124,58,237,0.3), 0 2px 8px rgba(0,0,0,0.2)",
+    boxShadow: "none",
   },
   orb1: {
     position: "absolute" as const,
@@ -161,7 +161,7 @@ const styles = {
     gap: 0.5, px: 1, py: 0.3, mb: 1.2,
     borderRadius: 999,
     background: "linear-gradient(90deg, #7c3aed, #3b82f6)",
-    boxShadow: "0 2px 8px rgba(124,58,237,0.4)",
+    boxShadow: "none",
     alignSelf: "flex-start",
     animation: "badgePop 0.4s ease-out",
     "@keyframes badgePop": {
@@ -188,8 +188,8 @@ const styles = {
   },
   btnContained: {
     background: "linear-gradient(90deg, #7c3aed 0%, #3b82f6 100%)",
-    boxShadow: "0 2px 12px rgba(124,58,237,0.4)",
-    "&:hover": { background: "linear-gradient(90deg, #6d28d9 0%, #2563eb 100%)", boxShadow: "0 4px 16px rgba(124,58,237,0.55)" },
+    boxShadow: "none",
+    "&:hover": { background: "linear-gradient(90deg, #6d28d9 0%, #2563eb 100%)" },
     "&:disabled": { background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.4)" },
   },
 };

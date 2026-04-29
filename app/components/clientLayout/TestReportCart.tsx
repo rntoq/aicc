@@ -124,10 +124,12 @@ const styles = {
   slideItem: {
     width: "100%",
     minWidth: "100%",
+    maxWidth: "100%",
     height: "100%",
     display: "flex",
     flexDirection: "column" as const,
     gap: 1,
+    overflow: "hidden",
   },
   testCart: {
     p: 1.5,
@@ -135,7 +137,8 @@ const styles = {
     border: "1px solid rgba(168,85,247,0.25)",
     background: "linear-gradient(135deg, rgba(250,245,255,1) 0%, rgba(255,255,255,1) 100%)",
     flex: 1,
-    overflow: "auto",
+    overflow: "hidden",
+    wordBreak: "break-word" as const,
   },
   scoreWrap: { display: "flex", flexWrap: "wrap" as const, gap: 0.6, mb: 0.5 },
   scoreItem: {
