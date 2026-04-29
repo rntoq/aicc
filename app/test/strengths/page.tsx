@@ -22,6 +22,10 @@ import { useQuizSessionFlow } from "@/lib/hooks/useQuizSessionFlow";
 import StrengthsResultPanel from "./strengthsResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import STRENGTHS_DATA from "./personal_strength_questions.json";
+import {
+  getCurrentLocaleForTranslation,
+  translateQuizResultForLocale,
+} from "@/lib/utils/quizResultTranslation";
 import { TEST_DISPLAY_NAMES } from "@/utils/constants";
 
 const SESSION_KEY = "strengths";
@@ -147,7 +151,11 @@ export default function StrengthsTestPage() {
         created_at: new Date().toISOString(),
       };
 
-      setResult(SESSION_KEY, backendResult ?? placeholder);
+      const localizedResult = await translateQuizResultForLocale(
+        backendResult ?? placeholder,
+        getCurrentLocaleForTranslation()
+      );
+      setResult(SESSION_KEY, localizedResult);
       if (backendResult) toast.success(t("toast_test_success"));
       else toast.error(t("toast_test_error"));
       setPhase("result");

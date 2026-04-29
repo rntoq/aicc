@@ -18,6 +18,10 @@ import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { TestHeader } from "../../components/tests/TestHeader";
 import { quizServices } from "@/lib/services/quizServices";
+import {
+  getCurrentLocaleForTranslation,
+  translateQuizResultForLocale,
+} from "@/lib/utils/quizResultTranslation";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
@@ -188,7 +192,11 @@ const DiscPage = () => {
         return;
       }
 
-      setResult(SESSION_KEY, backendResult);
+      const localizedResult = await translateQuizResultForLocale(
+        backendResult,
+        getCurrentLocaleForTranslation()
+      );
+      setResult(SESSION_KEY, localizedResult);
       toast.success(t("toast_test_success"));
       setPhase("result");
       setSubmitting(false);

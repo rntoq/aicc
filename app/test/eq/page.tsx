@@ -15,6 +15,10 @@ import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard
 import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
+import {
+  getCurrentLocaleForTranslation,
+  translateQuizResultForLocale,
+} from "@/lib/utils/quizResultTranslation";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
@@ -281,7 +285,11 @@ export default function EqTestPage() {
         }
       }
 
-      setResult(SESSION_KEY, backendResult ?? computeResult());
+      const localizedResult = await translateQuizResultForLocale(
+        backendResult ?? computeResult(),
+        getCurrentLocaleForTranslation()
+      );
+      setResult(SESSION_KEY, localizedResult);
       if (backendResult) toast.success(t("toast_test_success"));
       else toast.error(t("toast_test_error"));
       setPhase("result");

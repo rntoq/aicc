@@ -14,6 +14,10 @@ import { OptionQuestionCard } from "../../components/tests/OptionQuestionCard";
 import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
+import {
+  getCurrentLocaleForTranslation,
+  translateQuizResultForLocale,
+} from "@/lib/utils/quizResultTranslation";
 import { HollandResultPanel } from "./hollandResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
 import { TEST_DISPLAY_NAMES } from "@/utils/constants";
@@ -120,7 +124,11 @@ const HollandTestPage = () => {
       }
     }
 
-    setResult(SESSION_KEY, backendResult ?? buildLocalResult(usedAnswers));
+    const localizedResult = await translateQuizResultForLocale(
+      backendResult ?? buildLocalResult(usedAnswers),
+      getCurrentLocaleForTranslation()
+    );
+    setResult(SESSION_KEY, localizedResult);
     if (backendResult) toast.success(t("toast_test_success"));
     else toast.error(t("toast_test_error"));
     setPhase("result");

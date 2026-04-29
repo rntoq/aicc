@@ -13,6 +13,10 @@ import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard
 import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
+import {
+  getCurrentLocaleForTranslation,
+  translateQuizResultForLocale,
+} from "@/lib/utils/quizResultTranslation";
 import QUESTIONS_JSON from "./bigfive_questions.json";
 import type {
   BigFiveSessionFinishResponse,
@@ -111,7 +115,11 @@ const BigFiveTestPage = () => {
       }
 
       if (backendResult) {
-        setResult(SESSION_KEY, backendResult);
+        const localizedResult = await translateQuizResultForLocale(
+          backendResult,
+          getCurrentLocaleForTranslation()
+        );
+        setResult(SESSION_KEY, localizedResult);
         toast.success(t("toast_test_success"));
         setPhase("result");
       } else {

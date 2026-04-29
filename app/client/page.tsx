@@ -6,7 +6,7 @@ import {
   CircularProgress,
   Typography,
 } from "@mui/material";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import {
   useLatestAnalysisReport,
@@ -21,9 +21,11 @@ import { IndustryReportCart } from "@/app/components/clientLayout/IndustryContai
 import { TestReportCart } from "@/app/components/clientLayout/TestContainer";
 import { SkillReportCart } from "@/app/components/clientLayout/SkillContainer";
 import { useReportPdfDownload } from "@/lib/hooks/useReportPdfDownload";
+import { useBackendTranslations } from "@/lib/hooks/useBackendTranslation";
 
 const DashboardPage = () => {
   const t = useTranslations();
+  const locale = useLocale() as "ru" | "kk" | "en";
   const { downloadingId, downloadReport } = useReportPdfDownload({
     downloadError: t("dashboard_download_error"),
     downloadSuccess: t("dashboard_download_success"),
@@ -32,6 +34,61 @@ const DashboardPage = () => {
   const latestReport = latestReportQuery.data;
   const { careers, universities, industries, insights, strengths, topSkills, weaknesses, tests } =
     buildDashboardReportView(latestReport ?? null);
+
+  const translationPlan = [
+    latestReport?.title ?? "",
+    latestReport?.summary ?? "",
+    ...careers.flatMap((x) => [x?.name ?? "", x?.reasoning ?? "", x?.growth_path ?? "", x?.salary_range ?? ""]),
+    ...universities.flatMap((x) => [x?.name ?? "", x?.city ?? "", x?.reasoning ?? "", ...(x?.recommended_programs ?? [])]),
+    ...industries.flatMap((x) => [x?.industry ?? "", x?.reasoning ?? "", x?.growth_outlook ?? ""]),
+    ...tests.flatMap((x) => [x?.test_name ?? "", x?.primary_type ?? "", x?.summary ?? ""]),
+    ...insights.map((x) => x?.insight ?? ""),
+    ...strengths,
+    ...topSkills,
+    ...weaknesses,
+  ];
+  const translated = useBackendTranslations(translationPlan, locale);
+  let cursor = 0;
+  const translatedTitle = translated[cursor++] || latestReport?.title || "";
+  const translatedSummary = translated[cursor++] || latestReport?.summary || "";
+  const tCareers = careers.map((x) => {
+    const item = {
+      name: translated[cursor++] || x?.name,
+      reasoning: translated[cursor++] || x?.reasoning,
+      growth_path: translated[cursor++] || x?.growth_path,
+      salary_range: translated[cursor++] || x?.salary_range,
+      match_score: x?.match_score,
+    };
+    return item;
+  });
+  const tUniversities = universities.map((x) => {
+    const name = translated[cursor++] || x?.name;
+    const city = translated[cursor++] || x?.city;
+    const reasoning = translated[cursor++] || x?.reasoning;
+    const programs = (x?.recommended_programs ?? []).map((p) => translated[cursor++] || p);
+    return {
+      name,
+      city,
+      reasoning,
+      recommended_programs: programs,
+    };
+  });
+  const tIndustries = industries.map((x) => ({
+    industry: translated[cursor++] || x?.industry,
+    reasoning: translated[cursor++] || x?.reasoning,
+    growth_outlook: translated[cursor++] || x?.growth_outlook,
+    fit_score: x?.fit_score,
+  }));
+  const tTests = tests.map((x) => ({
+    test_name: translated[cursor++] || x?.test_name,
+    primary_type: translated[cursor++] || x?.primary_type,
+    summary: translated[cursor++] || x?.summary,
+    scores: x?.scores,
+  }));
+  const tInsights = insights.map((x) => ({ ...x, insight: translated[cursor++] || x?.insight }));
+  const tStrengths = strengths.map((x) => translated[cursor++] || x);
+  const tTopSkills = topSkills.map((x) => translated[cursor++] || x);
+  const tWeaknesses = weaknesses.map((x) => translated[cursor++] || x);
 
   return (
     <AppLayout title={t("sidebar_dashboard")}>
@@ -61,8 +118,8 @@ const DashboardPage = () => {
             <Box sx={styles.div1}>
               {latestReport ? (
                 <ReportDownloadCart
-                  title={latestReport.title}
-                  summary={latestReport.summary}
+                  title={translatedTitle}
+                  summary={translatedSummary}
                   downloading={downloadingId === latestReport.id}
                   onDownload={() => downloadReport(latestReport.id, latestReport.title)}
                 />
@@ -77,7 +134,7 @@ const DashboardPage = () => {
 
             <Box sx={styles.div2}>
               <CareerReportCart
-                items={careers.map((item) => ({
+                items={tCareers.map((item) => ({
                   name: item?.name,
                   reason: item?.reasoning,
                   matchScore: item?.match_score,
@@ -89,7 +146,7 @@ const DashboardPage = () => {
 
             <Box sx={styles.div3}>
               <UniversityReportCart
-                items={universities.map((item) => ({
+                items={tUniversities.map((item) => ({
                   name: item?.name,
                   city: item?.city,
                   reason: item?.reasoning,
@@ -100,7 +157,7 @@ const DashboardPage = () => {
 
             <Box sx={styles.div4}>
               <IndustryReportCart
-                items={industries.map((item) => ({
+                items={tIndustries.map((item) => ({
                   industry: item?.industry,
                   fitScore: item?.fit_score,
                   reason: item?.reasoning,
@@ -111,18 +168,18 @@ const DashboardPage = () => {
 
             <Box sx={styles.div5}>
               <TestReportCart
-                items={tests.map((test, idx) => ({
+                items={tTests.map((test, idx) => ({
                   testName: test?.test_name ?? `Test ${idx + 1}`,
                   primaryType: test?.primary_type,
                   summary: test?.summary,
                   scores: flattenAnalysisScores(test?.scores),
-                  insight: insights[idx]?.insight,
+                  insight: tInsights[idx]?.insight,
                 }))}
               />
             </Box>
 
             <Box sx={styles.div6}>
-              <SkillReportCart strengths={strengths} topSkills={topSkills} weaknesses={weaknesses} />
+              <SkillReportCart strengths={tStrengths} topSkills={tTopSkills} weaknesses={tWeaknesses} />
             </Box>
           </Box>
         )}

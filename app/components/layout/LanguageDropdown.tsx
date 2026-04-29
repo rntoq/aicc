@@ -6,24 +6,26 @@ import {
   ListItemText,
   Menu,
   MenuItem,
-  Typography,
 } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useLocale, type Locale } from "@/app/context/LocaleContext";
 import Image from "next/image";
 import ruFlag from "@/public/icons/flag-ru.svg";
 import kkFlag from "@/public/icons/flag-kz.svg";
 import enFlag from "@/public/icons/flag-en.png";
+import type { StaticImageData } from "next/image";
 
-const options: { value: Locale; label: string; flag: string }[] = [
+const options: { value: Locale; label: string; flag: StaticImageData | string }[] = [
   { value: "ru", label: "RU", flag: ruFlag },
   { value: "kk", label: "KK", flag: kkFlag },
-  { value: "en", label: "EN", flag: enFlag.src },
+  { value: "en", label: "EN", flag: enFlag },
 ];
 
 export const LanguageDropdown = () => {
+  const router = useRouter();
   const { locale, setLocale } = useLocale();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -40,6 +42,8 @@ export const LanguageDropdown = () => {
     e.preventDefault();
     e.stopPropagation();
     setLocale(value);
+    // Re-fetch server-rendered parts in the selected locale.
+    router.refresh();
     handleClose();
   };
 

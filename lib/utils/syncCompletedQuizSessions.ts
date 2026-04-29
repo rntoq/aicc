@@ -1,6 +1,10 @@
 import { getCookie } from "@/lib/cookies/cookieClient";
 import { quizServices } from "@/lib/services/quizServices";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
+import {
+  getCurrentLocaleForTranslation,
+  translateQuizResultForLocale,
+} from "@/lib/utils/quizResultTranslation";
 
 /** Legacy: flat JSON array of session ids written by older sync code. */
 export const QUIZ_SESSION_IDS_LEGACY_KEY = "quiz-session-ids";
@@ -42,6 +46,7 @@ type SessionListRow = {
   result?: unknown;
 };
 
+
 /**
  * Pull completed quiz sessions from the API into the in-memory session store.
  * Only runs when an access cookie is present (authenticated).
@@ -64,6 +69,7 @@ export async function syncCompletedQuizSessionsFromApi(): Promise<void> {
       return;
     }
 
+    const locale = getCurrentLocaleForTranslation();
     const { clearAll, setSession, setResult } = useQuizSessionStore.getState();
     clearAll();
 
@@ -78,10 +84,11 @@ export async function syncCompletedQuizSessionsFromApi(): Promise<void> {
         latest.set(key, { id: s.id, ts, result: s.result ?? {} });
       }
     }
-    latest.forEach(({ id, result }, key) => {
-      setSession(key, id);
-      setResult(key, result);
-    });
+    for (const [key, item] of latest.entries()) {
+      const translatedResult = await translateQuizResultForLocale(item.result, locale);
+      setSession(key, item.id);
+      setResult(key, translatedResult);
+    }
   } catch {
     /* ignore sync failures */
   }

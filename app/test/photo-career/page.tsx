@@ -15,6 +15,10 @@ import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { TestHeader } from "../../components/tests/TestHeader";
 import { quizServices } from "@/lib/services/quizServices";
+import {
+  getCurrentLocaleForTranslation,
+  translateQuizResultForLocale,
+} from "@/lib/utils/quizResultTranslation";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
@@ -144,7 +148,11 @@ const PhotoCareerQuizPage = () => {
       }
 
       const resultToSave = backendResult ?? buildLocalResult(Date.now());
-      setResult(SESSION_KEY, resultToSave);
+      const localizedResult = await translateQuizResultForLocale(
+        resultToSave,
+        getCurrentLocaleForTranslation()
+      );
+      setResult(SESSION_KEY, localizedResult);
       if (backendResult) toast.success(t("toast_test_success"));
       else toast.error(t("toast_test_error"));
       setPhase("result");
