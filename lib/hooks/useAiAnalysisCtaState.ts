@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import { analyseServices } from "@/lib/services/analyseServices";
+import { quizServices } from "@/lib/services/quizServices";
 import { ALL_TESTS, TEST_DISPLAY_NAMES, getRecommendedTests } from "@/utils/constants";
 import { useQuizSessionStore, type QuizSessionEntry } from "@/lib/store/useQuizStore";
 import { useAuth } from "@/lib/store/useAuthStore";
 import { useDelayedFlag } from "@/app/components/tests/useDelayedFlag";
+import { normalizeQuizSessionStoreKey } from "@/lib/utils/syncCompletedQuizSessions";
 
 const EMPTY_SESSIONS: Partial<Record<string, QuizSessionEntry>> = {};
 export const MAX_CUSTOM_SELECT = 4;
@@ -35,6 +37,9 @@ export function useAiAnalysisCtaState({ isRecommended, skipAuthCheck = false, i1
   const isAuthenticated = useAuth((s) => s.isAuthenticated);
   const [generatingAnalysis, setGeneratingAnalysis] = useState(false);
   const showAnalysisLoading = useDelayedFlag(generatingAnalysis, 450);
+  const [apiCompletedSessions, setApiCompletedSessions] = useState<
+    Array<{ key: string; sessionId: number; completedAt: number }>
+  >([]);
 
   const sessions = useSyncExternalStore(
     useQuizSessionStore.subscribe,
@@ -42,13 +47,72 @@ export function useAiAnalysisCtaState({ isRecommended, skipAuthCheck = false, i1
     () => EMPTY_SESSIONS
   ) as Partial<Record<string, QuizSessionEntry>>;
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadCompletedSessions = async () => {
+      if (!hydrated || !isAuthenticated) {
+        if (!cancelled) setApiCompletedSessions([]);
+        return;
+      }
+      const { body, error } = await quizServices.listSessions({ completed: true });
+      if (cancelled) return;
+      if (error || !body?.length) {
+        setApiCompletedSessions([]);
+        return;
+      }
+
+      const latestByKey = new Map<string, { sessionId: number; completedAt: number }>();
+      for (const row of body as Array<{
+        id?: number;
+        is_completed?: boolean;
+        test_slug?: string;
+        test_type?: string;
+        completed_at?: string;
+        created_at?: string;
+      }>) {
+        if (!row?.is_completed || typeof row.id !== "number") continue;
+        const key = normalizeQuizSessionStoreKey(String(row.test_slug ?? ""), String(row.test_type ?? ""));
+        const ts = Date.parse(row.completed_at ?? row.created_at ?? "") || 0;
+        const prev = latestByKey.get(key);
+        if (!prev || ts > prev.completedAt || (ts === prev.completedAt && row.id > prev.sessionId)) {
+          latestByKey.set(key, { sessionId: row.id, completedAt: ts });
+        }
+      }
+
+      setApiCompletedSessions(
+        Array.from(latestByKey.entries()).map(([key, value]) => ({
+          key,
+          sessionId: value.sessionId,
+          completedAt: value.completedAt,
+        }))
+      );
+    };
+
+    void loadCompletedSessions();
+    return () => {
+      cancelled = true;
+    };
+  }, [hydrated, isAuthenticated]);
+
   const testIdToSessionKey = (id: string): string => (id === "big-five" ? "bigfive" : id);
+
+  const sourceCompletedByKey = isAuthenticated
+    ? Object.fromEntries(
+        apiCompletedSessions.map((x) => [
+          x.key,
+          { sessionId: x.sessionId, completedAt: x.completedAt },
+        ])
+      )
+    : sessions;
 
   const getCompletedSessionIds = (ids: string[]): number[] => {
     const out: number[] = [];
     for (const id of ids) {
       const key = testIdToSessionKey(id);
-      const entry = sessions[key];
+      const entry = sourceCompletedByKey[key] as
+        | { sessionId?: number; completedAt?: number | null }
+        | undefined;
       if (entry?.completedAt != null && typeof entry.sessionId === "number" && entry.sessionId > 0) {
         out.push(entry.sessionId);
       }
@@ -57,16 +121,25 @@ export function useAiAnalysisCtaState({ isRecommended, skipAuthCheck = false, i1
   };
 
   const requiredRecommendedIds = recommended.filter((x) => x.required).map((x) => x.id);
-  const allRequiredDone = requiredRecommendedIds.every((id) => sessions[testIdToSessionKey(id)]?.completedAt != null);
+  const allRequiredDone = requiredRecommendedIds.every((id) => {
+    const entry = sourceCompletedByKey[testIdToSessionKey(id)] as
+      | { completedAt?: number | null }
+      | undefined;
+    return entry?.completedAt != null;
+  });
   const recommendedDoneSessionIds = getCompletedSessionIds(recommended.map((x) => x.id));
 
-  const completedAll = Object.entries(sessions)
-    .filter(([, e]) => e?.completedAt != null && typeof e.sessionId === "number" && e.sessionId > 0)
-    .map(([key, e]) => ({
-      key,
-      sessionId: (e as QuizSessionEntry).sessionId,
-      completedAt: (e as QuizSessionEntry).completedAt ?? 0,
-    }));
+  const completedAll = Object.entries(sourceCompletedByKey)
+    .filter(([, e]) => (e as { completedAt?: number | null })?.completedAt != null)
+    .map(([key, e]) => {
+      const entry = e as { sessionId?: number; completedAt?: number | null };
+      return {
+        key,
+        sessionId: entry.sessionId ?? 0,
+        completedAt: entry.completedAt ?? 0,
+      };
+    })
+    .filter((e) => e.sessionId > 0);
   completedAll.sort((a, b) => (b.completedAt ?? 0) - (a.completedAt ?? 0));
   const canGenerateFromCustom = completedAll.length >= MAX_CUSTOM_SELECT;
 
