@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { Box, Grid, MenuItem, Skeleton, TextField, Typography } from "@mui/material";
+import { Box, Grid, LinearProgress, MenuItem, TextField, Typography } from "@mui/material";
 import { useTranslations, useLocale } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
 import { UniversityCard } from "@/app/components/clientLayout";
@@ -34,17 +34,10 @@ const EducationPage = () => {
         {!speciality && (
           <Box sx={styles.recommendedBlock}>
             {reportQuery.isLoading ? (
-              <>
-                <Skeleton variant="text" width={300} height={36} />
-                <Skeleton variant="text" width={420} height={22} sx={{ mb: 1 }} />
-                <Grid container spacing={2.5}>
-                  {[0, 1, 2].map((i) => (
-                    <Grid key={i} size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 3 }}>
-                      <Skeleton variant="rounded" height={220} />
-                    </Grid>
-                  ))}
-                </Grid>
-              </>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+                <Typography variant="h6">Loading...</Typography>
+                <LinearProgress />
+              </Box>
             ) : recommendedUniversities.length > 0 ? (
               <>
                 <Typography variant="h3" color="text.primary">

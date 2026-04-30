@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Box, Button, Chip, Grid, Skeleton, Typography } from "@mui/material";
+import { Box, Button, Chip, Grid, LinearProgress, Typography } from "@mui/material";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -135,14 +135,9 @@ const CareersPage = () => {
   const renderHeader = () => {
     if (reportQuery.isLoading) {
       return (
-        <Box>
-          <Skeleton variant="text" width={260} height={36} />
-          <Skeleton variant="text" width={340} height={22} sx={{ mb: 2 }} />
-          <Box sx={styles.scrollBox}>
-            {[0, 1, 2].map((i) => (
-              <Skeleton key={i} variant="rounded" width={300} height={220} sx={{ flexShrink: 0 }} />
-            ))}
-          </Box>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+          <Typography variant="h6">Loading...</Typography>
+          <LinearProgress />
         </Box>
       );
     }

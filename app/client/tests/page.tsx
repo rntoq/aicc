@@ -7,8 +7,8 @@ import {
   Chip,
   CircularProgress,
   Grid,
+  LinearProgress,
   Paper,
-  Skeleton,
   Typography,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
@@ -128,7 +128,11 @@ const TestsPage = () => {
           </ButtonGroup>
         </Box>
 
-        {loading && <Skeleton variant="rounded" height={88} sx={{ mb: 3, borderRadius: 3 }} />}
+        {loading && (
+          <Box sx={{ mb: 3, borderRadius: 3, overflow: "hidden", border: "1px solid", borderColor: "divider" }}>
+            <LinearProgress />
+          </Box>
+        )}
         {!loading && hasReports && <ReportDownloadBanner reports={reports} />}
         {!loading && !hasReports && <AiAnalysisCta isRecommended={mode === "recommended"} skipAuthCheck />}
 
