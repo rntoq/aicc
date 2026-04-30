@@ -163,7 +163,7 @@ const PhotoCareerQuizPage = () => {
   };
 
   if (!hydrated) {
-    return <LoadingScreen open text={t("toast_test_loading")} />;
+    return null;
   }
 
   const photoTotal = PHOTO_QUESTIONS.length;

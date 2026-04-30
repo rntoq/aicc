@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { quizServices } from "@/lib/services/quizServices";
 import { useQuizSessionStore } from "@/lib/store/useQuizStore";
 
@@ -37,6 +37,15 @@ export function useQuizSessionFlow({
     { id: number; questionType: string; answers: { code: string }[] }[]
   >([]);
   const setSession = useQuizSessionStore((s) => s.setSession);
+  const resolveSlugRef = useRef(resolveSlug);
+  const mapQuestionIdsRef = useRef(mapQuestionIds);
+  const onInitErrorRef = useRef(onInitError);
+
+  useEffect(() => {
+    resolveSlugRef.current = resolveSlug;
+    mapQuestionIdsRef.current = mapQuestionIds;
+    onInitErrorRef.current = onInitError;
+  }, [resolveSlug, mapQuestionIds, onInitError]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -58,7 +67,7 @@ export function useQuizSessionFlow({
     const initSession = async () => {
       setInitializing(true);
       try {
-        const slug = await resolveSlug();
+        const slug = await resolveSlugRef.current();
         if (!slug) throw new Error("resolveSlug failed");
 
         const { body: session, error: startError } = await quizServices.startSession({ test_slug: slug });
@@ -71,7 +80,7 @@ export function useQuizSessionFlow({
           answers: (q.answers ?? []).map((a) => ({ code: a.code })),
         }));
         const rawIds = questions.map((q) => q.id);
-        const ids = mapQuestionIds ? mapQuestionIds(rawIds) : rawIds;
+        const ids = mapQuestionIdsRef.current ? mapQuestionIdsRef.current(rawIds) : rawIds;
         if (!cancelled) {
           setSessionId(session.id);
           setSession(sessionKey, session.id);
@@ -79,7 +88,7 @@ export function useQuizSessionFlow({
           setBackendQuestions(questions);
         }
       } catch {
-        if (!cancelled) onInitError?.();
+        if (!cancelled) onInitErrorRef.current?.();
       } finally {
         if (!cancelled) setInitializing(false);
       }
@@ -89,7 +98,7 @@ export function useQuizSessionFlow({
     return () => {
       cancelled = true;
     };
-  }, [hydrated, mapQuestionIds, onInitError, resolveSlug, sessionKey, setSession]);
+  }, [hydrated, sessionKey, setSession]);
 
   const retake = () => {
     if (typeof window === "undefined") return;

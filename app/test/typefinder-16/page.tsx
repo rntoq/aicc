@@ -241,7 +241,7 @@ export default function TypeFinder16Page() {
   };
 
   if (!hydrated) {
-    return <LoadingScreen open text={t("toast_test_loading")} />;
+    return null;
   }
 
   if (phase === "result") {
