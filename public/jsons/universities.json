@@ -96,7 +96,7 @@
       "en": "KGUTE"
     },
     "address": "г. Актау, 32 микрорайон",
-    "id": 118,
+    "id": 105,
     "slug": "uni-local-118"
   },
   {
@@ -121,7 +121,7 @@
       "en": "KINI"
     },
     "address": "Республика Казахстан, г. Актау, 32-й мкр.",
-    "id": 4,
+    "id": 106,
     "slug": "uni-003"
   },
   {
@@ -171,7 +171,7 @@
       "en": "Zhubanov University"
     },
     "address": "г. Актобе, пр. А.Молдагуловой,34",
-    "id": 119,
+    "id": 107,
     "slug": "uni-local-119"
   },
   {
@@ -196,7 +196,7 @@
       "en": "Heriot-Watt University"
     },
     "address": "город Актобе, ул. Братьев Жубановых 263",
-    "id": 6,
+    "id": 108,
     "slug": "uni-005"
   },
   {
@@ -596,7 +596,7 @@
       "en": "Narxoz"
     },
     "address": "ул. Жандосова, 55",
-    "id": 120,
+    "id": 109,
     "slug": "uni-local-120"
   },
   {
@@ -621,7 +621,7 @@
       "en": "Queen's University Belfast"
     },
     "address": "ул. Жандосова, 55 г. Алматы, Казахстан, 050035 (Narxoz University)",
-    "id": 22,
+    "id": 110,
     "slug": "uni-021"
   },
   {
@@ -646,7 +646,7 @@
       "en": "KAU"
     },
     "address": "Рыскулбекова 28",
-    "id": 121,
+    "id": 111,
     "slug": "uni-local-121"
   },
   {
@@ -671,7 +671,7 @@
       "en": "KazGASA"
     },
     "address": "ул. Рыскулбекова, 28",
-    "id": 23,
+    "id": 112,
     "slug": "uni-022"
   },
   {
@@ -721,7 +721,7 @@
       "en": "KazNAU"
     },
     "address": "пр. Абая, 8",
-    "id": 122,
+    "id": 113,
     "slug": "uni-local-122"
   },
   {
@@ -746,7 +746,7 @@
       "en": "Branch of TIIAME"
     },
     "address": "г.Алматы, 050010, проспект Абая, 8",
-    "id": 25,
+    "id": 114,
     "slug": "uni-024"
   },
   {
@@ -846,7 +846,7 @@
       "en": "Satbayev University"
     },
     "address": "ул. Сатпаева 22а",
-    "id": 123,
+    "id": 115,
     "slug": "uni-local-123"
   },
   {
@@ -871,7 +871,7 @@
       "en": "CityU HK Branch"
     },
     "address": "Республика Казахстан, г. Алматы, ул. Сатпаева 22",
-    "id": 29,
+    "id": 116,
     "slug": "uni-029"
   },
   {
@@ -1146,7 +1146,7 @@
       "en": "University of Arizona"
     },
     "address": "г. Петропавловск ул. Пушкина, 86",
-    "id": 124,
+    "id": 117,
     "slug": "uni-local-124"
   },
   {
@@ -1171,7 +1171,7 @@
       "en": "NKU"
     },
     "address": "г. Петропавловск, ул. Пушкина, 86",
-    "id": 40,
+    "id": 118,
     "slug": "uni-040"
   },
   {
@@ -2121,7 +2121,7 @@
       "en": "BLCU"
     },
     "address": "Казахстан, г. Астана, проспект Кабанбай батыра, 8",
-    "id": 125,
+    "id": 119,
     "slug": "uni-local-125"
   },
   {
@@ -2146,7 +2146,7 @@
       "en": "AIU"
     },
     "address": "проспект Кабанбай батыр 8",
-    "id": 78,
+    "id": 120,
     "slug": "uni-185"
   },
   {
@@ -2796,7 +2796,7 @@
       "en": "Cardiff University Kazakhstan"
     },
     "address": "Астана",
-    "id": 126,
+    "id": 121,
     "slug": "uni-local-126"
   },
   {
@@ -2821,7 +2821,7 @@
       "en": "Coventry University"
     },
     "address": "Казахстан, Астана, шоссе Коргалжын, 13А.",
-    "id": 127,
+    "id": 122,
     "slug": "uni-local-127"
   },
   {
@@ -2846,7 +2846,7 @@
       "en": "Gubkin University"
     },
     "address": "060027, г. Атырау, ул. Мусы Баймуханова 45А",
-    "id": 128,
+    "id": 123,
     "slug": "uni-local-128"
   },
   {
@@ -2871,7 +2871,7 @@
       "en": "MEPhI"
     },
     "address": "050040, Республика Казахстан, г. Алматы, проспект аль-Фараби, 71 корпус 12.",
-    "id": 129,
+    "id": 124,
     "slug": "uni-local-129"
   },
   {
@@ -2896,7 +2896,7 @@
       "en": "Woosong University"
     },
     "address": "39 Building, 160 Block, Zhana Kala Turkistan City, Kazakhstan",
-    "id": 130,
+    "id": 125,
     "slug": "uni-local-130"
   },
   {
@@ -2921,7 +2921,7 @@
       "en": "DMU Kazakhstan"
     },
     "address": "Almaty City, Medeu District, 120/48, premises 4, Al-Farabi Ave., 050044, Almaty, Republic of Kazakhstan",
-    "id": 131,
+    "id": 126,
     "slug": "uni-local-131"
   },
   {
@@ -2946,7 +2946,7 @@
       "en": "Kazakhstan Branch of MSU"
     },
     "address": "Республика Казахстан 010010 г. Астана ул. Кажымукана, 11",
-    "id": 104,
+    "id": 127,
     "slug": "uni-999"
   }
 ]

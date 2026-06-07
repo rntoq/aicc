@@ -9,6 +9,7 @@ import UNIVERSITIES_JSON from "@/public/jsons/universities.json";
 import REGIONS_JSON from "@/public/jsons/regions.json";
 import { useInstitutions } from "@/lib/services/careerServices";
 import { useLatestAnalysisReport } from "@/lib/services/analyseServices";
+import { resolveUniversityRecommendations } from "@/utils/reportMatching";
 import { institutionServices } from "@/lib/services/careerServices";
 import { useQuery } from "@tanstack/react-query";
 
@@ -37,19 +38,10 @@ export function useEducationPageData() {
   });
 
   const reportQuery = useLatestAnalysisReport();
-  const recommendedUniversities = useMemo<PublicUniversity[]>(() => {
-    const ids = reportQuery.data?.recommended_institutions?.map((r) => r.id) ?? [];
-    const seen = new Set<number>();
-    const out: PublicUniversity[] = [];
-    for (const id of ids) {
-      const u = universitiesData.find((x) => x.id === id);
-      if (u && !seen.has(u.id)) {
-        seen.add(u.id);
-        out.push(u);
-      }
-    }
-    return out;
-  }, [reportQuery.data]);
+  const recommendedUniversities = useMemo<PublicUniversity[]>(
+    () => resolveUniversityRecommendations(reportQuery.data),
+    [reportQuery.data]
+  );
 
   const specialityId = Number(searchParams.get("speciality"));
   const hasSpecialityQuery = searchParams.has("speciality");

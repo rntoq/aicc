@@ -17,8 +17,10 @@ type ServiceResult<T> = { body: T | null; error: unknown | null };
 // --------------------------------------------------
 
 export type AnalysisReportCareerSuggestion = {
-  /** Profession id from `public/jsons/professions.json` (e.g. "001"). */
+  /** Backend profession id from `public/jsons/professions.json`. */
   id?: string | number;
+  /** Legacy profession code from AI analysis (e.g. "001", "002"). */
+  career_code?: string;
   name: string;
   reasoning?: string;
   match_score?: number;
@@ -30,9 +32,12 @@ export type AnalysisReportCareerSuggestion = {
 export type AnalysisReportUniversitySuggestion = {
   /** University id from `public/jsons/universities.json` (numeric). */
   id?: string | number;
+  /** Backend institution id from AI analysis. */
+  institution_id?: number;
   name: string;
   city?: string;
   reasoning?: string;
+  match_score?: number;
   recommended_programs?: string[];
 };
 
@@ -98,14 +103,84 @@ export type AnalysisReportItem = {
 
 export type FlattenedScoreItem = { key: string; value: number };
 
+/**
+ * Known test sections inside `report_data`, in display order.
+ * `insightTokens` — слова, по которым ищется соответствующий AI-инсайт по его `test_name`.
+ */
+const TEST_SECTIONS: Array<{ key: string; insightTokens: string[] }> = [
+  { key: "holland", insightTokens: ["holland", "riasec", "голланд"] },
+  { key: "big_five", insightTokens: ["big five", "ocean", "больш"] },
+  { key: "bigfive", insightTokens: ["big five", "ocean", "больш"] },
+  { key: "enneagram", insightTokens: ["enneagram", "эннеаграм"] },
+  { key: "eq5", insightTokens: ["eq", "emotional", "эмоцион"] },
+  { key: "eq", insightTokens: ["eq", "emotional", "эмоцион"] },
+  { key: "disc", insightTokens: ["disc"] },
+  { key: "career_aptitude", insightTokens: ["aptitude", "карьер"] },
+  { key: "photo", insightTokens: ["photo", "фото"] },
+  { key: "photo_career", insightTokens: ["photo", "фото"] },
+  { key: "leadership", insightTokens: ["leadership", "лидер"] },
+  { key: "strengths", insightTokens: ["strength", "сильн"] },
+  { key: "typefinder_16", insightTokens: ["mbti", "typefinder", "16 type"] },
+  { key: "mbti", insightTokens: ["mbti", "typefinder", "16 type"] },
+];
+
+const TEST_ORDER = new Map(TEST_SECTIONS.map((s, index) => [s.key, index]));
+const TEST_INSIGHT_TOKENS = new Map(TEST_SECTIONS.map((s) => [s.key, s.insightTokens]));
+
+function normalizeLabel(value: string): string {
+  return value.toLowerCase().replace(/[^a-zа-яё0-9]+/gi, " ").trim();
+}
+
+function isTestSection(value: unknown): value is AnalysisReportDataSection {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const section = value as AnalysisReportDataSection;
+  return Boolean(section.test_name || section.scores || section.summary || section.primary_type);
+}
+
+/** Все секции тестов из `report_data` (кроме `ai_analysis`), отсортированные по порядку отображения. */
+function extractReportTestEntries(
+  reportData?: AnalysisReportItem["report_data"]
+): Array<{ key: string; section: AnalysisReportDataSection }> {
+  if (!reportData) return [];
+  return Object.entries(reportData)
+    .filter(([key, value]) => key !== "ai_analysis" && isTestSection(value))
+    .map(([key, value]) => ({ key, section: value as AnalysisReportDataSection }))
+    .sort((a, b) => {
+      const orderA = TEST_ORDER.get(a.key) ?? Number.MAX_SAFE_INTEGER;
+      const orderB = TEST_ORDER.get(b.key) ?? Number.MAX_SAFE_INTEGER;
+      return orderA - orderB || a.key.localeCompare(b.key);
+    });
+}
+
+/** Находит AI-инсайт, относящийся к секции теста: по токенам ключа, иначе по совпадению названия. */
+function findTestInsight(
+  reportKey: string,
+  section: AnalysisReportDataSection,
+  insights: AnalysisReportTestInsight[]
+): AnalysisReportTestInsight | undefined {
+  const tokens = TEST_INSIGHT_TOKENS.get(reportKey) ?? [];
+  const byTokens = insights.find((insight) => {
+    const label = normalizeLabel(insight.test_name ?? "");
+    return tokens.some((token) => label.includes(token));
+  });
+  if (byTokens) return byTokens;
+
+  const name = normalizeLabel(section.test_name ?? "");
+  if (!name) return undefined;
+  return insights.find((insight) => {
+    const label = normalizeLabel(insight.test_name ?? "");
+    return label.length > 0 && (name.includes(label) || label.includes(name));
+  });
+}
+
 export function flattenAnalysisScores(
   scores?: Record<string, number | Record<string, number>>
 ): FlattenedScoreItem[] {
   if (!scores) return [];
-  return Object.entries(scores).flatMap(([k, v]) => {
-    if (typeof v === "number") return [{ key: k, value: v }];
-    return Object.entries(v).map(([nestedKey, nestedValue]) => ({
-      key: `${k}:${nestedKey}`,
+  return Object.entries(scores).flatMap(([key, value]) => {
+    if (typeof value === "number") return [{ key, value }];
+    return Object.entries(value).map(([nestedKey, nestedValue]) => ({
+      key: `${key}:${nestedKey}`,
       value: typeof nestedValue === "number" ? nestedValue : 0,
     }));
   });
@@ -113,22 +188,18 @@ export function flattenAnalysisScores(
 
 export function buildDashboardReportView(report: AnalysisReportItem | null) {
   const analysis = report?.report_data?.ai_analysis;
-  const tests = [
-    report?.report_data?.photo,
-    report?.report_data?.holland,
-    report?.report_data?.big_five,
-    report?.report_data?.career_aptitude,
-  ].filter(Boolean) as AnalysisReportDataSection[];
+  const insights = analysis?.test_insights ?? [];
+  const testEntries = extractReportTestEntries(report?.report_data);
 
   return {
     careers: analysis?.career_suggestions ?? [],
     universities: analysis?.university_suggestions ?? [],
     industries: analysis?.industry_recommendations ?? [],
-    insights: analysis?.test_insights ?? [],
+    tests: testEntries.map((entry) => entry.section),
+    testInsights: testEntries.map((entry) => findTestInsight(entry.key, entry.section, insights)),
     strengths: (analysis?.strengths ?? []).map((x) => x.title).filter(Boolean) as string[],
     topSkills: (analysis?.top_skills ?? []).map((x) => x.skill).filter(Boolean) as string[],
     weaknesses: (analysis?.weaknesses ?? []).map((x) => x.title).filter(Boolean) as string[],
-    tests,
   };
 }
 

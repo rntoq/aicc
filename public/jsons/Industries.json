@@ -130,16 +130,6 @@
     "professions_count": 7
   },
   {
-    "id": 14,
-    "code": "human_resources",
-    "name": {
-      "ru": "HR и управление персоналом",
-      "kk": "HR және персоналды басқару",
-      "en": "Human Resources"
-    },
-    "professions_count": 6
-  },
-  {
     "id": 15,
     "code": "skilled_trades_services",
     "name": {
@@ -171,11 +161,21 @@
   },
   {
     "id": 18,
-    "code": "media_communications",
+    "code": "human_resources",
     "name": {
-      "ru": "Медиа и коммуникации",
-      "kk": "Медиа және коммуникациялар",
-      "en": "Media & Communications"
+      "ru": "HR и управление персоналом",
+      "kk": "HR және персоналды басқару",
+      "en": "Human Resources"
+    },
+    "professions_count": 6
+  },
+  {
+    "id": 19,
+    "code": "marketing_sales",
+    "name": {
+      "ru": "Маркетинг и продажи",
+      "kk": "Маркетинг және сату",
+      "en": "Marketing & Sales"
     },
     "professions_count": 7
   }

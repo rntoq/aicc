@@ -9,22 +9,10 @@ import { AppLayout } from "@/app/components/layout/AppLayout";
 import { IndustryCard } from "@/app/components/clientLayout";
 import { ProfessionCard } from "@/app/components/clientLayout/ProfessionCard";
 import { useIndustries, useProfessions } from "@/lib/services/careerServices";
-import {
-  useLatestAnalysisReport,
-  type AnalysisReportCareerSuggestion,
-} from "@/lib/services/analyseServices";
+import { useLatestAnalysisReport } from "@/lib/services/analyseServices";
 import { INDUSTRIES, FILTER_CATEGORIES } from "@/utils/constants";
 import type { PublicProfession } from "@/lib/types";
-import PROFESSIONS_JSON from "@/public/jsons/professions.json";
-
-const professionsData = PROFESSIONS_JSON as PublicProfession[];
-const professionById = new Map<string, PublicProfession>();
-for (const p of professionsData) professionById.set(String(p.id), p);
-
-const matchProfession = (s: AnalysisReportCareerSuggestion): PublicProfession | null => {
-  if (s?.id == null) return null;
-  return professionById.get(String(s.id)) ?? null;
-};
+import { resolveCareerRecommendations } from "@/utils/reportMatching";
 
 // ─── PersonalResultSection ────────────────────────────────────────────────────
 
@@ -113,19 +101,14 @@ const CareersPage = () => {
 
   const reportQuery = useLatestAnalysisReport();
 
-  const recommendations = useMemo<ResolvedRecommendation[]>(() => {
-    const careerSuggestions: AnalysisReportCareerSuggestion[] =
-      reportQuery.data?.report_data?.ai_analysis?.career_suggestions ?? [];
-    const seen = new Set<string>();
-    const out: ResolvedRecommendation[] = [];
-    for (const s of careerSuggestions) {
-      const match = matchProfession(s);
-      if (!match || seen.has(match.id)) continue;
-      seen.add(match.id);
-      out.push({ profession: match, matchScore: s.match_score });
-    }
-    return out;
-  }, [reportQuery.data]);
+  const recommendations = useMemo<ResolvedRecommendation[]>(
+    () =>
+      resolveCareerRecommendations(reportQuery.data).map(({ profession, matchScore }) => ({
+        profession,
+        matchScore,
+      })),
+    [reportQuery.data]
+  );
 
   const filteredIndustries = useMemo(() => {
     if (activeFilter === "all") return INDUSTRIES;

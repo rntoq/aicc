@@ -340,7 +340,7 @@ export type LocalizedText = {
  * From `public/professions.json`
  */
 export type PublicProfession = {
-  id: string;
+  id: string | number;
   name: LocalizedText;
   /** Industry id used for grouping/filtering (e.g. `it_technology`) */
   industry: string;

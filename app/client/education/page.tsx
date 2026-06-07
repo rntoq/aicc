@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { Box, Grid, LinearProgress, MenuItem, TextField, Typography } from "@mui/material";
 import { useTranslations, useLocale } from "next-intl";
 import { AppLayout } from "@/app/components/layout/AppLayout";
@@ -43,16 +42,16 @@ const EducationPage = () => {
                 <Typography variant="h3" color="text.primary">
                   {t("education_recommended_title")}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
                   {t("education_recommended_subtitle")}
                 </Typography>
-                <Grid container spacing={2.5}>
+                <Box sx={styles.scrollBox}>
                   {recommendedUniversities.map((u) => (
-                    <Grid key={u.id} size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 3 }}>
+                    <Box key={u.id} sx={styles.cardSlot}>
                       <UniversityCard university={u} href={`/client/education/${u.id}`} />
-                    </Grid>
+                    </Box>
                   ))}
-                </Grid>
+                </Box>
               </>
             ) : null}
           </Box>
@@ -121,5 +120,21 @@ const styles = {
     flexDirection: "column" as const,
     gap: 1.5,
     mt: 2,
+  },
+  scrollBox: {
+    display: "flex",
+    gap: 2,
+    overflowX: "auto",
+    pb: 2,
+    scrollSnapType: "x mandatory",
+    "& > *": { scrollSnapAlign: "start" },
+    minWidth: 0,
+    width: "100%",
+  },
+  cardSlot: {
+    flexShrink: 0,
+    minWidth: 300,
+    maxWidth: 340,
+    width: 300,
   },
 };

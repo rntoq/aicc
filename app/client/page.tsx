@@ -32,7 +32,7 @@ const DashboardPage = () => {
   });
   const latestReportQuery = useLatestAnalysisReport();
   const latestReport = latestReportQuery.data;
-  const { careers, universities, industries, insights, strengths, topSkills, weaknesses, tests } =
+  const { careers, universities, industries, strengths, topSkills, weaknesses, tests, testInsights } =
     buildDashboardReportView(latestReport ?? null);
 
   const translationPlan = [
@@ -42,7 +42,7 @@ const DashboardPage = () => {
     ...universities.flatMap((x) => [x?.name ?? "", x?.city ?? "", x?.reasoning ?? "", ...(x?.recommended_programs ?? [])]),
     ...industries.flatMap((x) => [x?.industry ?? "", x?.reasoning ?? "", x?.growth_outlook ?? ""]),
     ...tests.flatMap((x) => [x?.test_name ?? "", x?.primary_type ?? "", x?.summary ?? ""]),
-    ...insights.map((x) => x?.insight ?? ""),
+    ...testInsights.map((x) => x?.insight ?? ""),
     ...strengths,
     ...topSkills,
     ...weaknesses,
@@ -51,16 +51,13 @@ const DashboardPage = () => {
   let cursor = 0;
   const translatedTitle = translated[cursor++] || latestReport?.title || "";
   const translatedSummary = translated[cursor++] || latestReport?.summary || "";
-  const tCareers = careers.map((x) => {
-    const item = {
-      name: translated[cursor++] || x?.name,
-      reasoning: translated[cursor++] || x?.reasoning,
-      growth_path: translated[cursor++] || x?.growth_path,
-      salary_range: translated[cursor++] || x?.salary_range,
-      match_score: x?.match_score,
-    };
-    return item;
-  });
+  const tCareers = careers.map((x) => ({
+    name: translated[cursor++] || x?.name,
+    reasoning: translated[cursor++] || x?.reasoning,
+    growth_path: translated[cursor++] || x?.growth_path,
+    salary_range: translated[cursor++] || x?.salary_range,
+    match_score: x?.match_score,
+  }));
   const tUniversities = universities.map((x) => {
     const name = translated[cursor++] || x?.name;
     const city = translated[cursor++] || x?.city;
@@ -85,7 +82,10 @@ const DashboardPage = () => {
     summary: translated[cursor++] || x?.summary,
     scores: x?.scores,
   }));
-  const tInsights = insights.map((x) => ({ ...x, insight: translated[cursor++] || x?.insight }));
+  const tInsights = testInsights.map((x) => ({
+    ...x,
+    insight: x ? translated[cursor++] || x.insight : undefined,
+  }));
   const tStrengths = strengths.map((x) => translated[cursor++] || x);
   const tTopSkills = topSkills.map((x) => translated[cursor++] || x);
   const tWeaknesses = weaknesses.map((x) => translated[cursor++] || x);
@@ -173,7 +173,7 @@ const DashboardPage = () => {
                   primaryType: test?.primary_type,
                   summary: test?.summary,
                   scores: flattenAnalysisScores(test?.scores),
-                  insight: tInsights[idx]?.insight,
+                  insight: tInsights[idx]?.insight ?? undefined,
                 }))}
               />
             </Box>
