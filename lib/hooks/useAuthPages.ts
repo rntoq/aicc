@@ -6,6 +6,7 @@ import { useRouter, useSearchParams, useParams } from "next/navigation";
 import { useAuth } from "@/lib/store/useAuthStore";
 import { authServices } from "@/lib/services/authServices";
 import { validateRegisterForm } from "@/utils/validators";
+import { extractApiErrorMessage } from "@/utils/functions";
 
 type TranslateFn = (key: string) => string;
 
@@ -21,7 +22,7 @@ const isUnverifiedEmailError = (message: string): boolean => {
 };
 
 export function useLoginPageState(t: TranslateFn) {
-  const { login, loading, error } = useAuth();
+  const { login, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showVerifyCta, setShowVerifyCta] = useState(false);
@@ -48,23 +49,13 @@ export function useLoginPageState(t: TranslateFn) {
       await login({ email, password });
       router.push(redirect);
     } catch (err: unknown) {
-      const maybeAxiosLike = err as {
-        response?: { data?: { detail?: unknown } };
-        message?: unknown;
-      };
-      const detail =
-        typeof maybeAxiosLike?.response?.data?.detail === "string"
-          ? maybeAxiosLike.response.data.detail
-          : undefined;
-      if (detail) {
-        toast.error(detail);
-        setShowVerifyCta(isUnverifiedEmailError(detail));
-      } else if (typeof maybeAxiosLike?.message === "string") {
-        toast.error(maybeAxiosLike.message);
-        setShowVerifyCta(isUnverifiedEmailError(maybeAxiosLike.message));
-      } else if (error) {
-        toast.error(error);
-        setShowVerifyCta(isUnverifiedEmailError(error));
+      const apiMessage = extractApiErrorMessage(err);
+      if (apiMessage) {
+        toast.error(apiMessage);
+        setShowVerifyCta(isUnverifiedEmailError(apiMessage));
+      } else {
+        toast.error(t("error_generic"));
+        setShowVerifyCta(false);
       }
     }
   };
@@ -121,8 +112,14 @@ export function useRegisterPageState(t: TranslateFn) {
         last_name: form.lastName,
       });
       router.push(`/verify-email?email=${encodeURIComponent(form.email.trim())}`);
-    } catch {
-      // authStore.error handles messaging
+    } catch (err: unknown) {
+      const apiMessage = extractApiErrorMessage(err);
+      if (apiMessage) {
+        setLocalError(apiMessage);
+      } else {
+        setLocalError(null);
+        toast.error(t("error_generic"));
+      }
     }
   };
 
@@ -141,13 +138,27 @@ export function useEmailActionPageState(params: {
   successFallbackText: string;
   errorText: string;
   request: (email: string) => Promise<{ body: unknown | null; error: unknown | null }>;
+  /** Seconds the resend button stays disabled after a send (0 disables the cooldown). */
+  cooldownSeconds?: number;
+  /** Start the cooldown immediately when an email is pre-filled (e.g. it was just sent on register). */
+  startCooldownOnMount?: boolean;
 }) {
+  const cooldownSeconds = params.cooldownSeconds ?? 0;
   const [email, setEmail] = useState(params.initialEmail ?? "");
   const [loading, setLoading] = useState(false);
+  const [cooldown, setCooldown] = useState(
+    params.startCooldownOnMount && (params.initialEmail ?? "").trim() ? cooldownSeconds : 0
+  );
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const id = setTimeout(() => setCooldown((c) => Math.max(0, c - 1)), 1000);
+    return () => clearTimeout(id);
+  }, [cooldown]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || loading) return;
+    if (!email.trim() || loading || cooldown > 0) return;
 
     setLoading(true);
     const { body, error } = await params.request(email.trim());
@@ -159,9 +170,10 @@ export function useEmailActionPageState(params: {
     }
 
     toast.success((body as { detail?: string } | null)?.detail || params.successFallbackText);
+    if (cooldownSeconds > 0) setCooldown(cooldownSeconds);
   };
 
-  return { email, setEmail, loading, handleSubmit };
+  return { email, setEmail, loading, cooldown, handleSubmit };
 }
 
 export function useResetPasswordPageState(t: TranslateFn) {

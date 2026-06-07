@@ -27,7 +27,7 @@ import type {
   QuizResult,
 } from "@/lib/types";
 import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard";
-import { TEST_DISPLAY_NAMES } from "@/utils/constants";
+import { TEST_DISPLAY_NAMES, TEST_SLUGS } from "@/utils/constants";
 
 type PairKey = "a" | "b";
 type LeadershipDimensionKey = "openness" | "conscientiousness" | "agreeableness";
@@ -97,13 +97,10 @@ export default function LeadershipTestPage() {
   const hydrated = useQuizSessionHydrated();
   const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as LeadershipLocalResult | null | undefined);
-  const { phase, setPhase, sessionId, backendQuestions, initializing, retake } = useQuizSessionFlow({
+  const { phase, setPhase, backendQuestions, ensureSession, retake } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const { body: tests } = await quizServices.listTests({ type: "leadership" });
-      return tests?.[0]?.slug ?? null;
-    },
+    resolveSlug: async () => TEST_SLUGS.leadership,
     onInitError: () => toast.error(t("toast_test_error")),
   });
 
@@ -158,7 +155,7 @@ export default function LeadershipTestPage() {
   }, [step, pairQuestions, frequencyQuestions]);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
 
   const frequencyScaleOptions = useMemo<LocalizedText[]>(
     () => [1, 2, 3, 4, 5].map((v) => scaleLabels[String(v)] ?? emptyLabel),
@@ -253,7 +250,8 @@ export default function LeadershipTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      if (sessionId && backendQuestions.length > 0) {
+      const sid = await ensureSession();
+      if (sid && backendQuestions.length > 0) {
         const count = Math.min(backendQuestions.length, questions.length);
         const answersPayload: BulkAnswerQuizPayload["answers"] = [];
 
@@ -273,9 +271,9 @@ export default function LeadershipTestPage() {
           }
         }
 
-        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
         if (!bulkRes.error) {
-          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
           backendResult = finishRes.body;
         }
       }

@@ -26,7 +26,7 @@ import type {
   LocalizedText,
   QuizResult,
 } from "@/lib/types";
-import { TEST_DISPLAY_NAMES } from "@/utils/constants";
+import { TEST_DISPLAY_NAMES, TEST_SLUGS } from "@/utils/constants";
 
 type EnneagramTypeKey =
   | "type_1"
@@ -104,13 +104,10 @@ export default function EnneagramTestPage() {
   const hydrated = useQuizSessionHydrated();
   const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as EnneagramLocalResult | null | undefined);
-  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+  const { phase, setPhase, backendQuestionIds, ensureSession, retake } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const { body: tests } = await quizServices.listTests({ type: "enneagram" });
-      return tests?.[0]?.slug ?? null;
-    },
+    resolveSlug: async () => TEST_SLUGS.enneagram,
     onInitError: () => toast.error(t("toast_test_error")),
   });
 
@@ -142,7 +139,7 @@ export default function EnneagramTestPage() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
 
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
@@ -242,14 +239,15 @@ export default function EnneagramTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      if (sessionId && backendQuestionIds.length === QUESTIONS.length) {
+      const sid = await ensureSession();
+      if (sid && backendQuestionIds.length === QUESTIONS.length) {
         const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.map((q, idx) => ({
           question_id: backendQuestionIds[idx],
           scale_value: answers[q.id] ?? 3,
         }));
-        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
         if (!bulkRes.error) {
-          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
           backendResult = finishRes.body;
         }
       }

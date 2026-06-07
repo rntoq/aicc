@@ -26,7 +26,7 @@ import {
   getCurrentLocaleForTranslation,
   translateQuizResultForLocale,
 } from "@/lib/utils/quizResultTranslation";
-import { TEST_DISPLAY_NAMES } from "@/utils/constants";
+import { TEST_DISPLAY_NAMES, TEST_SLUGS } from "@/utils/constants";
 
 const SESSION_KEY = "strengths";
 const PAGE_TITLE = TEST_DISPLAY_NAMES.strengths;
@@ -70,23 +70,10 @@ export default function StrengthsTestPage() {
   const data = STRENGTHS_DATA as unknown as StrengthsData;
   const questions = data.questions ?? [];
   const expectedCount = questions.length;
-  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+  const { phase, setPhase, backendQuestionIds, ensureSession, retake } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const preferredSlug = "personal-strengths-character";
-      let slug: string | null = preferredSlug;
-      const { error: preflightErr } = await quizServices.getTestDetail(preferredSlug);
-      if (preflightErr) {
-        const { body: testsPrimary } = await quizServices.listTests({ type: "personal_strengths" });
-        slug = testsPrimary?.[0]?.slug ?? null;
-        if (!slug) {
-          const { body: testsFallback } = await quizServices.listTests({ type: "strengths" });
-          slug = testsFallback?.[0]?.slug ?? null;
-        }
-      }
-      return slug;
-    },
+    resolveSlug: async () => TEST_SLUGS.strengths,
     mapQuestionIds: (ids) => (ids.length === expectedCount ? ids : []),
     onInitError: () => toast.error(t("toast_test_error")),
   });
@@ -104,7 +91,7 @@ export default function StrengthsTestPage() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = questions.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -129,15 +116,16 @@ export default function StrengthsTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      if (sessionId && backendQuestionIds.length === expectedCount) {
+      const sid = await ensureSession();
+      if (sid && backendQuestionIds.length === expectedCount) {
         const answersPayload: BulkAnswerQuizPayload["answers"] = questions.map((q, idx) => ({
           question_id: backendQuestionIds[idx],
           scale_value: answers[q.id] ?? 3,
         }));
 
-        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
         if (!bulkRes.error) {
-          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
           backendResult = finishRes.body;
         }
       }

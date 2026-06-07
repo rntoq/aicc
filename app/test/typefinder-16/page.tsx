@@ -26,7 +26,7 @@ import {
   getCurrentLocaleForTranslation,
   translateQuizResultForLocale,
 } from "@/lib/utils/quizResultTranslation";
-import { TEST_DISPLAY_NAMES } from "@/utils/constants";
+import { TEST_DISPLAY_NAMES, TEST_SLUGS } from "@/utils/constants";
 
 const SESSION_KEY = "typefinder-16";
 const PAGE_TITLE = TEST_DISPLAY_NAMES["typefinder-16"];
@@ -82,17 +82,13 @@ export default function TypeFinder16Page() {
   const {
     phase,
     setPhase,
-    sessionId,
     backendQuestions,
-    initializing,
+    ensureSession,
     retake,
   } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const { body: tests } = await quizServices.listTests({ type: "mbti" });
-      return tests?.[0]?.slug ?? null;
-    },
+    resolveSlug: async () => TEST_SLUGS["typefinder-16"],
     onInitError: () => toast.error(t("toast_test_error")),
   });
 
@@ -155,7 +151,7 @@ export default function TypeFinder16Page() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
 
   const stepQuestions = stepChunks[Math.max(0, Math.min(step - 1, stepChunks.length - 1))] ?? [];
   const allStepAnswered = stepQuestions.every((q) => answers[q.id] != null);
@@ -191,7 +187,8 @@ export default function TypeFinder16Page() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      if (sessionId && backendQuestions.length > 0) {
+      const sid = await ensureSession();
+      if (sid && backendQuestions.length > 0) {
         const count = Math.min(backendQuestions.length, questions.length);
         const answersPayload: BulkAnswerQuizPayload["answers"] = [];
 
@@ -211,9 +208,9 @@ export default function TypeFinder16Page() {
           }
         }
 
-        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
         if (!bulkRes.error) {
-          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
           backendResult = finishRes.body;
         }
       }

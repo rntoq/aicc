@@ -18,6 +18,7 @@ import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { TestHeader } from "../../components/tests/TestHeader";
 import { quizServices } from "@/lib/services/quizServices";
+import { TEST_SLUGS } from "@/utils/constants";
 import {
   getCurrentLocaleForTranslation,
   translateQuizResultForLocale,
@@ -70,19 +71,16 @@ const DiscPage = () => {
   const hydrated = useQuizSessionHydrated();
   const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as QuizResult | null | undefined);
-  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+  const { phase, setPhase, backendQuestionIds, ensureSession, retake } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const { body: tests } = await quizServices.listTests({ type: "disc" });
-      return tests?.[0]?.slug ?? null;
-    },
+    resolveSlug: async () => TEST_SLUGS.disc,
     mapQuestionIds: (ids) => ids.filter((id): id is number => typeof id === "number" && id > 0),
     onInitError: () => toast.error(t("toast_test_error")),
   });
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
   const [pairValues, setPairValues] = useState<Record<string, number>>({});
   const [singleValues, setSingleValues] = useState<Record<string, number>>({});
   const [scenarioValues, setScenarioValues] = useState<Record<string, number>>({});
@@ -154,7 +152,8 @@ const DiscPage = () => {
     setSubmitting(true);
 
     const finish = async () => {
-      if (!sessionId || backendQuestionIds.length === 0) {
+      const sid = await ensureSession();
+      if (!sid || backendQuestionIds.length === 0) {
         toast.error(t("toast_test_error"));
         setSubmitting(false);
         return;
@@ -177,14 +176,14 @@ const DiscPage = () => {
         }
       }
 
-      const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+      const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
       if (bulkRes.error) {
         toast.error(t("toast_test_error"));
         setSubmitting(false);
         return;
       }
 
-      const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+      const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
       const backendResult = (finishRes.body ?? null) as QuizResult | null;
       if (!backendResult || finishRes.error) {
         toast.error(t("toast_test_error"));

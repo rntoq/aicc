@@ -67,6 +67,15 @@ export const Footer = () => {
               >
                 KK
               </Typography>
+              <Typography component="span" sx={styles.langDivider}> / </Typography>
+              <Typography
+                component="button"
+                type="button"
+                onClick={() => setLocale("en")}
+                sx={langButtonSx(locale === "en")}
+              >
+                EN
+              </Typography>
             </Box>
           </Box>
         </Box>

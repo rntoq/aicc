@@ -26,7 +26,7 @@ import type {
   QuizResult,
 } from "@/lib/types";
 import EQ_DATA from "./eq_question.json";
-import { TEST_DISPLAY_NAMES } from "@/utils/constants";
+import { TEST_DISPLAY_NAMES, TEST_SLUGS } from "@/utils/constants";
 
 const EMPTY_LABEL: LocalizedText = { ru: "", kk: "", en: "" };
 
@@ -139,23 +139,10 @@ export default function EqTestPage() {
   const hydrated = useQuizSessionHydrated();
   const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as EqLocalResult | null | undefined);
-  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+  const { phase, setPhase, backendQuestionIds, ensureSession, retake } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const preferredSlug = "emotional-intelligence-eq5";
-      let slug: string | null = preferredSlug;
-      const { error: preflightErr } = await quizServices.getTestDetail(preferredSlug);
-      if (preflightErr) {
-        const { body: testsPrimary } = await quizServices.listTests({ type: "eq5" });
-        slug = testsPrimary?.[0]?.slug ?? null;
-        if (!slug) {
-          const { body: testsFallback } = await quizServices.listTests({ type: "eq" });
-          slug = testsFallback?.[0]?.slug ?? null;
-        }
-      }
-      return slug;
-    },
+    resolveSlug: async () => TEST_SLUGS.eq,
     onInitError: () => toast.error(t("toast_test_error")),
   });
 
@@ -184,7 +171,7 @@ export default function EqTestPage() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = QUESTIONS.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -272,15 +259,16 @@ export default function EqTestPage() {
 
     const finish = async () => {
       let backendResult: QuizResult | null = null;
-      if (sessionId && backendQuestionIds.length === QUESTIONS.length) {
+      const sid = await ensureSession();
+      if (sid && backendQuestionIds.length === QUESTIONS.length) {
         const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.map((q, idx) => ({
           question_id: backendQuestionIds[idx],
           scale_value: answers[q.id] ?? 3,
         }));
 
-        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
         if (!bulkRes.error) {
-          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
           backendResult = finishRes.body;
         }
       }

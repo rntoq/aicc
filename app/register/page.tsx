@@ -32,16 +32,6 @@ const RegisterPage = () => {
               <Image src={BANNER_IMAGE} alt="logo" width={100} height={48} />
             </Box>
 
-            {(localError || error) && (
-              <Typography
-                variant="body2"
-                color="error"
-                sx={{ mb: 2 }}
-              >
-                {localError || error}
-              </Typography>
-            )}
-
             <Box component="form" noValidate onSubmit={handleSubmit}>
               <Stack spacing={2.5}>
                 <Box sx={styles.row}>
@@ -93,6 +83,15 @@ const RegisterPage = () => {
                   onChange={handleChange}
                   autoComplete="new-password"
                 />
+                 {(localError || error) && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    sx={{ mb: 2 }}
+                  >
+                    {localError || error}
+                  </Typography>
+                )}
                 <Button
                   type="submit"
                   variant="contained"

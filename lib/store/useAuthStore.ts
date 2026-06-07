@@ -6,6 +6,7 @@ import type { AuthResponse, LoginPayload, RegisterPayload, User } from "@/lib/ty
 import {
   QUIZ_SESSION_IDS_LEGACY_KEY,
 } from "@/lib/utils/syncCompletedQuizSessions";
+import { extractApiErrorMessage } from "@/utils/functions";
 
 interface AuthState {
   user: User | null;
@@ -27,11 +28,13 @@ interface AuthState {
 const ACCESS_COOKIE = "access";
 const REFRESH_COOKIE = "refresh";
 
-function messageFromUnknown(err: unknown, fallback: string): string {
-  if (err instanceof Error) return err.message;
-  const detail = (err as { response?: { data?: { detail?: unknown } } })?.response?.data?.detail;
-  if (typeof detail === "string") return detail;
-  return fallback;
+/**
+ * Returns a backend-provided error message, or `null` for generic/transport
+ * errors (e.g. "Request failed with status code 400"). Components decide how
+ * to surface `null` (localized "something went wrong" toast).
+ */
+function messageFromUnknown(err: unknown): string | null {
+  return extractApiErrorMessage(err);
 }
 
 function readTokensFromCookies(): { access: string | null; refresh: string | null } {
@@ -156,15 +159,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       };
       const { body: resp, error } = await authServices.login(loginPayload);
       if (error || !resp) {
-        const message = messageFromUnknown(error, "Не удалось выполнить вход");
-        set({ error: message });
-        throw error ?? new Error(message);
+        set({ error: messageFromUnknown(error) });
+        throw error ?? new Error("Login failed");
       }
       get().setFromResponse(resp);
       await afterAuthSuccessMergeGuestProgress(guestSessionIds.length > 0);
     } catch (e) {
-      const message = messageFromUnknown(e, "Не удалось выполнить вход");
-      set({ error: message });
+      set({ error: messageFromUnknown(e) });
       throw e;
     } finally {
       set({ loading: false });
@@ -181,15 +182,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       };
       const { body: resp, error } = await authServices.register(registerPayload);
       if (error || !resp) {
-        const message = messageFromUnknown(error, "Не удалось выполнить регистрацию");
-        set({ error: message });
-        throw error ?? new Error(message);
+        set({ error: messageFromUnknown(error) });
+        throw error ?? new Error("Registration failed");
       }
       get().setFromResponse(resp);
       await afterAuthSuccessMergeGuestProgress(guestSessionIds.length > 0);
     } catch (e) {
-      const message = messageFromUnknown(e, "Не удалось выполнить регистрацию");
-      set({ error: message });
+      set({ error: messageFromUnknown(e) });
       throw e;
     } finally {
       set({ loading: false });

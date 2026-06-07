@@ -194,13 +194,30 @@ export const TEST_DISPLAY_NAMES: Record<string, string> = {
   leadership: "Leadership Style Test",
 };
 
+/**
+ * Backend test slugs, hardcoded to avoid an extra GET /api/v1/quizzes/tests/?type= lookup.
+ * Keyed by the local SESSION_KEY used on each test page.
+ */
+export const TEST_SLUGS = {
+  holland: "holland-riasec",
+  "career-aptitude": "career-aptitude-test",
+  bigfive: "big-five-ocean",
+  "photo-career": "photo-career-quiz",
+  disc: "disc-assessment",
+  eq: "emotional-intelligence-eq5",
+  leadership: "leadership-style-boss",
+  enneagram: "enneagram-personality",
+  "typefinder-16": "mbti-typefinder-16",
+  strengths: "personal-strengths-character",
+} as const;
+
 /** Recommended set: 3 required + 2 optional (order matters) */
 export const RECOMMENDED_TEST_IDS: string[] = [
   "holland",
-  "career-aptitude",
+  "eq",
+  "enneagram",
   "big-five",
   "photo-career",
-  "typefinder-16",
 ];
 
 export const ALL_TESTS: TestItem[] = [
@@ -216,7 +233,6 @@ export const ALL_TESTS: TestItem[] = [
     id: "career-aptitude",
     name: "Career Aptitude Test",
     icon: FavoriteBorderOutlinedIcon,
-    required: true,
     duration: 12,
     questions: 94,
   },
@@ -224,7 +240,6 @@ export const ALL_TESTS: TestItem[] = [
     id: "big-five",
     name: "Big Five Personality (OCEAN)",
     icon: PersonOutlinedIcon,
-    required: true,
     duration: 10,
     questions: 74,
   },
@@ -246,6 +261,7 @@ export const ALL_TESTS: TestItem[] = [
     id: "eq",
     name: "Emotional Intelligence (EQ)",
     icon: EmojiEmotionsOutlinedIcon,
+    required: true,
     duration: 8,
     questions: 55,
   },
@@ -260,6 +276,7 @@ export const ALL_TESTS: TestItem[] = [
     id: "enneagram",
     name: "Enneagram Personality Test",
     icon: StarBorderOutlinedIcon,
+    required: true,
     duration: 10,
     questions: undefined,
   },

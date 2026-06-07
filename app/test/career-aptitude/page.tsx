@@ -15,6 +15,7 @@ import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard
 import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
+import { TEST_SLUGS } from "@/utils/constants";
 import QUESTIONS_JSON from "./career_questions.json";
 import {
   getCurrentLocaleForTranslation,
@@ -50,13 +51,10 @@ const CareerAptitudeTestPage = () => {
   const hydrated = useQuizSessionHydrated();
   const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as CareerAptitudeResult | null | undefined);
-  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+  const { phase, setPhase, backendQuestionIds, ensureSession, retake } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const { body: tests } = await quizServices.listTests({ type: "career_aptitude" });
-      return tests?.[0]?.slug ?? null;
-    },
+    resolveSlug: async () => TEST_SLUGS["career-aptitude"],
     onInitError: () => toast.error(t("toast_test_error")),
   });
 
@@ -98,7 +96,7 @@ const CareerAptitudeTestPage = () => {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
 
   const stepQuestions =
     stepChunks[Math.max(0, Math.min(step - 1, stepChunks.length - 1))] ?? [];
@@ -135,16 +133,17 @@ const CareerAptitudeTestPage = () => {
     const finish = async () => {
       let backendResult: unknown = null;
 
-      if (sessionId && backendQuestionIds.length > 0) {
+      const sid = await ensureSession();
+      if (sid && backendQuestionIds.length > 0) {
         const count = Math.min(backendQuestionIds.length, QUESTIONS_JSON.length);
         const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.slice(0, count).map((q, idx) => ({
           question_id: backendQuestionIds[idx],
           scale_value: answers[q.id],
         }));
 
-        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
         if (!bulkRes.error) {
-          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
           backendResult = finishRes.body;
         }
       }

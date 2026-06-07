@@ -13,6 +13,7 @@ import { LikertWordQuestionCard } from "../../components/tests/RadioQuestionCard
 import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { quizServices } from "@/lib/services/quizServices";
+import { TEST_SLUGS } from "@/utils/constants";
 import {
   getCurrentLocaleForTranslation,
   translateQuizResultForLocale,
@@ -45,20 +46,16 @@ const BigFiveTestPage = () => {
   const hydrated = useQuizSessionHydrated();
   const { setResult } = useQuizSessionStore();
   const finishedResult = useQuizSessionStore((s) => s.getSession(SESSION_KEY)?.result as BigFiveSessionFinishResponse | null | undefined);
-  const { phase, setPhase, sessionId, backendQuestionIds, initializing, retake } = useQuizSessionFlow({
+  const { phase, setPhase, backendQuestionIds, ensureSession, retake } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const { body: tests, error } = await quizServices.listTests({ type: "big_five" });
-      if (error) return null;
-      return tests?.[0]?.slug ?? null;
-    },
+    resolveSlug: async () => TEST_SLUGS.bigfive,
     onInitError: () => toast.error(t("toast_test_error")),
   });
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || submitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
 
   const stepStart = (step - 1) * QUESTIONS_PER_STEP;
   const stepQuestions = QUESTIONS_JSON.slice(stepStart, stepStart + QUESTIONS_PER_STEP);
@@ -100,16 +97,17 @@ const BigFiveTestPage = () => {
     const finish = async () => {
       let backendResult: BigFiveSessionFinishResponse | null = null;
 
-      if (sessionId && backendQuestionIds.length > 0) {
+      const sid = await ensureSession();
+      if (sid && backendQuestionIds.length > 0) {
         const count = Math.min(backendQuestionIds.length, QUESTIONS_JSON.length);
         const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS_JSON.slice(0, count).map((q, index) => ({
           question_id: backendQuestionIds[index],
           scale_value: answers[q.id],
         }));
 
-        const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+        const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
         if (!bulkRes.error) {
-          const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+          const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
           backendResult = finishRes.body as unknown as BigFiveSessionFinishResponse;
         }
       }
@@ -221,7 +219,7 @@ const BigFiveTestPage = () => {
                 disabled={!allStepAnswered || submitting}
                 sx={styles.navButton}
               >
-                {submitting ? "..." : t("submit")}
+                {submitting ? "..." : t("finish")}
               </Button>
             )}
           </Box>

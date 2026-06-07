@@ -20,7 +20,7 @@ import {
 } from "@/lib/utils/quizResultTranslation";
 import { HollandResultPanel } from "./hollandResultDialog";
 import { TestResultActions } from "../../components/tests/TestResultActions";
-import { TEST_DISPLAY_NAMES } from "@/utils/constants";
+import { TEST_DISPLAY_NAMES, TEST_SLUGS } from "@/utils/constants";
 import type {
   BulkAnswerQuizPayload,
   FinishQuizSessionVariables,
@@ -52,21 +52,17 @@ const HollandTestPage = () => {
   const {
     phase,
     setPhase,
-    sessionId,
     backendQuestionIds,
-    initializing,
+    ensureSession,
     retake,
   } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const { body: tests, error } = await quizServices.listTests({ type: "holland" });
-      if (error) return null;
-      return tests?.[0]?.slug ?? null;
-    },
+    resolveSlug: async () => TEST_SLUGS.holland,
     onInitError: () => toast.error(t("toast_test_error")),
   });
-  const showLoading = useDelayedFlag(phase === "quiz" && initializing);
+  const [submitting, setSubmitting] = useState(false);
+  const showLoading = useDelayedFlag(phase === "quiz" && submitting);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -108,18 +104,20 @@ const HollandTestPage = () => {
   const handleSubmit = async (finalAnswers?: Record<string, number>) => {
     const usedAnswers = finalAnswers ?? answers;
     if (Object.keys(usedAnswers).length !== TOTAL) return;
+    setSubmitting(true);
 
     let backendResult: HollandSessionFinishResponse | null = null;
-    if (sessionId && backendQuestionIds.length > 0) {
+    const sid = await ensureSession();
+    if (sid && backendQuestionIds.length > 0) {
       const count = Math.min(backendQuestionIds.length, QUESTIONS.length);
       const answersPayload: BulkAnswerQuizPayload["answers"] = QUESTIONS.slice(0, count).map((q, index) => ({
         question_id: backendQuestionIds[index],
         scale_value: usedAnswers[q.id],
       }));
 
-      const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+      const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
       if (!bulkRes.error) {
-        const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+        const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
         backendResult = finishRes.body as unknown as HollandSessionFinishResponse;
       }
     }
@@ -131,6 +129,7 @@ const HollandTestPage = () => {
     setResult(SESSION_KEY, localizedResult);
     if (backendResult) toast.success(t("toast_test_success"));
     else toast.error(t("toast_test_error"));
+    setSubmitting(false);
     setPhase("result");
   };
 

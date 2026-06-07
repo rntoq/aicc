@@ -19,6 +19,12 @@ type UseQuizSessionFlowResult = {
   sessionId: number | null;
   backendQuestionIds: number[];
   backendQuestions: { id: number; questionType: string; answers: { code: string }[] }[];
+  /**
+   * Lazily creates the quiz session (POST /sessions/start/) on first call and
+   * caches the id. Call this when finishing the test so we don't create a
+   * redundant session on every test open.
+   */
+  ensureSession: () => Promise<number | null>;
   retake: () => void;
 };
 
@@ -40,6 +46,8 @@ export function useQuizSessionFlow({
   const resolveSlugRef = useRef(resolveSlug);
   const mapQuestionIdsRef = useRef(mapQuestionIds);
   const onInitErrorRef = useRef(onInitError);
+  const slugRef = useRef<string | null>(null);
+  const startingRef = useRef<Promise<number | null> | null>(null);
 
   useEffect(() => {
     resolveSlugRef.current = resolveSlug;
@@ -64,15 +72,17 @@ export function useQuizSessionFlow({
 
     let cancelled = false;
 
-    const initSession = async () => {
+    // On open we only fetch the questions (GET /tests/{slug}/).
+    // The session itself (POST /sessions/start/) is created later, on finish.
+    const initQuestions = async () => {
       setInitializing(true);
       try {
         const slug = await resolveSlugRef.current();
         if (!slug) throw new Error("resolveSlug failed");
+        slugRef.current = slug;
 
-        const { body: session, error: startError } = await quizServices.startSession({ test_slug: slug });
         const { body: testDetail, error: detailError } = await quizServices.getTestDetail(slug);
-        if (!session || !testDetail || startError || detailError) throw new Error("start/get detail failed");
+        if (!testDetail || detailError) throw new Error("get detail failed");
 
         const questions = (testDetail.questions ?? []).map((q) => ({
           id: q.id,
@@ -82,8 +92,6 @@ export function useQuizSessionFlow({
         const rawIds = questions.map((q) => q.id);
         const ids = mapQuestionIdsRef.current ? mapQuestionIdsRef.current(rawIds) : rawIds;
         if (!cancelled) {
-          setSessionId(session.id);
-          setSession(sessionKey, session.id);
           setBackendQuestionIds(ids);
           setBackendQuestions(questions);
         }
@@ -94,11 +102,33 @@ export function useQuizSessionFlow({
       }
     };
 
-    void initSession();
+    void initQuestions();
     return () => {
       cancelled = true;
     };
   }, [hydrated, sessionKey, setSession]);
+
+  const ensureSession = async (): Promise<number | null> => {
+    if (sessionId != null) return sessionId;
+    if (startingRef.current) return startingRef.current;
+
+    const start = (async () => {
+      const slug = slugRef.current ?? (await resolveSlugRef.current());
+      if (!slug) return null;
+      const { body: session, error } = await quizServices.startSession({ test_slug: slug });
+      if (error || !session) return null;
+      setSessionId(session.id);
+      setSession(sessionKey, session.id);
+      return session.id;
+    })();
+
+    startingRef.current = start;
+    try {
+      return await start;
+    } finally {
+      startingRef.current = null;
+    }
+  };
 
   const retake = () => {
     if (typeof window === "undefined") return;
@@ -113,6 +143,7 @@ export function useQuizSessionFlow({
     sessionId,
     backendQuestionIds,
     backendQuestions,
+    ensureSession,
     retake,
   };
 }

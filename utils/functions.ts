@@ -37,6 +37,59 @@ export function extractTextFromResponse(body: unknown): string {
   return JSON.stringify(body, null, 2);
 }
 
+/**
+ * Pull a human-readable message out of an API/Axios error.
+ *
+ * Handles DRF-style payloads such as:
+ *  - `{ "detail": "..." }`
+ *  - `{ "non_field_errors": ["..."] }`
+ *  - `{ "email": ["Введите правильный адрес электронной почты."] }`
+ *
+ * Returns `null` when nothing meaningful is found (e.g. a bare
+ * "Request failed with status code 400"), so callers can fall back to a
+ * localized generic message instead of leaking the raw Axios text.
+ */
+export function extractApiErrorMessage(err: unknown): string | null {
+  const data = (err as { response?: { data?: unknown } })?.response?.data;
+  if (data == null) return null;
+
+  if (typeof data === "string") {
+    const trimmed = data.trim();
+    return trimmed.length > 0 ? trimmed : null;
+  }
+
+  if (typeof data !== "object") return null;
+
+  const firstString = (value: unknown): string | null => {
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      return trimmed.length > 0 ? trimmed : null;
+    }
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        const found = firstString(item);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
+
+  const obj = data as Record<string, unknown>;
+
+  const detail = firstString(obj.detail);
+  if (detail) return detail;
+
+  const nonField = firstString(obj.non_field_errors);
+  if (nonField) return nonField;
+
+  for (const key of Object.keys(obj)) {
+    const found = firstString(obj[key]);
+    if (found) return found;
+  }
+
+  return null;
+}
+
 export function classifyAiChatResponseRole(body: unknown): ChatRole {
   if (!body || typeof body !== "object") return "ai";
   const obj = body as Record<string, unknown>;

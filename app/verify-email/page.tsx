@@ -9,16 +9,24 @@ import { Header } from "../components/layout/Header";
 import { authServices } from "@/lib/services/authServices";
 import { useEmailActionPageState } from "@/lib/hooks/useAuthPages";
 
+const RESEND_COOLDOWN_SECONDS = 60;
+
 const VerifyEmailRequestPage = () => {
   const t = useTranslations();
   const searchParams = useSearchParams();
   const initialEmail = useMemo(() => searchParams.get("email") ?? "", [searchParams]);
-  const { email, setEmail, loading, handleSubmit } = useEmailActionPageState({
+  const { email, setEmail, loading, cooldown, handleSubmit } = useEmailActionPageState({
     initialEmail,
     successFallbackText: t("verify_email_request_success"),
     errorText: t("verify_email_request_error"),
     request: (email) => authServices.requestEmailVerify({ email }),
+    cooldownSeconds: RESEND_COOLDOWN_SECONDS,
+    startCooldownOnMount: true,
   });
+
+  const buttonLabel = cooldown > 0
+    ? t("verify_email_request_resend_in", { seconds: cooldown })
+    : t("verify_email_request_resend");
 
   return (
     <>
@@ -26,15 +34,23 @@ const VerifyEmailRequestPage = () => {
       <Box sx={styles.root}>
         <Container maxWidth="sm">
           <Paper sx={styles.paper}>
-            <Typography variant="h5" sx={styles.title}>
-              {t("verify_email_request_title")}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={styles.subtitle}>
-              {t("verify_email_request_subtitle")}
-            </Typography>
 
-            <Box component="form" noValidate onSubmit={handleSubmit}>
-              <Stack spacing={2.5}>
+            {initialEmail && (
+              <Box sx={styles.sentToBox}>
+                <Typography variant="body2" color="text.secondary">
+                  {t("verify_email_request_sent_to")}
+                </Typography>
+                <Typography variant="body1" sx={styles.sentToEmail}>
+                  {initialEmail}
+                </Typography>
+              </Box>
+            )}
+
+            <Typography variant="caption" color="text.secondary" mb={2}>
+              {t("verify_email_request_check_inbox")}
+            </Typography>
+            <Box component="form" mt={2} noValidate onSubmit={handleSubmit}>
+              <Stack spacing={2}>
                 <TextField
                   label={t("login_email_label")}
                   type="email"
@@ -44,15 +60,21 @@ const VerifyEmailRequestPage = () => {
                   fullWidth
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  helperText={t("verify_email_request_not_received")}
                 />
-                <Button type="submit" variant="contained" size="large" fullWidth disabled={loading}>
-                  {loading ? <CircularProgress size={20} /> : t("verify_email_request_submit")}
-                </Button>
               </Stack>
             </Box>
 
             <Box sx={styles.actionsRow}>
-              <Button component={Link} href="/login" size="small" variant="text">
+              <Button
+                type="submit"
+                variant="outlined"
+                fullWidth
+                disabled={loading || cooldown > 0}
+              >
+                {loading ? <CircularProgress size={20} /> : buttonLabel}
+              </Button>
+              <Button component={Link} href="/login" variant="contained">
                 {t("login")}
               </Button>
             </Box>
@@ -82,5 +104,18 @@ const styles = {
   },
   title: { mb: 1, fontWeight: 700 },
   subtitle: { mb: 3 },
-  actionsRow: { mt: 1, display: "flex", justifyContent: "flex-start" },
+  sentToBox: {
+    mb: 1,
+    p: 2,
+    borderRadius: 2,
+    bgcolor: "rgba(99,102,241,0.08)",
+  },
+  sentToEmail: { fontWeight: 600, wordBreak: "break-all" as const },
+  actionsRow: { 
+    mt: 1, 
+    display: "flex", 
+    justifyContent: "space-between", 
+    gap: 1,
+    button: { padding: 0 },
+  },
 };

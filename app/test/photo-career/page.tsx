@@ -15,6 +15,7 @@ import { LoadingScreen } from "../../components/tests/LoadingScreen";
 import { useDelayedFlag } from "../../components/tests/useDelayedFlag";
 import { TestHeader } from "../../components/tests/TestHeader";
 import { quizServices } from "@/lib/services/quizServices";
+import { TEST_SLUGS } from "@/utils/constants";
 import {
   getCurrentLocaleForTranslation,
   translateQuizResultForLocale,
@@ -35,21 +36,17 @@ const PhotoCareerQuizPage = () => {
   const {
     phase,
     setPhase,
-    sessionId,
     backendQuestions,
-    initializing,
+    ensureSession,
     retake,
   } = useQuizSessionFlow({
     hydrated,
     sessionKey: SESSION_KEY,
-    resolveSlug: async () => {
-      const { body: tests } = await quizServices.listTests({ type: "photo" });
-      return tests?.[0]?.slug ?? null;
-    },
+    resolveSlug: async () => TEST_SLUGS["photo-career"],
     onInitError: () => toast.error(t("toast_test_error")),
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const showLoading = useDelayedFlag(phase === "quiz" && (initializing || isSubmitting));
+  const showLoading = useDelayedFlag(phase === "quiz" && isSubmitting);
 
   const PHOTO_QUESTIONS: PhotoQuestion[] =
     (PHOTO_DATA as { PHOTO_QUESTIONS?: PhotoQuestion[] }).PHOTO_QUESTIONS ?? [];
@@ -113,8 +110,9 @@ const PhotoCareerQuizPage = () => {
     const finish = async () => {
       let backendResult: QuizResult | null = null;
 
+      const sid = await ensureSession();
       if (
-        sessionId &&
+        sid &&
         backendQuestions.length > 0 &&
         PHOTO_QUESTIONS.length > 0
       ) {
@@ -139,9 +137,9 @@ const PhotoCareerQuizPage = () => {
         }
 
         if (answersPayload.length > 0) {
-          const bulkRes = await quizServices.bulkAnswer({ session_id: sessionId, answers: answersPayload });
+          const bulkRes = await quizServices.bulkAnswer({ session_id: sid, answers: answersPayload });
           if (!bulkRes.error) {
-            const finishRes = await quizServices.finish({ session_id: sessionId } as FinishQuizSessionVariables);
+            const finishRes = await quizServices.finish({ session_id: sid } as FinishQuizSessionVariables);
             backendResult = finishRes.body;
           }
         }
