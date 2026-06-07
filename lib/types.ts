@@ -341,6 +341,8 @@ export type LocalizedText = {
  */
 export type PublicProfession = {
   id: string | number;
+  /** Backend profession code (e.g. "001", "002"). */
+  code?: string;
   name: LocalizedText;
   /** Industry id used for grouping/filtering (e.g. `it_technology`) */
   industry: string;

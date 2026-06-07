@@ -5,7 +5,6 @@ import type {
   RecommendedRef,
 } from "@/lib/services/analyseServices";
 import PROFESSIONS_JSON from "@/public/jsons/professions.json";
-import PROFESSIONS_BACKEND_JSON from "@/public/jsons/responseofback.json";
 import UNIVERSITIES_JSON from "@/public/jsons/universities.json";
 
 function normalizeName(value: string): string {
@@ -20,19 +19,16 @@ const professionsData = PROFESSIONS_JSON as PublicProfession[];
 const universitiesData = UNIVERSITIES_JSON as PublicUniversity[];
 
 const professionById = new Map<string, PublicProfession>();
+const professionByCode = new Map<string, PublicProfession>();
 const professionByName = new Map<string, PublicProfession>();
-const professionCodeToId = new Map<string, number>();
 
 for (const p of professionsData) {
   professionById.set(String(p.id), p);
+  if (p.code) professionByCode.set(p.code, p);
   const ru = normalizeName(p.name?.ru ?? "");
   const en = normalizeName(p.name?.en ?? "");
   if (ru) professionByName.set(ru, p);
   if (en) professionByName.set(en, p);
-}
-
-for (const b of PROFESSIONS_BACKEND_JSON as Array<{ id: number; code: string }>) {
-  if (b.code) professionCodeToId.set(b.code, b.id);
 }
 
 export function matchProfession(
@@ -51,11 +47,8 @@ export function matchProfession(
         : null;
 
   if (careerCode) {
-    const backendId = professionCodeToId.get(careerCode);
-    if (backendId != null) {
-      const byCode = professionById.get(String(backendId));
-      if (byCode) return byCode;
-    }
+    const byCode = professionByCode.get(careerCode);
+    if (byCode) return byCode;
   }
 
   if ("name" in suggestion && suggestion.name) {
