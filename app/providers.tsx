@@ -25,7 +25,7 @@ function IntlProvider({ children }: { children: React.ReactNode }) {
   const { locale } = useLocale();
   const msgs = messages[locale] ?? ru;
   return (
-    <NextIntlClientProvider locale={locale} messages={msgs} timeZone="Asia/Almaty">
+    <NextIntlClientProvider key={locale} locale={locale} messages={msgs} timeZone="Asia/Almaty">
       {children}
     </NextIntlClientProvider>
   );
@@ -47,7 +47,6 @@ function QueryProvider({ children }: { children: React.ReactNode }) {
       }) as (key: string) => string,
     [locale]
   );
-
   const queryClient = useMemo(() => {
     return new QueryClient({
       queryCache: new QueryCache({

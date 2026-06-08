@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { Box } from "@mui/material";
 import "./globals.css";
 import { Providers } from "./providers";
-import { StyledComponentsRegistry } from "./StyledComponentsRegistry";
 import { isValidLocale } from "@/utils/locale";
 import { apiServer } from "@/lib/api/apiServer";
 import type { RefreshResponse, User } from "@/lib/types";
@@ -72,11 +72,11 @@ export default async function RootLayout({
         <meta name="google" content="notranslate" />
       </head>
       <body>
-        <StyledComponentsRegistry>
+        <AppRouterCacheProvider>
           <Providers initialLocale={initialLocale} initialUser={initialUser}>
             <Box component="main">{children}</Box>
           </Providers>
-        </StyledComponentsRegistry>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

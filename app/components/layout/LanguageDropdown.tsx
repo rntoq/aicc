@@ -42,7 +42,6 @@ export const LanguageDropdown = () => {
     e.preventDefault();
     e.stopPropagation();
     setLocale(value);
-    // Re-fetch server-rendered parts in the selected locale.
     router.refresh();
     handleClose();
   };
